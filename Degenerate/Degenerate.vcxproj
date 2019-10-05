@@ -19,15 +19,36 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cPhysics.cpp" />
+    <ClCompile Include="cPhysics_Ericson.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GFLW_callbacks.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="imgui.cpp" />
     <ClCompile Include="imgui_demo.cpp" />
     <ClCompile Include="imgui_draw.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
+    <ClCompile Include="key_callbacks.cpp" />
+    <ClCompile Include="LightHelper.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ModelLoader.cpp" />
+    <ClCompile Include="PhysicsStuff.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ShaderManager.cpp" />
+    <ClCompile Include="VAOManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cPhysics.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GFLW_callbacks.h" />
     <ClInclude Include="GLCommon.h" />
+    <ClInclude Include="globals.h" />
+    <ClInclude Include="LightHelper.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="ModelLoader.h" />
+    <ClInclude Include="PhysicsStuff.h" />
+    <ClInclude Include="ShaderManager.h" />
+    <ClInclude Include="VAOManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\assets\shaders\fragmentShader01.glsl" />
@@ -85,19 +106,19 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)Dependencies/include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Dependencies/include;$(SolutionDir)Dependencies/include/ImGui;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies/lib/$(Configuration)/$(PlatformShortName);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)Dependencies/include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Dependencies/include;$(SolutionDir)Dependencies/include/ImGui;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies/lib/$(Configuration)/$(PlatformShortName);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)Dependencies/include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Dependencies/include;$(SolutionDir)Dependencies/include/ImGui;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies/lib/$(Configuration)/$(PlatformShortName);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)Dependencies/include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Dependencies/include;$(SolutionDir)Dependencies/include/ImGui;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies/lib/$(Configuration)/$(PlatformShortName);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -109,6 +130,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -120,6 +142,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -135,6 +158,7 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -150,6 +174,7 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

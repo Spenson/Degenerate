@@ -19,20 +19,29 @@
     <Filter Include="glad">
       <UniqueIdentifier>{421574c7-1dfd-4141-b41a-bbf0c6883095}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Mesh">
-      <UniqueIdentifier>{bdd9a9e3-1efa-4a32-a3c5-01f1220c6e77}</UniqueIdentifier>
-    </Filter>
     <Filter Include="UserInput">
       <UniqueIdentifier>{58f701de-39f1-4cbc-9a20-dfcef875db33}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameObject">
       <UniqueIdentifier>{4922828f-922d-41ae-b991-58a42a1d3b5c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shader">
-      <UniqueIdentifier>{8c6516f2-9b50-4e24-a3ac-897dcbead436}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Physics">
       <UniqueIdentifier>{e4e3da13-dca8-4a77-a0c1-4253b9bebb8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VAOManager">
+      <UniqueIdentifier>{e701bac7-9b23-4aa1-9e99-7435ab1cf73d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{8c6516f2-9b50-4e24-a3ac-897dcbead436}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderManager">
+      <UniqueIdentifier>{4c0b5723-5a5e-4020-bd0c-413d588cace0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model">
+      <UniqueIdentifier>{bdd9a9e3-1efa-4a32-a3c5-01f1220c6e77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lighting">
+      <UniqueIdentifier>{e7e0f344-b40e-495c-b225-22f2ccd67165}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -54,18 +63,81 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="VAOManager.cpp">
+      <Filter>VAOManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>ShaderManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderManager.cpp">
+      <Filter>ShaderManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelLoader.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="GFLW_callbacks.cpp">
+      <Filter>UserInput</Filter>
+    </ClCompile>
+    <ClCompile Include="key_callbacks.cpp">
+      <Filter>UserInput</Filter>
+    </ClCompile>
+    <ClCompile Include="LightHelper.cpp">
+      <Filter>Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="cPhysics.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="cPhysics_Ericson.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsStuff.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLCommon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="VAOManager.h">
+      <Filter>VAOManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderManager.h">
+      <Filter>ShaderManager</Filter>
+    </ClInclude>
+    <ClInclude Include="globals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelLoader.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="GFLW_callbacks.h">
+      <Filter>UserInput</Filter>
+    </ClInclude>
+    <ClInclude Include="LightHelper.h">
+      <Filter>Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="cPhysics.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsStuff.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\assets\shaders\fragmentShader01.glsl">
-      <Filter>Shader</Filter>
+      <Filter>Shaders</Filter>
     </None>
     <None Include="..\assets\shaders\vertexShader01.glsl">
-      <Filter>Shader</Filter>
+      <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

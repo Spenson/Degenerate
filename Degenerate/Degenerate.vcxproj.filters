@@ -96,6 +96,9 @@
     <ClCompile Include="PhysicsStuff.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
+    <ClCompile Include="mouse_callbacks.cpp">
+      <Filter>UserInput</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLCommon.h">

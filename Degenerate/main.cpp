@@ -45,11 +45,7 @@
 #include "GFLW_callbacks.h"
 
 
-void DrawObject(glm::mat4 m,
-				GameObject* pCurrentObject,
-				GLint shaderProgID,
-				VAOManager* pVAOManager);
-
+void DrawObject(glm::mat4 m, GameObject* pCurrentObject, GLint shaderProgID, VAOManager* pVAOManager);
 
 glm::vec3 cameraEye = glm::vec3(0.0, 80.0, -80.0);
 glm::vec3 cameraTarget = glm::vec3(0.0f, 10.0, 0.0f);
@@ -80,94 +76,25 @@ std::map<std::string /*FriendlyName*/, GameObject*> g_map_GameObjectsByFriendlyN
 
 
 
-void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
-{
-	// Move the sphere to where the camera is and shoot the ball from there...
-
-	GameObject* pTheBall = pFindObjectByFriendlyName("Sphere#1");
-
-	// What's the velocity
-	// Target - eye = direction
-	glm::vec3 direction = glm::normalize(cameraTarget - cameraEye);
-
-	float speed = 10.0f;
-
-	pTheBall->velocity = direction * speed;
-	pTheBall->positionXYZ = cameraEye;
-
-	return;
-}
-
 // Make a class with a vector of doubles. 
 // Set this vector to all zeros. 
 // Add a method: addTime();
 // Add a method: getAgerage();
 
 
+//global so these are seen by the draw call... TODO: Find a better way if needed
+GLint matModel_UL;
+GLint matModelIT_UL;
+GLint diffuseColour_UL;
+GLint specularColour_UL;
+GLint debugColour_UL;
+GLint bDoNotLight_UL;
+GLint newColour_location;
+
+
 int main(void)
 {
-	//int myArray[15];		// Integers stores integers
-
-	//std::vector<int> myVector;
-	//myVector.push_back( 25 );		// 0
-	//myVector.push_back(  8 );		// 1
-	//myVector.push_back( 17 );		// 2
-	//myVector.push_back(  1 );
-	//myVector.push_back( 11 );		// Ball
-	//myVector.push_back(  6 );
-	//myVector.push_back( 15 );
-	//myVector.push_back( 25 );		// Pirate
-	//myVector.push_back( 22 );
-	//myVector.push_back( 27 );
-	//myVector.push_back( 13 );
-	//std::cout << myVector[3];
-//
-	//std::map<int, int> myMap;
-	//myMap[0] = 25;		// 0
-	//myMap[1] =  8;		// 1
-	//myMap[2] = 17;		// 2
-	//myMap[3] =  1;
-	//myMap[4] = 11;		
-	//myMap[5] =  6;
-	//myMap[6] = 15;
-	//myMap[7] = 25;	
-	//myMap[8] = 22;
-	//myMap[9] = 27;
-	//myMap[10] = 13;		// I WANT THIS ONE
-	//myMap.find( 13 );
-
-	//std::map<std::string, GameObject> myMap;
-	//myMap["PirateShip"]
-
-
-	// A map for favorite foods
-	std::map< std::string /*index*/, std::string > mapNameToFood;
-
-	// 11 -> 2.3
-	// 111 -> 4.7
-	// 1000 -> 6.7
-	// 10000 -> 9
-	// 100,000 -> 11
-	mapNameToFood["Felipe"] = "Hay";
-	mapNameToFood["Hamza"] = "Pancake";
-	mapNameToFood["Dylan"] = "Fish Food";
-	mapNameToFood["Ethan"] = "Fish";
-	mapNameToFood["Brandon"] = "Pizza";
-	mapNameToFood["Brian"] = "Dog food";
-	mapNameToFood["Caleb"] = "Eggs";
-	mapNameToFood["Christopher"] = "Pie";
-	mapNameToFood["David"] = "Cat food";
-	mapNameToFood["Dhilip"] = "Noodles";
-	mapNameToFood["Harshil"] = "Chocolate";
-
-	std::string favFood = mapNameToFood["Dhilip"];
-	std::cout << favFood << std::endl;
-
-
-
 	GLFWwindow* window;
-	//GLuint vertex_buffer, vertex_shader, fragment_shader, program;
-	//GLint mvp_location; /*, vpos_location, vcol_location;*/
 
 	glfwSetErrorCallback(error_callback);
 	if (!glfwInit())
@@ -500,6 +427,32 @@ int main(void)
 	double lastTime = glfwGetTime();
 
 
+
+	// TODO: LIGHT MANAGER AND LOOPS (80 Lights all off till turned on)
+
+	GLint L_0_position = glGetUniformLocation(shaderProgID, "theLights[0].position");
+	GLint L_0_diffuse = glGetUniformLocation(shaderProgID, "theLights[0].diffuse");
+	GLint L_0_specular = glGetUniformLocation(shaderProgID, "theLights[0].specular");
+	GLint L_0_atten = glGetUniformLocation(shaderProgID, "theLights[0].atten");
+	GLint L_0_direction = glGetUniformLocation(shaderProgID, "theLights[0].direction");
+	GLint L_0_param1 = glGetUniformLocation(shaderProgID, "theLights[0].param1");
+	GLint L_0_param2 = glGetUniformLocation(shaderProgID, "theLights[0].param2");
+
+	GLint eyeLocation_UL = glGetUniformLocation(shaderProgID, "eyeLocation");
+
+	GLint matView_UL = glGetUniformLocation(shaderProgID, "matView");
+	GLint matProj_UL = glGetUniformLocation(shaderProgID, "matProj");
+
+	// Declared above. TODO: As above
+	matModel_UL = glGetUniformLocation(shaderProgID, "matModel");
+	matModelIT_UL = glGetUniformLocation(shaderProgID, "matModelInverseTranspose");
+	diffuseColour_UL = glGetUniformLocation(shaderProgID, "diffuseColour");
+	specularColour_UL = glGetUniformLocation(shaderProgID, "specularColour");
+	debugColour_UL = glGetUniformLocation(shaderProgID, "debugColour");
+	bDoNotLight_UL = glGetUniformLocation(shaderProgID, "bDoNotLight");
+	newColour_location = glGetUniformLocation(shaderProgID, "newColour");
+
+
 	while (!glfwWindowShouldClose(window))
 	{
 
@@ -563,13 +516,6 @@ int main(void)
 		// uniform vec4 theLights[0].direction
 		// uniform vec4 theLights[0].param1
 		// uniform vec4 theLights[0].param2		
-		GLint L_0_position = glGetUniformLocation(shaderProgID, "theLights[0].position");
-		GLint L_0_diffuse = glGetUniformLocation(shaderProgID, "theLights[0].diffuse");
-		GLint L_0_specular = glGetUniformLocation(shaderProgID, "theLights[0].specular");
-		GLint L_0_atten = glGetUniformLocation(shaderProgID, "theLights[0].atten");
-		GLint L_0_direction = glGetUniformLocation(shaderProgID, "theLights[0].direction");
-		GLint L_0_param1 = glGetUniformLocation(shaderProgID, "theLights[0].param1");
-		GLint L_0_param2 = glGetUniformLocation(shaderProgID, "theLights[0].param2");
 
 		glUniform4f(L_0_position,
 					sexyLightPosition.x,
@@ -669,7 +615,6 @@ int main(void)
 
 		// Also set the position of my "eye" (the camera)
 		//uniform vec4 eyeLocation;
-		GLint eyeLocation_UL = glGetUniformLocation(shaderProgID, "eyeLocation");
 
 		glUniform4f(eyeLocation_UL,
 					cameraEye.x, cameraEye.y, cameraEye.z, 1.0f);
@@ -686,9 +631,6 @@ int main(void)
 			<< sexyLightQuadraticAtten;
 		glfwSetWindowTitle(window, ssTitle.str().c_str());
 
-
-		GLint matView_UL = glGetUniformLocation(shaderProgID, "matView");
-		GLint matProj_UL = glGetUniformLocation(shaderProgID, "matProj");
 
 		glUniformMatrix4fv(matView_UL, 1, GL_FALSE, glm::value_ptr(v));
 		glUniformMatrix4fv(matProj_UL, 1, GL_FALSE, glm::value_ptr(p));
@@ -1051,8 +993,7 @@ void DrawObject(glm::mat4 m,
 				GLint shaderProgID,
 				VAOManager* pVAOManager)
 {
-	// 
-				//         mat4x4_identity(m);
+	// mat4x4_identity(m);
 	m = glm::mat4(1.0f);
 
 
@@ -1112,7 +1053,7 @@ void DrawObject(glm::mat4 m,
 	//uniform mat4 matModel;		// Model or World 
 	//uniform mat4 matView; 		// View or camera
 	//uniform mat4 matProj;
-	GLint matModel_UL = glGetUniformLocation(shaderProgID, "matModel");
+
 
 	glUniformMatrix4fv(matModel_UL, 1, GL_FALSE, glm::value_ptr(m));
 	//glUniformMatrix4fv(matView_UL, 1, GL_FALSE, glm::value_ptr(v));
@@ -1121,7 +1062,6 @@ void DrawObject(glm::mat4 m,
 	// Calcualte the inverse transpose of the model matrix and pass that...
 	// Stripping away scaling and translation, leaving only rotation
 	// Because the normal is only a direction, really
-	GLint matModelIT_UL = glGetUniformLocation(shaderProgID, "matModelInverseTranspose");
 	glm::mat4 matModelInverseTranspose = glm::inverse(glm::transpose(m));
 	glUniformMatrix4fv(matModelIT_UL, 1, GL_FALSE, glm::value_ptr(matModelInverseTranspose));
 
@@ -1129,7 +1069,6 @@ void DrawObject(glm::mat4 m,
 
 
 	// Find the location of the uniform variable newColour
-	GLint newColour_location = glGetUniformLocation(shaderProgID, "newColour");
 
 	glUniform3f(newColour_location,
 				pCurrentObject->objectColourRGBA.r,
@@ -1150,14 +1089,12 @@ void DrawObject(glm::mat4 m,
 	//glUniform3f(lighPosition_UL, sexyLightLocation.x,
 	//			sexyLightLocation.y, sexyLightLocation.z);
 
-	GLint diffuseColour_UL = glGetUniformLocation(shaderProgID, "diffuseColour");
 	glUniform4f(diffuseColour_UL,
 				pCurrentObject->objectColourRGBA.r,
 				pCurrentObject->objectColourRGBA.g,
 				pCurrentObject->objectColourRGBA.b,
 				pCurrentObject->objectColourRGBA.a);	// 
 
-	GLint specularColour_UL = glGetUniformLocation(shaderProgID, "specularColour");
 	glUniform4f(specularColour_UL,
 				1.0f,	// R
 				1.0f,	// G
@@ -1168,8 +1105,6 @@ void DrawObject(glm::mat4 m,
 
 	//uniform vec4 debugColour;
 	//uniform bool bDoNotLight;
-	GLint debugColour_UL = glGetUniformLocation(shaderProgID, "debugColour");
-	GLint bDoNotLight_UL = glGetUniformLocation(shaderProgID, "bDoNotLight");
 
 	if (pCurrentObject->isWireframe)
 	{

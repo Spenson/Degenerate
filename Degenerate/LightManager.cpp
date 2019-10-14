@@ -50,7 +50,10 @@ bool LightManager::InitilizeLightUinforLocations(unsigned int shaderID, std::str
 		bError |= GetUniforHelper(shaderID, curLightUniforms.Atten, streamErrors);
 		bError |= GetUniforHelper(shaderID, curLightUniforms.Param1, streamErrors);
 		bError |= GetUniforHelper(shaderID, curLightUniforms.Param2, streamErrors);
+
+		this->vecUniformLocations.push_back(curLightUniforms);
 	}
+	errors = streamErrors.str();
 	return !bError;
 }
 

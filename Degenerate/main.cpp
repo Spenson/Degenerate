@@ -1,14 +1,8 @@
 #include "GLCommon.h"
-//#include <glad/glad.h>
-//#include <GLFW/glfw3.h>
 
 #include "globals.h"
 
-//#include "linmath.h"
 #include <glm/glm.hpp>
-//#include <glm/vec3.hpp> // glm::vec3
-//#include <glm/vec4.hpp> // glm::vec4
-//#include <glm/mat4x4.hpp> // glm::mat4
 //#include <glm/gtc/matrix_transform.hpp>
 // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include <glm/gtc/type_ptr.hpp> // glm::value_ptr
@@ -42,6 +36,7 @@
 
 // Keyboard, error, mouse, etc. are now here
 #include "GFLW_callbacks.h"
+#include "LightManager.h"
 
 
 void DrawObject(glm::mat4 m, GameObject* pCurrentObject, GLint shaderProgID, VAOManager* pVAOManager);
@@ -415,15 +410,15 @@ int main(void)
 
 
 
-	// TODO: LIGHT MANAGER AND LOOPS (80 Lights all off till turned on)
+	// TODO: LIGHT MANAGER AND LOOPS (50 Lights all off till turned on)
 
-	GLint L_0_position = glGetUniformLocation(shaderProgID, "theLights[0].position");
-	GLint L_0_diffuse = glGetUniformLocation(shaderProgID, "theLights[0].diffuse");
-	GLint L_0_specular = glGetUniformLocation(shaderProgID, "theLights[0].specular");
-	GLint L_0_atten = glGetUniformLocation(shaderProgID, "theLights[0].atten");
-	GLint L_0_direction = glGetUniformLocation(shaderProgID, "theLights[0].direction");
-	GLint L_0_param1 = glGetUniformLocation(shaderProgID, "theLights[0].param1");
-	GLint L_0_param2 = glGetUniformLocation(shaderProgID, "theLights[0].param2");
+	//GLint L_0_position = glGetUniformLocation(shaderProgID, "theLights[0].position");
+	//GLint L_0_diffuse = glGetUniformLocation(shaderProgID, "theLights[0].diffuse");
+	//GLint L_0_specular = glGetUniformLocation(shaderProgID, "theLights[0].specular");
+	//GLint L_0_atten = glGetUniformLocation(shaderProgID, "theLights[0].atten");
+	//GLint L_0_direction = glGetUniformLocation(shaderProgID, "theLights[0].direction");
+	//GLint L_0_param1 = glGetUniformLocation(shaderProgID, "theLights[0].param1");
+	//GLint L_0_param2 = glGetUniformLocation(shaderProgID, "theLights[0].param2");
 
 	GLint eyeLocation_UL = glGetUniformLocation(shaderProgID, "eyeLocation");
 
@@ -438,6 +433,21 @@ int main(void)
 	debugColour_UL = glGetUniformLocation(shaderProgID, "debugColour");
 	bDoNotLight_UL = glGetUniformLocation(shaderProgID, "bDoNotLight");
 	newColour_location = glGetUniformLocation(shaderProgID, "newColour");
+
+	LightManager lightMan;
+	std::string lighterrors;
+	lightMan.InitilizeLightUinforLocations(shaderProgID, "theLights", 10, lighterrors);
+	lightMan.GenerateLights(5, 1);
+	Light* sexyLight = lightMan.GetLight(0);
+
+	sexyLight->Position = sexyLightPosition;
+	sexyLight->ConstAtten = sexyLightConstAtten;
+	sexyLight->LinearAtten = sexyLightLinearAtten;
+	sexyLight->QuadraticAtten = sexyLightQuadraticAtten;
+	sexyLight->isLightOn = true;
+	sexyLight->Direction = sexyLightSpotDirection;
+	sexyLight->SpotInnerAngle = sexyLightSpotInnerAngle;
+	sexyLight->SpotOuterAngle = sexyLightSpotOuterAngle;
 
 
 	while (!glfwWindowShouldClose(window))
@@ -491,6 +501,8 @@ int main(void)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
+		lightMan.PassLightsToShader();
+
 		// Set the lighting values for the shader. There is only 1 light right now.
 		// uniform vec4 theLights[0].position
 		// uniform vec4 theLights[0].diffuse
@@ -500,20 +512,20 @@ int main(void)
 		// uniform vec4 theLights[0].param1
 		// uniform vec4 theLights[0].param2		
 
-		glUniform4f(L_0_position,
-					sexyLightPosition.x,
-					sexyLightPosition.y,
-					sexyLightPosition.z,
-					1.0f);
-		glUniform4f(L_0_diffuse, 1.0f, 1.0f, 1.0f, 1.0f);	// White
-		glUniform4f(L_0_specular, 1.0f, 1.0f, 1.0f, 1.0f);	// White
-		glUniform4f(L_0_atten, 0.0f,  // constant attenuation
-					sexyLightLinearAtten,  // Linear 
-					sexyLightQuadraticAtten,	// Quadratic 
-					1000000.0f);	// Distance cut off
-
-// Point light:
-		glUniform4f(L_0_param1, 0.0f /*POINT light*/, 0.0f, 0.0f, 1.0f);
+//		glUniform4f(L_0_position,
+//					sexyLightPosition.x,
+//					sexyLightPosition.y,
+//					sexyLightPosition.z,
+//					1.0f);
+//		glUniform4f(L_0_diffuse, 1.0f, 1.0f, 1.0f, 1.0f);	// White
+//		glUniform4f(L_0_specular, 1.0f, 1.0f, 1.0f, 1.0f);	// White
+//		glUniform4f(L_0_atten, 0.0f,  // constant attenuation
+//					sexyLightLinearAtten,  // Linear 
+//					sexyLightQuadraticAtten,	// Quadratic 
+//					1000000.0f);	// Distance cut off
+//
+//// Point light:
+//		glUniform4f(L_0_param1, 0.0f /*POINT light*/, 0.0f, 0.0f, 1.0f);
 
 
 		// ********************************************************
@@ -594,7 +606,7 @@ int main(void)
 		//			1.0f );
 
 
-		glUniform4f(L_0_param2, 1.0f /*Light is on*/, 0.0f, 0.0f, 1.0f);
+		//glUniform4f(L_0_param2, 1.0f /*Light is on*/, 0.0f, 0.0f, 1.0f);
 
 		// Also set the position of my "eye" (the camera)
 		//uniform vec4 eyeLocation;

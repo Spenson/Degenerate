@@ -6,10 +6,10 @@
 
 //#include "linmath.h"
 #include <glm/glm.hpp>
-#include <glm/vec3.hpp> // glm::vec3
-#include <glm/vec4.hpp> // glm::vec4
-#include <glm/mat4x4.hpp> // glm::mat4
-#include <glm/gtc/matrix_transform.hpp>
+//#include <glm/vec3.hpp> // glm::vec3
+//#include <glm/vec4.hpp> // glm::vec4
+//#include <glm/mat4x4.hpp> // glm::mat4
+//#include <glm/gtc/matrix_transform.hpp>
 // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include <glm/gtc/type_ptr.hpp> // glm::value_ptr
 
@@ -35,7 +35,6 @@
 #include "cPhysics.h"
 
 //#include "cLowPassFilter.h"
-
 //#include "DebugRenderer/cDebugRenderer.h"
 
 // Used to visualize the attenuation of the lights...
@@ -50,6 +49,8 @@ void DrawObject(glm::mat4 m, GameObject* pCurrentObject, GLint shaderProgID, VAO
 glm::vec3 cameraEye = glm::vec3(0.0, 80.0, -80.0);
 glm::vec3 cameraTarget = glm::vec3(0.0f, 10.0, 0.0f);
 glm::vec3 upVector = glm::vec3(0.0f, 1.0f, 0.0f);
+
+
 
 glm::vec3 sexyLightPosition = glm::vec3(-25.0f, 30.0f, 0.0f);
 float sexyLightConstAtten = 0.0000001f;			// not really used (can turn off and on the light)
@@ -69,12 +70,10 @@ bool bLightDebugSheresOn = true;
 std::vector<GameObject*> g_vec_pGameObjects;
 std::map<std::string /*FriendlyName*/, GameObject*> g_map_GameObjectsByFriendlyName;
 
-
+std::map<std::string, Mesh> mMeshes;
 
 
 //bool g_BallCollided = false;
-
-
 
 // Make a class with a vector of doubles. 
 // Set this vector to all zeros. 
@@ -136,29 +135,17 @@ int main(void)
 
 	ModelLoader* pTheModelLoader = new ModelLoader();	// Heap
 
-	Mesh bunnyMesh;		// This is stack based
-//	if ( ! pTheModelLoader->LoadPlyModel("assets/models/Sky_Pirate_Combined_xyz.ply", bunnyMesh) )
-//	if ( ! pTheModelLoader->LoadPlyModel("assets/models/bun_zipper_res4_XYZ_N.ply", bunnyMesh) )
-	if (!pTheModelLoader->LoadPlyModel("../assets/models/bun_zipper_XYZ_n.ply", bunnyMesh))
+	if (!pTheModelLoader->LoadPlyModel("../assets/models/bun_zipper_XYZ_n.ply", mMeshes["bunnyMesh"]))
 	{
 		std::cout << "Didn't find the file" << std::endl;
 	}
 
-	Mesh largeBunnyMesh;
-	pTheModelLoader->LoadPlyModel("../assets/models/Large_Physics_Bunny_XYZ_N.ply", largeBunnyMesh);
-
-	Mesh pirateMesh;
-	pTheModelLoader->LoadPlyModel("../assets/models/Sky_Pirate_Combined_xyz_n.ply", pirateMesh);
-
-	Mesh terrainMesh;
-	pTheModelLoader->LoadPlyModel("../assets/models/Terrain_XYZ_n.ply", terrainMesh);
-	//	pTheModelLoader->LoadPlyModel("assets/models/BigFlatTerrain_XYZ_n.ply", terrainMesh);
-
-	Mesh cubeMesh;
-	pTheModelLoader->LoadPlyModel("../assets/models/Cube_1_Unit_from_origin_XYZ_n.ply", cubeMesh);
-
-	Mesh sphereMesh;
-	pTheModelLoader->LoadPlyModel("../assets/models/Sphere_Radius_1_XYZ_n.ply", sphereMesh);
+	pTheModelLoader->LoadPlyModel("../assets/models/Large_Physics_Bunny_XYZ_N.ply", mMeshes["largeBunnyMesh"]);
+	pTheModelLoader->LoadPlyModel("../assets/models/Sky_Pirate_Combined_xyz_n.ply", mMeshes["pirateMesh"]);
+	pTheModelLoader->LoadPlyModel("../assets/models/Terrain_XYZ_n.ply", mMeshes["terrainMesh"]);
+	//	pTheModelLoader->LoadPlyModel("assets/models/BigFlatTerrain_XYZ_n.ply", mapMeshes["terrainMesh"]);
+	pTheModelLoader->LoadPlyModel("../assets/models/Cube_1_Unit_from_origin_XYZ_n.ply", mMeshes["cubeMesh"]);
+	pTheModelLoader->LoadPlyModel("../assets/models/Sphere_Radius_1_XYZ_n.ply", mMeshes["sphereMesh"]);
 
 
 
@@ -214,37 +201,37 @@ int main(void)
 	//  that we can look up later (i.e. it doesn't have to be the file name)
 	ModelDrawInfo drawInfo;
 	pTheVAOManager->LoadModelIntoVAO("bunny",
-									 bunnyMesh,
+									 mMeshes["bunnyMesh"],
 									 drawInfo,
 									 shaderProgID);
 
 	ModelDrawInfo drawInfoPirate;
 	pTheVAOManager->LoadModelIntoVAO("pirate",
-									 pirateMesh,
+									 mMeshes["pirateMesh"],
 									 drawInfoPirate,
 									 shaderProgID);
 
 	ModelDrawInfo drawInfoTerrain;
 	pTheVAOManager->LoadModelIntoVAO("terrain",
-									 terrainMesh,
+									 mMeshes["terrainMesh"],
 									 drawInfoTerrain,
 									 shaderProgID);
 
 	ModelDrawInfo cubeMeshInfo;
 	pTheVAOManager->LoadModelIntoVAO("cube",
-									 cubeMesh,			// Cube mesh info
+									 mMeshes["cubeMesh"],			// Cube mesh info
 									 cubeMeshInfo,
 									 shaderProgID);
 
 	ModelDrawInfo sphereMeshInfo;
 	pTheVAOManager->LoadModelIntoVAO("sphere",
-									 sphereMesh,		// Sphere mesh info
+									 mMeshes["sphereMesh"],		// Sphere mesh info
 									 sphereMeshInfo,
 									 shaderProgID);
 
 	ModelDrawInfo largeBunnyDrawInfo;
 	pTheVAOManager->LoadModelIntoVAO("large_bunny",
-									 largeBunnyMesh,		// Sphere mesh info
+									 mMeshes["largeBunnyMesh"],		// Sphere mesh info
 									 largeBunnyDrawInfo,
 									 shaderProgID);
 
@@ -443,7 +430,7 @@ int main(void)
 	GLint matView_UL = glGetUniformLocation(shaderProgID, "matView");
 	GLint matProj_UL = glGetUniformLocation(shaderProgID, "matProj");
 
-	// Declared above. TODO: As above
+	// Declared above in global. TODO: As above
 	matModel_UL = glGetUniformLocation(shaderProgID, "matModel");
 	matModelIT_UL = glGetUniformLocation(shaderProgID, "matModelInverseTranspose");
 	diffuseColour_UL = glGetUniformLocation(shaderProgID, "diffuseColour");
@@ -491,10 +478,6 @@ int main(void)
 
 		// View matrix
 		v = glm::mat4(1.0f);
-
-		//glm::vec3 cameraEye = glm::vec3(0.0, 0.0, -4.0);
-		//glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
-		//glm::vec3 upVector = glm::vec3(0.0f, 1.0f, 0.0f);
 
 		v = glm::lookAt(cameraEye,
 						cameraTarget,
@@ -676,7 +659,7 @@ int main(void)
 		glm::vec3 closestPoint = glm::vec3(0.0f, 0.0f, 0.0f);
 		cPhysics::sPhysicsTriangle closestTriangle;
 
-		pPhsyics->GetClosestTriangleToPoint(pShpere->positionXYZ, largeBunnyMesh, closestPoint, closestTriangle);
+		pPhsyics->GetClosestTriangleToPoint(pShpere->positionXYZ, mMeshes["largeBunnyMesh"], closestPoint, closestTriangle);
 
 		// Highlight the triangle that I'm closest to
 		//pDebugRenderer->addTriangle(closestTriangle.verts[0],
@@ -759,15 +742,15 @@ int main(void)
 //		sPlyTriangle closetTriangle;
 //
 //		for (unsigned int triIndex = 0;
-//			 triIndex != terrainMesh.vecTriangles.size();
+//			 triIndex != mapMeshes["terrainMesh"].vecTriangles.size();
 //			 triIndex++)
 //		{
-//			sPlyTriangle& curTriangle = terrainMesh.vecTriangles[triIndex];
+//			sPlyTriangle& curTriangle = mapMeshes["terrainMesh"].vecTriangles[triIndex];
 //
 //			// Get the vertices of the triangle
-//			sPlyVertexXYZ_N triVert1 = terrainMesh.vecVertices[curTriangle.vert_index_1];
-//			sPlyVertexXYZ_N triVert2 = terrainMesh.vecVertices[curTriangle.vert_index_2];
-//			sPlyVertexXYZ_N triVert3 = terrainMesh.vecVertices[curTriangle.vert_index_3];
+//			sPlyVertexXYZ_N triVert1 = mapMeshes["terrainMesh"].vecVertices[curTriangle.vert_index_1];
+//			sPlyVertexXYZ_N triVert2 = mapMeshes["terrainMesh"].vecVertices[curTriangle.vert_index_2];
+//			sPlyVertexXYZ_N triVert3 = mapMeshes["terrainMesh"].vecVertices[curTriangle.vert_index_3];
 //
 //			Point triVertPoint1;
 //			triVertPoint1.x = triVert1.x;

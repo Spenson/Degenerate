@@ -43,6 +43,9 @@
     <Filter Include="Lighting">
       <UniqueIdentifier>{e7e0f344-b40e-495c-b225-22f2ccd67165}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FileReaders">
+      <UniqueIdentifier>{5aa58bd0-4343-414a-88eb-5e2de5277ddd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui.cpp">
@@ -99,6 +102,12 @@
     <ClCompile Include="mouse_callbacks.cpp">
       <Filter>UserInput</Filter>
     </ClCompile>
+    <ClCompile Include="LightManager.cpp">
+      <Filter>Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLCommon.h">
@@ -133,6 +142,15 @@
     </ClInclude>
     <ClInclude Include="PhysicsStuff.h">
       <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="FileReaders.h">
+      <Filter>FileReaders</Filter>
+    </ClInclude>
+    <ClInclude Include="LightManager.h">
+      <Filter>Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Lighting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -25,3 +25,4 @@ extern float sexyLightSpotOuterAngle;
 extern glm::vec3 sexyLightSpotDirection;
 
 extern bool bLightDebugSheresOn;
+

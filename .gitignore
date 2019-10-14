@@ -14,15 +14,15 @@
 
 # Build results
 ./[Dd]ebug/
-./GDP_Lvl1/[Dd]ebug/
+./Degenerate/[Dd]ebug/
 [Dd]ebugPublic/
 ./[Rr]elease/
-./GDP_Lvl1/[Rr]elease/
+./Degenerate/[Rr]elease/
 [Rr]eleases/
 ./x64/
 ./x86/
-./GDP_Lvl1/x64/
-./GDP_Lvl1/x86/
+./Degenerate/x64/
+./Degenerate/x86/
 bld/
 [Bb]in/
 [Oo]bj/

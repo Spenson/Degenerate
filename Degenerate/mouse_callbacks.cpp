@@ -1,12 +1,12 @@
 #include "GLCommon.h"
 #include <glm/glm.hpp>
 #include <glm/vec3.hpp>
-#include <glm/vec4.hpp>
+//#include <glm/vec4.hpp>
 
 #include "GFLW_callbacks.h"
 #include "globals.h"			// for find object
 
-#include <stdio.h>		// for fprintf()
+//#include <stdio.h>		// for fprintf()
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 {

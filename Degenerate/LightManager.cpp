@@ -163,6 +163,12 @@ void LightManager::GenerateLights(unsigned LightCount, bool resetExistingLights)
 
 }
 
+void LightManager::GenerateLights(std::vector<Light*> vecLights)
+{
+	DeleteLights();
+	this->vecLights = vecLights;
+}
+
 Light* LightManager::GetLight(unsigned index)
 {
 	if (index >= vecLights.size())

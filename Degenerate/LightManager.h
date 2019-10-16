@@ -36,6 +36,7 @@ public:
 								   std::string& errors);
 	void PassLightsToShader();
 	void GenerateLights(unsigned LightCount, bool resetCurrentLights);
+	void GenerateLights(std::vector<Light*> vecLights);
 	Light* GetLight(unsigned index);
 	unsigned GetLightCount();
 	void DeleteLights();

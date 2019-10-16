@@ -1,7 +1,10 @@
 #include "FileReaders.h"
 #include "Light.h"
 #include "GameObject.h"
+#include "ModelLoader.h"
+#include "VAOManager.h"
 #include <tinyxml2/tinyxml2.h>
+#include <iostream>
 
 
 
@@ -33,11 +36,21 @@ glm::vec4 GetRGBA(tinyxml2::XMLElement* node)
 	);
 }
 
-void insertAttributes(tinyxml2::XMLNode* node, glm::vec3 vals)
+void insertAttributes(tinyxml2::XMLNode* node, glm::vec3 vals, bool isRGB = 0)
 {
-	((tinyxml2::XMLElement*)node)->SetAttribute("x", vals.x);
-	((tinyxml2::XMLElement*)node)->SetAttribute("y", vals.y);
-	((tinyxml2::XMLElement*)node)->SetAttribute("z", vals.z);
+	if (isRGB)
+	{
+		((tinyxml2::XMLElement*)node)->SetAttribute("r", vals.x);
+		((tinyxml2::XMLElement*)node)->SetAttribute("g", vals.y);
+		((tinyxml2::XMLElement*)node)->SetAttribute("b", vals.z);
+	}
+	else
+	{
+		((tinyxml2::XMLElement*)node)->SetAttribute("x", vals.x);
+		((tinyxml2::XMLElement*)node)->SetAttribute("y", vals.y);
+		((tinyxml2::XMLElement*)node)->SetAttribute("z", vals.z);
+
+	}
 }
 
 void insertAttributes(tinyxml2::XMLNode* node, glm::vec4 vals)
@@ -64,45 +77,45 @@ void ReadGameObjectsFromFile(std::string File, std::vector<GameObject*>& vecGame
 	tinyxml2::XMLError eResult = xml_doc.LoadFile(File.c_str());
 	tinyxml2::XMLNode* root = xml_doc.FirstChildElement("GAMEOBJECTS");
 
-	tinyxml2::XMLElement* element = root->FirstChildElement("GameObject");
+	tinyxml2::XMLElement* objectElement = root->FirstChildElement("GameObject");
 	//for (tinyxml2::XMLElement* element = root->FirstChildElement("GameObject"); element != root->LastChildElement(); element = element->NextSiblingElement())
 	for (;;)
 	{
 		object = new GameObject();
-		object->meshName = element->FirstChildElement("MeshName")->GetText();
-		object->friendlyName = element->FirstChildElement("FriendlyName")->GetText();
+		object->meshName = objectElement->FirstChildElement("MeshName")->GetText();
+		object->friendlyName = objectElement->FirstChildElement("FriendlyName")->GetText();
 
-		object->positionXYZ = GetXYZ(element->FirstChildElement("Position"));
-		object->rotationXYZ = GetXYZ(element->FirstChildElement("Rotation"));
+		object->positionXYZ = GetXYZ(objectElement->FirstChildElement("Position"));
+		object->rotationXYZ = GetXYZ(objectElement->FirstChildElement("Rotation"));
 
-		object->scale = element->FirstChildElement("Scale")->FindAttribute("f")->FloatValue();
+		object->scale = objectElement->FirstChildElement("Scale")->FindAttribute("f")->FloatValue();
 
-		object->objectColourRGBA = GetRGBA(element->FirstChildElement("Colour"));
-		object->diffuseColour = GetRGBA(element->FirstChildElement("DiffuseColour"));
-		object->specularColour = GetRGBA(element->FirstChildElement("SpecularColour"));
-		object->ambientToDiffuseRatio = element->FirstChildElement("AmbientDiffuseRatio")->FindAttribute("f")->FloatValue();
-		object->debugColour = GetRGBA(element->FirstChildElement("DebugColour"));
+		object->objectColourRGBA = GetRGBA(objectElement->FirstChildElement("Colour"));
+		object->diffuseColour = GetRGBA(objectElement->FirstChildElement("DiffuseColour"));
+		object->specularColour = GetRGBA(objectElement->FirstChildElement("SpecularColour"));
+		object->ambientToDiffuseRatio = objectElement->FirstChildElement("AmbientDiffuseRatio")->FindAttribute("f")->FloatValue();
+		object->debugColour = GetRGBA(objectElement->FirstChildElement("DebugColour"));
 
 
-		object->velocity = GetXYZ(element->FirstChildElement("Velocity"));
-		object->accel = GetXYZ(element->FirstChildElement("Acceleration"));
-		object->inverseMass = element->FirstChildElement("InverseMass")->FindAttribute("f")->FloatValue();
+		object->velocity = GetXYZ(objectElement->FirstChildElement("Velocity"));
+		object->accel = GetXYZ(objectElement->FirstChildElement("Acceleration"));
+		object->inverseMass = objectElement->FirstChildElement("InverseMass")->FindAttribute("f")->FloatValue();
 
-		object->physicsShapeType = (ShapeTypes)element->FirstChildElement("PhysicsShapeType")->FindAttribute("type")->IntValue();
-		object->AABB_min = GetXYZ(element->FirstChildElement("AABB")->FirstChildElement("max"));
-		object->AABB_max = GetXYZ(element->FirstChildElement("AABB")->FirstChildElement("min"));
-		object->SPHERE_radius = element->FirstChildElement("Radius")->FindAttribute("f")->FloatValue();
+		object->physicsShapeType = (ShapeTypes)objectElement->FirstChildElement("PhysicsShapeType")->FindAttribute("type")->IntValue();
+		object->AABB_min = GetXYZ(objectElement->FirstChildElement("AABB")->FirstChildElement("max"));
+		object->AABB_max = GetXYZ(objectElement->FirstChildElement("AABB")->FirstChildElement("min"));
+		object->SPHERE_radius = objectElement->FirstChildElement("Radius")->FindAttribute("f")->FloatValue();
 
-		object->isWireframe = element->FirstChildElement("Wireframe")->FindAttribute("b")->BoolValue();
-		object->isVisible = element->FirstChildElement("Visible")->FindAttribute("b")->BoolValue();
-		object->disableDepthBufferTest = element->FirstChildElement("DisableDepthTest")->FindAttribute("b")->BoolValue();
-		object->disableDepthBufferWrite = element->FirstChildElement("DisableDepthWrite")->FindAttribute("b")->BoolValue();
+		object->isWireframe = objectElement->FirstChildElement("Wireframe")->FindAttribute("b")->BoolValue();
+		object->isVisible = objectElement->FirstChildElement("Visible")->FindAttribute("b")->BoolValue();
+		object->disableDepthBufferTest = objectElement->FirstChildElement("DisableDepthTest")->FindAttribute("b")->BoolValue();
+		object->disableDepthBufferWrite = objectElement->FirstChildElement("DisableDepthWrite")->FindAttribute("b")->BoolValue();
 
 		vecGameObjects.push_back(object);
 
-		if (element == root->LastChildElement())
+		if (objectElement == root->LastChildElement())
 			break;
-		element = element->NextSiblingElement();
+		objectElement = objectElement->NextSiblingElement();
 	}
 }
 
@@ -116,42 +129,42 @@ void WriteGameObjectsToFile(std::string File, std::vector<GameObject*> vecGameOb
 	{
 		object = vecGameObjects[index];
 
-		tinyxml2::XMLElement* newElement = new_xml_doc.NewElement("GameObject");
+		tinyxml2::XMLElement* newObjectElement = new_xml_doc.NewElement("GameObject");
 
-		((tinyxml2::XMLElement*)newElement->InsertEndChild(new_xml_doc.NewElement("MeshName")))->SetText(object->meshName.c_str());
-		((tinyxml2::XMLElement*)newElement->InsertEndChild(new_xml_doc.NewElement("FriendlyName")))->SetText(object->friendlyName.c_str());
+		((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(new_xml_doc.NewElement("MeshName")))->SetText(object->meshName.c_str());
+		((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(new_xml_doc.NewElement("FriendlyName")))->SetText(object->friendlyName.c_str());
 
-		insertAttributes(newElement->InsertEndChild(new_xml_doc.NewElement("Position")), object->positionXYZ);
-		insertAttributes(newElement->InsertEndChild(new_xml_doc.NewElement("Rotation")), object->rotationXYZ);
+		insertAttributes(newObjectElement->InsertEndChild(new_xml_doc.NewElement("Position")), object->positionXYZ);
+		insertAttributes(newObjectElement->InsertEndChild(new_xml_doc.NewElement("Rotation")), object->rotationXYZ);
 
-		((tinyxml2::XMLElement*)newElement->InsertEndChild(new_xml_doc.NewElement("Scale")))->SetAttribute("f", object->scale);
+		((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(new_xml_doc.NewElement("Scale")))->SetAttribute("f", object->scale);
 
-		insertAttributes(newElement->InsertEndChild(new_xml_doc.NewElement("Colour")), object->objectColourRGBA);
-		insertAttributes(newElement->InsertEndChild(new_xml_doc.NewElement("DiffuseColour")), object->diffuseColour);
-		insertAttributes(newElement->InsertEndChild(new_xml_doc.NewElement("SpecularColour")), object->specularColour);
-		insertAttributes(newElement->InsertEndChild(new_xml_doc.NewElement("DebugColour")), object->debugColour);
+		insertAttributes(newObjectElement->InsertEndChild(new_xml_doc.NewElement("Colour")), object->objectColourRGBA);
+		insertAttributes(newObjectElement->InsertEndChild(new_xml_doc.NewElement("DiffuseColour")), object->diffuseColour);
+		insertAttributes(newObjectElement->InsertEndChild(new_xml_doc.NewElement("SpecularColour")), object->specularColour);
+		insertAttributes(newObjectElement->InsertEndChild(new_xml_doc.NewElement("DebugColour")), object->debugColour);
 
-		((tinyxml2::XMLElement*)newElement->InsertEndChild(new_xml_doc.NewElement("AmbientDiffuseRatio")))->SetAttribute("f", object->ambientToDiffuseRatio);
+		((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(new_xml_doc.NewElement("AmbientDiffuseRatio")))->SetAttribute("f", object->ambientToDiffuseRatio);
 
-		insertAttributes(newElement->InsertEndChild(new_xml_doc.NewElement("Velocity")), object->velocity);
-		insertAttributes(newElement->InsertEndChild(new_xml_doc.NewElement("Acceleration")), object->accel);
+		insertAttributes(newObjectElement->InsertEndChild(new_xml_doc.NewElement("Velocity")), object->velocity);
+		insertAttributes(newObjectElement->InsertEndChild(new_xml_doc.NewElement("Acceleration")), object->accel);
 
-		((tinyxml2::XMLElement*)newElement->InsertEndChild(new_xml_doc.NewElement("InverseMass")))->SetAttribute("f", object->inverseMass);
+		((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(new_xml_doc.NewElement("InverseMass")))->SetAttribute("f", object->inverseMass);
 
-		((tinyxml2::XMLElement*)newElement->InsertEndChild(new_xml_doc.NewElement("PhysicsShapeType")))->SetAttribute("type", object->physicsShapeType);
+		((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(new_xml_doc.NewElement("PhysicsShapeType")))->SetAttribute("type", object->physicsShapeType);
 
-		tinyxml2::XMLElement* AABBNode = (tinyxml2::XMLElement*)newElement->InsertEndChild(new_xml_doc.NewElement("AABB"));
+		tinyxml2::XMLElement* AABBNode = (tinyxml2::XMLElement*)newObjectElement->InsertEndChild(new_xml_doc.NewElement("AABB"));
 		insertAttributes(AABBNode->InsertEndChild(new_xml_doc.NewElement("max")), object->AABB_max);
 		insertAttributes(AABBNode->InsertEndChild(new_xml_doc.NewElement("min")), object->AABB_min);
 
-		((tinyxml2::XMLElement*)newElement->InsertEndChild(new_xml_doc.NewElement("Radius")))->SetAttribute("f", object->SPHERE_radius);
+		((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(new_xml_doc.NewElement("Radius")))->SetAttribute("f", object->SPHERE_radius);
 
-		((tinyxml2::XMLElement*)newElement->InsertEndChild(new_xml_doc.NewElement("Wireframe")))->SetAttribute("b", object->isWireframe);
-		((tinyxml2::XMLElement*)newElement->InsertEndChild(new_xml_doc.NewElement("Visible")))->SetAttribute("b", object->isVisible);
-		((tinyxml2::XMLElement*)newElement->InsertEndChild(new_xml_doc.NewElement("DisableDepthTest")))->SetAttribute("b", object->disableDepthBufferTest);
-		((tinyxml2::XMLElement*)newElement->InsertEndChild(new_xml_doc.NewElement("DisableDepthWrite")))->SetAttribute("b", object->disableDepthBufferWrite);
+		((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(new_xml_doc.NewElement("Wireframe")))->SetAttribute("b", object->isWireframe);
+		((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(new_xml_doc.NewElement("Visible")))->SetAttribute("b", object->isVisible);
+		((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(new_xml_doc.NewElement("DisableDepthTest")))->SetAttribute("b", object->disableDepthBufferTest);
+		((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(new_xml_doc.NewElement("DisableDepthWrite")))->SetAttribute("b", object->disableDepthBufferWrite);
 
-		(tinyxml2::XMLElement*)newRoot->InsertEndChild(newElement);
+		(tinyxml2::XMLElement*)newRoot->InsertEndChild(newObjectElement);
 	}
 	new_xml_doc.SaveFile(File.c_str());
 }
@@ -171,29 +184,88 @@ void ReadLightsFromFile(std::string File, std::vector<Light*>& lights, bool clea
 	tinyxml2::XMLError eResult = xml_doc.LoadFile(File.c_str());
 	tinyxml2::XMLNode* root = xml_doc.FirstChildElement("LIGHTS");
 
-	tinyxml2::XMLElement* element = root->FirstChildElement("Light");
+	tinyxml2::XMLElement* lightElement = root->FirstChildElement("Light");
 	for (;;)
 	{
 		light = new Light();
 
-		light->Position = GetXYZ(element->FirstChildElement("Position"));
-		light->Direction = GetXYZ(element->FirstChildElement("Direction"));
-		light->Diffuse = GetRGB(element->FirstChildElement("Diffuse"));
+		light->Position = GetXYZ(lightElement->FirstChildElement("Position"));
+		light->Direction = GetXYZ(lightElement->FirstChildElement("Direction"));
+		light->Diffuse = GetRGB(lightElement->FirstChildElement("Diffuse"));
 
-		light->ConstAtten = element->FirstChildElement("ConstAtten")->FindAttribute("f")->FloatValue();
-		light->LinearAtten = element->FirstChildElement("LinearAtten")->FindAttribute("f")->FloatValue();
-		light->QuadraticAtten = element->FirstChildElement("QuadraticAtten")->FindAttribute("f")->FloatValue();
-		light->CutOffDistance = element->FirstChildElement("CutOffDistance")->FindAttribute("f")->FloatValue();
+		light->ConstAtten = lightElement->FirstChildElement("ConstAtten")->FindAttribute("f")->FloatValue();
+		light->LinearAtten = lightElement->FirstChildElement("LinearAtten")->FindAttribute("f")->FloatValue();
+		light->QuadraticAtten = lightElement->FirstChildElement("QuadraticAtten")->FindAttribute("f")->FloatValue();
+		light->CutOffDistance = lightElement->FirstChildElement("CutOffDistance")->FindAttribute("f")->FloatValue();
 
-		light->lightType = (Light::LightType) element->FirstChildElement("LightType")->FindAttribute("type")->IntValue();
+		light->lightType = (Light::LightType) lightElement->FirstChildElement("LightType")->FindAttribute("type")->IntValue();
 
-		light->SpotInnerAngle = element->FirstChildElement("SpotInnerAngle")->FindAttribute("f")->FloatValue();
-		light->SpotOuterAngle = element->FirstChildElement("SpotOuterAngle")->FindAttribute("f")->FloatValue();
-		light->isLightOn = element->FirstChildElement("IsLightOn")->FindAttribute("b")->BoolValue();
+		light->SpotInnerAngle = lightElement->FirstChildElement("SpotInnerAngle")->FindAttribute("f")->FloatValue();
+		light->SpotOuterAngle = lightElement->FirstChildElement("SpotOuterAngle")->FindAttribute("f")->FloatValue();
+		light->isLightOn = lightElement->FirstChildElement("IsLightOn")->FindAttribute("b")->BoolValue();
 
 		lights.push_back(light);
 
-		if (element == root->LastChildElement())
+		if (lightElement == root->LastChildElement())
 			break;
-		element = element->NextSiblingElement();
+		lightElement = lightElement->NextSiblingElement();
 	}
+}
+
+void WriteLightsToFile(std::string File, std::vector<Light*> vecLights)
+{
+	Light* light;
+	tinyxml2::XMLDocument new_xml_doc;
+	tinyxml2::XMLNode* newRoot = new_xml_doc.InsertFirstChild(new_xml_doc.NewElement("LIGHTS"));
+
+	for (unsigned index = 0; index < vecLights.size(); index++)
+	{
+		light = vecLights[index];
+
+		tinyxml2::XMLElement* newLightElement = new_xml_doc.NewElement("Light");
+
+		insertAttributes(newLightElement->InsertEndChild(new_xml_doc.NewElement("Position")), light->Position);
+		insertAttributes(newLightElement->InsertEndChild(new_xml_doc.NewElement("Direction")), light->Direction);
+		insertAttributes(newLightElement->InsertEndChild(new_xml_doc.NewElement("Diffuse")), light->Diffuse, true);
+
+		((tinyxml2::XMLElement*)newLightElement->InsertEndChild(new_xml_doc.NewElement("ConstAtten")))->SetAttribute("f", light->ConstAtten);
+		((tinyxml2::XMLElement*)newLightElement->InsertEndChild(new_xml_doc.NewElement("LinearAtten")))->SetAttribute("f", light->LinearAtten);
+		((tinyxml2::XMLElement*)newLightElement->InsertEndChild(new_xml_doc.NewElement("QuadraticAtten")))->SetAttribute("f", light->QuadraticAtten);
+		((tinyxml2::XMLElement*)newLightElement->InsertEndChild(new_xml_doc.NewElement("CutOffDistance")))->SetAttribute("f", light->CutOffDistance);
+
+		((tinyxml2::XMLElement*)newLightElement->InsertEndChild(new_xml_doc.NewElement("LightType")))->SetAttribute("type", light->lightType);
+
+		((tinyxml2::XMLElement*)newLightElement->InsertEndChild(new_xml_doc.NewElement("SpotInnerAngle")))->SetAttribute("f", light->SpotInnerAngle);
+		((tinyxml2::XMLElement*)newLightElement->InsertEndChild(new_xml_doc.NewElement("SpotOuterAngle")))->SetAttribute("f", light->SpotOuterAngle);
+
+		((tinyxml2::XMLElement*)newLightElement->InsertEndChild(new_xml_doc.NewElement("IsLightOn")))->SetAttribute("b", light->isLightOn);
+
+		(tinyxml2::XMLElement*)newRoot->InsertEndChild(newLightElement);
+	}
+	new_xml_doc.SaveFile(File.c_str());
+}
+
+void ReadMeshesFromFile(std::string File, std::string MeshDir, std::map<std::string, Mesh>& mapMeshes, ModelLoader* modelLoader)
+{
+
+	tinyxml2::XMLDocument xml_doc;
+	tinyxml2::XMLError eResult = xml_doc.LoadFile(File.c_str());
+	tinyxml2::XMLNode* root = xml_doc.FirstChildElement("MESHES");
+
+	tinyxml2::XMLElement* meshElement = root->FirstChildElement("Light");
+	std::string currentName;
+	for (;;)
+	{
+		currentName = meshElement->FirstChildElement("Name")->GetText();
+		if(! mapMeshes.count(currentName))
+			if (!modelLoader->LoadPlyModel(MeshDir + meshElement->FirstChildElement("File")->GetText(), mapMeshes[currentName]))
+			{
+				std::cout << "Didn't find the file" << std::endl;
+			}
+
+		if (meshElement == root->LastChildElement())
+			break;
+		meshElement = meshElement->NextSiblingElement();
+	}
+
+}

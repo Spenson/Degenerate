@@ -35,11 +35,11 @@
     <MeshName>deathMesh</MeshName>
     <FriendlyName>death</FriendlyName>
 
-    <Position x="10" y="10" z="10"/>
+    <Position x="5" y="15" z="5"/>
     <Rotation x="0" y="0" z="0"/>
-    <Scale f="1.0"/>
+    <Scale f="2.0"/>
 
-    <Colour r=".42" g=".42" b=".42" a="0.5"/>
+    <Colour r=".5" g=".5" b=".5" a="0.5"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r="1" g="1" b="1" a="1"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -67,11 +67,11 @@
     <MeshName>imperialMesh</MeshName>
     <FriendlyName>imperial</FriendlyName>
 
-    <Position x="-25" y="10" z="25"/>
+    <Position x="2" y="15" z="2"/>
     <Rotation x="0" y="0" z="0"/>
-    <Scale f="1.0"/>
+    <Scale f="4.0"/>
 
-    <Colour r=".6" g=".6" b=".6" a="0.5"/>
+    <Colour r=".2" g=".6" b=".6" a="0.5"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r="1" g="1" b="1" a="1"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -133,7 +133,7 @@
 
     <Position x="10" y="15" z="5"/>
     <Rotation x=".2" y=".3" z=".5"/>
-    <Scale f="1.0"/>
+    <Scale f="2.0"/>
 
     <Colour r="1" g=".42" b=".42" a="0.5"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
@@ -165,7 +165,7 @@
 
     <Position x="-10" y="15" z="5"/>
     <Rotation x=".2" y=".3" z=".5"/>
-    <Scale f="1.0"/>
+    <Scale f="3.0"/>
 
     <Colour r=".42" g="1" b=".42" a="0.5"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
@@ -261,7 +261,7 @@
 
     <Position x="-5" y="5" z="0"/>
     <Rotation x="0" y="0" z="0"/>
-    <Scale f="1.0"/>
+    <Scale f="5.0"/>
 
     <Colour r=".5" g=".3" b=".6" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
@@ -292,9 +292,9 @@
     <MeshName>yMesh</MeshName>
     <FriendlyName>ywing4</FriendlyName>
 
-    <Position x="0" y="10" z="0"/>
+    <Position x="-2.5" y="7.5" z="5"/>
     <Rotation x=".3" y=".6" z=".2"/>
-    <Scale f="1.0"/>
+    <Scale f="3.0"/>
 
     <Colour r="1" g=".3" b=".6" a="0.5"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>

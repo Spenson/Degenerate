@@ -247,12 +247,11 @@ void WriteLightsToFile(std::string File, std::vector<Light*> vecLights)
 
 void ReadMeshesFromFile(std::string File, std::string MeshDir, std::map<std::string, Mesh>& mapMeshes, ModelLoader* modelLoader)
 {
-
 	tinyxml2::XMLDocument xml_doc;
 	tinyxml2::XMLError eResult = xml_doc.LoadFile(File.c_str());
 	tinyxml2::XMLNode* root = xml_doc.FirstChildElement("MESHES");
 
-	tinyxml2::XMLElement* meshElement = root->FirstChildElement("Light");
+	tinyxml2::XMLElement* meshElement = root->FirstChildElement("Mesh");
 	std::string currentName;
 	for (;;)
 	{

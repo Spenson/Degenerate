@@ -192,7 +192,7 @@
   </GameObject>
 
   <GameObject>
-    <MeshName>yWing</MeshName>
+    <MeshName>yMesh</MeshName>
     <FriendlyName>ywing1</FriendlyName>
 
     <Position x="0" y="5" z="0"/>
@@ -224,7 +224,7 @@
   </GameObject>
 
   <GameObject>
-    <MeshName>yWing</MeshName>
+    <MeshName>yMesh</MeshName>
     <FriendlyName>ywing2</FriendlyName>
 
     <Position x="5" y="5" z="0"/>
@@ -256,7 +256,7 @@
   </GameObject>
 
   <GameObject>
-    <MeshName>yWing</MeshName>
+    <MeshName>yMesh</MeshName>
     <FriendlyName>ywing3</FriendlyName>
 
     <Position x="-5" y="5" z="0"/>
@@ -288,7 +288,7 @@
   </GameObject>
 
   <GameObject>
-    <MeshName>yWing</MeshName>
+    <MeshName>yMesh</MeshName>
     <FriendlyName>ywing4</FriendlyName>
 
     <Position x="0" y="10" z="0"/>

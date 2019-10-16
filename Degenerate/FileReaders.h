@@ -1,7 +1,10 @@
 #pragma once
 
 #include "GameObject.h"
+#include "Light.h"
+#include "ModelLoader.h"
 #include <vector>
+#include <map>
 
 void ReadGameObjectsFromFile(std::string File, std::vector<GameObject*>& vecGameObjects, bool clearExistingObjects = 1);
 void WriteGameObjectsToFile(std::string File, std::vector<GameObject*> vecGameObjects);

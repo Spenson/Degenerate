@@ -12,6 +12,8 @@
 
 #include <iostream>		// C++ IO standard stuff
 #include <map>			// Map aka "dictonary" 
+#include <algorithm>
+
 
 #include "ModelLoader.h"			
 #include "VAOManager.h"		// NEW
@@ -38,11 +40,13 @@
 #include "GFLW_callbacks.h"
 #include "LightManager.h"
 
+#include "FileReaders.h"
+
 
 void DrawObject(glm::mat4 m, GameObject* pCurrentObject, GLint shaderProgID, VAOManager* pVAOManager);
 
-glm::vec3 cameraEye = glm::vec3(0.0, 80.0, -80.0);
-glm::vec3 cameraTarget = glm::vec3(0.0f, 10.0, 0.0f);
+glm::vec3 cameraEye = glm::vec3(0.0, 15.0, -15.0);
+glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0, 0.0f);
 glm::vec3 upVector = glm::vec3(0.0f, 1.0f, 0.0f);
 
 
@@ -58,7 +62,8 @@ float sexyLightSpotOuterAngle = 7.5f;
 // (i.e. the length is 1.0f)
 glm::vec3 sexyLightSpotDirection = glm::vec3(0.0f, -1.0f, 0.0f);
 
-bool bLightDebugSheresOn = true;
+bool bLightDebugSheresOn = false;
+
 
 
 // Load up my "scene"  (now global)
@@ -130,18 +135,18 @@ int main(void)
 
 	ModelLoader* pTheModelLoader = new ModelLoader();	// Heap
 
-	if (!pTheModelLoader->LoadPlyModel("../assets/models/bun_zipper_XYZ_n.ply", mMeshes["bunnyMesh"]))
-	{
-		std::cout << "Didn't find the file" << std::endl;
-	}
+	//if (!pTheModelLoader->LoadPlyModel("../assets/models/bun_zipper_XYZ_n.ply", mMeshes["bunnyMesh"]))
+	//{
+	//	std::cout << "Didn't find the file" << std::endl;
+	//}
 
-	pTheModelLoader->LoadPlyModel("../assets/models/Large_Physics_Bunny_XYZ_N.ply", mMeshes["largeBunnyMesh"]);
-	pTheModelLoader->LoadPlyModel("../assets/models/Sky_Pirate_Combined_xyz_n.ply", mMeshes["pirateMesh"]);
-	pTheModelLoader->LoadPlyModel("../assets/models/Terrain_XYZ_n.ply", mMeshes["terrainMesh"]);
-	//	pTheModelLoader->LoadPlyModel("assets/models/BigFlatTerrain_XYZ_n.ply", mapMeshes["terrainMesh"]);
-	pTheModelLoader->LoadPlyModel("../assets/models/Cube_1_Unit_from_origin_XYZ_n.ply", mMeshes["cubeMesh"]);
+	//pTheModelLoader->LoadPlyModel("../assets/models/Large_Physics_Bunny_XYZ_N.ply", mMeshes["largeBunnyMesh"]);
+	//pTheModelLoader->LoadPlyModel("../assets/models/Sky_Pirate_Combined_xyz_n.ply", mMeshes["pirateMesh"]);
+	//pTheModelLoader->LoadPlyModel("../assets/models/Terrain_XYZ_n.ply", mMeshes["terrainMesh"]);
+	////	pTheModelLoader->LoadPlyModel("assets/models/BigFlatTerrain_XYZ_n.ply", mapMeshes["terrainMesh"]);
+	//pTheModelLoader->LoadPlyModel("../assets/models/Cube_1_Unit_from_origin_XYZ_n.ply", mMeshes["cubeMesh"]);
+	ReadMeshesFromFile("../assets/config/Meshes.xml", "../assets/models/", mMeshes, pTheModelLoader);
 	pTheModelLoader->LoadPlyModel("../assets/models/Sphere_Radius_1_XYZ_n.ply", mMeshes["sphereMesh"]);
-
 
 
 
@@ -191,32 +196,42 @@ int main(void)
 	// Create a VAO Manager...
 	// #include "VAOManager.h"  (at the top of your file)
 	VAOManager* pTheVAOManager = new VAOManager();
-
+	std::vector<ModelDrawInfo> vecDrawInfo;
 	// Note, the "filename" here is really the "model name" 
 	//  that we can look up later (i.e. it doesn't have to be the file name)
-	ModelDrawInfo drawInfo;
-	pTheVAOManager->LoadModelIntoVAO("bunny",
-									 mMeshes["bunnyMesh"],
-									 drawInfo,
-									 shaderProgID);
+	for (std::map<std::string, Mesh>::iterator iter = mMeshes.begin(); iter != mMeshes.end(); iter++)
+	{
+		ModelDrawInfo drawInfo;
+		pTheVAOManager->LoadModelIntoVAO(iter->first,
+										 iter->second,
+										 drawInfo,
+										 shaderProgID);
+		vecDrawInfo.push_back(drawInfo);
+	}
 
-	ModelDrawInfo drawInfoPirate;
-	pTheVAOManager->LoadModelIntoVAO("pirate",
-									 mMeshes["pirateMesh"],
-									 drawInfoPirate,
-									 shaderProgID);
+	//ModelDrawInfo drawInfo;
+	//pTheVAOManager->LoadModelIntoVAO("bunny",
+	//								 mMeshes["bunnyMesh"],
+	//								 drawInfo,
+	//								 shaderProgID);
 
-	ModelDrawInfo drawInfoTerrain;
-	pTheVAOManager->LoadModelIntoVAO("terrain",
-									 mMeshes["terrainMesh"],
-									 drawInfoTerrain,
-									 shaderProgID);
+	//ModelDrawInfo drawInfoPirate;
+	//pTheVAOManager->LoadModelIntoVAO("pirate",
+	//								 mMeshes["pirateMesh"],
+	//								 drawInfoPirate,
+	//								 shaderProgID);
 
-	ModelDrawInfo cubeMeshInfo;
-	pTheVAOManager->LoadModelIntoVAO("cube",
-									 mMeshes["cubeMesh"],			// Cube mesh info
-									 cubeMeshInfo,
-									 shaderProgID);
+	//ModelDrawInfo drawInfoTerrain;
+	//pTheVAOManager->LoadModelIntoVAO("terrain",
+	//								 mMeshes["terrainMesh"],
+	//								 drawInfoTerrain,
+	//								 shaderProgID);
+
+	//ModelDrawInfo cubeMeshInfo;
+	//pTheVAOManager->LoadModelIntoVAO("cube",
+	//								 mMeshes["cubeMesh"],			// Cube mesh info
+	//								 cubeMeshInfo,
+	//								 shaderProgID);
 
 	ModelDrawInfo sphereMeshInfo;
 	pTheVAOManager->LoadModelIntoVAO("sphere",
@@ -224,11 +239,11 @@ int main(void)
 									 sphereMeshInfo,
 									 shaderProgID);
 
-	ModelDrawInfo largeBunnyDrawInfo;
-	pTheVAOManager->LoadModelIntoVAO("large_bunny",
-									 mMeshes["largeBunnyMesh"],		// Sphere mesh info
-									 largeBunnyDrawInfo,
-									 shaderProgID);
+	//ModelDrawInfo largeBunnyDrawInfo;
+	//pTheVAOManager->LoadModelIntoVAO("large_bunny",
+	//								 mMeshes["largeBunnyMesh"],		// Sphere mesh info
+	//								 largeBunnyDrawInfo,
+	//								 shaderProgID);
 
 
 	// At this point, the model is loaded into the GPU
@@ -237,136 +252,139 @@ int main(void)
 	//// Load up my "scene" 
 	//std::vector<GameObject*> vec_pGameObjects;
 
-	GameObject* pPirate = new GameObject();
-	pPirate->meshName = "pirate";
-	pPirate->friendlyName = "PirateShip";	// Friendly name
-	pPirate->positionXYZ = glm::vec3(-30.0f, 20.0f, 10.0f);
-	pPirate->rotationXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
-	pPirate->scale = 0.75f;
-	pPirate->objectColourRGBA = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	pPirate->inverseMass = 0.0f;
-	//pPirate->HACK_AngleAroundYAxis = 0.0f;
-	//pPirate->HACK_speed = 0.0f;
-	// Add a debug renderer to this object
-	//pPirate->setDebugRenderer(pDebugRenderer);
+	ReadGameObjectsFromFile("../assets/config/GameObjects.xml", ::g_vec_pGameObjects, true);
 
-	//
-	GameObject* pBunny = new GameObject();
-	pBunny->meshName = "bunny";
-	pBunny->friendlyName = "Bugs";	// Famous bunny
-	pBunny->positionXYZ = glm::vec3(50.0f, 20.0f, -2.0f);		// -4 on z
-	pBunny->rotationXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
-	pBunny->scale = 250.0f;
-	pBunny->objectColourRGBA = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
-	pBunny->inverseMass = 0.0f;
-	//
-		//GameObject bunny2;
-		//bunny2.meshName = "bunny";
-		//bunny2.positionXYZ = glm::vec3(0.0f,0.0f,0.0f);
-		//bunny2.rotationXYZ = glm::vec3(0.0f,1.0f,0.0f);
-		//bunny2.scale = 3.5f;
-		//bunny2.objectColourRGBA = glm::vec4(0.0f, 1.0f, 1.0f, 1.0f);
-	//
-		//GameObject terrain;
-		//terrain.meshName = "terrain";
-		//terrain.positionXYZ = glm::vec3(0.0f,-10.0f,0.0f);
-		//terrain.rotationXYZ = glm::vec3(0.0f,0.0f,0.0f);
-		//terrain.scale = 0.5f;
-		//terrain.objectColourRGBA = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-
-		// Sphere and cube
-	GameObject* pShpere = new GameObject();
-
-	//GameObject A; 
-	//GameObject B;
-	//A = B;
-
-
-	pShpere->meshName = "sphere";
-	pShpere->friendlyName = "Sphere#1";	// We use to search 
-	pShpere->positionXYZ = glm::vec3(0.0f, 30.0, 0.0f);
-	pShpere->rotationXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
-	pShpere->scale = 1.0f;
-	pShpere->objectColourRGBA = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	// Set the sphere's initial velocity, etc.
-	pShpere->velocity = glm::vec3(0.0f, 0.0f, 0.0f);
-	pShpere->accel = glm::vec3(0.0f, 0.0f, 0.0f);
-	pShpere->physicsShapeType = SPHERE;
-	pShpere->SPHERE_radius = 1.0f;
-	pShpere->inverseMass = 1.0f;
-	//	pShpere->inverseMass = 0.0f;			// Sphere won't move
-
-			// Sphere and cube
-	GameObject* pShpere2 = new GameObject();
-	pShpere2->meshName = "sphere";
-	pShpere2->friendlyName = "Sphere#2";
-	//	pShpere2->positionXYZ = glm::vec3(25.0f, 20.0f, 1.0f);
-	pShpere2->rotationXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
-	pShpere2->scale = 1.0f;
-	pShpere2->objectColourRGBA = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	// Set the sphere's initial velocity, etc.
-//	pShpere2->velocity = glm::vec3(6.0f, -15.0f, 0.0f);
-	pShpere2->accel = glm::vec3(0.0f, 0.0f, 0.0f);
-	pShpere2->physicsShapeType = SPHERE;
-	pShpere2->inverseMass = 0.0f;
-	//	pShpere->inverseMass = 0.0f;			// Sphere won't move
-
-
-	GameObject* pCube = new GameObject();			// HEAP
-	pCube->meshName = "cube";
-	pCube->positionXYZ = glm::vec3(0.0f, -1.0f, 0.0f);
-	pCube->rotationXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
-	pCube->scale = 1.0f;
-	//pCube->objectColourRGBA = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
-	pCube->debugColour = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
-	pCube->isWireframe = true;
-	// Set the sphere's initial velocity, etc.
-	//sphere.velocity = glm::vec3(0.0f,0.0f,0.0f);
-	//sphere.accel = glm::vec3(0.0f,0.0f,0.0f);
-	pCube->inverseMass = 0.0f;	// Ignored during update
-
-
-	GameObject* pTerrain = new GameObject();			// HEAP
-	pTerrain->meshName = "terrain";
-	pTerrain->friendlyName = "TheGround";
-	pTerrain->positionXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
-	pTerrain->rotationXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
-	pTerrain->scale = 1.0f;
-	pTerrain->objectColourRGBA = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	pTerrain->physicsShapeType = MESH;
-	//	pTerrain->debugColour = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
-	//	pTerrain->isWireframe = true;
-	pTerrain->inverseMass = 0.0f;	// Ignored during update
-	pTerrain->isVisible = false;
-
-	GameObject* pLargeBunny = new GameObject();			// HEAP
-	pLargeBunny->meshName = "large_bunny";
-	pLargeBunny->friendlyName = "largeBunny";
-	pLargeBunny->positionXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
-	pLargeBunny->rotationXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
-	pLargeBunny->scale = 1.0f;	//***** SCALE = 1.0f *****/
-	pLargeBunny->objectColourRGBA = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	pLargeBunny->physicsShapeType = MESH;
-	//	pTerrain->debugColour = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
-	//	pTerrain->isWireframe = true;
-	pLargeBunny->inverseMass = 0.0f;	// Ignored during update
-
-
-	::g_vec_pGameObjects.push_back(pShpere);
-	::g_vec_pGameObjects.push_back(pShpere2);
-	::g_vec_pGameObjects.push_back(pCube);
-	//	::g_vec_pGameObjects.push_back(pTerrain);
-	::g_vec_pGameObjects.push_back(pPirate);
-	::g_vec_pGameObjects.push_back(pBunny);
-	::g_vec_pGameObjects.push_back(pLargeBunny);
-
-
-
-	::g_map_GameObjectsByFriendlyName[pShpere2->friendlyName] = pShpere;
-	::g_map_GameObjectsByFriendlyName[pTerrain->friendlyName] = pTerrain;
-	::g_map_GameObjectsByFriendlyName[pPirate->friendlyName] = pPirate;
-	::g_map_GameObjectsByFriendlyName[pBunny->friendlyName] = pBunny;
-
+//
+//	GameObject* pPirate = new GameObject();
+//	pPirate->meshName = "pirate";
+//	pPirate->friendlyName = "PirateShip";	// Friendly name
+//	pPirate->positionXYZ = glm::vec3(-30.0f, 20.0f, 10.0f);
+//	pPirate->rotationXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
+//	pPirate->scale = 0.75f;
+//	pPirate->objectColourRGBA = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+//	pPirate->inverseMass = 0.0f;
+//	//pPirate->HACK_AngleAroundYAxis = 0.0f;
+//	//pPirate->HACK_speed = 0.0f;
+//	// Add a debug renderer to this object
+//	//pPirate->setDebugRenderer(pDebugRenderer);
+//
+//	//
+//	GameObject* pBunny = new GameObject();
+//	pBunny->meshName = "bunny";
+//	pBunny->friendlyName = "Bugs";	// Famous bunny
+//	pBunny->positionXYZ = glm::vec3(50.0f, 20.0f, -2.0f);		// -4 on z
+//	pBunny->rotationXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
+//	pBunny->scale = 250.0f;
+//	pBunny->objectColourRGBA = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
+//	pBunny->inverseMass = 0.0f;
+//	//
+//		//GameObject bunny2;
+//		//bunny2.meshName = "bunny";
+//		//bunny2.positionXYZ = glm::vec3(0.0f,0.0f,0.0f);
+//		//bunny2.rotationXYZ = glm::vec3(0.0f,1.0f,0.0f);
+//		//bunny2.scale = 3.5f;
+//		//bunny2.objectColourRGBA = glm::vec4(0.0f, 1.0f, 1.0f, 1.0f);
+//	//
+//		//GameObject terrain;
+//		//terrain.meshName = "terrain";
+//		//terrain.positionXYZ = glm::vec3(0.0f,-10.0f,0.0f);
+//		//terrain.rotationXYZ = glm::vec3(0.0f,0.0f,0.0f);
+//		//terrain.scale = 0.5f;
+//		//terrain.objectColourRGBA = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+//
+//		// Sphere and cube
+//	GameObject* pShpere = new GameObject();
+//
+//	//GameObject A; 
+//	//GameObject B;
+//	//A = B;
+//
+//
+//	pShpere->meshName = "sphere";
+//	pShpere->friendlyName = "Sphere#1";	// We use to search 
+//	pShpere->positionXYZ = glm::vec3(0.0f, 30.0, 0.0f);
+//	pShpere->rotationXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
+//	pShpere->scale = 1.0f;
+//	pShpere->objectColourRGBA = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+//	// Set the sphere's initial velocity, etc.
+//	pShpere->velocity = glm::vec3(0.0f, 0.0f, 0.0f);
+//	pShpere->accel = glm::vec3(0.0f, 0.0f, 0.0f);
+//	pShpere->physicsShapeType = SPHERE;
+//	pShpere->SPHERE_radius = 1.0f;
+//	pShpere->inverseMass = 1.0f;
+//	//	pShpere->inverseMass = 0.0f;			// Sphere won't move
+//
+//			// Sphere and cube
+//	GameObject* pShpere2 = new GameObject();
+//	pShpere2->meshName = "sphere";
+//	pShpere2->friendlyName = "Sphere#2";
+//	//	pShpere2->positionXYZ = glm::vec3(25.0f, 20.0f, 1.0f);
+//	pShpere2->rotationXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
+//	pShpere2->scale = 1.0f;
+//	pShpere2->objectColourRGBA = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+//	// Set the sphere's initial velocity, etc.
+////	pShpere2->velocity = glm::vec3(6.0f, -15.0f, 0.0f);
+//	pShpere2->accel = glm::vec3(0.0f, 0.0f, 0.0f);
+//	pShpere2->physicsShapeType = SPHERE;
+//	pShpere2->inverseMass = 0.0f;
+//	//	pShpere->inverseMass = 0.0f;			// Sphere won't move
+//
+//
+//	GameObject* pCube = new GameObject();			// HEAP
+//	pCube->meshName = "cube";
+//	pCube->positionXYZ = glm::vec3(0.0f, -1.0f, 0.0f);
+//	pCube->rotationXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
+//	pCube->scale = 1.0f;
+//	//pCube->objectColourRGBA = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
+//	pCube->debugColour = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
+//	pCube->isWireframe = true;
+//	// Set the sphere's initial velocity, etc.
+//	//sphere.velocity = glm::vec3(0.0f,0.0f,0.0f);
+//	//sphere.accel = glm::vec3(0.0f,0.0f,0.0f);
+//	pCube->inverseMass = 0.0f;	// Ignored during update
+//
+//
+//	GameObject* pTerrain = new GameObject();			// HEAP
+//	pTerrain->meshName = "terrain";
+//	pTerrain->friendlyName = "TheGround";
+//	pTerrain->positionXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
+//	pTerrain->rotationXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
+//	pTerrain->scale = 1.0f;
+//	pTerrain->objectColourRGBA = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+//	pTerrain->physicsShapeType = MESH;
+//	//	pTerrain->debugColour = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
+//	//	pTerrain->isWireframe = true;
+//	pTerrain->inverseMass = 0.0f;	// Ignored during update
+//	pTerrain->isVisible = false;
+//
+//	GameObject* pLargeBunny = new GameObject();			// HEAP
+//	pLargeBunny->meshName = "large_bunny";
+//	pLargeBunny->friendlyName = "largeBunny";
+//	pLargeBunny->positionXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
+//	pLargeBunny->rotationXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
+//	pLargeBunny->scale = 1.0f;	//***** SCALE = 1.0f *****/
+//	pLargeBunny->objectColourRGBA = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+//	pLargeBunny->physicsShapeType = MESH;
+//	//	pTerrain->debugColour = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
+//	//	pTerrain->isWireframe = true;
+//	pLargeBunny->inverseMass = 0.0f;	// Ignored during update
+//
+//
+//	::g_vec_pGameObjects.push_back(pShpere);
+//	::g_vec_pGameObjects.push_back(pShpere2);
+//	::g_vec_pGameObjects.push_back(pCube);
+//	//	::g_vec_pGameObjects.push_back(pTerrain);
+//	::g_vec_pGameObjects.push_back(pPirate);
+//	::g_vec_pGameObjects.push_back(pBunny);
+//	::g_vec_pGameObjects.push_back(pLargeBunny);
+//
+//
+//
+//	::g_map_GameObjectsByFriendlyName[pShpere2->friendlyName] = pShpere;
+//	::g_map_GameObjectsByFriendlyName[pTerrain->friendlyName] = pTerrain;
+//	::g_map_GameObjectsByFriendlyName[pPirate->friendlyName] = pPirate;
+//	::g_map_GameObjectsByFriendlyName[pBunny->friendlyName] = pBunny;
+//
 
 	// Will be moved placed around the scene
 	GameObject* pDebugSphere = new GameObject();
@@ -436,18 +454,15 @@ int main(void)
 
 	LightManager lightMan;
 	std::string lighterrors;
-	lightMan.GenerateLights(5, true);
-	lightMan.InitilizeLightUinformLocations(shaderProgID, "theLights", lightMan.GetLightCount(), lighterrors);
-	Light* sexyLight = lightMan.GetLight(0);
 
-	sexyLight->Position = sexyLightPosition;
-	sexyLight->ConstAtten = sexyLightConstAtten;
-	sexyLight->LinearAtten = sexyLightLinearAtten;
-	sexyLight->QuadraticAtten = sexyLightQuadraticAtten;
-	sexyLight->isLightOn = true;
-	sexyLight->Direction = sexyLightSpotDirection;
-	sexyLight->SpotInnerAngle = sexyLightSpotInnerAngle;
-	sexyLight->SpotOuterAngle = sexyLightSpotOuterAngle;
+	std::vector<Light*> templights;
+
+	ReadLightsFromFile("../assets/config/Lights.xml", templights);
+
+	lightMan.GenerateLights(templights);
+	lightMan.InitilizeLightUinformLocations(shaderProgID, "theLights", lightMan.GetLightCount(), lighterrors);
+	//Light* sexyLight = lightMan.GetLight(0);
+
 
 
 	while (!glfwWindowShouldClose(window))
@@ -671,7 +686,7 @@ int main(void)
 		glm::vec3 closestPoint = glm::vec3(0.0f, 0.0f, 0.0f);
 		cPhysics::sPhysicsTriangle closestTriangle;
 
-		pPhsyics->GetClosestTriangleToPoint(pShpere->positionXYZ, mMeshes["largeBunnyMesh"], closestPoint, closestTriangle);
+		//pPhsyics->GetClosestTriangleToPoint(pShpere->positionXYZ, mMeshes["largeBunnyMesh"], closestPoint, closestTriangle);
 
 		// Highlight the triangle that I'm closest to
 		//pDebugRenderer->addTriangle(closestTriangle.verts[0],
@@ -693,48 +708,48 @@ int main(void)
 		//						glm::vec3(1.0f, 1.0f, 0.0f));
 
 		// Are we hitting the triangle? 
-		float distance = glm::length(pShpere->positionXYZ - closestPoint);
+		//float distance = glm::length(pShpere->positionXYZ - closestPoint);
 
-		if (distance <= pShpere->SPHERE_radius)
-		{
-			// If you want, move the sphere back to where it just penetrated...
-			// So that it will collide exactly where it's supposed to. 
-			// But, that's not a big problem.
-
-
-			// Is in contact with the triangle... 
-			// Calculate the response vector off the triangle. 
-			glm::vec3 velocityVector = glm::normalize(pShpere->velocity);
-
-			// closestTriangle.normal
-			glm::vec3 reflectionVec = glm::reflect(velocityVector, closestTriangle.normal);
-			reflectionVec = glm::normalize(reflectionVec);
-
-			// Stop the sphere and draw the two vectors...
-//			pShpere->inverseMass = 0.0f;	// Stopped
-
-			glm::vec3 velVecX20 = velocityVector * 10.0f;
-			//pDebugRenderer->addLine(closestPoint, velVecX20,
-			//						glm::vec3(1.0f, 0.0f, 0.0f), 30.0f /*seconds*/);
-
-			glm::vec3 reflectionVecX20 = reflectionVec * 10.0f;
-			//pDebugRenderer->addLine(closestPoint, reflectionVecX20,
-			//						glm::vec3(0.0f, 1.0f, 1.0f), 30.0f /*seconds*/);
-
-			// Change the direction of the ball (the bounce off the triangle)
-
-			// Get lenght of the velocity vector
-			float speed = glm::length(pShpere->velocity);
-
-			pShpere->velocity = reflectionVec * speed;
-
-		}
+//		if (distance <= pShpere->SPHERE_radius)
+//		{
+//			// If you want, move the sphere back to where it just penetrated...
+//			// So that it will collide exactly where it's supposed to. 
+//			// But, that's not a big problem.
+//
+//
+//			// Is in contact with the triangle... 
+//			// Calculate the response vector off the triangle. 
+//			glm::vec3 velocityVector = glm::normalize(pShpere->velocity);
+//
+//			// closestTriangle.normal
+//			glm::vec3 reflectionVec = glm::reflect(velocityVector, closestTriangle.normal);
+//			reflectionVec = glm::normalize(reflectionVec);
+//
+//			// Stop the sphere and draw the two vectors...
+////			pShpere->inverseMass = 0.0f;	// Stopped
+//
+//			glm::vec3 velVecX20 = velocityVector * 10.0f;
+//			//pDebugRenderer->addLine(closestPoint, velVecX20,
+//			//						glm::vec3(1.0f, 0.0f, 0.0f), 30.0f /*seconds*/);
+//
+//			glm::vec3 reflectionVecX20 = reflectionVec * 10.0f;
+//			//pDebugRenderer->addLine(closestPoint, reflectionVecX20,
+//			//						glm::vec3(0.0f, 1.0f, 1.0f), 30.0f /*seconds*/);
+//
+//			// Change the direction of the ball (the bounce off the triangle)
+//
+//			// Get lenght of the velocity vector
+//			float speed = glm::length(pShpere->velocity);
+//
+//			pShpere->velocity = reflectionVec * speed;
+//
+//		}
 
 
 
 
 		bool DidBallCollideWithGround = false;
-		HACK_BounceOffSomePlanes(pShpere, DidBallCollideWithGround);
+		//HACK_BounceOffSomePlanes(pShpere, DidBallCollideWithGround);
 
 		// A more general 
 		pPhsyics->TestForCollisions(::g_vec_pGameObjects);
@@ -813,15 +828,15 @@ int main(void)
 
 
 		// How far did we penetrate the surface?
-		glm::vec3 CentreToClosestPoint = pShpere->positionXYZ - closestPoint;
+		//glm::vec3 CentreToClosestPoint = pShpere->positionXYZ - closestPoint;
 
 		// Direction that ball is going is normalized velocity
-		glm::vec3 directionBall = glm::normalize(pShpere->velocity);	// 1.0f
+		//glm::vec3 directionBall = glm::normalize(pShpere->velocity);	// 1.0f
 
 		// Calcualte direction to move it back the way it came from
-		glm::vec3 oppositeDirection = -directionBall;				// 1.0f
+		//glm::vec3 oppositeDirection = -directionBall;				// 1.0f
 
-		float distanceToClosestPoint = glm::length(CentreToClosestPoint);
+		//float distanceToClosestPoint = glm::length(CentreToClosestPoint);
 
 		//pDebugRenderer->addLine(pShpere->positionXYZ,
 		//						closestPoint,
@@ -849,11 +864,11 @@ int main(void)
 		//		}
 
 
-		std::cout
-			<< pShpere->velocity.x << ", "
-			<< pShpere->velocity.y << ", "
-			<< pShpere->velocity.z << "   dist = "
-			<< distanceToClosestPoint << std::endl;
+		//std::cout
+		//	<< pShpere->velocity.x << ", "
+		//	<< pShpere->velocity.y << ", "
+		//	<< pShpere->velocity.z << "   dist = "
+		//	<< distanceToClosestPoint << std::endl;
 
 		//howMuchToMoveItBack = 1.0 - lenthOfThatVector
 

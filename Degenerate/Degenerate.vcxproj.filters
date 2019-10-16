@@ -46,6 +46,12 @@
     <Filter Include="FileReaders">
       <UniqueIdentifier>{5aa58bd0-4343-414a-88eb-5e2de5277ddd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{8252d7bb-0da4-424e-b33e-325ea3c2575d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Configs">
+      <UniqueIdentifier>{17f26d51-6578-4abc-8e1b-98e43df82319}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui.cpp">
@@ -155,6 +161,9 @@
     <ClInclude Include="Light.h">
       <Filter>Lighting</Filter>
     </ClInclude>
+    <ClInclude Include="CameraManager.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\assets\shaders\fragmentShader01.glsl">
@@ -163,5 +172,16 @@
     <None Include="..\assets\shaders\vertexShader01.glsl">
       <Filter>Shaders</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\assets\config\GameObjects.xml">
+      <Filter>Configs</Filter>
+    </Xml>
+    <Xml Include="..\assets\config\Lights.xml">
+      <Filter>Configs</Filter>
+    </Xml>
+    <Xml Include="..\assets\config\Meshes.xml">
+      <Filter>Configs</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

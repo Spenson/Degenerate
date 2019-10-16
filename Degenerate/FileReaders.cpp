@@ -1,8 +1,4 @@
 #include "FileReaders.h"
-#include "Light.h"
-#include "GameObject.h"
-#include "ModelLoader.h"
-#include "VAOManager.h"
 #include <tinyxml2/tinyxml2.h>
 #include <iostream>
 
@@ -62,7 +58,7 @@ void insertAttributes(tinyxml2::XMLNode* node, glm::vec4 vals)
 }
 
 
-void ReadGameObjectsFromFile(std::string File, std::vector<GameObject*>& vecGameObjects, bool clearExistingObjects = 1)
+void ReadGameObjectsFromFile(std::string File, std::vector<GameObject*>& vecGameObjects, bool clearExistingObjects)
 {
 	if (clearExistingObjects)
 	{
@@ -169,7 +165,7 @@ void WriteGameObjectsToFile(std::string File, std::vector<GameObject*> vecGameOb
 	new_xml_doc.SaveFile(File.c_str());
 }
 
-void ReadLightsFromFile(std::string File, std::vector<Light*>& lights, bool clearExistingLights = 1)
+void ReadLightsFromFile(std::string File, std::vector<Light*>& lights, bool clearExistingLights)
 {
 	if (clearExistingLights)
 	{

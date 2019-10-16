@@ -199,7 +199,7 @@
     <Rotation x="0" y="0" z="0"/>
     <Scale f="1.0"/>
 
-    <Colour r=".7" g=".42" b=".2" a="0.5"/>
+    <Colour r="1" g="1" b="1" a="0.5"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r="1" g="1" b="1" a="1"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -231,7 +231,7 @@
     <Rotation x="0" y="0" z="0"/>
     <Scale f="1.0"/>
 
-    <Colour r=".4" g=".1" b=".9" a="0.5"/>
+    <Colour r=".666" g=".666" b=".666" a="0.5"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r="1" g="1" b="1" a="1"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -263,7 +263,7 @@
     <Rotation x="0" y="0" z="0"/>
     <Scale f="1.0"/>
 
-    <Colour r=".2" g=".8" b=".6" a="0.5"/>
+    <Colour r=".5" g=".3" b=".6" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r="1" g="1" b="1" a="1"/>
     <DebugColour r="1" g="1" b="1" a="1"/>

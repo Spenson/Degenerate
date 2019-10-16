@@ -436,8 +436,8 @@ int main(void)
 
 	LightManager lightMan;
 	std::string lighterrors;
-	lightMan.InitilizeLightUinforLocations(shaderProgID, "theLights", 10, lighterrors);
-	lightMan.GenerateLights(5, 1);
+	lightMan.GenerateLights(5, true);
+	lightMan.InitilizeLightUinformLocations(shaderProgID, "theLights", lightMan.GetLightCount(), lighterrors);
 	Light* sexyLight = lightMan.GetLight(0);
 
 	sexyLight->Position = sexyLightPosition;

@@ -31,7 +31,7 @@ public:
 	LightManager();
 	virtual ~LightManager();
 
-	bool InitilizeLightUinforLocations(unsigned int shaderID, std::string lightArrayName,
+	bool InitilizeLightUinformLocations(unsigned int shaderID, std::string lightArrayName,
 								   unsigned int numberOfLights /*size of array*/,
 								   std::string& errors);
 	void PassLightsToShader();

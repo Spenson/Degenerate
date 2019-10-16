@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="cPhysics.cpp" />
     <ClCompile Include="cPhysics_Ericson.cpp" />
+    <ClCompile Include="FileReaders.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GFLW_callbacks.cpp" />
     <ClCompile Include="glad.c" />

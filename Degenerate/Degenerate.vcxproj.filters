@@ -108,6 +108,9 @@
     <ClCompile Include="Light.cpp">
       <Filter>Lighting</Filter>
     </ClCompile>
+    <ClCompile Include="FileReaders.cpp">
+      <Filter>FileReaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLCommon.h">

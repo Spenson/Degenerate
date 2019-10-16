@@ -23,7 +23,7 @@ bool GetUniforHelper(GLint shaderID, LightManager::ShaderLightUniformLocations::
 	return false;
 }
 
-bool LightManager::InitilizeLightUinforLocations(unsigned int shaderID, std::string lightArrayName, unsigned int numberOfLights, std::string& errors)
+bool LightManager::InitilizeLightUinformLocations(unsigned int shaderID, std::string lightArrayName, unsigned int numberOfLights, std::string& errors)
 {
 	bool bError = false;
 	std::stringstream streamErrors;
@@ -156,6 +156,7 @@ void LightManager::GenerateLights(unsigned LightCount, bool resetExistingLights)
 	{
 		for (; vecLights.size() > LightCount;)
 		{
+			delete this->vecLights[vecLights.size()-1];
 			vecLights.pop_back();
 		}
 	}

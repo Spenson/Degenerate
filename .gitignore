@@ -19,10 +19,10 @@
 ./[Rr]elease/
 ./Degenerate/[Rr]elease/
 [Rr]eleases/
-./x64/
-./x86/
-./Degenerate/x64/
-./Degenerate/x86/
+/x64/
+/x86/
+[Dd]egenerate/x64/
+[Dd]egenerate/x86/
 bld/
 [Bb]in/
 [Oo]bj/

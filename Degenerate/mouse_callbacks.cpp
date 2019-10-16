@@ -12,16 +12,16 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 {
 	// Move the sphere to where the camera is and shoot the ball from there...
 
-	GameObject* pTheBall = pFindObjectByFriendlyName("Sphere#1");
+	//GameObject* pTheBall = pFindObjectByFriendlyName("Sphere#1");
 
-	// What's the velocity
-	// Target - eye = direction
-	glm::vec3 direction = glm::normalize(cameraTarget - cameraEye);
+	//// What's the velocity
+	//// Target - eye = direction
+	//glm::vec3 direction = glm::normalize(cameraTarget - cameraEye);
 
-	float speed = 10.0f;
+	//float speed = 10.0f;
 
-	pTheBall->velocity = direction * speed;
-	pTheBall->positionXYZ = cameraEye;
+	//pTheBall->velocity = direction * speed;
+	//pTheBall->positionXYZ = cameraEye;
 
 	return;
 }

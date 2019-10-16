@@ -79,6 +79,7 @@ void ReadGameObjectsFromFile(std::string File, std::vector<GameObject*>& vecGame
 	{
 		object = new GameObject();
 		object->meshName = objectElement->FirstChildElement("MeshName")->GetText();
+
 		object->friendlyName = objectElement->FirstChildElement("FriendlyName")->GetText();
 
 		object->positionXYZ = GetXYZ(objectElement->FirstChildElement("Position"));
@@ -192,7 +193,7 @@ void ReadLightsFromFile(std::string File, std::vector<Light*>& lights, bool clea
 		light->ConstAtten = lightElement->FirstChildElement("ConstAtten")->FindAttribute("f")->FloatValue();
 		light->LinearAtten = lightElement->FirstChildElement("LinearAtten")->FindAttribute("f")->FloatValue();
 		light->QuadraticAtten = lightElement->FirstChildElement("QuadraticAtten")->FindAttribute("f")->FloatValue();
-		light->CutOffDistance = lightElement->FirstChildElement("CutOffDistance")->FindAttribute("f")->FloatValue();
+		light->CutOffDistance = FLT_MAX;// lightElement->FirstChildElement("CutOffDistance")->FindAttribute("f")->FloatValue();
 
 		light->lightType = (Light::LightType) lightElement->FirstChildElement("LightType")->FindAttribute("type")->IntValue();
 

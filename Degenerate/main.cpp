@@ -1038,6 +1038,8 @@ void DrawObject(glm::mat4 m,
 	// ******* ROTATION TRANSFORM *********
 
 
+	glm::mat4 matModelInverseTranspose = glm::inverse(glm::transpose(m));
+	glUniformMatrix4fv(matModelIT_UL, 1, GL_FALSE, glm::value_ptr(matModelInverseTranspose));
 
 	// ******* SCALE TRANSFORM *********
 	glm::mat4 scale = glm::scale(glm::mat4(1.0f),
@@ -1072,8 +1074,6 @@ void DrawObject(glm::mat4 m,
 	// Calcualte the inverse transpose of the model matrix and pass that...
 	// Stripping away scaling and translation, leaving only rotation
 	// Because the normal is only a direction, really
-	glm::mat4 matModelInverseTranspose = glm::inverse(glm::transpose(m));
-	glUniformMatrix4fv(matModelIT_UL, 1, GL_FALSE, glm::value_ptr(matModelInverseTranspose));
 
 
 

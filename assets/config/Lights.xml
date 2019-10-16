@@ -15,9 +15,9 @@
   <Light>
     <Position x="1.4" y="1.4" z="2.802"/>
     <Direction x="4" y="5" z="6"/>
-    <Diffuse r="1" g="1" b="1"/>
-    <ConstAtten f=".001"/>
-    <LinearAtten f=".2"/>
+    <Diffuse r="1" g="0" b="0"/>
+    <ConstAtten f=".9"/>
+    <LinearAtten f=".9"/>
     <QuadraticAtten f="0.9"/>
     <CutOffDistance f="13"/>
     <LightType type="0"/>
@@ -26,11 +26,11 @@
     <IsLightOn b="1"/>
   </Light>
   <Light>
-    <Position x="1.4" y="1.4" z="2.802"/>
+    <Position x="1.4" y=".6" z="2.802"/>
     <Direction x="4" y="5" z="6"/>
-    <Diffuse r="1" g="1" b="1"/>
-    <ConstAtten f=".5"/>
-    <LinearAtten f=".5"/>
+    <Diffuse r="1" g="0" b="0"/>
+    <ConstAtten f=".9"/>
+    <LinearAtten f=".9"/>
     <QuadraticAtten f="0.9"/>
     <CutOffDistance f="13"/>
     <LightType type="0"/>
@@ -41,9 +41,9 @@
   <Light>
     <Position x="0.6" y="1.4" z="2.802"/>
     <Direction x="4" y="5" z="6"/>
-    <Diffuse r=".2" g="1" b="1"/>
-    <ConstAtten f=".5"/>
-    <LinearAtten f=".5"/>
+    <Diffuse r="1" g="0" b="0"/>
+    <ConstAtten f=".9"/>
+    <LinearAtten f=".9"/>
     <QuadraticAtten f="0.9"/>
     <CutOffDistance f="13"/>
     <LightType type="0"/>
@@ -52,11 +52,11 @@
     <IsLightOn b="1"/>
   </Light>
   <Light>
-    <Position x="1.4" y="1.4" z="2.802"/>
+    <Position x="0.6" y="0.6" z="2.802"/>
     <Direction x="4" y="5" z="6"/>
-    <Diffuse r="1" g="1" b="1"/>
-    <ConstAtten f=".001"/>
-    <LinearAtten f=".2"/>
+    <Diffuse r="1" g="0" b="0"/>
+    <ConstAtten f=".9"/>
+    <LinearAtten f=".9"/>
     <QuadraticAtten f="0.9"/>
     <CutOffDistance f="13"/>
     <LightType type="0"/>

@@ -1,0 +1,22 @@
+<MESHES>
+  <Mesh>
+    <File>starwars_Trench.ply</File>
+      <Name>trenchMesh</Name>
+  </Mesh>
+  <Mesh>
+    <File>starwars_deathstar.ply</File>
+    <Name>deathMesh</Name>
+  </Mesh>
+  <Mesh>
+    <File>starwars_ImperialStar.ply</File>
+    <Name>imperialMesh</Name>
+  </Mesh>
+  <Mesh>
+    <File>starwars_X-Wing.ply</File>
+    <Name>xMesh</Name>
+  </Mesh>
+  <Mesh>
+    <File>starwars_Y-Wing.ply</File>
+    <Name>yMesh</Name>
+  </Mesh>
+</MESHES>

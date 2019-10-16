@@ -6,11 +6,17 @@
 #include "GFLW_callbacks.h"
 #include "globals.h"			// for find object
 
+#include "FileReaders.h"
+#include "LightManager.h"
+
 #include <stdio.h>		// for fprintf()
+#include <vector>
+
+extern std::vector<GameObject*> g_vec_pGameObjects;
+extern LightManager lightMan;
 
 bool isShiftKeyDownByAlone(int mods);
 bool isCtrlKeyDownByAlone(int mods);
-
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
@@ -166,7 +172,13 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	{
 		const float SHIP_SPEED_CHANGE = 0.01f;
 		const float SHIP_ANGLE_CHANGE = 0.01f;
-
+		if (key == GLFW_KEY_Z)
+		{	
+			ReadGameObjectsFromFile("../assets/config/GameObjects.xml", ::g_vec_pGameObjects, true);
+			std::vector<Light*> templights;
+			ReadLightsFromFile("../assets/config/Lights.xml", templights, true);
+			lightMan.GenerateLights(templights);
+		}
 		//cGameObject* pShip = pFindObjectByFriendlyName("PirateShip");
 		//// Turn the ship around
 		//if (key == GLFW_KEY_A)

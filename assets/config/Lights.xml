@@ -13,53 +13,53 @@
     <IsLightOn b="1"/>
   </Light>
   <Light>
-    <Position x="1" y="2" z="3"/>
+    <Position x="1.4" y="1.4" z="2.802"/>
     <Direction x="4" y="5" z="6"/>
-    <Diffuse r="7" g="8" b="9"/>
-    <ConstAtten f="10"/>
-    <LinearAtten f="11"/>
-    <QuadraticAtten f="12"/>
+    <Diffuse r="1" g="1" b="1"/>
+    <ConstAtten f=".001"/>
+    <LinearAtten f=".2"/>
+    <QuadraticAtten f="0.9"/>
     <CutOffDistance f="13"/>
-    <LightType type="1"/>
+    <LightType type="0"/>
     <SpotInnerAngle f="14"/>
     <SpotOuterAngle f="15"/>
     <IsLightOn b="1"/>
   </Light>
   <Light>
-    <Position x="1" y="2" z="3"/>
+    <Position x="1.4" y="1.4" z="2.802"/>
     <Direction x="4" y="5" z="6"/>
-    <Diffuse r="7" g="8" b="9"/>
-    <ConstAtten f="10"/>
-    <LinearAtten f="11"/>
-    <QuadraticAtten f="12"/>
+    <Diffuse r="1" g="1" b="1"/>
+    <ConstAtten f=".5"/>
+    <LinearAtten f=".5"/>
+    <QuadraticAtten f="0.9"/>
     <CutOffDistance f="13"/>
-    <LightType type="1"/>
+    <LightType type="0"/>
     <SpotInnerAngle f="14"/>
     <SpotOuterAngle f="15"/>
     <IsLightOn b="1"/>
   </Light>
   <Light>
-    <Position x="1" y="2" z="3"/>
+    <Position x="0.6" y="1.4" z="2.802"/>
     <Direction x="4" y="5" z="6"/>
-    <Diffuse r="7" g="8" b="9"/>
-    <ConstAtten f="10"/>
-    <LinearAtten f="11"/>
-    <QuadraticAtten f="12"/>
+    <Diffuse r=".2" g="1" b="1"/>
+    <ConstAtten f=".5"/>
+    <LinearAtten f=".5"/>
+    <QuadraticAtten f="0.9"/>
     <CutOffDistance f="13"/>
-    <LightType type="1"/>
+    <LightType type="0"/>
     <SpotInnerAngle f="14"/>
     <SpotOuterAngle f="15"/>
     <IsLightOn b="1"/>
   </Light>
   <Light>
-    <Position x="1" y="2" z="3"/>
+    <Position x="1.4" y="1.4" z="2.802"/>
     <Direction x="4" y="5" z="6"/>
-    <Diffuse r="7" g="8" b="9"/>
-    <ConstAtten f="10"/>
-    <LinearAtten f="11"/>
-    <QuadraticAtten f="12"/>
+    <Diffuse r="1" g="1" b="1"/>
+    <ConstAtten f=".001"/>
+    <LinearAtten f=".2"/>
+    <QuadraticAtten f="0.9"/>
     <CutOffDistance f="13"/>
-    <LightType type="1"/>
+    <LightType type="0"/>
     <SpotInnerAngle f="14"/>
     <SpotOuterAngle f="15"/>
     <IsLightOn b="1"/>

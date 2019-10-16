@@ -71,7 +71,7 @@ std::vector<GameObject*> g_vec_pGameObjects;
 std::map<std::string /*FriendlyName*/, GameObject*> g_map_GameObjectsByFriendlyName;
 
 std::map<std::string, Mesh> mMeshes;
-
+LightManager lightMan;
 
 //bool g_BallCollided = false;
 
@@ -169,30 +169,6 @@ int main(void)
 	GLuint shaderProgID = pTheShaderManager->getIDFromFriendlyName("SimpleShader");
 
 
-	//	float x, y, z;		vPosition			"attribute vec3 vPosition;\n"
-	//	float r, g, b;		vColour				"attribute vec3 vColour;\n"
-//	
-//	mvp_location = glGetUniformLocation(program, "MVP");
-//	mvp_location = glGetUniformLocation(shaderProgID, "MVP");
-	//vpos_location = glGetAttribLocation(program, "vPosition");
-	//vcol_location = glGetAttribLocation(program, "vColour");
-//
-	//glEnableVertexAttribArray(vpos_location);
-	//glVertexAttribPointer(vpos_location, 
-	//					  3, 
-	//					  GL_FLOAT, 
-	//					  GL_FALSE,
-	//					  sizeof(sVertex),	// sizeof(vertices[0]),
-	//					  (void*)0);
-//
-	//glEnableVertexAttribArray(vcol_location);
-	//glVertexAttribPointer(vcol_location, 3, 
-	//					  GL_FLOAT, 
-	//					  GL_FALSE,
-	//					  sizeof(sVertex),	// sizeof(vertices[0]),
-	//					  (void*)(sizeof(float) * 3));
-
-
 	// Create a VAO Manager...
 	// #include "VAOManager.h"  (at the top of your file)
 	VAOManager* pTheVAOManager = new VAOManager();
@@ -209,182 +185,16 @@ int main(void)
 		vecDrawInfo.push_back(drawInfo);
 	}
 
-	//ModelDrawInfo drawInfo;
-	//pTheVAOManager->LoadModelIntoVAO("bunny",
-	//								 mMeshes["bunnyMesh"],
-	//								 drawInfo,
-	//								 shaderProgID);
-
-	//ModelDrawInfo drawInfoPirate;
-	//pTheVAOManager->LoadModelIntoVAO("pirate",
-	//								 mMeshes["pirateMesh"],
-	//								 drawInfoPirate,
-	//								 shaderProgID);
-
-	//ModelDrawInfo drawInfoTerrain;
-	//pTheVAOManager->LoadModelIntoVAO("terrain",
-	//								 mMeshes["terrainMesh"],
-	//								 drawInfoTerrain,
-	//								 shaderProgID);
-
-	//ModelDrawInfo cubeMeshInfo;
-	//pTheVAOManager->LoadModelIntoVAO("cube",
-	//								 mMeshes["cubeMesh"],			// Cube mesh info
-	//								 cubeMeshInfo,
-	//								 shaderProgID);
-
 	ModelDrawInfo sphereMeshInfo;
 	pTheVAOManager->LoadModelIntoVAO("sphere",
 									 mMeshes["sphereMesh"],		// Sphere mesh info
 									 sphereMeshInfo,
 									 shaderProgID);
 
-	//ModelDrawInfo largeBunnyDrawInfo;
-	//pTheVAOManager->LoadModelIntoVAO("large_bunny",
-	//								 mMeshes["largeBunnyMesh"],		// Sphere mesh info
-	//								 largeBunnyDrawInfo,
-	//								 shaderProgID);
 
-
-	// At this point, the model is loaded into the GPU
-
-
-	//// Load up my "scene" 
-	//std::vector<GameObject*> vec_pGameObjects;
 
 	ReadGameObjectsFromFile("../assets/config/GameObjects.xml", ::g_vec_pGameObjects, true);
 
-//
-//	GameObject* pPirate = new GameObject();
-//	pPirate->meshName = "pirate";
-//	pPirate->friendlyName = "PirateShip";	// Friendly name
-//	pPirate->positionXYZ = glm::vec3(-30.0f, 20.0f, 10.0f);
-//	pPirate->rotationXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
-//	pPirate->scale = 0.75f;
-//	pPirate->objectColourRGBA = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-//	pPirate->inverseMass = 0.0f;
-//	//pPirate->HACK_AngleAroundYAxis = 0.0f;
-//	//pPirate->HACK_speed = 0.0f;
-//	// Add a debug renderer to this object
-//	//pPirate->setDebugRenderer(pDebugRenderer);
-//
-//	//
-//	GameObject* pBunny = new GameObject();
-//	pBunny->meshName = "bunny";
-//	pBunny->friendlyName = "Bugs";	// Famous bunny
-//	pBunny->positionXYZ = glm::vec3(50.0f, 20.0f, -2.0f);		// -4 on z
-//	pBunny->rotationXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
-//	pBunny->scale = 250.0f;
-//	pBunny->objectColourRGBA = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
-//	pBunny->inverseMass = 0.0f;
-//	//
-//		//GameObject bunny2;
-//		//bunny2.meshName = "bunny";
-//		//bunny2.positionXYZ = glm::vec3(0.0f,0.0f,0.0f);
-//		//bunny2.rotationXYZ = glm::vec3(0.0f,1.0f,0.0f);
-//		//bunny2.scale = 3.5f;
-//		//bunny2.objectColourRGBA = glm::vec4(0.0f, 1.0f, 1.0f, 1.0f);
-//	//
-//		//GameObject terrain;
-//		//terrain.meshName = "terrain";
-//		//terrain.positionXYZ = glm::vec3(0.0f,-10.0f,0.0f);
-//		//terrain.rotationXYZ = glm::vec3(0.0f,0.0f,0.0f);
-//		//terrain.scale = 0.5f;
-//		//terrain.objectColourRGBA = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-//
-//		// Sphere and cube
-//	GameObject* pShpere = new GameObject();
-//
-//	//GameObject A; 
-//	//GameObject B;
-//	//A = B;
-//
-//
-//	pShpere->meshName = "sphere";
-//	pShpere->friendlyName = "Sphere#1";	// We use to search 
-//	pShpere->positionXYZ = glm::vec3(0.0f, 30.0, 0.0f);
-//	pShpere->rotationXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
-//	pShpere->scale = 1.0f;
-//	pShpere->objectColourRGBA = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-//	// Set the sphere's initial velocity, etc.
-//	pShpere->velocity = glm::vec3(0.0f, 0.0f, 0.0f);
-//	pShpere->accel = glm::vec3(0.0f, 0.0f, 0.0f);
-//	pShpere->physicsShapeType = SPHERE;
-//	pShpere->SPHERE_radius = 1.0f;
-//	pShpere->inverseMass = 1.0f;
-//	//	pShpere->inverseMass = 0.0f;			// Sphere won't move
-//
-//			// Sphere and cube
-//	GameObject* pShpere2 = new GameObject();
-//	pShpere2->meshName = "sphere";
-//	pShpere2->friendlyName = "Sphere#2";
-//	//	pShpere2->positionXYZ = glm::vec3(25.0f, 20.0f, 1.0f);
-//	pShpere2->rotationXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
-//	pShpere2->scale = 1.0f;
-//	pShpere2->objectColourRGBA = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-//	// Set the sphere's initial velocity, etc.
-////	pShpere2->velocity = glm::vec3(6.0f, -15.0f, 0.0f);
-//	pShpere2->accel = glm::vec3(0.0f, 0.0f, 0.0f);
-//	pShpere2->physicsShapeType = SPHERE;
-//	pShpere2->inverseMass = 0.0f;
-//	//	pShpere->inverseMass = 0.0f;			// Sphere won't move
-//
-//
-//	GameObject* pCube = new GameObject();			// HEAP
-//	pCube->meshName = "cube";
-//	pCube->positionXYZ = glm::vec3(0.0f, -1.0f, 0.0f);
-//	pCube->rotationXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
-//	pCube->scale = 1.0f;
-//	//pCube->objectColourRGBA = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
-//	pCube->debugColour = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
-//	pCube->isWireframe = true;
-//	// Set the sphere's initial velocity, etc.
-//	//sphere.velocity = glm::vec3(0.0f,0.0f,0.0f);
-//	//sphere.accel = glm::vec3(0.0f,0.0f,0.0f);
-//	pCube->inverseMass = 0.0f;	// Ignored during update
-//
-//
-//	GameObject* pTerrain = new GameObject();			// HEAP
-//	pTerrain->meshName = "terrain";
-//	pTerrain->friendlyName = "TheGround";
-//	pTerrain->positionXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
-//	pTerrain->rotationXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
-//	pTerrain->scale = 1.0f;
-//	pTerrain->objectColourRGBA = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-//	pTerrain->physicsShapeType = MESH;
-//	//	pTerrain->debugColour = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
-//	//	pTerrain->isWireframe = true;
-//	pTerrain->inverseMass = 0.0f;	// Ignored during update
-//	pTerrain->isVisible = false;
-//
-//	GameObject* pLargeBunny = new GameObject();			// HEAP
-//	pLargeBunny->meshName = "large_bunny";
-//	pLargeBunny->friendlyName = "largeBunny";
-//	pLargeBunny->positionXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
-//	pLargeBunny->rotationXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
-//	pLargeBunny->scale = 1.0f;	//***** SCALE = 1.0f *****/
-//	pLargeBunny->objectColourRGBA = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-//	pLargeBunny->physicsShapeType = MESH;
-//	//	pTerrain->debugColour = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
-//	//	pTerrain->isWireframe = true;
-//	pLargeBunny->inverseMass = 0.0f;	// Ignored during update
-//
-//
-//	::g_vec_pGameObjects.push_back(pShpere);
-//	::g_vec_pGameObjects.push_back(pShpere2);
-//	::g_vec_pGameObjects.push_back(pCube);
-//	//	::g_vec_pGameObjects.push_back(pTerrain);
-//	::g_vec_pGameObjects.push_back(pPirate);
-//	::g_vec_pGameObjects.push_back(pBunny);
-//	::g_vec_pGameObjects.push_back(pLargeBunny);
-//
-//
-//
-//	::g_map_GameObjectsByFriendlyName[pShpere2->friendlyName] = pShpere;
-//	::g_map_GameObjectsByFriendlyName[pTerrain->friendlyName] = pTerrain;
-//	::g_map_GameObjectsByFriendlyName[pPirate->friendlyName] = pPirate;
-//	::g_map_GameObjectsByFriendlyName[pBunny->friendlyName] = pBunny;
-//
 
 	// Will be moved placed around the scene
 	GameObject* pDebugSphere = new GameObject();
@@ -452,7 +262,7 @@ int main(void)
 	bDoNotLight_UL = glGetUniformLocation(shaderProgID, "bDoNotLight");
 	newColour_location = glGetUniformLocation(shaderProgID, "newColour");
 
-	LightManager lightMan;
+	
 	std::string lighterrors;
 
 	std::vector<Light*> templights;
@@ -816,15 +626,15 @@ int main(void)
 //
 //		}//for (unsigned int triIndex = 0;
 
-		{// Draw closest point
-			glm::mat4 matModel = glm::mat4(1.0f);
-			pDebugSphere->positionXYZ = closestPoint;
-			pDebugSphere->scale = 1.0f;
-			pDebugSphere->debugColour = glm::vec4(0.0f, 1.0f, 1.0f, 1.0f);
-			pDebugSphere->isWireframe = true;
-			DrawObject(matModel, pDebugSphere,
-					   shaderProgID, pTheVAOManager);
-		}
+		//{// Draw closest point
+		//	glm::mat4 matModel = glm::mat4(1.0f);
+		//	pDebugSphere->positionXYZ = closestPoint;
+		//	pDebugSphere->scale = 1.0f;
+		//	pDebugSphere->debugColour = glm::vec4(0.0f, 1.0f, 1.0f, 1.0f);
+		//	pDebugSphere->isWireframe = true;
+		//	DrawObject(matModel, pDebugSphere,
+		//			   shaderProgID, pTheVAOManager);
+		//}
 
 
 		// How far did we penetrate the surface?

@@ -46,7 +46,7 @@
 
 void DrawObject(glm::mat4 m, GameObject* pCurrentObject, GLint shaderProgID, VAOManager* pVAOManager);
 glm::mat4 calculateWorldMatrix(GameObject* pCurrentObject);
-bool bLightDebugSheresOn = true;
+bool bLightDebugSheresOn = false;
 
 
 

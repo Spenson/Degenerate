@@ -17,8 +17,6 @@
 extern std::vector<GameObject*> g_vec_pGameObjects;
 extern LightManager lightMan;
 bool MouseActive = false;
-double lastCtrlXInput = -1.5;
-double lastLightChangeInput = -1;
 extern float lastX, lastY;
 unsigned SelecetedLight = 0;
 
@@ -83,7 +81,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			{
 				(*it)->isWireframe = true;
 			}
-			
+
 		}
 
 		if (key == GLFW_KEY_B)
@@ -187,31 +185,27 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		{
 			lightMan.GetLastLight()->SpotOuterAngle += 0.1f;
 		}
-		if (key == GLFW_KEY_EQUAL)
+		if (key == GLFW_KEY_EQUAL && action == GLFW_PRESS)
 		{
-			if (glfwGetTime() - lastLightChangeInput > 1)
+
+			SelecetedLight++;
+			if (SelecetedLight == lightMan.GetLightCount())
 			{
-				SelecetedLight++;
-				if (SelecetedLight == lightMan.GetLightCount())
-				{
-					SelecetedLight = 0;
-				}
-				lightMan.GetLight(SelecetedLight);
-				lastLightChangeInput = glfwGetTime();
+				SelecetedLight = 0;
 			}
+			lightMan.GetLight(SelecetedLight);
+
 		}
-		if (key == GLFW_KEY_MINUS)
+		if (key == GLFW_KEY_MINUS && action == GLFW_PRESS)
 		{
-			if (glfwGetTime() - lastLightChangeInput > 1)
+
+			SelecetedLight--;
+			if (SelecetedLight == -1)
 			{
-				SelecetedLight--;
-				if (SelecetedLight == -1)
-				{
-					SelecetedLight += lightMan.GetLightCount();
-				}
-				lightMan.GetLight(SelecetedLight);
-				lastLightChangeInput = glfwGetTime();
+				SelecetedLight += lightMan.GetLightCount();
 			}
+			lightMan.GetLight(SelecetedLight);
+
 		}
 
 		if (key == GLFW_KEY_7)
@@ -250,26 +244,23 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			ReadLightsFromFile("../assets/config/Lights.xml", templights, true);
 			lightMan.GenerateLights(templights);
 		}
-		if (key == GLFW_KEY_X)
+		if (key == GLFW_KEY_X && action == GLFW_PRESS)
 		{
-			//std::cout << glfwGetTime() << std::endl;
-			if (glfwGetTime() - lastCtrlXInput > 1.5)
+			if (!MouseActive)
 			{
-				if (!MouseActive)
-				{
-					glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-					glfwSetCursorPos(window, lastX, lastY);
-					glfwSetCursorPosCallback(window, mouse_callback);
-					MouseActive = true;
-				}
-				else
-				{
-					glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-					glfwSetCursorPosCallback(window, NULL);
-					MouseActive = false;
-				}
-				lastCtrlXInput = glfwGetTime();
+				glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+				glfwSetCursorPos(window, lastX, lastY);
+				glfwSetCursorPosCallback(window, mouse_callback);
+				MouseActive = true;
 			}
+			else
+			{
+				glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+				glfwSetCursorPosCallback(window, NULL);
+				MouseActive = false;
+			}
+
+
 		}
 		//cGameObject* pShip = pFindObjectByFriendlyName("PirateShip");
 		//// Turn the ship around

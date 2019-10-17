@@ -85,7 +85,7 @@ int main(void)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
-	window = glfwCreateWindow(1280, 720, "Simple example", NULL, NULL);
+	window = glfwCreateWindow(1280, 720, "Degenerate Engine", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();

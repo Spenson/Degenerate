@@ -38,11 +38,12 @@ public:
 	void GenerateLights(unsigned LightCount, bool resetCurrentLights);
 	void GenerateLights(std::vector<Light*> vecLights);
 	Light* GetLight(unsigned index);
+	Light* GetLastLight();
 	unsigned GetLightCount();
 	void DeleteLights();
 
 private:
 	std::vector<Light*> vecLights;
 	std::vector<ShaderLightUniformLocations> vecUniformLocations;
-	
+	unsigned LastIndex = 0;
 };

@@ -18,7 +18,9 @@ extern std::vector<GameObject*> g_vec_pGameObjects;
 extern LightManager lightMan;
 bool MouseActive = false;
 double lastCtrlXInput = -1.5;
+double lastLightChangeInput = -1;
 extern float lastX, lastY;
+unsigned SelecetedLight = 0;
 
 bool isShiftKeyDownByAlone(int mods);
 bool isCtrlKeyDownByAlone(int mods);
@@ -68,6 +70,22 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			CameraManager::GetCameraInstance()->MoveForward(-CAMERASPEED);
 		}
 
+		if (key == GLFW_KEY_1)
+		{
+			for (std::vector<GameObject*>::iterator it = ::g_vec_pGameObjects.begin(); it != g_vec_pGameObjects.end(); it++)
+			{
+				(*it)->isWireframe = false;
+			}
+		}
+		if (key == GLFW_KEY_2)
+		{
+			for (std::vector<GameObject*>::iterator it = ::g_vec_pGameObjects.begin(); it != g_vec_pGameObjects.end(); it++)
+			{
+				(*it)->isWireframe = true;
+			}
+			
+		}
+
 		if (key == GLFW_KEY_B)
 		{
 			//			// Shoot a bullet from the pirate ship
@@ -98,12 +116,12 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		// move the light
 		if (key == GLFW_KEY_A)
 		{
-			lightMan.GetLight(0)->Position.x -= CAMERASPEED;		// Move the camera -0.01f units
+			lightMan.GetLastLight()->Position.x -= CAMERASPEED;		// Move the camera -0.01f units
 
 		}
 		if (key == GLFW_KEY_D)
 		{
-			lightMan.GetLight(0)->Position.x += CAMERASPEED;		// Move the camera +0.01f units
+			lightMan.GetLastLight()->Position.x += CAMERASPEED;		// Move the camera +0.01f units
 
 
 		}
@@ -111,65 +129,99 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		// Move the camera (Q & E for up and down, along the y axis)
 		if (key == GLFW_KEY_Q)
 		{
-			lightMan.GetLight(0)->Position.y -= CAMERASPEED;		// Move the camera -0.01f units
+			lightMan.GetLastLight()->Position.y -= CAMERASPEED;		// Move the camera -0.01f units
 		}
 		if (key == GLFW_KEY_E)
 		{
-			lightMan.GetLight(0)->Position.y += CAMERASPEED;		// Move the camera +0.01f units
+			lightMan.GetLastLight()->Position.y += CAMERASPEED;		// Move the camera +0.01f units
 		}
 
 		// Move the camera (W & S for towards and away, along the z axis)
 		if (key == GLFW_KEY_W)
 		{
-			lightMan.GetLight(0)->Position.z -= CAMERASPEED;		// Move the camera -0.01f units
+			lightMan.GetLastLight()->Position.z -= CAMERASPEED;		// Move the camera -0.01f units
 
 		}
 		if (key == GLFW_KEY_S)
 		{
-			lightMan.GetLight(0)->Position.z += CAMERASPEED;		// Move the camera +0.01f units
+			lightMan.GetLastLight()->Position.z += CAMERASPEED;		// Move the camera +0.01f units
 		}
 
 		if (key == GLFW_KEY_1)
 		{
-			lightMan.GetLight(0)->ConstAtten *= 0.99f;			// 99% of what it was
+			lightMan.GetLastLight()->ConstAtten *= 0.99f;			// 99% of what it was
 		}
 		if (key == GLFW_KEY_2)
 		{
-			lightMan.GetLight(0)->ConstAtten *= 1.01f;			// 1% more of what it was
+			lightMan.GetLastLight()->ConstAtten *= 1.01f;			// 1% more of what it was
 		}
 		if (key == GLFW_KEY_3)
 		{
-			lightMan.GetLight(0)->LinearAtten *= 0.99f;			// 99% of what it was
+			lightMan.GetLastLight()->LinearAtten *= 0.99f;			// 99% of what it was
 		}
 		if (key == GLFW_KEY_4)
 		{
-			lightMan.GetLight(0)->LinearAtten *= 1.01f;			// 1% more of what it was
+			lightMan.GetLastLight()->LinearAtten *= 1.01f;			// 1% more of what it was
 		}
 		if (key == GLFW_KEY_5)
 		{
-			lightMan.GetLight(0)->QuadraticAtten *= 0.99f;			// 99% of what it was
+			lightMan.GetLastLight()->QuadraticAtten *= 0.99f;			// 99% of what it was
 		}
 		if (key == GLFW_KEY_6)
 		{
-			lightMan.GetLight(0)->QuadraticAtten *= 1.01f;			// 1% more of what it was
+			lightMan.GetLastLight()->QuadraticAtten *= 1.01f;			// 1% more of what it was
 		}
 		if (key == GLFW_KEY_V)
 		{
-			lightMan.GetLight(0)->SpotInnerAngle -= 0.1f;
+			lightMan.GetLastLight()->SpotInnerAngle -= 0.1f;
 		}
 		if (key == GLFW_KEY_B)
 		{
-			lightMan.GetLight(0)->SpotInnerAngle += 0.1f;
+			lightMan.GetLastLight()->SpotInnerAngle += 0.1f;
 		}
 		if (key == GLFW_KEY_N)
 		{
-			lightMan.GetLight(0)->SpotOuterAngle -= 0.1f;
+			lightMan.GetLastLight()->SpotOuterAngle -= 0.1f;
 		}
 		if (key == GLFW_KEY_M)
 		{
-			lightMan.GetLight(0)->SpotOuterAngle += 0.1f;
+			lightMan.GetLastLight()->SpotOuterAngle += 0.1f;
+		}
+		if (key == GLFW_KEY_EQUAL)
+		{
+			if (glfwGetTime() - lastLightChangeInput > 1)
+			{
+				SelecetedLight++;
+				if (SelecetedLight == lightMan.GetLightCount())
+				{
+					SelecetedLight = 0;
+				}
+				lightMan.GetLight(SelecetedLight);
+				lastLightChangeInput = glfwGetTime();
+			}
+		}
+		if (key == GLFW_KEY_MINUS)
+		{
+			if (glfwGetTime() - lastLightChangeInput > 1)
+			{
+				SelecetedLight--;
+				if (SelecetedLight == -1)
+				{
+					SelecetedLight += lightMan.GetLightCount();
+				}
+				lightMan.GetLight(SelecetedLight);
+				lastLightChangeInput = glfwGetTime();
+			}
 		}
 
+		if (key == GLFW_KEY_7)
+		{
+			lightMan.GetLastLight()->isLightOn = false;
+		}
+		if (key == GLFW_KEY_8)
+		{
+			lightMan.GetLastLight()->isLightOn = true;
+		}
 
 		if (key == GLFW_KEY_9)
 		{
@@ -206,7 +258,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 				if (!MouseActive)
 				{
 					glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-					glfwSetCursorPos(window, lastX,lastY);
+					glfwSetCursorPos(window, lastX, lastY);
 					glfwSetCursorPosCallback(window, mouse_callback);
 					MouseActive = true;
 				}

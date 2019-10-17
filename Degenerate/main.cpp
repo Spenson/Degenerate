@@ -400,13 +400,13 @@ int main(void)
 
 		std::stringstream ssTitle;
 		ssTitle
-			<< lightMan.GetLight(0)->Position.x << ", "
-			<< lightMan.GetLight(0)->Position.y << ", "
-			<< lightMan.GetLight(0)->Position.z
+			<< lightMan.GetLastLight()->Position.x << ", "
+			<< lightMan.GetLastLight()->Position.y << ", "
+			<< lightMan.GetLastLight()->Position.z
 			<< "Atten: "
-			<< lightMan.GetLight(0)->ConstAtten << " : "
-			<< lightMan.GetLight(0)->LinearAtten << " : "
-			<< lightMan.GetLight(0)->QuadraticAtten;
+			<< lightMan.GetLastLight()->ConstAtten << " : "
+			<< lightMan.GetLastLight()->LinearAtten << " : "
+			<< lightMan.GetLastLight()->QuadraticAtten;
 		glfwSetWindowTitle(window, ssTitle.str().c_str());
 
 
@@ -647,7 +647,7 @@ int main(void)
 		{
 			{// Draw where the light is at
 				glm::mat4 matModel = glm::mat4(1.0f);
-				pDebugSphere->positionXYZ = lightMan.GetLight(0)->Position;
+				pDebugSphere->positionXYZ = lightMan.GetLastLight()->Position;
 				pDebugSphere->scale = 0.5f;
 				pDebugSphere->debugColour = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 				pDebugSphere->isWireframe = true;
@@ -658,14 +658,14 @@ int main(void)
 			// Draw spheres to represent the attenuation...
 			{   // Draw a sphere at 1% brightness
 				glm::mat4 matModel = glm::mat4(1.0f);
-				pDebugSphere->positionXYZ = lightMan.GetLight(0)->Position;
+				pDebugSphere->positionXYZ = lightMan.GetLastLight()->Position;
 				float sphereSize = pLightHelper->calcApproxDistFromAtten(
 					0.01f,		// 1% brightness (essentially black)
 					0.001f,		// Within 0.1%  
 					100000.0f,	// Will quit when it's at this distance
-					lightMan.GetLight(0)->ConstAtten,
-					lightMan.GetLight(0)->LinearAtten,
-					lightMan.GetLight(0)->QuadraticAtten);
+					lightMan.GetLastLight()->ConstAtten,
+					lightMan.GetLastLight()->LinearAtten,
+					lightMan.GetLastLight()->QuadraticAtten);
 				pDebugSphere->scale = sphereSize;
 				pDebugSphere->debugColour = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
 				pDebugSphere->isWireframe = true;
@@ -674,14 +674,14 @@ int main(void)
 			}
 			{   // Draw a sphere at 25% brightness
 				glm::mat4 matModel = glm::mat4(1.0f);
-				pDebugSphere->positionXYZ = lightMan.GetLight(0)->Position;
+				pDebugSphere->positionXYZ = lightMan.GetLastLight()->Position;
 				float sphereSize = pLightHelper->calcApproxDistFromAtten(
 					0.25f,		// 1% brightness (essentially black)
 					0.001f,		// Within 0.1%  
 					100000.0f,	// Will quit when it's at this distance
-					lightMan.GetLight(0)->ConstAtten,
-					lightMan.GetLight(0)->LinearAtten,
-					lightMan.GetLight(0)->QuadraticAtten);
+					lightMan.GetLastLight()->ConstAtten,
+					lightMan.GetLastLight()->LinearAtten,
+					lightMan.GetLastLight()->QuadraticAtten);
 				pDebugSphere->scale = sphereSize;
 				pDebugSphere->debugColour = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
 				pDebugSphere->isWireframe = true;
@@ -690,14 +690,14 @@ int main(void)
 			}
 			{   // Draw a sphere at 50% brightness
 				glm::mat4 matModel = glm::mat4(1.0f);
-				pDebugSphere->positionXYZ = lightMan.GetLight(0)->Position;
+				pDebugSphere->positionXYZ = lightMan.GetLastLight()->Position;
 				float sphereSize = pLightHelper->calcApproxDistFromAtten(
 					0.50f,		// 1% brightness (essentially black)
 					0.001f,		// Within 0.1%  
 					100000.0f,	// Will quit when it's at this distance
-					lightMan.GetLight(0)->ConstAtten,
-					lightMan.GetLight(0)->LinearAtten,
-					lightMan.GetLight(0)->QuadraticAtten);
+					lightMan.GetLastLight()->ConstAtten,
+					lightMan.GetLastLight()->LinearAtten,
+					lightMan.GetLastLight()->QuadraticAtten);
 				pDebugSphere->scale = sphereSize;
 				pDebugSphere->debugColour = glm::vec4(0.0f, 1.0f, 1.0f, 1.0f);
 				pDebugSphere->isWireframe = true;
@@ -706,14 +706,14 @@ int main(void)
 			}
 			{   // Draw a sphere at 75% brightness
 				glm::mat4 matModel = glm::mat4(1.0f);
-				pDebugSphere->positionXYZ = lightMan.GetLight(0)->Position;
+				pDebugSphere->positionXYZ = lightMan.GetLastLight()->Position;
 				float sphereSize = pLightHelper->calcApproxDistFromAtten(
 					0.75f,		// 1% brightness (essentially black)
 					0.001f,		// Within 0.1%  
 					100000.0f,	// Will quit when it's at this distance
-					lightMan.GetLight(0)->ConstAtten,
-					lightMan.GetLight(0)->LinearAtten,
-					lightMan.GetLight(0)->QuadraticAtten);
+					lightMan.GetLastLight()->ConstAtten,
+					lightMan.GetLastLight()->LinearAtten,
+					lightMan.GetLastLight()->QuadraticAtten);
 				pDebugSphere->scale = sphereSize;
 				pDebugSphere->debugColour = glm::vec4(1.0f, 1.0f, 0.0f, 1.0f);
 				pDebugSphere->isWireframe = true;
@@ -722,14 +722,14 @@ int main(void)
 			}
 			{   // Draw a sphere at 95% brightness
 				glm::mat4 matModel = glm::mat4(1.0f);
-				pDebugSphere->positionXYZ = lightMan.GetLight(0)->Position;
+				pDebugSphere->positionXYZ = lightMan.GetLastLight()->Position;
 				float sphereSize = pLightHelper->calcApproxDistFromAtten(
 					0.95f,		// 1% brightness (essentially black)
 					0.001f,		// Within 0.1%  
 					100000.0f,	// Will quit when it's at this distance
-					lightMan.GetLight(0)->ConstAtten,
-					lightMan.GetLight(0)->LinearAtten,
-					lightMan.GetLight(0)->QuadraticAtten);
+					lightMan.GetLastLight()->ConstAtten,
+					lightMan.GetLastLight()->LinearAtten,
+					lightMan.GetLastLight()->QuadraticAtten);
 				pDebugSphere->scale = sphereSize;
 				pDebugSphere->debugColour = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
 				pDebugSphere->isWireframe = true;

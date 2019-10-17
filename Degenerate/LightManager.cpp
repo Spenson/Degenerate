@@ -173,7 +173,13 @@ Light* LightManager::GetLight(unsigned index)
 {
 	if (index >= vecLights.size())
 		return nullptr;
-	return this->vecLights[index];
+	LastIndex = index;
+	return this->vecLights[LastIndex];
+}
+
+Light* LightManager::GetLastLight()
+{
+	return this->vecLights[LastIndex];
 }
 
 unsigned LightManager::GetLightCount()

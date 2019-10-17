@@ -18,6 +18,7 @@
 #include "ModelLoader.h"			
 #include "VAOManager.h"		// NEW
 #include "GameObject.h"
+#include "CameraManager.h"
 
 #include "ShaderManager.h"
 
@@ -45,24 +46,7 @@
 
 void DrawObject(glm::mat4 m, GameObject* pCurrentObject, GLint shaderProgID, VAOManager* pVAOManager);
 
-glm::vec3 cameraEye = glm::vec3(0.0, 15.0, -15.0);
-glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0, 0.0f);
-glm::vec3 upVector = glm::vec3(0.0f, 1.0f, 0.0f);
-
-
-
-glm::vec3 sexyLightPosition = glm::vec3(-25.0f, 30.0f, 0.0f);
-float sexyLightConstAtten = 0.0000001f;			// not really used (can turn off and on the light)
-float sexyLightLinearAtten = 0.03f;
-float sexyLightQuadraticAtten = 0.0000001f;
-
-float sexyLightSpotInnerAngle = 5.0f;
-float sexyLightSpotOuterAngle = 7.5f;
-// This is a "normalized" direction
-// (i.e. the length is 1.0f)
-glm::vec3 sexyLightSpotDirection = glm::vec3(0.0f, -1.0f, 0.0f);
-
-bool bLightDebugSheresOn = false;
+bool bLightDebugSheresOn = true;
 
 
 
@@ -74,11 +58,6 @@ std::map<std::string, Mesh> mMeshes;
 LightManager lightMan;
 
 //bool g_BallCollided = false;
-
-// Make a class with a vector of doubles. 
-// Set this vector to all zeros. 
-// Add a method: addTime();
-// Add a method: getAgerage();
 
 
 //global so these are seen by the draw call... TODO: Find a better way if needed
@@ -314,9 +293,9 @@ int main(void)
 		// View matrix
 		v = glm::mat4(1.0f);
 
-		v = glm::lookAt(cameraEye,
-						cameraTarget,
-						upVector);
+		v = glm::lookAt(CameraManager::GetCameraInstance()->GetPosition(),
+						CameraManager::GetCameraInstance()->GetTarget(),
+						CameraManager::GetCameraInstance()->GetUpVector());
 
 
 		glViewport(0, 0, width, height);
@@ -328,29 +307,6 @@ int main(void)
 
 		lightMan.PassLightsToShader();
 
-		// Set the lighting values for the shader. There is only 1 light right now.
-		// uniform vec4 theLights[0].position
-		// uniform vec4 theLights[0].diffuse
-		// uniform vec4 theLights[0].specular
-		// uniform vec4 theLights[0].atten
-		// uniform vec4 theLights[0].direction
-		// uniform vec4 theLights[0].param1
-		// uniform vec4 theLights[0].param2		
-
-//		glUniform4f(L_0_position,
-//					sexyLightPosition.x,
-//					sexyLightPosition.y,
-//					sexyLightPosition.z,
-//					1.0f);
-//		glUniform4f(L_0_diffuse, 1.0f, 1.0f, 1.0f, 1.0f);	// White
-//		glUniform4f(L_0_specular, 1.0f, 1.0f, 1.0f, 1.0f);	// White
-//		glUniform4f(L_0_atten, 0.0f,  // constant attenuation
-//					sexyLightLinearAtten,  // Linear 
-//					sexyLightQuadraticAtten,	// Quadratic 
-//					1000000.0f);	// Distance cut off
-//
-//// Point light:
-//		glUniform4f(L_0_param1, 0.0f /*POINT light*/, 0.0f, 0.0f, 1.0f);
 
 
 		// ********************************************************
@@ -436,19 +392,19 @@ int main(void)
 		// Also set the position of my "eye" (the camera)
 		//uniform vec4 eyeLocation;
 
-		glUniform4f(eyeLocation_UL,
-					cameraEye.x, cameraEye.y, cameraEye.z, 1.0f);
+		/*glUniform4f(eyeLocation_UL,
+					cameraEye.x, cameraEye.y, cameraEye.z, 1.0f);*/
 
 
 		std::stringstream ssTitle;
 		ssTitle
-			<< sexyLightPosition.x << ", "
-			<< sexyLightPosition.y << ", "
-			<< sexyLightPosition.z
+			<< lightMan.GetLight(0)->Position.x << ", "
+			<< lightMan.GetLight(0)->Position.y << ", "
+			<< lightMan.GetLight(0)->Position.z
 			<< "Atten: "
-			<< sexyLightConstAtten << " : "
-			<< sexyLightLinearAtten << " : "
-			<< sexyLightQuadraticAtten;
+			<< lightMan.GetLight(0)->ConstAtten << " : "
+			<< lightMan.GetLight(0)->LinearAtten << " : "
+			<< lightMan.GetLight(0)->QuadraticAtten;
 		glfwSetWindowTitle(window, ssTitle.str().c_str());
 
 
@@ -689,7 +645,7 @@ int main(void)
 		{
 			{// Draw where the light is at
 				glm::mat4 matModel = glm::mat4(1.0f);
-				pDebugSphere->positionXYZ = sexyLightPosition;
+				pDebugSphere->positionXYZ = lightMan.GetLight(0)->Position;
 				pDebugSphere->scale = 0.5f;
 				pDebugSphere->debugColour = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 				pDebugSphere->isWireframe = true;
@@ -700,14 +656,14 @@ int main(void)
 			// Draw spheres to represent the attenuation...
 			{   // Draw a sphere at 1% brightness
 				glm::mat4 matModel = glm::mat4(1.0f);
-				pDebugSphere->positionXYZ = sexyLightPosition;
+				pDebugSphere->positionXYZ = lightMan.GetLight(0)->Position;
 				float sphereSize = pLightHelper->calcApproxDistFromAtten(
 					0.01f,		// 1% brightness (essentially black)
 					0.001f,		// Within 0.1%  
 					100000.0f,	// Will quit when it's at this distance
-					sexyLightConstAtten,
-					sexyLightLinearAtten,
-					sexyLightQuadraticAtten);
+					lightMan.GetLight(0)->ConstAtten,
+					lightMan.GetLight(0)->LinearAtten,
+					lightMan.GetLight(0)->QuadraticAtten);
 				pDebugSphere->scale = sphereSize;
 				pDebugSphere->debugColour = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
 				pDebugSphere->isWireframe = true;
@@ -716,14 +672,14 @@ int main(void)
 			}
 			{   // Draw a sphere at 25% brightness
 				glm::mat4 matModel = glm::mat4(1.0f);
-				pDebugSphere->positionXYZ = sexyLightPosition;
+				pDebugSphere->positionXYZ = lightMan.GetLight(0)->Position;
 				float sphereSize = pLightHelper->calcApproxDistFromAtten(
 					0.25f,		// 1% brightness (essentially black)
 					0.001f,		// Within 0.1%  
 					100000.0f,	// Will quit when it's at this distance
-					sexyLightConstAtten,
-					sexyLightLinearAtten,
-					sexyLightQuadraticAtten);
+					lightMan.GetLight(0)->ConstAtten,
+					lightMan.GetLight(0)->LinearAtten,
+					lightMan.GetLight(0)->QuadraticAtten);
 				pDebugSphere->scale = sphereSize;
 				pDebugSphere->debugColour = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
 				pDebugSphere->isWireframe = true;
@@ -732,14 +688,14 @@ int main(void)
 			}
 			{   // Draw a sphere at 50% brightness
 				glm::mat4 matModel = glm::mat4(1.0f);
-				pDebugSphere->positionXYZ = sexyLightPosition;
+				pDebugSphere->positionXYZ = lightMan.GetLight(0)->Position;
 				float sphereSize = pLightHelper->calcApproxDistFromAtten(
 					0.50f,		// 1% brightness (essentially black)
 					0.001f,		// Within 0.1%  
 					100000.0f,	// Will quit when it's at this distance
-					sexyLightConstAtten,
-					sexyLightLinearAtten,
-					sexyLightQuadraticAtten);
+					lightMan.GetLight(0)->ConstAtten,
+					lightMan.GetLight(0)->LinearAtten,
+					lightMan.GetLight(0)->QuadraticAtten);
 				pDebugSphere->scale = sphereSize;
 				pDebugSphere->debugColour = glm::vec4(0.0f, 1.0f, 1.0f, 1.0f);
 				pDebugSphere->isWireframe = true;
@@ -748,14 +704,14 @@ int main(void)
 			}
 			{   // Draw a sphere at 75% brightness
 				glm::mat4 matModel = glm::mat4(1.0f);
-				pDebugSphere->positionXYZ = sexyLightPosition;
+				pDebugSphere->positionXYZ = lightMan.GetLight(0)->Position;
 				float sphereSize = pLightHelper->calcApproxDistFromAtten(
 					0.75f,		// 1% brightness (essentially black)
 					0.001f,		// Within 0.1%  
 					100000.0f,	// Will quit when it's at this distance
-					sexyLightConstAtten,
-					sexyLightLinearAtten,
-					sexyLightQuadraticAtten);
+					lightMan.GetLight(0)->ConstAtten,
+					lightMan.GetLight(0)->LinearAtten,
+					lightMan.GetLight(0)->QuadraticAtten);
 				pDebugSphere->scale = sphereSize;
 				pDebugSphere->debugColour = glm::vec4(1.0f, 1.0f, 0.0f, 1.0f);
 				pDebugSphere->isWireframe = true;
@@ -764,14 +720,14 @@ int main(void)
 			}
 			{   // Draw a sphere at 95% brightness
 				glm::mat4 matModel = glm::mat4(1.0f);
-				pDebugSphere->positionXYZ = sexyLightPosition;
+				pDebugSphere->positionXYZ = lightMan.GetLight(0)->Position;
 				float sphereSize = pLightHelper->calcApproxDistFromAtten(
 					0.95f,		// 1% brightness (essentially black)
 					0.001f,		// Within 0.1%  
 					100000.0f,	// Will quit when it's at this distance
-					sexyLightConstAtten,
-					sexyLightLinearAtten,
-					sexyLightQuadraticAtten);
+					lightMan.GetLight(0)->ConstAtten,
+					lightMan.GetLight(0)->LinearAtten,
+					lightMan.GetLight(0)->QuadraticAtten);
 				pDebugSphere->scale = sphereSize;
 				pDebugSphere->debugColour = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
 				pDebugSphere->isWireframe = true;

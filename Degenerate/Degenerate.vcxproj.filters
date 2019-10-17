@@ -117,6 +117,9 @@
     <ClCompile Include="FileReaders.cpp">
       <Filter>FileReaders</Filter>
     </ClCompile>
+    <ClCompile Include="CameraManager.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLCommon.h">

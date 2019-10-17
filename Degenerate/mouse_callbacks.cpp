@@ -6,6 +6,8 @@
 #include "GFLW_callbacks.h"
 #include "globals.h"			// for find object
 
+#include "CameraManager.h"
+
 //#include <stdio.h>		// for fprintf()
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
@@ -24,4 +26,29 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 	//pTheBall->positionXYZ = cameraEye;
 
 	return;
+}
+
+bool firstMouse = true;
+float lastX, lastY;
+
+void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+{
+	if (firstMouse)
+	{
+		lastX = xpos;
+		lastY = ypos;
+		firstMouse = false;
+	}
+	float xoffset = xpos - lastX;
+	float yoffset = lastY - ypos;
+	lastX = xpos;
+	lastY = ypos;
+
+	float sensitivity = 0.05;
+	xoffset *= sensitivity;
+	yoffset *= sensitivity;
+
+	CameraManager::GetCameraInstance()->LookUp(yoffset);
+	CameraManager::GetCameraInstance()->LookRight(xoffset);
+
 }

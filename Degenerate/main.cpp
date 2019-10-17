@@ -252,7 +252,8 @@ int main(void)
 	lightMan.InitilizeLightUinformLocations(shaderProgID, "theLights", lightMan.GetLightCount(), lighterrors);
 	//Light* sexyLight = lightMan.GetLight(0);
 
-
+	CameraManager::GetCameraInstance()->SetPosition(glm::vec3(0, 0, 30.f));
+	CameraManager::GetCameraInstance()->LookRight(180);
 
 	while (!glfwWindowShouldClose(window))
 	{

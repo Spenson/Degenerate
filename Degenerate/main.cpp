@@ -43,7 +43,7 @@
 
 #include "FileReaders.h"
 
-
+void LightBuilder(std::string file, LightManager& lightMan, GLint shaderProgID);
 void DrawObject(glm::mat4 m, GameObject* pCurrentObject, GLint shaderProgID, VAOManager* pVAOManager);
 glm::mat4 calculateWorldMatrix(GameObject* pCurrentObject);
 bool bLightDebugSheresOn = false;
@@ -241,15 +241,16 @@ int main(void)
 	bDoNotLight_UL = glGetUniformLocation(shaderProgID, "bDoNotLight");
 	newColour_location = glGetUniformLocation(shaderProgID, "newColour");
 
+	LightBuilder("../assets/config/Lights.xml", lightMan, shaderProgID);
 
-	std::string lighterrors;
+	/*std::string lighterrors;
 
 	std::vector<Light*> templights;
 
 	ReadLightsFromFile("../assets/config/Lights.xml", templights);
 
 	lightMan.GenerateLights(templights);
-	lightMan.InitilizeLightUinformLocations(shaderProgID, "theLights", lightMan.GetLightCount(), lighterrors);
+	lightMan.InitilizeLightUinformLocations(shaderProgID, "theLights", lightMan.GetLightCount(), lighterrors);*/
 	//Light* sexyLight = lightMan.GetLight(0);
 
 	CameraManager::GetCameraInstance()->SetPosition(glm::vec3(0, 0, 30.f));
@@ -766,6 +767,16 @@ int main(void)
 	exit(EXIT_SUCCESS);
 }
 
+void LightBuilder(std::string file, LightManager& lightMan, GLint shaderProgID)
+{
+	std::string lighterrors;
+	std::vector<Light*> templights;
+
+	ReadLightsFromFile(file, templights);
+
+	lightMan.GenerateLights(templights);
+	lightMan.InitilizeLightUinformLocations(shaderProgID, "theLights", lightMan.GetLightCount(), lighterrors);
+}
 
 void DrawObject(glm::mat4 m,
 				GameObject* pCurrentObject,

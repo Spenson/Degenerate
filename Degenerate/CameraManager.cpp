@@ -6,11 +6,11 @@ CameraManager* CameraManager::pManager = nullptr;
 
 CameraManager::CameraManager()
 {
-	yaw = 0;
-	pitch = 0;
+	yaw = 90.0f;
+	pitch = 0.0f;
 	cameraPos = glm::vec3(0.0f);
 	cameraFront = glm::vec3(0.0f, 0.0f, 1.0f);
-
+	UpdateFront();
 }
 
 void CameraManager::UpdateFront()

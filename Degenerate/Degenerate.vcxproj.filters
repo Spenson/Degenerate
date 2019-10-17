@@ -52,6 +52,9 @@
     <Filter Include="Configs">
       <UniqueIdentifier>{17f26d51-6578-4abc-8e1b-98e43df82319}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LowPassFilter">
+      <UniqueIdentifier>{23d1223f-7e8d-4c63-8743-bb3d2785a393}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui.cpp">
@@ -120,6 +123,9 @@
     <ClCompile Include="CameraManager.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
+    <ClCompile Include="cLowPassFilter.cpp">
+      <Filter>LowPassFilter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLCommon.h">
@@ -166,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="CameraManager.h">
       <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="cLowPassFilter.h">
+      <Filter>LowPassFilter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

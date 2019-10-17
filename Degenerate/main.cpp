@@ -45,7 +45,7 @@
 
 
 void DrawObject(glm::mat4 m, GameObject* pCurrentObject, GLint shaderProgID, VAOManager* pVAOManager);
-
+glm::mat4 calculateWorldMatrix(GameObject* pCurrentObject);
 bool bLightDebugSheresOn = true;
 
 
@@ -85,7 +85,7 @@ int main(void)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
-	window = glfwCreateWindow(640, 480, "Simple example", NULL, NULL);
+	window = glfwCreateWindow(1280, 720, "Simple example", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
@@ -241,7 +241,7 @@ int main(void)
 	bDoNotLight_UL = glGetUniformLocation(shaderProgID, "bDoNotLight");
 	newColour_location = glGetUniformLocation(shaderProgID, "newColour");
 
-	
+
 	std::string lighterrors;
 
 	std::vector<Light*> templights;
@@ -392,8 +392,10 @@ int main(void)
 		// Also set the position of my "eye" (the camera)
 		//uniform vec4 eyeLocation;
 
-		/*glUniform4f(eyeLocation_UL,
-					cameraEye.x, cameraEye.y, cameraEye.z, 1.0f);*/
+		glUniform4f(eyeLocation_UL,
+					CameraManager::GetCameraInstance()->GetPosition().x, 
+					CameraManager::GetCameraInstance()->GetPosition().y, 
+					CameraManager::GetCameraInstance()->GetPosition().z, 1.0f);
 
 
 		std::stringstream ssTitle;
@@ -770,50 +772,47 @@ void DrawObject(glm::mat4 m,
 				VAOManager* pVAOManager)
 {
 	// mat4x4_identity(m);
-	m = glm::mat4(1.0f);
+	m = calculateWorldMatrix(pCurrentObject); glm::mat4(1.0f);
 
 
 
-	// ******* TRANSLATION TRANSFORM *********
-	glm::mat4 matTrans
-		= glm::translate(glm::mat4(1.0f),
-						 glm::vec3(pCurrentObject->positionXYZ.x,
-								   pCurrentObject->positionXYZ.y,
-								   pCurrentObject->positionXYZ.z));
-	m = m * matTrans;
-	// ******* TRANSLATION TRANSFORM *********
+	//// ******* TRANSLATION TRANSFORM *********
+	//glm::mat4 matTrans
+	//	= glm::translate(glm::mat4(1.0f),
+	//					 glm::vec3(pCurrentObject->positionXYZ.x,
+	//							   pCurrentObject->positionXYZ.y,
+	//							   pCurrentObject->positionXYZ.z));
+	//m = m * matTrans;
+	//// ******* TRANSLATION TRANSFORM *********
 
 
 
-	// ******* ROTATION TRANSFORM *********
-	//mat4x4_rotate_Z(m, m, (float) glfwGetTime());
-	glm::mat4 rotateZ = glm::rotate(glm::mat4(1.0f),
-									pCurrentObject->rotationXYZ.z,					// Angle 
-									glm::vec3(0.0f, 0.0f, 1.0f));
-	m = m * rotateZ;
+	//// ******* ROTATION TRANSFORM *********
+	////mat4x4_rotate_Z(m, m, (float) glfwGetTime());
+	//glm::mat4 rotateZ = glm::rotate(glm::mat4(1.0f),
+	//								pCurrentObject->rotationXYZ.z,					// Angle 
+	//								glm::vec3(0.0f, 0.0f, 1.0f));
+	//m = m * rotateZ;
 
-	glm::mat4 rotateY = glm::rotate(glm::mat4(1.0f),
-									pCurrentObject->rotationXYZ.y,	//(float)glfwGetTime(),					// Angle 
-									glm::vec3(0.0f, 1.0f, 0.0f));
-	m = m * rotateY;
+	//glm::mat4 rotateY = glm::rotate(glm::mat4(1.0f),
+	//								pCurrentObject->rotationXYZ.y,	//(float)glfwGetTime(),					// Angle 
+	//								glm::vec3(0.0f, 1.0f, 0.0f));
+	//m = m * rotateY;
 
-	glm::mat4 rotateX = glm::rotate(glm::mat4(1.0f),
-									pCurrentObject->rotationXYZ.x,	// (float)glfwGetTime(),					// Angle 
-									glm::vec3(1.0f, 0.0f, 0.0f));
-	m = m * rotateX;
-	// ******* ROTATION TRANSFORM *********
+	//glm::mat4 rotateX = glm::rotate(glm::mat4(1.0f),
+	//								pCurrentObject->rotationXYZ.x,	// (float)glfwGetTime(),					// Angle 
+	//								glm::vec3(1.0f, 0.0f, 0.0f));
+	//m = m * rotateX;
+	//// ******* ROTATION TRANSFORM *********
 
 
-	glm::mat4 matModelInverseTranspose = glm::inverse(glm::transpose(m));
-	glUniformMatrix4fv(matModelIT_UL, 1, GL_FALSE, glm::value_ptr(matModelInverseTranspose));
-
-	// ******* SCALE TRANSFORM *********
-	glm::mat4 scale = glm::scale(glm::mat4(1.0f),
-								 glm::vec3(pCurrentObject->scale,
-										   pCurrentObject->scale,
-										   pCurrentObject->scale));
-	m = m * scale;
-	// ******* SCALE TRANSFORM *********
+	//// ******* SCALE TRANSFORM *********
+	//glm::mat4 scale = glm::scale(glm::mat4(1.0f),
+	//							 glm::vec3(pCurrentObject->scale,
+	//									   pCurrentObject->scale,
+	//									   pCurrentObject->scale));
+	//m = m * scale;
+	//// ******* SCALE TRANSFORM *********
 
 
 
@@ -842,6 +841,8 @@ void DrawObject(glm::mat4 m,
 	// Because the normal is only a direction, really
 
 
+	glm::mat4 matModelInverseTranspose = glm::inverse(glm::transpose(m));
+	glUniformMatrix4fv(matModelIT_UL, 1, GL_FALSE, glm::value_ptr(matModelInverseTranspose));
 
 
 	// Find the location of the uniform variable newColour
@@ -959,4 +960,55 @@ GameObject* pFindObjectByFriendlyNameMap(std::string name)
 {
 	//std::map<std::string, GameObject*> g_map_GameObjectsByFriendlyName;
 	return ::g_map_GameObjectsByFriendlyName[name];
+}
+
+
+// This is JUST the transformation lines from the DrawObject call
+glm::mat4 calculateWorldMatrix(GameObject* pCurrentObject)
+{
+
+	glm::mat4 matWorld = glm::mat4(1.0f);
+
+
+	// ******* TRANSLATION TRANSFORM *********
+	glm::mat4 matTrans
+		= glm::translate(glm::mat4(1.0f),
+						 glm::vec3(pCurrentObject->positionXYZ.x,
+								   pCurrentObject->positionXYZ.y,
+								   pCurrentObject->positionXYZ.z));
+	matWorld = matWorld * matTrans;
+	// ******* TRANSLATION TRANSFORM *********
+
+
+
+	// ******* ROTATION TRANSFORM *********
+	//mat4x4_rotate_Z(m, m, (float) glfwGetTime());
+	glm::mat4 rotateZ = glm::rotate(glm::mat4(1.0f),
+									pCurrentObject->rotationXYZ.z,					// Angle 
+									glm::vec3(0.0f, 0.0f, 1.0f));
+	matWorld = matWorld * rotateZ;
+
+	glm::mat4 rotateY = glm::rotate(glm::mat4(1.0f),
+									pCurrentObject->rotationXYZ.y,	//(float)glfwGetTime(),					// Angle 
+									glm::vec3(0.0f, 1.0f, 0.0f));
+	matWorld = matWorld * rotateY;
+
+	glm::mat4 rotateX = glm::rotate(glm::mat4(1.0f),
+									pCurrentObject->rotationXYZ.x,	// (float)glfwGetTime(),					// Angle 
+									glm::vec3(1.0f, 0.0f, 0.0f));
+	matWorld = matWorld * rotateX;
+	// ******* ROTATION TRANSFORM *********
+
+
+
+	// ******* SCALE TRANSFORM *********
+	glm::mat4 scale = glm::scale(glm::mat4(1.0f),
+								 glm::vec3(pCurrentObject->scale,
+										   pCurrentObject->scale,
+										   pCurrentObject->scale));
+	matWorld = matWorld * scale;
+	// ******* SCALE TRANSFORM *********
+
+
+	return matWorld;
 }

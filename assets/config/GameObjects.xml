@@ -9,7 +9,7 @@
 
       <Colour r="1" g="1" b=".45" a="0.5"/>
       <DiffuseColour r="1" g="1" b="1" a="1"/>
-      <SpecularColour r="1" g="1" b="1" a="1"/>
+      <SpecularColour r="1" g="1" b="1" a="1000"/>
       <DebugColour r="1" g="1" b="1" a="1"/>
       <AmbientDiffuseRatio f="0.5"/>
 
@@ -35,13 +35,13 @@
     <MeshName>deathMesh</MeshName>
     <FriendlyName>death</FriendlyName>
 
-    <Position x="5" y="15" z="5"/>
+    <Position x="5" y="75" z="100"/>
     <Rotation x="0" y="0" z="0"/>
-    <Scale f="2.0"/>
+    <Scale f="15.0"/>
 
     <Colour r=".5" g=".5" b=".5" a="0.5"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r="1" g="0" b="0" a="1000000"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
     <AmbientDiffuseRatio f="0.5"/>
 
@@ -67,13 +67,13 @@
     <MeshName>imperialMesh</MeshName>
     <FriendlyName>imperial</FriendlyName>
 
-    <Position x="2" y="15" z="2"/>
+    <Position x="5" y="40" z="50"/>
     <Rotation x="0" y="0" z="0"/>
-    <Scale f="4.0"/>
+    <Scale f="8.0"/>
 
     <Colour r=".2" g=".6" b=".6" a="0.5"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r="1" g="1" b="1" a="1000"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
     <AmbientDiffuseRatio f="0.5"/>
 
@@ -105,7 +105,7 @@
 
     <Colour r=".42" g=".42" b=".42" a="0.5"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r="1" g="1" b="1" a="1000"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
     <AmbientDiffuseRatio f="0.5"/>
 
@@ -137,7 +137,7 @@
 
     <Colour r="1" g=".42" b=".42" a="0.5"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r="1" g="1" b="1" a="1000"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
     <AmbientDiffuseRatio f="0.5"/>
 
@@ -169,7 +169,7 @@
 
     <Colour r=".42" g="1" b=".42" a="0.5"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r="1" g="1" b="1" a="1000"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
     <AmbientDiffuseRatio f="0.5"/>
 
@@ -201,7 +201,7 @@
 
     <Colour r="1" g="1" b="1" a="0.5"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r="1" g="1" b="1" a="1000"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
     <AmbientDiffuseRatio f="0.5"/>
 
@@ -233,7 +233,7 @@
 
     <Colour r=".666" g=".666" b=".666" a="0.5"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r="1" g="1" b="1" a="1000"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
     <AmbientDiffuseRatio f="0.5"/>
 
@@ -265,7 +265,7 @@
 
     <Colour r=".5" g=".3" b=".6" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r="1" g="1" b="1" a="1000"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
     <AmbientDiffuseRatio f="0.5"/>
 
@@ -298,7 +298,7 @@
 
     <Colour r="1" g=".3" b=".6" a="0.5"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r="1" g="1" b="1" a="1000"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
     <AmbientDiffuseRatio f="0.5"/>
 

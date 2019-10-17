@@ -1,10 +1,10 @@
 <LIGHTS>
   <Light>
-    <Position x="0" y="100" z="0"/>
+    <Position x="0" y="200" z="-75"/>
     <Direction x="4" y="5" z="6"/>
     <Diffuse r="1" g="1" b="1"/>
     <ConstAtten f="0.000001"/>
-    <LinearAtten f="0.01"/>
+    <LinearAtten f="0.003"/>
     <QuadraticAtten f="0.0000000001"/>
     <CutOffDistance f="3.402823466e+38"/>
     <LightType type="0"/>

@@ -53,6 +53,7 @@ vec4 calcualteLightContrib( vec3 vertexMaterialColour, vec3 vertexNormal,
 	 
 void main()  
 {
+
 	if ( bDoNotLight )
 	{
 		pixelColour.rgb = debugColour.rgb;
@@ -66,7 +67,7 @@ void main()
 //	vec4 specColour = vec4(0.0f,0.0f,0.0f,1.0f);// materialColour;
 	
 
-	vec4 outColour = calcualteLightContrib( materialColour.rgb, fNormal.xyz, 
+	vec4 outColour = calcualteLightContrib( materialColour.rgb, normalize(fNormal.xyz), 
 	                                        fVertWorldLocation.xyz, specularColour );
 
 											

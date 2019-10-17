@@ -18,6 +18,7 @@ extern std::vector<GameObject*> g_vec_pGameObjects;
 extern LightManager lightMan;
 bool MouseActive = false;
 double lastCtrlXInput = -1.5;
+extern float lastX, lastY;
 
 bool isShiftKeyDownByAlone(int mods);
 bool isCtrlKeyDownByAlone(int mods);
@@ -205,6 +206,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 				if (!MouseActive)
 				{
 					glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+					glfwSetCursorPos(window, lastX,lastY);
 					glfwSetCursorPosCallback(window, mouse_callback);
 					MouseActive = true;
 				}

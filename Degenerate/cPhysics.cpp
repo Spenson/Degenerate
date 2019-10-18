@@ -239,7 +239,7 @@ bool cPhysics::DoSphereSphereCollisionTest(GameObject* pA, GameObject* pB,
 		reflectionVec = glm::normalize(reflectionVec);
 
 
-		float speed = glm::length(pA->velocity + pB->velocity) * 0.9f;
+		float speed = glm::length(pA->velocity + pB->velocity) * 0.7f;
 
 		collisionInfo.bounceVelocity = glm::vec3(reflectionVec.x , reflectionVec.y , reflectionVec.z ) * speed;
 

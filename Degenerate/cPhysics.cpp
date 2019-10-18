@@ -221,12 +221,34 @@ bool cPhysics::DoSphereSphereCollisionTest(GameObject* pA, GameObject* pB,
 	{
 		collisionInfo.pObject1 = pA;
 		collisionInfo.pObject2 = pB;
+		
+		glm::vec3 midline = pA->velocity - pB->velocity;
 
-		//collisionInfo.closestPoint = glm::distance(pA->positionXYZ, pB->positionXYZ);
-		collisionInfo.penetrationDistance = (combineRadius - seperation) / pB->velocity == glm::vec3(0) ? 1 : 2;
+		glm::vec3 normal = midline * float(1.0 / seperation);
+	
+		collisionInfo.closestPoint = pA->positionXYZ + (midline* 0.5f);
+		collisionInfo.penetrationDistance = (combineRadius - seperation);
 		collisionInfo.directionOfApproach = glm::normalize(pA->velocity);
-
 		collisionInfo.adjustmentVector = (-collisionInfo.directionOfApproach) * collisionInfo.penetrationDistance;
+
+
+		glm::vec3 velocityVector = glm::normalize(pA->velocity);
+
+		// closestTriangle.normal
+		glm::vec3 reflectionVec = glm::reflect(velocityVector, glm::normalize(normal));
+		reflectionVec = glm::normalize(reflectionVec);
+
+		// Get lenght of the velocity vector
+
+
+
+		float speed = glm::length(pA->velocity + pB->velocity);
+
+		collisionInfo.bounceVelocity = glm::vec3(reflectionVec.x , reflectionVec.y , reflectionVec.z ) * speed;
+
+
+
+
 
 		return true;
 	}
@@ -265,11 +287,7 @@ bool cPhysics::DoShphereMeshCollisionTest(GameObject* pA, GameObject* pB,
 
 		collisionInfo.adjustmentVector = (-collisionInfo.directionOfApproach) * collisionInfo.penetrationDistance;
 
-
-
 		glm::vec3 velocityVector = glm::normalize(pA->velocity);
-
-		std::cout << closestTriangle.normal.x << " " << closestTriangle.normal.y << " " << closestTriangle.normal.z << std::endl;
 
 		// closestTriangle.normal
 		glm::vec3 reflectionVec = glm::reflect(velocityVector, glm::normalize(closestTriangle.normal));
@@ -281,7 +299,7 @@ bool cPhysics::DoShphereMeshCollisionTest(GameObject* pA, GameObject* pB,
 
 		float speed = glm::length(pA->velocity);
 
-		collisionInfo.bounceVelocity = glm::vec3(reflectionVec.x * 0.95, reflectionVec.y * 0.9, reflectionVec.z * 0.95) * speed;
+		collisionInfo.bounceVelocity = glm::vec3(reflectionVec.x * 0.9999, reflectionVec.y * 0.9, reflectionVec.z * 0.9999) * speed;
 
 
 		return true;

@@ -32,11 +32,11 @@
   </GameObject>
   <GameObject>
     <MeshName>cube</MeshName>
-    <FriendlyName>cube1</FriendlyName>
+    <FriendlyName>cube2</FriendlyName>
 
     <Position x="0" y="0" z="0"/>
     <Rotation x="-0" y="0" z="0"/>
-    <Scale x="5" y="1" z="5"/>
+    <Scale x="50" y="1" z="50"/>
 
     <Colour r="1" g="0.7" b=".2" a="0.5"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
@@ -65,7 +65,7 @@
     <MeshName>sphere</MeshName>
     <FriendlyName>sphere1</FriendlyName>
 
-    <Position x="0" y="2.1" z="0"/>
+    <Position x="-1.2" y="2.1" z="-1.2"/>
     <Rotation x="0" y="0" z="0"/>
     <Scale x="1" y="1" z="1"/>
 
@@ -75,7 +75,38 @@
     <DebugColour r="1" g="1" b="1" a="1"/>
     <AmbientDiffuseRatio f="0.5"/>
 
-    <Velocity x="-1.0" y="0" z="1"/>
+    <Velocity x="2" y="0" z="1"/>
+    <Acceleration x="0.0" y="-0.0" z="0.0"/>
+    <InverseMass f="1.0"/>
+
+    <PhysicsShapeType type="1"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>sphere</MeshName>
+    <FriendlyName>sphere2</FriendlyName>
+
+    <Position x="1.2" y="2.1" z="1.2"/>
+    <Rotation x="0" y="0" z="0"/>
+    <Scale x="1" y="1" z="1"/>
+
+    <Colour r="1" g="1" b=".45" a="0.5"/>
+    <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r="1" g="1" b="1" a="1000"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="-1" y="0" z="-1"/>
     <Acceleration x="0.0" y="-0.0" z="0.0"/>
     <InverseMass f="1.0"/>
 

@@ -1,55 +1,23 @@
 <GAMEOBJECTS>
-    <GameObject>
-      <MeshName>trenchMesh</MeshName>
-      <FriendlyName>trench</FriendlyName>
-
-      <Position x="0" y="0" z="0"/>
-      <Rotation x="0" y="0" z="0"/>
-      <Scale f="1.0"/>
-
-      <Colour r="1" g="1" b=".45" a="0.5"/>
-      <DiffuseColour r="1" g="1" b="1" a="1"/>
-      <SpecularColour r="1" g="1" b="1" a="1000"/>
-      <DebugColour r="1" g="1" b="1" a="1"/>
-      <AmbientDiffuseRatio f="0.5"/>
-
-      <Velocity x="0.0" y="0" z="0"/>
-      <Acceleration x="0.0" y="-0.0" z="0.0"/>
-      <InverseMass f="1.0"/>
-
-      <PhysicsShapeType type="1"/>
-
-      <AABB>
-        <max x="0.0" y="-2.0" z="-.9"/>
-        <min x="0.0" y="-2.0" z="-.9"/>
-      </AABB>
-      <Radius f="1.0"/>
-
-      <Wireframe b="0"/>
-      <Visible b="1"/>
-      <DisableDepthTest b="0"/>
-      <DisableDepthWrite b="0"/>
-    </GameObject>
-
   <GameObject>
-    <MeshName>deathMesh</MeshName>
-    <FriendlyName>death</FriendlyName>
+    <MeshName>cube</MeshName>
+    <FriendlyName>cube1</FriendlyName>
 
-    <Position x="5" y="75" z="100"/>
+    <Position x="0" y="-2.0" z="0"/>
     <Rotation x="0" y="0" z="0"/>
-    <Scale f="15.0"/>
+    <Scale x="20" y="0.1" z="20"/>
 
-    <Colour r=".5" g=".5" b=".5" a="0.5"/>
+    <Colour r="1" g="1" b=".45" a="0.5"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="0" b="0" a="1000000"/>
+    <SpecularColour r="1" g="1" b="1" a="1000"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
     <AmbientDiffuseRatio f="0.5"/>
 
     <Velocity x="0.0" y="0" z="0"/>
-    <Acceleration x="0.0" y="-0.0" z="0.0"/>
-    <InverseMass f="1.0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
 
-    <PhysicsShapeType type="1"/>
+    <PhysicsShapeType type="4"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -62,247 +30,52 @@
     <DisableDepthTest b="0"/>
     <DisableDepthWrite b="0"/>
   </GameObject>
-
   <GameObject>
-    <MeshName>imperialMesh</MeshName>
-    <FriendlyName>imperial</FriendlyName>
+    <MeshName>cube</MeshName>
+    <FriendlyName>cube1</FriendlyName>
 
-    <Position x="5" y="40" z="50"/>
+    <Position x="0" y="0" z="0"/>
+    <Rotation x="-0" y="0" z="0"/>
+    <Scale x="5" y="1" z="5"/>
+
+    <Colour r="1" g="0.7" b=".2" a="0.5"/>
+    <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r="1" g="1" b="1" a="1000"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="4"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>sphere</MeshName>
+    <FriendlyName>sphere1</FriendlyName>
+
+    <Position x="0" y="2.1" z="0"/>
     <Rotation x="0" y="0" z="0"/>
-    <Scale f="8.0"/>
+    <Scale x="1" y="1" z="1"/>
 
-    <Colour r=".2" g=".6" b=".6" a="0.5"/>
+    <Colour r="1" g="1" b=".45" a="0.5"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r="1" g="1" b="1" a="1000"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
     <AmbientDiffuseRatio f="0.5"/>
 
-    <Velocity x="0.0" y="0" z="0"/>
-    <Acceleration x="0.0" y="-0.0" z="0.0"/>
-    <InverseMass f="1.0"/>
-
-    <PhysicsShapeType type="1"/>
-
-    <AABB>
-      <max x="0.0" y="-2.0" z="-.9"/>
-      <min x="0.0" y="-2.0" z="-.9"/>
-    </AABB>
-    <Radius f="1.0"/>
-
-    <Wireframe b="0"/>
-    <Visible b="1"/>
-    <DisableDepthTest b="0"/>
-    <DisableDepthWrite b="0"/>
-  </GameObject>
-
-  <GameObject>
-    <MeshName>xMesh</MeshName>
-    <FriendlyName>xwing1</FriendlyName>
-
-    <Position x="1" y="1" z="1"/>
-    <Rotation x="0" y="0" z="0"/>
-    <Scale f="2.0"/>
-
-    <Colour r=".42" g=".42" b=".42" a="0.5"/>
-    <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="1" b="1" a="1000"/>
-    <DebugColour r="1" g="1" b="1" a="1"/>
-    <AmbientDiffuseRatio f="0.5"/>
-
-    <Velocity x="0.0" y="0" z="0"/>
-    <Acceleration x="0.0" y="-0.0" z="0.0"/>
-    <InverseMass f="1.0"/>
-
-    <PhysicsShapeType type="1"/>
-
-    <AABB>
-      <max x="0.0" y="-2.0" z="-.9"/>
-      <min x="0.0" y="-2.0" z="-.9"/>
-    </AABB>
-    <Radius f="1.0"/>
-
-    <Wireframe b="0"/>
-    <Visible b="1"/>
-    <DisableDepthTest b="0"/>
-    <DisableDepthWrite b="0"/>
-  </GameObject>
-
-  <GameObject>
-    <MeshName>xMesh</MeshName>
-    <FriendlyName>xwing2</FriendlyName>
-
-    <Position x="10" y="15" z="5"/>
-    <Rotation x=".2" y=".3" z=".5"/>
-    <Scale f="2.0"/>
-
-    <Colour r="1" g=".42" b=".42" a="0.5"/>
-    <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="1" b="1" a="1000"/>
-    <DebugColour r="1" g="1" b="1" a="1"/>
-    <AmbientDiffuseRatio f="0.5"/>
-
-    <Velocity x="0.0" y="0" z="0"/>
-    <Acceleration x="0.0" y="-0.0" z="0.0"/>
-    <InverseMass f="1.0"/>
-
-    <PhysicsShapeType type="1"/>
-
-    <AABB>
-      <max x="0.0" y="-2.0" z="-.9"/>
-      <min x="0.0" y="-2.0" z="-.9"/>
-    </AABB>
-    <Radius f="1.0"/>
-
-    <Wireframe b="0"/>
-    <Visible b="1"/>
-    <DisableDepthTest b="0"/>
-    <DisableDepthWrite b="0"/>
-  </GameObject>
-
-  <GameObject>
-    <MeshName>xMesh</MeshName>
-    <FriendlyName>xwing3</FriendlyName>
-
-    <Position x="-10" y="15" z="5"/>
-    <Rotation x=".2" y=".3" z=".5"/>
-    <Scale f="3.0"/>
-
-    <Colour r=".42" g="1" b=".42" a="0.5"/>
-    <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="1" b="1" a="1000"/>
-    <DebugColour r="1" g="1" b="1" a="1"/>
-    <AmbientDiffuseRatio f="0.5"/>
-
-    <Velocity x="0.0" y="0" z="0"/>
-    <Acceleration x="0.0" y="-0.0" z="0.0"/>
-    <InverseMass f="1.0"/>
-
-    <PhysicsShapeType type="1"/>
-
-    <AABB>
-      <max x="0.0" y="-2.0" z="-.9"/>
-      <min x="0.0" y="-2.0" z="-.9"/>
-    </AABB>
-    <Radius f="1.0"/>
-
-    <Wireframe b="0"/>
-    <Visible b="1"/>
-    <DisableDepthTest b="0"/>
-    <DisableDepthWrite b="0"/>
-  </GameObject>
-
-  <GameObject>
-    <MeshName>yMesh</MeshName>
-    <FriendlyName>ywing1</FriendlyName>
-
-    <Position x="0" y="5" z="0"/>
-    <Rotation x="0" y="0" z="0"/>
-    <Scale f="1.0"/>
-
-    <Colour r="1" g="1" b="1" a="0.5"/>
-    <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="1" b="1" a="1000"/>
-    <DebugColour r="1" g="1" b="1" a="1"/>
-    <AmbientDiffuseRatio f="0.5"/>
-
-    <Velocity x="0.0" y="0" z="0"/>
-    <Acceleration x="0.0" y="-0.0" z="0.0"/>
-    <InverseMass f="1.0"/>
-
-    <PhysicsShapeType type="1"/>
-
-    <AABB>
-      <max x="0.0" y="-2.0" z="-.9"/>
-      <min x="0.0" y="-2.0" z="-.9"/>
-    </AABB>
-    <Radius f="1.0"/>
-
-    <Wireframe b="0"/>
-    <Visible b="1"/>
-    <DisableDepthTest b="0"/>
-    <DisableDepthWrite b="0"/>
-  </GameObject>
-
-  <GameObject>
-    <MeshName>yMesh</MeshName>
-    <FriendlyName>ywing2</FriendlyName>
-
-    <Position x="5" y="5" z="0"/>
-    <Rotation x="0" y="0" z="0"/>
-    <Scale f="1.0"/>
-
-    <Colour r=".666" g=".666" b=".666" a="0.5"/>
-    <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="1" b="1" a="1000"/>
-    <DebugColour r="1" g="1" b="1" a="1"/>
-    <AmbientDiffuseRatio f="0.5"/>
-
-    <Velocity x="0.0" y="0" z="0"/>
-    <Acceleration x="0.0" y="-0.0" z="0.0"/>
-    <InverseMass f="1.0"/>
-
-    <PhysicsShapeType type="1"/>
-
-    <AABB>
-      <max x="0.0" y="-2.0" z="-.9"/>
-      <min x="0.0" y="-2.0" z="-.9"/>
-    </AABB>
-    <Radius f="1.0"/>
-
-    <Wireframe b="0"/>
-    <Visible b="1"/>
-    <DisableDepthTest b="0"/>
-    <DisableDepthWrite b="0"/>
-  </GameObject>
-
-  <GameObject>
-    <MeshName>yMesh</MeshName>
-    <FriendlyName>ywing3</FriendlyName>
-
-    <Position x="-5" y="5" z="0"/>
-    <Rotation x="0" y="0" z="0"/>
-    <Scale f="5.0"/>
-
-    <Colour r=".5" g=".3" b=".6" a="1"/>
-    <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="1" b="1" a="1000"/>
-    <DebugColour r="1" g="1" b="1" a="1"/>
-    <AmbientDiffuseRatio f="0.5"/>
-
-    <Velocity x="0.0" y="0" z="0"/>
-    <Acceleration x="0.0" y="-0.0" z="0.0"/>
-    <InverseMass f="1.0"/>
-
-    <PhysicsShapeType type="1"/>
-
-    <AABB>
-      <max x="0.0" y="-2.0" z="-.9"/>
-      <min x="0.0" y="-2.0" z="-.9"/>
-    </AABB>
-    <Radius f="1.0"/>
-
-    <Wireframe b="0"/>
-    <Visible b="1"/>
-    <DisableDepthTest b="0"/>
-    
-    <DisableDepthWrite b="0"/>
-  </GameObject>
-
-  <GameObject>
-    <MeshName>yMesh</MeshName>
-    <FriendlyName>ywing4</FriendlyName>
-
-    <Position x="-2.5" y="7.5" z="5"/>
-    <Rotation x=".3" y=".6" z=".2"/>
-    <Scale f="3.0"/>
-
-    <Colour r="1" g=".3" b=".6" a="0.5"/>
-    <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="1" b="1" a="1000"/>
-    <DebugColour r="1" g="1" b="1" a="1"/>
-    <AmbientDiffuseRatio f="0.5"/>
-
-    <Velocity x="0.0" y="0" z="0"/>
+    <Velocity x="-1.0" y="0" z="1"/>
     <Acceleration x="0.0" y="-0.0" z="0.0"/>
     <InverseMass f="1.0"/>
 

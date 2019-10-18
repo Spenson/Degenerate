@@ -31,7 +31,7 @@
 #include "PhysicsStuff.h"
 #include "cPhysics.h"
 
-//#include "cLowPassFilter.h"
+#include "cLowPassFilter.h"
 //#include "DebugRenderer/cDebugRenderer.h"
 
 // Used to visualize the attenuation of the lights...
@@ -173,6 +173,15 @@ int main(void)
 
 
 	ReadGameObjectsFromFile("../assets/config/GameObjects.xml", ::g_vec_pGameObjects, true);
+	
+	for (unsigned int index = 0;
+		 index != ::g_vec_pGameObjects.size(); index++)
+	{
+		if (::g_vec_pGameObjects[index]->physicsShapeType == MESH)
+		{
+			::g_vec_pGameObjects[index]->matWorld = calculateWorldMatrix(::g_vec_pGameObjects[index]);
+		}
+	}
 
 
 	// Will be moved placed around the scene
@@ -181,7 +190,7 @@ int main(void)
 	pDebugSphere->friendlyName = "debug_sphere";
 	pDebugSphere->positionXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
 	pDebugSphere->rotationXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
-	pDebugSphere->scale = 0.1f;
+	pDebugSphere->scale = glm::vec3(0.1f);
 	//	pDebugSphere->objectColourRGBA = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
 	pDebugSphere->debugColour = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
 	pDebugSphere->isWireframe = true;
@@ -189,11 +198,6 @@ int main(void)
 
 
 
-
-	//veGameObjects.push_back(pirate);			// veGameObjects[0]
-	//veGameObjects.push_back(bunny);		
-	//veGameObjects.push_back(bunny2);
-//	veGameObjects.push_back(terrain);
 
 	//mat4x4_ortho(p, -ratio, ratio, -1.f, 1.f, 1.f, -1.f);
 
@@ -207,7 +211,7 @@ int main(void)
 
 	cPhysics* pPhsyics = new cPhysics();
 
-	//cLowPassFilter avgDeltaTimeThingy;
+	cLowPassFilter avgDeltaTimeThingy;
 
 
 	LightHelper* pLightHelper = new LightHelper();
@@ -271,7 +275,7 @@ int main(void)
 			deltaTime = SOME_HUGE_TIME;
 		}
 
-		//avgDeltaTimeThingy.addValue(deltaTime);
+		avgDeltaTimeThingy.addValue(deltaTime);
 
 
 		glUseProgram(shaderProgID);
@@ -315,14 +319,14 @@ int main(void)
 
 		// Vec4 = mat4x4 * vec4				vertFinal = matModel * vertStart;
 
-		GameObject* pPirate = pFindObjectByFriendlyName("PirateShip");
+		//GameObject* pPirate = pFindObjectByFriendlyName("PirateShip");
 
 		//glm::mat4 matRotY = glm::rotate(glm::mat4(1.0f),
 		//								pPirate->HACK_AngleAroundYAxis,	//(float)glfwGetTime(),					// Angle 
 		//								glm::vec3(0.0f, 1.0f, 0.0f));
 
 		// Assume the ship is at 0,0,0
-		glm::vec4 frontOfShip = glm::vec4(0.0f, 0.0f, -1.0f, 1.0f);	// pointing to the "front" of the ship
+		//glm::vec4 frontOfShip = glm::vec4(0.0f, 0.0f, -1.0f, 1.0f);	// pointing to the "front" of the ship
 
 		// Vec4 = mat4x4 * vec4				vertFinal = matModel * vertStart;
 		//glm::vec4 frontOfShipInWorld = matRotY * frontOfShip;
@@ -399,16 +403,16 @@ int main(void)
 					CameraManager::GetCameraInstance()->GetPosition().z, 1.0f);
 
 
-		std::stringstream ssTitle;
-		ssTitle
-			<< lightMan.GetLastLight()->Position.x << ", "
-			<< lightMan.GetLastLight()->Position.y << ", "
-			<< lightMan.GetLastLight()->Position.z
-			<< "Atten: "
-			<< lightMan.GetLastLight()->ConstAtten << " : "
-			<< lightMan.GetLastLight()->LinearAtten << " : "
-			<< lightMan.GetLastLight()->QuadraticAtten;
-		glfwSetWindowTitle(window, ssTitle.str().c_str());
+		//std::stringstream ssTitle;
+		//ssTitle
+		//	<< lightMan.GetLastLight()->Position.x << ", "
+		//	<< lightMan.GetLastLight()->Position.y << ", "
+		//	<< lightMan.GetLastLight()->Position.z
+		//	<< "Atten: "
+		//	<< lightMan.GetLastLight()->ConstAtten << " : "
+		//	<< lightMan.GetLastLight()->LinearAtten << " : "
+		//	<< lightMan.GetLastLight()->QuadraticAtten;
+		//glfwSetWindowTitle(window, ssTitle.str().c_str());
 
 
 		glUniformMatrix4fv(matView_UL, 1, GL_FALSE, glm::value_ptr(v));
@@ -439,9 +443,10 @@ int main(void)
 
 //		pPhsyics->IntegrationStep(::g_vec_pGameObjects, 0.01f);
 //		pPhsyics->IntegrationStep(::g_vec_pGameObjects, (float)deltaTime);
-		//double averageDeltaTime = avgDeltaTimeThingy.getAverage();
-		//pPhsyics->IntegrationStep(::g_vec_pGameObjects, (float)averageDeltaTime);
-
+		double averageDeltaTime = avgDeltaTimeThingy.getAverage();
+		pPhsyics->IntegrationStep(::g_vec_pGameObjects, (float)averageDeltaTime);
+		pPhsyics->TestForCollisions(::g_vec_pGameObjects);
+		pPhsyics->ProcessCollisions();
 		// Let's draw all the closest points to the sphere
 		// on the terrain mesh....
 		// 
@@ -452,8 +457,8 @@ int main(void)
 
 		//**********************************************************
 		//**********************************************************
-		glm::vec3 closestPoint = glm::vec3(0.0f, 0.0f, 0.0f);
-		cPhysics::sPhysicsTriangle closestTriangle;
+		//glm::vec3 closestPoint = glm::vec3(0.0f, 0.0f, 0.0f);
+		//cPhysics::sPhysicsTriangle closestTriangle;
 
 		//pPhsyics->GetClosestTriangleToPoint(pShpere->positionXYZ, mMeshes["largeBunnyMesh"], closestPoint, closestTriangle);
 
@@ -466,11 +471,11 @@ int main(void)
 		// Highlight the triangle that I'm closest to
 		// To draw the normal, calculate the average of the 3 vertices, 
 		// then draw that average + the normal (the normal starts at the 0,0,0 OF THE TRIANGLE)
-		glm::vec3 centreOfTriangle = (closestTriangle.verts[0] +
-									  closestTriangle.verts[1] +
-									  closestTriangle.verts[2]) / 3.0f;		// Average
+		//glm::vec3 centreOfTriangle = (closestTriangle.verts[0] +
+		//							  closestTriangle.verts[1] +
+		//							  closestTriangle.verts[2]) / 3.0f;		// Average
 
-		glm::vec3 normalInWorld = centreOfTriangle + (closestTriangle.normal * 20.0f);	// Normal x 10 length
+		//glm::vec3 normalInWorld = centreOfTriangle + (closestTriangle.normal * 20.0f);	// Normal x 10 length
 
 		//pDebugRenderer->addLine(centreOfTriangle,
 		//						normalInWorld,
@@ -517,11 +522,11 @@ int main(void)
 
 
 
-		bool DidBallCollideWithGround = false;
+		//bool DidBallCollideWithGround = false;
 		//HACK_BounceOffSomePlanes(pShpere, DidBallCollideWithGround);
 
 		// A more general 
-		pPhsyics->TestForCollisions(::g_vec_pGameObjects);
+		//pPhsyics->TestForCollisions(::g_vec_pGameObjects);
 
 
 
@@ -649,7 +654,7 @@ int main(void)
 			{// Draw where the light is at
 				glm::mat4 matModel = glm::mat4(1.0f);
 				pDebugSphere->positionXYZ = lightMan.GetLastLight()->Position;
-				pDebugSphere->scale = 0.5f;
+				pDebugSphere->scale = glm::vec3(0.5f);
 				pDebugSphere->debugColour = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 				pDebugSphere->isWireframe = true;
 				DrawObject(matModel, pDebugSphere,
@@ -667,7 +672,7 @@ int main(void)
 					lightMan.GetLastLight()->ConstAtten,
 					lightMan.GetLastLight()->LinearAtten,
 					lightMan.GetLastLight()->QuadraticAtten);
-				pDebugSphere->scale = sphereSize;
+				pDebugSphere->scale = glm::vec3(sphereSize);
 				pDebugSphere->debugColour = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
 				pDebugSphere->isWireframe = true;
 				DrawObject(matModel, pDebugSphere,
@@ -683,7 +688,7 @@ int main(void)
 					lightMan.GetLastLight()->ConstAtten,
 					lightMan.GetLastLight()->LinearAtten,
 					lightMan.GetLastLight()->QuadraticAtten);
-				pDebugSphere->scale = sphereSize;
+				pDebugSphere->scale = glm::vec3(sphereSize);
 				pDebugSphere->debugColour = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
 				pDebugSphere->isWireframe = true;
 				DrawObject(matModel, pDebugSphere,
@@ -699,7 +704,7 @@ int main(void)
 					lightMan.GetLastLight()->ConstAtten,
 					lightMan.GetLastLight()->LinearAtten,
 					lightMan.GetLastLight()->QuadraticAtten);
-				pDebugSphere->scale = sphereSize;
+				pDebugSphere->scale = glm::vec3(sphereSize);
 				pDebugSphere->debugColour = glm::vec4(0.0f, 1.0f, 1.0f, 1.0f);
 				pDebugSphere->isWireframe = true;
 				DrawObject(matModel, pDebugSphere,
@@ -715,7 +720,7 @@ int main(void)
 					lightMan.GetLastLight()->ConstAtten,
 					lightMan.GetLastLight()->LinearAtten,
 					lightMan.GetLastLight()->QuadraticAtten);
-				pDebugSphere->scale = sphereSize;
+				pDebugSphere->scale = glm::vec3(sphereSize);
 				pDebugSphere->debugColour = glm::vec4(1.0f, 1.0f, 0.0f, 1.0f);
 				pDebugSphere->isWireframe = true;
 				DrawObject(matModel, pDebugSphere,
@@ -731,7 +736,7 @@ int main(void)
 					lightMan.GetLastLight()->ConstAtten,
 					lightMan.GetLastLight()->LinearAtten,
 					lightMan.GetLastLight()->QuadraticAtten);
-				pDebugSphere->scale = sphereSize;
+				pDebugSphere->scale = glm::vec3(sphereSize);
 				pDebugSphere->debugColour = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
 				pDebugSphere->isWireframe = true;
 				DrawObject(matModel, pDebugSphere,
@@ -1004,9 +1009,9 @@ glm::mat4 calculateWorldMatrix(GameObject* pCurrentObject)
 
 	// ******* SCALE TRANSFORM *********
 	glm::mat4 scale = glm::scale(glm::mat4(1.0f),
-								 glm::vec3(pCurrentObject->scale,
-										   pCurrentObject->scale,
-										   pCurrentObject->scale));
+								 glm::vec3(pCurrentObject->scale.x,
+										   pCurrentObject->scale.y,
+										   pCurrentObject->scale.z));
 	matWorld = matWorld * scale;
 	// ******* SCALE TRANSFORM *********
 

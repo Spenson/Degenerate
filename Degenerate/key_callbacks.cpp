@@ -19,6 +19,7 @@ extern LightManager lightMan;
 bool MouseActive = false;
 extern float lastX, lastY;
 unsigned SelecetedLight = 0;
+extern glm::mat4 calculateWorldMatrix(GameObject* pCurrentObject);
 
 bool isShiftKeyDownByAlone(int mods);
 bool isCtrlKeyDownByAlone(int mods);
@@ -240,6 +241,14 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		if (key == GLFW_KEY_Z)
 		{
 			ReadGameObjectsFromFile("../assets/config/GameObjects.xml", ::g_vec_pGameObjects, true);
+			for (unsigned int index = 0;
+				 index != ::g_vec_pGameObjects.size(); index++)
+			{
+				if (::g_vec_pGameObjects[index]->physicsShapeType == MESH)
+				{
+					::g_vec_pGameObjects[index]->matWorld = calculateWorldMatrix(::g_vec_pGameObjects[index]);
+				}
+			}
 			std::vector<Light*> templights;
 			ReadLightsFromFile("../assets/config/Lights.xml", templights, true);
 			lightMan.GenerateLights(templights);

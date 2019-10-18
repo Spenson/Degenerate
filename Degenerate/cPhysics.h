@@ -6,6 +6,7 @@
 #include <glm/glm.hpp>
 #include <glm/vec3.hpp>
 #include <vector>
+#include <map>
 
 class cPhysics
 {
@@ -34,8 +35,9 @@ public:
 		glm::vec3 directionOfApproach;
 		float penetrationDistance;
 		glm::vec3 adjustmentVector;
-		unsigned int Object1_ID;		// Shpere
-		unsigned int Object2_ID;		// Sphere or Triangle
+		glm::vec3 bounceVelocity;
+		GameObject* pObject1;		// Shpere
+		GameObject* pObject2;		// Sphere or Triangle
 	};
 	
 	// This "moves" the objects based on the inegration step
@@ -56,8 +58,11 @@ public:
 	Point ClosestPtPointTriangle(Point p, Point a, Point b, Point c);
 	int TestSphereTriangle(Sphere s, Point a, Point b, Point c, Point& p);
 
+	void ProcessCollisions(void);
+
 	void setGravity( glm::vec3 newGravityValue );
 	glm::vec3 getGravity(void);
+
 
 private:
 
@@ -67,7 +72,9 @@ private:
 									  sCollisionInfo &collisionInfo );
 	bool DoShphereMeshCollisionTest( GameObject* pA, GameObject* pB,
 									 sCollisionInfo &collisionInfo );
-
+	void CalculateTransformedMesh(Mesh& originalMesh, glm::mat4 matWorld,
+							 Mesh& mesh_transformedInWorld);
+	std::map<std::string, std::vector<sCollisionInfo>> mapCollisions;
 
 	glm::vec3  m_Gravity;
 

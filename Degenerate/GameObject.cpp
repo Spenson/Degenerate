@@ -2,7 +2,7 @@
 
 GameObject::GameObject()
 {
-	this->scale = 0.0f;
+	this->scale = glm::vec3(0.0f, 0.0f, 0.0f);
 	this->isVisible = true;
 
 	this->isWireframe = false;

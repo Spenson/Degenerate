@@ -85,7 +85,7 @@ void ReadGameObjectsFromFile(std::string File, std::vector<GameObject*>& vecGame
 		object->positionXYZ = GetXYZ(objectElement->FirstChildElement("Position"));
 		object->rotationXYZ = GetXYZ(objectElement->FirstChildElement("Rotation"));
 
-		object->scale = objectElement->FirstChildElement("Scale")->FindAttribute("f")->FloatValue();
+		object->scale = GetXYZ(objectElement->FirstChildElement("Scale"));
 
 		object->objectColourRGBA = GetRGBA(objectElement->FirstChildElement("Colour"));
 		object->diffuseColour = GetRGBA(objectElement->FirstChildElement("DiffuseColour"));
@@ -133,8 +133,7 @@ void WriteGameObjectsToFile(std::string File, std::vector<GameObject*> vecGameOb
 
 		insertAttributes(newObjectElement->InsertEndChild(new_xml_doc.NewElement("Position")), object->positionXYZ);
 		insertAttributes(newObjectElement->InsertEndChild(new_xml_doc.NewElement("Rotation")), object->rotationXYZ);
-
-		((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(new_xml_doc.NewElement("Scale")))->SetAttribute("f", object->scale);
+		insertAttributes(newObjectElement->InsertEndChild(new_xml_doc.NewElement("Scale")), object->scale);
 
 		insertAttributes(newObjectElement->InsertEndChild(new_xml_doc.NewElement("Colour")), object->objectColourRGBA);
 		insertAttributes(newObjectElement->InsertEndChild(new_xml_doc.NewElement("DiffuseColour")), object->diffuseColour);

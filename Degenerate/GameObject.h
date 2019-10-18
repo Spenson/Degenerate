@@ -18,6 +18,7 @@ class GameObject
 {
 public:
 	GameObject();
+	
 	// Used to draw this mesh
 	std::string meshName;			//"Pirate"
 
@@ -27,7 +28,7 @@ public:
 
 	glm::vec3  positionXYZ;
 	glm::vec3  rotationXYZ;
-	float scale;
+	glm::vec3  scale;
 
 	glm::mat4 matWorld;
 
@@ -42,24 +43,12 @@ public:
 	float ambientToDiffuseRatio;
 
 
-
 	// Add some physics things
 	glm::vec3 velocity;
 	glm::vec3 accel;
 
-	// For driving the ship around
-	//float HACK_speed;
-	//float HACK_AngleAroundYAxis;		// Angle, around the y axis
-
-
-	// If the object has an inverse mass of 0.0
-	//	then it's not updated by the physics code
 	float inverseMass;	// 0.0f = Doesn't move
 
-	//bool bIsDynamic;
-
-	// We could contain another class or struct with the phsyics stuff
-	// or we could use this type to determine what we need to check.
 	ShapeTypes physicsShapeType;
 	// 
 	glm::vec3 AABB_min, AABB_max;

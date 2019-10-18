@@ -68,3 +68,4 @@ int cPhysics::TestSphereTriangle(Sphere s, Point a, Point b, Point c, Point& p)
 }
 
 
+

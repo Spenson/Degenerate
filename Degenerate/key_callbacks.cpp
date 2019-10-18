@@ -24,13 +24,50 @@ extern glm::mat4 calculateWorldMatrix(GameObject* pCurrentObject);
 bool isShiftKeyDownByAlone(int mods);
 bool isCtrlKeyDownByAlone(int mods);
 
+
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 
 	const float CAMERASPEED = 0.5f;
+	const float MOVEMENTSPEED = 0.2f;
 
 	if (!isShiftKeyDownByAlone(mods) && !isCtrlKeyDownByAlone(mods))
 	{
+
+		if (key == GLFW_KEY_UP)
+		{
+			glm::vec3 balldir = CameraManager::GetCameraInstance()->GetTarget() - CameraManager::GetCameraInstance()->GetPosition();
+			balldir.y = 0;
+			balldir = glm::normalize(balldir);
+			//pFindObjectByFriendlyName("sphere1")->velocity = glm::vec3(0.0f, pFindObjectByFriendlyName("sphere1")->velocity.y, 0.0f);
+			pFindObjectByFriendlyName("sphere1")->velocity += (MOVEMENTSPEED* balldir);
+		}
+		if (key == GLFW_KEY_DOWN)
+		{
+			glm::vec3 balldir = CameraManager::GetCameraInstance()->GetTarget() - CameraManager::GetCameraInstance()->GetPosition();
+			balldir.y = 0;
+			balldir = glm::normalize(balldir);
+			//pFindObjectByFriendlyName("sphere1")->velocity = glm::vec3(0.0f, pFindObjectByFriendlyName("sphere1")->velocity.y, 0.0f);
+			pFindObjectByFriendlyName("sphere1")->velocity -= (MOVEMENTSPEED * balldir);
+		}
+		if (key == GLFW_KEY_LEFT)
+		{
+			glm::vec3 balldir = CameraManager::GetCameraInstance()->GetTarget() - CameraManager::GetCameraInstance()->GetPosition();
+			balldir.y = 0;
+			balldir = glm::normalize(glm::cross(balldir, glm::vec3(0.0f, 1.0f, 0.0f)));
+			//pFindObjectByFriendlyName("sphere1")->velocity = glm::vec3(0.0f, pFindObjectByFriendlyName("sphere1")->velocity.y, 0.0f);
+			pFindObjectByFriendlyName("sphere1")->velocity -= (MOVEMENTSPEED * balldir);
+		}
+		if (key == GLFW_KEY_RIGHT)
+		{
+			glm::vec3 balldir = CameraManager::GetCameraInstance()->GetTarget() - CameraManager::GetCameraInstance()->GetPosition();
+			balldir.y = 0;
+			balldir = glm::normalize(glm::cross(balldir, glm::vec3(0.0f, 1.0f, 0.0f)));
+			//pFindObjectByFriendlyName("sphere1")->velocity = glm::vec3(0.0f, pFindObjectByFriendlyName("sphere1")->velocity.y, 0.0f);
+			pFindObjectByFriendlyName("sphere1")->velocity += (MOVEMENTSPEED * balldir);
+		}
+
+
 
 		// Move the camera (A & D for left and right, along the x axis)
 		if (key == GLFW_KEY_A)
@@ -84,29 +121,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			}
 
 		}
-
-		if (key == GLFW_KEY_B)
-		{
-			//			// Shoot a bullet from the pirate ship
-			//			// Find the pirate ship...
-			//			// returns NULL (0) if we didn't find it.
-			////			cGameObject* pShip = pFindObjectByFriendlyName("PirateShip");
-			//			cGameObject* pShip = pFindObjectByFriendlyNameMap("PirateShip");
-			//			// Maybe check to see if it returned something... 
-			//
-			//			// Find the sphere#2
-			////			cGameObject* pBall = pFindObjectByFriendlyName("Sphere#2");
-			//			cGameObject* pBall = pFindObjectByFriendlyNameMap("Sphere#2");
-			//
-			//			// Set the location velocity for sphere#2
-			//			pBall->positionXYZ = pShip->positionXYZ;
-			//			pBall->inverseMass = 1.0f;		// So it's updated
-			//			// 20.0 units "to the right"
-			//			// 30.0 units "up"
-			//			pBall->velocity = glm::vec3(15.0f, 20.0f, 0.0f);
-			//			pBall->accel = glm::vec3(0.0f, 0.0f, 0.0f);
-			//			pBall->diffuseColour = glm::vec4(1.0f, 0.0f, 0.0f, 0.0f);
-		}//if ( key == GLFW_KEY_B )
 
 	}
 
@@ -233,10 +247,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	// Moving the pirate ship in a certain direction
 	if (isCtrlKeyDownByAlone(mods))
 	{
-		const float SHIP_SPEED_CHANGE = 0.01f;
-		const float SHIP_ANGLE_CHANGE = 0.01f;
-
-
 
 		if (key == GLFW_KEY_Z)
 		{
@@ -269,28 +279,8 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 				MouseActive = false;
 			}
 
-
 		}
-		//cGameObject* pShip = pFindObjectByFriendlyName("PirateShip");
-		//// Turn the ship around
-		//if (key == GLFW_KEY_A)
-		//{	// Left
-		//	pShip->HACK_AngleAroundYAxis -= SHIP_ANGLE_CHANGE;
-		//	pShip->rotationXYZ.y = pShip->HACK_AngleAroundYAxis;
-		//}
-		//if (key == GLFW_KEY_D)
-		//{	// Right
-		//	pShip->HACK_AngleAroundYAxis += SHIP_ANGLE_CHANGE;
-		//	pShip->rotationXYZ.y = pShip->HACK_AngleAroundYAxis;
-		//}
-		//if (key == GLFW_KEY_W)
-		//{	// Faster
-		//	pShip->HACK_speed += SHIP_SPEED_CHANGE;
-		//}
-		//if (key == GLFW_KEY_S)
-		//{	// Slower
-		//	pShip->HACK_speed -= SHIP_SPEED_CHANGE;
-		//}
+		
 	}
 
 

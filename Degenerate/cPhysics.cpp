@@ -208,6 +208,14 @@ void cPhysics::TestForCollisions(std::vector<GameObject*>& vec_pGameObjects)
 }
 
 
+
+glm::vec3 projectUonV(const glm::vec3& u, const glm::vec3& v)
+{
+	glm::vec3 r;
+	r = v * (glm::dot(u, v) / glm::dot(v, v));
+	return r;
+}
+
 bool cPhysics::DoSphereSphereCollisionTest(GameObject* pA, GameObject* pB,
 										   sCollisionInfo& collisionInfo)
 {
@@ -222,9 +230,9 @@ bool cPhysics::DoSphereSphereCollisionTest(GameObject* pA, GameObject* pB,
 		collisionInfo.pObject1 = pA;
 		collisionInfo.pObject2 = pB;
 		
-		glm::vec3 midline = pA->velocity - pB->velocity;
+		glm::vec3 midline = pA->positionXYZ - pB->positionXYZ;
 
-		glm::vec3 normal = midline * float(1.0 / seperation);
+		glm::vec3 normal = glm::normalize(midline);
 	
 		collisionInfo.closestPoint = pA->positionXYZ + (midline* 0.5f);
 		collisionInfo.penetrationDistance = (combineRadius - seperation);
@@ -235,13 +243,33 @@ bool cPhysics::DoSphereSphereCollisionTest(GameObject* pA, GameObject* pB,
 		glm::vec3 velocityVector = glm::normalize(pA->velocity);
 
 		// closestTriangle.normal
-		glm::vec3 reflectionVec = glm::reflect(velocityVector, glm::normalize(normal));
+		glm::vec3 reflectionVec = glm::reflect(velocityVector, normal);
 		reflectionVec = glm::normalize(reflectionVec);
 
+		float speed = glm::length(pA->velocity) * 0.5f;
+		float speedB = glm::length(pB->velocity) * 0.5f;
 
-		float speed = glm::length(pA->velocity + pB->velocity) * 0.7f;
+		//speedB = glm::distance(glm::normalize(pB->velocity), normal);
 
-		collisionInfo.bounceVelocity = glm::vec3(reflectionVec.x , reflectionVec.y , reflectionVec.z ) * speed;
+		
+
+		collisionInfo.bounceVelocity = (reflectionVec * speed) + (normal * speedB);
+
+		//glm::vec3 nv1; // new velocity for sphere 1
+		////glm::vec3 nv2; // new velocity for sphere 2
+		//// this can probably be optimised a bit, but it basically swaps the velocity amounts
+		//// that are perpendicular to the surface of the collistion.
+		//// If the spheres had different masses, then u would need to scale the amounts of
+		//// velocities exchanged inversely proportional to their masses.
+		//nv1 = pA->velocity;
+		//nv1 += projectUonV(pB->velocity, (pB->positionXYZ - pA->positionXYZ));
+		//nv1 -= projectUonV(pA->velocity, (pA->positionXYZ - pB->positionXYZ));
+		///*nv2 = pB->velocity;
+		//nv2 += projectUonV(pA->velocity, (pB->positionXYZ - pA->positionXYZ));
+		//nv2 -= projectUonV(pB->velocity, (pA->positionXYZ - pB->positionXYZ));*/
+		//collisionInfo.bounceVelocity = nv1;
+		//s2.velocity = nv2;
+
 
 
 		return true;
@@ -293,7 +321,7 @@ bool cPhysics::DoShphereMeshCollisionTest(GameObject* pA, GameObject* pB,
 
 		float speed = glm::length(pA->velocity);
 
-		collisionInfo.bounceVelocity = glm::vec3(reflectionVec.x * 0.9999, reflectionVec.y * 0.8, reflectionVec.z * 0.9999) * speed;
+		collisionInfo.bounceVelocity = glm::vec3(reflectionVec.x, reflectionVec.y * 0.3, reflectionVec.z) * speed;
 
 
 		return true;

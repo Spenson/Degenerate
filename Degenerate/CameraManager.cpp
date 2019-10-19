@@ -2,8 +2,6 @@
 #include <glm/glm.hpp>
 
 
-
-
 class CameraManagerImpl
 {
 public:
@@ -11,6 +9,7 @@ public:
 	float pitch;
 	glm::vec3 cameraPos;
 	glm::vec3 cameraFront;
+	glm::vec3 target;
 	CameraManagerImpl()
 	{
 		yaw = 90.0f;
@@ -88,6 +87,7 @@ void CameraManager::SetPosition(glm::vec3 position)
 
 glm::vec3 CameraManager::GetTarget()
 {
+	impl->target = impl->cameraFront + impl->cameraPos;
 	return impl->cameraFront + impl->cameraPos;
 }
 

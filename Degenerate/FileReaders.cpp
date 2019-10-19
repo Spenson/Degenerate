@@ -165,8 +165,10 @@ void WriteGameObjectsToFile(std::string File, std::vector<GameObject*> vecGameOb
 	new_xml_doc.SaveFile(File.c_str());
 }
 
-void ReadLightsFromFile(std::string File, std::vector<Light*>& lights, bool clearExistingLights)
+void ReadLightsFromFile(std::string File, LightManager& lightMan, bool clearExistingLights)
 {
+	std::vector<Light*> lights;
+
 	if (clearExistingLights)
 	{
 		for (unsigned index = 0; index < lights.size(); index++)
@@ -206,10 +208,19 @@ void ReadLightsFromFile(std::string File, std::vector<Light*>& lights, bool clea
 			break;
 		lightElement = lightElement->NextSiblingElement();
 	}
+
+	lightMan.GenerateLights(lights);
 }
 
-void WriteLightsToFile(std::string File, std::vector<Light*> vecLights)
+void WriteLightsToFile(std::string File, LightManager lightMan)
 {
+	std::vector<Light*> vecLights;
+
+	for (unsigned i = 0; i < lightMan.GetLightCount(); i++)
+	{
+		vecLights.push_back(lightMan.GetLight(i));
+	}
+
 	Light* light;
 	tinyxml2::XMLDocument new_xml_doc;
 	tinyxml2::XMLNode* newRoot = new_xml_doc.InsertFirstChild(new_xml_doc.NewElement("LIGHTS"));

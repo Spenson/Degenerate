@@ -250,10 +250,9 @@ int main(void)
 
 	std::vector<Light*> templights;
 
-	ReadLightsFromFile("../assets/config/Lights.xml", templights);
+	ReadLightsFromFile("../assets/config/Lights.xml", lightMan);
 
-	lightMan.GenerateLights(templights);
-	lightMan.InitilizeLightUinformLocations(shaderProgID, "theLights", lightMan.GetLightCount(), lighterrors);
+	lightMan.InitilizeLightUinformLocations(shaderProgID, "theLights", 10, lighterrors);
 	//Light* sexyLight = lightMan.GetLight(0);
 
 	CameraManager::GetCameraInstance()->SetPosition(glm::vec3(0, 0, 30.f));

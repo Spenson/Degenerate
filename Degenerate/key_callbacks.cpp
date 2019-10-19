@@ -277,9 +277,9 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 					::g_vec_pGameObjects[index]->matWorld = calculateWorldMatrix(::g_vec_pGameObjects[index]);
 				}
 			}
-			std::vector<Light*> templights;
-			ReadLightsFromFile("../assets/config/Lights.xml", templights, true);
-			lightMan.GenerateLights(templights);
+			//std::vector<Light*> templights;
+			ReadLightsFromFile("../assets/config/Lights.xml", lightMan, true);
+			//lightMan.GenerateLights(templights);
 		}
 		if (key == GLFW_KEY_X && action == GLFW_PRESS)
 		{

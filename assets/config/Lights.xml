@@ -25,4 +25,17 @@
     <SpotOuterAngle f="15"/>
     <IsLightOn b="1"/>
   </Light>
+  <Light>
+    <Position x="0" y="2" z="0"/>
+    <Direction x="4" y="5" z="6"/>
+    <Diffuse r="1" g="1" b="1"/>
+    <ConstAtten f="0.000000000000000001"/>
+    <LinearAtten f="0.0000000000000006"/>
+    <QuadraticAtten f="0.00000000000000000001"/>
+    <CutOffDistance f="3.402823466e+38"/>
+    <LightType type="0"/>
+    <SpotInnerAngle f="10"/>
+    <SpotOuterAngle f="15"/>
+    <IsLightOn b="1"/>
+  </Light>
 </LIGHTS>

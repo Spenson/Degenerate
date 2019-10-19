@@ -1,26 +1,43 @@
 #include "CameraManager.h"
 #include <glm/glm.hpp>
 
+
+
+
+class CameraManagerImpl
+{
+public:
+	float yaw;
+	float pitch;
+	glm::vec3 cameraPos;
+	glm::vec3 cameraFront;
+	CameraManagerImpl()
+	{
+		yaw = 90.0f;
+		pitch = 0.0f;
+		cameraPos = glm::vec3(0.0f);
+		cameraFront = glm::vec3(0.0f, 0.0f, 1.0f);
+		UpdateFront();
+	}
+
+	void UpdateFront()
+	{
+		glm::vec3 front;
+		front.x = cos(glm::radians(pitch)) * cos(glm::radians(yaw));
+		front.y = sin(glm::radians(pitch));
+		front.z = cos(glm::radians(pitch)) * sin(glm::radians(yaw));
+		cameraFront = glm::normalize(front);
+	}
+};
+
 CameraManager* CameraManager::pManager = nullptr;
 
 
 CameraManager::CameraManager()
 {
-	yaw = 90.0f;
-	pitch = 0.0f;
-	cameraPos = glm::vec3(0.0f);
-	cameraFront = glm::vec3(0.0f, 0.0f, 1.0f);
-	UpdateFront();
+	impl = new CameraManagerImpl();
 }
 
-void CameraManager::UpdateFront()
-{
-	glm::vec3 front;
-	front.x = cos(glm::radians(pitch)) * cos(glm::radians(yaw));
-	front.y = sin(glm::radians(pitch));
-	front.z = cos(glm::radians(pitch)) * sin(glm::radians(yaw));
-	cameraFront = glm::normalize(front);
-}
 
 CameraManager* CameraManager::GetCameraInstance()
 {
@@ -33,50 +50,50 @@ CameraManager* CameraManager::GetCameraInstance()
 
 void CameraManager::LookUp(float rotation)
 {
-	pitch += rotation;
-	if (pitch > 89.0f)
-		pitch = 89.0f;
-	if (pitch < -89.0f)
-		pitch = -89.0f;
+	impl->pitch += rotation;
+	if (impl->pitch > 89.0f)
+		impl->pitch = 89.0f;
+	if (impl->pitch < -89.0f)
+		impl->pitch = -89.0f;
 
-	UpdateFront();
+	impl->UpdateFront();
 }
 
 void CameraManager::LookRight(float rotation)
 {
-	yaw += rotation;
+	impl->yaw += rotation;
 
-	UpdateFront();
+	impl->UpdateFront();
 }
 
 void CameraManager::MoveForward(float distance)
 {
-	cameraPos += distance * cameraFront;
+	impl->cameraPos += distance * impl->cameraFront;
 }
 
 void CameraManager::MoveRight(float distance)
 {
-	cameraPos += glm::normalize(glm::cross(cameraFront, glm::vec3(0.0f, 1.0f, 0.0f))) * distance;
+	impl->cameraPos += glm::normalize(glm::cross(impl->cameraFront, glm::vec3(0.0f, 1.0f, 0.0f))) * distance;
 }
 
 void CameraManager::MoveUp(float distance)
 {
-	cameraPos.y += distance;
+	impl->cameraPos.y += distance;
 }
 
 void CameraManager::SetPosition(glm::vec3 position)
 {
-	cameraPos = position;
+	impl->cameraPos = position;
 }
 
 glm::vec3 CameraManager::GetTarget()
 {
-	return cameraFront + cameraPos;
+	return impl->cameraFront + impl->cameraPos;
 }
 
 glm::vec3 CameraManager::GetPosition()
 {
-	return cameraPos;
+	return impl->cameraPos;
 }
 
 glm::vec3 CameraManager::GetUpVector()

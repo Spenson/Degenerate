@@ -1,15 +1,14 @@
 #pragma once
 #include <glm/glm.hpp>
 
+
+class CameraManagerImpl;
+
 class CameraManager{
-	float yaw;
-	float pitch;
-	glm::vec3 cameraPos;
-	glm::vec3 cameraFront;
+	CameraManagerImpl* impl;
 	static CameraManager* pManager;
 	CameraManager();
 
-	void UpdateFront();
 public:
 	static CameraManager* GetCameraInstance();
 

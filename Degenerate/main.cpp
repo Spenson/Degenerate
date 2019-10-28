@@ -3,8 +3,6 @@
 #include "globals.h"
 
 #include <glm/glm.hpp>
-//#include <glm/gtc/matrix_transform.hpp>
-// glm::translate, glm::rotate, glm::scale, glm::perspective
 #include <glm/gtc/type_ptr.hpp> // glm::value_ptr
 
 #include <stdlib.h>		// c libs
@@ -114,16 +112,7 @@ int main(void)
 
 	ModelLoader* pTheModelLoader = new ModelLoader();	// Heap
 
-	//if (!pTheModelLoader->LoadPlyModel("../assets/models/bun_zipper_XYZ_n.ply", mMeshes["bunnyMesh"]))
-	//{
-	//	std::cout << "Didn't find the file" << std::endl;
-	//}
 
-	//pTheModelLoader->LoadPlyModel("../assets/models/Large_Physics_Bunny_XYZ_N.ply", mMeshes["largeBunnyMesh"]);
-	//pTheModelLoader->LoadPlyModel("../assets/models/Sky_Pirate_Combined_xyz_n.ply", mMeshes["pirateMesh"]);
-	//pTheModelLoader->LoadPlyModel("../assets/models/Terrain_XYZ_n.ply", mMeshes["terrainMesh"]);
-	////	pTheModelLoader->LoadPlyModel("assets/models/BigFlatTerrain_XYZ_n.ply", mapMeshes["terrainMesh"]);
-	//pTheModelLoader->LoadPlyModel("../assets/models/Cube_1_Unit_from_origin_XYZ_n.ply", mMeshes["cubeMesh"]);
 	ReadMeshesFromFile("../assets/config/Meshes.xml", "../assets/models/", mMeshes, pTheModelLoader);
 	pTheModelLoader->LoadPlyModel("../assets/models/Sphere_Radius_1_XYZ_n.ply", mMeshes["sphereMesh"]);
 
@@ -188,8 +177,8 @@ int main(void)
 	GameObject* pDebugSphere = new GameObject();
 	pDebugSphere->meshName = "sphere";
 	pDebugSphere->friendlyName = "debug_sphere";
-	pDebugSphere->positionXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
-	pDebugSphere->rotationXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
+	pDebugSphere->position = glm::vec3(0.0f, 0.0f, 0.0f);
+	pDebugSphere->rotation = glm::vec3(0.0f, 0.0f, 0.0f);
 	pDebugSphere->scale = glm::vec3(0.1f);
 	//	pDebugSphere->objectColourRGBA = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
 	pDebugSphere->debugColour = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
@@ -219,17 +208,6 @@ int main(void)
 	// Get the initial time
 	double lastTime = glfwGetTime();
 
-
-
-	// TODO: LIGHT MANAGER AND LOOPS (50 Lights all off till turned on)
-
-	//GLint L_0_position = glGetUniformLocation(shaderProgID, "theLights[0].position");
-	//GLint L_0_diffuse = glGetUniformLocation(shaderProgID, "theLights[0].diffuse");
-	//GLint L_0_specular = glGetUniformLocation(shaderProgID, "theLights[0].specular");
-	//GLint L_0_atten = glGetUniformLocation(shaderProgID, "theLights[0].atten");
-	//GLint L_0_direction = glGetUniformLocation(shaderProgID, "theLights[0].direction");
-	//GLint L_0_param1 = glGetUniformLocation(shaderProgID, "theLights[0].param1");
-	//GLint L_0_param2 = glGetUniformLocation(shaderProgID, "theLights[0].param2");
 
 	GLint eyeLocation_UL = glGetUniformLocation(shaderProgID, "eyeLocation");
 
@@ -313,88 +291,7 @@ int main(void)
 
 
 
-		// ********************************************************
-		// Move the pirate in the direction it's pointing in...
 
-		// Vec4 = mat4x4 * vec4				vertFinal = matModel * vertStart;
-
-		//GameObject* pPirate = pFindObjectByFriendlyName("PirateShip");
-
-		//glm::mat4 matRotY = glm::rotate(glm::mat4(1.0f),
-		//								pPirate->HACK_AngleAroundYAxis,	//(float)glfwGetTime(),					// Angle 
-		//								glm::vec3(0.0f, 1.0f, 0.0f));
-
-		// Assume the ship is at 0,0,0
-		//glm::vec4 frontOfShip = glm::vec4(0.0f, 0.0f, -1.0f, 1.0f);	// pointing to the "front" of the ship
-
-		// Vec4 = mat4x4 * vec4				vertFinal = matModel * vertStart;
-		//glm::vec4 frontOfShipInWorld = matRotY * frontOfShip;
-
-		// this value would be the velocity, ifyou wanted the phsyics update do to it
-		//glm::vec3 newSpeedOfShipIN_THE_DIRECTION_WE_WANT_TO_GO
-		//	= frontOfShipInWorld * pPirate->HACK_speed;
-		//
-		//// Draw a line showing where we are going...
-		//pDebugRenderer->addLine(pPirate->positionXYZ,
-		//						pPirate->positionXYZ + (glm::vec3(frontOfShipInWorld) * pPirate->HACK_speed * 5.0f),
-		//						glm::vec3(1.0f, 0.0f, 0.0f), 0.5f);
-
-		// Draw a line showing how fast we are going...
-
-		// Update the pirate ship
-		//pPirate->positionXYZ += newSpeedOfShipIN_THE_DIRECTION_WE_WANT_TO_GO;
-
-
-		//pDebugRenderer->addTriangle( pPirate->positionXYZ, 
-		//							 glm::vec3(0.0f,0.0f,0.0f), 
-		//							 glm::vec3(0.0f, 10.0f, 0.0f), 
-		//							 glm::vec3(0.0f,1.0f,0.0f) );
-
-		//pDebugRenderer->addLine( pPirate->positionXYZ, 
-		//						 glm::vec3(0.0f, 10.0f, 0.0f), 
-		//						 glm::vec3(0.0f,1.0f,0.0f),
-		//						 2.0f );
-		// ********************************************************
-
-
-//	// Point the spot light at the bunny
-//	GameObject* pBunny = pFindObjectByFriendlyName("Bugs");
-//	GameObject* pPirate = pFindObjectByFriendlyName("PirateShip");
-//
-//	sexyLightPosition = pPirate->positionXYZ;
-//
-//	// Vector from the bunny to the ship is:
-//	// Bunny_Position - ShipPosition;
-//	glm::vec3 bunnyToShip = pBunny->positionXYZ - pPirate->positionXYZ;
-//	// Normalize the vector (unit or 1.0f length)
-//	sexyLightSpotDirection = glm::normalize(bunnyToShip);
-
-
-		//// Spot light
-		//glUniform4f(L_0_direction, 
-		//			sexyLightSpotDirection.x,		// 0
-		//			sexyLightSpotDirection.y,		// -1
-		//			sexyLightSpotDirection.z,		// 0
-		//			1.0f );	
-
-		//glUniform4f(L_0_param1,
-		//			1.0f /*SPOT light*/, 
-		//			sexyLightSpotInnerAngle,		// 15
-		//			sexyLightSpotOuterAngle,		// 30
-		//			1.0f );
-
-
-		//glUniform4f(L_0_param1,
-		//			2.0f /*DIRECTIONAL light*/, 
-		//			sexyLightSpotInnerAngle,		// 15
-		//			sexyLightSpotOuterAngle,		// 30
-		//			1.0f );
-
-
-		//glUniform4f(L_0_param2, 1.0f /*Light is on*/, 0.0f, 0.0f, 1.0f);
-
-		// Also set the position of my "eye" (the camera)
-		//uniform vec4 eyeLocation;
 
 		glUniform4f(eyeLocation_UL,
 					CameraManager::GetCameraInstance()->GetPosition().x, 
@@ -454,197 +351,6 @@ int main(void)
 		// - Place the debug sphere "there"
 		// - Draw it.
 
-		//**********************************************************
-		//**********************************************************
-		//glm::vec3 closestPoint = glm::vec3(0.0f, 0.0f, 0.0f);
-		//cPhysics::sPhysicsTriangle closestTriangle;
-
-		//pPhsyics->GetClosestTriangleToPoint(pShpere->positionXYZ, mMeshes["largeBunnyMesh"], closestPoint, closestTriangle);
-
-		// Highlight the triangle that I'm closest to
-		//pDebugRenderer->addTriangle(closestTriangle.verts[0],
-		//							closestTriangle.verts[1],
-		//							closestTriangle.verts[2],
-		//							glm::vec3(1.0f, 0.0f, 0.0f));
-
-		// Highlight the triangle that I'm closest to
-		// To draw the normal, calculate the average of the 3 vertices, 
-		// then draw that average + the normal (the normal starts at the 0,0,0 OF THE TRIANGLE)
-		//glm::vec3 centreOfTriangle = (closestTriangle.verts[0] +
-		//							  closestTriangle.verts[1] +
-		//							  closestTriangle.verts[2]) / 3.0f;		// Average
-
-		//glm::vec3 normalInWorld = centreOfTriangle + (closestTriangle.normal * 20.0f);	// Normal x 10 length
-
-		//pDebugRenderer->addLine(centreOfTriangle,
-		//						normalInWorld,
-		//						glm::vec3(1.0f, 1.0f, 0.0f));
-
-		// Are we hitting the triangle? 
-		//float distance = glm::length(pShpere->positionXYZ - closestPoint);
-
-//		if (distance <= pShpere->SPHERE_radius)
-//		{
-//			// If you want, move the sphere back to where it just penetrated...
-//			// So that it will collide exactly where it's supposed to. 
-//			// But, that's not a big problem.
-//
-//
-//			// Is in contact with the triangle... 
-//			// Calculate the response vector off the triangle. 
-//			glm::vec3 velocityVector = glm::normalize(pShpere->velocity);
-//
-//			// closestTriangle.normal
-//			glm::vec3 reflectionVec = glm::reflect(velocityVector, closestTriangle.normal);
-//			reflectionVec = glm::normalize(reflectionVec);
-//
-//			// Stop the sphere and draw the two vectors...
-////			pShpere->inverseMass = 0.0f;	// Stopped
-//
-//			glm::vec3 velVecX20 = velocityVector * 10.0f;
-//			//pDebugRenderer->addLine(closestPoint, velVecX20,
-//			//						glm::vec3(1.0f, 0.0f, 0.0f), 30.0f /*seconds*/);
-//
-//			glm::vec3 reflectionVecX20 = reflectionVec * 10.0f;
-//			//pDebugRenderer->addLine(closestPoint, reflectionVecX20,
-//			//						glm::vec3(0.0f, 1.0f, 1.0f), 30.0f /*seconds*/);
-//
-//			// Change the direction of the ball (the bounce off the triangle)
-//
-//			// Get lenght of the velocity vector
-//			float speed = glm::length(pShpere->velocity);
-//
-//			pShpere->velocity = reflectionVec * speed;
-//
-//		}
-
-
-
-
-		//bool DidBallCollideWithGround = false;
-		//HACK_BounceOffSomePlanes(pShpere, DidBallCollideWithGround);
-
-		// A more general 
-		//pPhsyics->TestForCollisions(::g_vec_pGameObjects);
-
-
-
-
-
-		//**********************************************************
-		//**********************************************************
-
-
-
-
-//		float closestDistanceSoFar = FLT_MAX;
-//		glm::vec3 closetPoint = glm::vec3(0.0f,0.0f,0.0f);
-//		sPlyTriangle closetTriangle;
-//
-//		for (unsigned int triIndex = 0;
-//			 triIndex != mapMeshes["terrainMesh"].vecTriangles.size();
-//			 triIndex++)
-//		{
-//			sPlyTriangle& curTriangle = mapMeshes["terrainMesh"].vecTriangles[triIndex];
-//
-//			// Get the vertices of the triangle
-//			sPlyVertexXYZ_N triVert1 = mapMeshes["terrainMesh"].vecVertices[curTriangle.vert_index_1];
-//			sPlyVertexXYZ_N triVert2 = mapMeshes["terrainMesh"].vecVertices[curTriangle.vert_index_2];
-//			sPlyVertexXYZ_N triVert3 = mapMeshes["terrainMesh"].vecVertices[curTriangle.vert_index_3];
-//
-//			Point triVertPoint1;
-//			triVertPoint1.x = triVert1.x;
-//			triVertPoint1.y = triVert1.y;
-//			triVertPoint1.z = triVert1.z;
-//
-//			Point triVertPoint2;
-//			triVertPoint2.x = triVert2.x;
-//			triVertPoint2.y = triVert2.y;
-//			triVertPoint2.z = triVert2.z;
-//
-//			Point triVertPoint3;
-//			triVertPoint3.x = triVert3.x;
-//			triVertPoint3.y = triVert3.y;
-//			triVertPoint3.z = triVert3.z;
-//
-//			glm::vec3 curClosetPoint = ClosestPtPointTriangle( 
-//				pShpere->positionXYZ, 
-//				triVertPoint1, triVertPoint2, triVertPoint3 );
-//			
-//			// Is this the closest so far?
-//			float distanceNow = glm::distance(curClosetPoint, pShpere->positionXYZ);
-//
-//			// is this closer than the closest distance
-//			if ( distanceNow <= closestDistanceSoFar )
-//			{
-//				closestDistanceSoFar = distanceNow;
-//				closetPoint = curClosetPoint;
-//			}
-//
-//			//glm::mat4 matModel = glm::mat4(1.0f);
-//			//pDebugSphere->positionXYZ = closetPoint;
-//			//DrawObject(matModel, pDebugSphere, 
-//			//			   shaderProgID, pTheVAOManager);
-//
-//
-//		}//for (unsigned int triIndex = 0;
-
-		//{// Draw closest point
-		//	glm::mat4 matModel = glm::mat4(1.0f);
-		//	pDebugSphere->positionXYZ = closestPoint;
-		//	pDebugSphere->scale = 1.0f;
-		//	pDebugSphere->debugColour = glm::vec4(0.0f, 1.0f, 1.0f, 1.0f);
-		//	pDebugSphere->isWireframe = true;
-		//	DrawObject(matModel, pDebugSphere,
-		//			   shaderProgID, pTheVAOManager);
-		//}
-
-
-		// How far did we penetrate the surface?
-		//glm::vec3 CentreToClosestPoint = pShpere->positionXYZ - closestPoint;
-
-		// Direction that ball is going is normalized velocity
-		//glm::vec3 directionBall = glm::normalize(pShpere->velocity);	// 1.0f
-
-		// Calcualte direction to move it back the way it came from
-		//glm::vec3 oppositeDirection = -directionBall;				// 1.0f
-
-		//float distanceToClosestPoint = glm::length(CentreToClosestPoint);
-
-		//pDebugRenderer->addLine(pShpere->positionXYZ,
-		//						closestPoint,
-		//						glm::vec3(0.0f, 1.0f, 0.0f),
-		//						1.0f);
-
-
-
-
-		//		// HACK
-		//		if (DidBallCollideWithGround)
-		//		{ 
-		//			float sphereRadius = 1.0f;
-		//			float distanceToMoveBack = sphereRadius - distanceToClosestPoint;
-		//
-		//			glm::vec3 adjustmentVector = oppositeDirection * distanceToMoveBack;
-		//
-		//			// Let's move the sphere that amount...
-		//			pShpere->positionXYZ += adjustmentVector;
-		//
-		//
-		//			// NOW, I can calculate the correct response vector... 
-		//
-		////			pShpere->velocity = glm::reflect(pShpere->velocity, triangleNormal)
-		//		}
-
-
-		//std::cout
-		//	<< pShpere->velocity.x << ", "
-		//	<< pShpere->velocity.y << ", "
-		//	<< pShpere->velocity.z << "   dist = "
-		//	<< distanceToClosestPoint << std::endl;
-
-		//howMuchToMoveItBack = 1.0 - lenthOfThatVector
-
 
 
 
@@ -652,7 +358,7 @@ int main(void)
 		{
 			{// Draw where the light is at
 				glm::mat4 matModel = glm::mat4(1.0f);
-				pDebugSphere->positionXYZ = lightMan.GetLastLight()->Position;
+				pDebugSphere->position = lightMan.GetLastLight()->Position;
 				pDebugSphere->scale = glm::vec3(0.5f);
 				pDebugSphere->debugColour = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 				pDebugSphere->isWireframe = true;
@@ -663,7 +369,7 @@ int main(void)
 			// Draw spheres to represent the attenuation...
 			{   // Draw a sphere at 1% brightness
 				glm::mat4 matModel = glm::mat4(1.0f);
-				pDebugSphere->positionXYZ = lightMan.GetLastLight()->Position;
+				pDebugSphere->position = lightMan.GetLastLight()->Position;
 				float sphereSize = pLightHelper->calcApproxDistFromAtten(
 					0.01f,		// 1% brightness (essentially black)
 					0.001f,		// Within 0.1%  
@@ -679,7 +385,7 @@ int main(void)
 			}
 			{   // Draw a sphere at 25% brightness
 				glm::mat4 matModel = glm::mat4(1.0f);
-				pDebugSphere->positionXYZ = lightMan.GetLastLight()->Position;
+				pDebugSphere->position = lightMan.GetLastLight()->Position;
 				float sphereSize = pLightHelper->calcApproxDistFromAtten(
 					0.25f,		// 1% brightness (essentially black)
 					0.001f,		// Within 0.1%  
@@ -695,7 +401,7 @@ int main(void)
 			}
 			{   // Draw a sphere at 50% brightness
 				glm::mat4 matModel = glm::mat4(1.0f);
-				pDebugSphere->positionXYZ = lightMan.GetLastLight()->Position;
+				pDebugSphere->position = lightMan.GetLastLight()->Position;
 				float sphereSize = pLightHelper->calcApproxDistFromAtten(
 					0.50f,		// 1% brightness (essentially black)
 					0.001f,		// Within 0.1%  
@@ -711,7 +417,7 @@ int main(void)
 			}
 			{   // Draw a sphere at 75% brightness
 				glm::mat4 matModel = glm::mat4(1.0f);
-				pDebugSphere->positionXYZ = lightMan.GetLastLight()->Position;
+				pDebugSphere->position = lightMan.GetLastLight()->Position;
 				float sphereSize = pLightHelper->calcApproxDistFromAtten(
 					0.75f,		// 1% brightness (essentially black)
 					0.001f,		// Within 0.1%  
@@ -727,7 +433,7 @@ int main(void)
 			}
 			{   // Draw a sphere at 95% brightness
 				glm::mat4 matModel = glm::mat4(1.0f);
-				pDebugSphere->positionXYZ = lightMan.GetLastLight()->Position;
+				pDebugSphere->position = lightMan.GetLastLight()->Position;
 				float sphereSize = pLightHelper->calcApproxDistFromAtten(
 					0.95f,		// 1% brightness (essentially black)
 					0.001f,		// Within 0.1%  
@@ -781,57 +487,6 @@ void DrawObject(glm::mat4 m,
 
 
 
-	//// ******* TRANSLATION TRANSFORM *********
-	//glm::mat4 matTrans
-	//	= glm::translate(glm::mat4(1.0f),
-	//					 glm::vec3(pCurrentObject->positionXYZ.x,
-	//							   pCurrentObject->positionXYZ.y,
-	//							   pCurrentObject->positionXYZ.z));
-	//m = m * matTrans;
-	//// ******* TRANSLATION TRANSFORM *********
-
-
-
-	//// ******* ROTATION TRANSFORM *********
-	////mat4x4_rotate_Z(m, m, (float) glfwGetTime());
-	//glm::mat4 rotateZ = glm::rotate(glm::mat4(1.0f),
-	//								pCurrentObject->rotationXYZ.z,					// Angle 
-	//								glm::vec3(0.0f, 0.0f, 1.0f));
-	//m = m * rotateZ;
-
-	//glm::mat4 rotateY = glm::rotate(glm::mat4(1.0f),
-	//								pCurrentObject->rotationXYZ.y,	//(float)glfwGetTime(),					// Angle 
-	//								glm::vec3(0.0f, 1.0f, 0.0f));
-	//m = m * rotateY;
-
-	//glm::mat4 rotateX = glm::rotate(glm::mat4(1.0f),
-	//								pCurrentObject->rotationXYZ.x,	// (float)glfwGetTime(),					// Angle 
-	//								glm::vec3(1.0f, 0.0f, 0.0f));
-	//m = m * rotateX;
-	//// ******* ROTATION TRANSFORM *********
-
-
-	//// ******* SCALE TRANSFORM *********
-	//glm::mat4 scale = glm::scale(glm::mat4(1.0f),
-	//							 glm::vec3(pCurrentObject->scale,
-	//									   pCurrentObject->scale,
-	//									   pCurrentObject->scale));
-	//m = m * scale;
-	//// ******* SCALE TRANSFORM *********
-
-
-
-	//mat4x4_mul(mvp, p, m);
-	//mvp = p * v * m;
-
-	// Choose which shader to use
-	//glUseProgram(program);
-	//glUseProgram(shaderProgID);
-
-
-	//glUniformMatrix4fv(mvp_location, 1, GL_FALSE, (const GLfloat*) mvp);
-	//glUniformMatrix4fv(mvp_location, 1, GL_FALSE, glm::value_ptr(mvp));
-
 	//uniform mat4 matModel;		// Model or World 
 	//uniform mat4 matView; 		// View or camera
 	//uniform mat4 matProj;
@@ -853,9 +508,9 @@ void DrawObject(glm::mat4 m,
 	// Find the location of the uniform variable newColour
 
 	glUniform3f(newColour_location,
-				pCurrentObject->objectColourRGBA.r,
-				pCurrentObject->objectColourRGBA.g,
-				pCurrentObject->objectColourRGBA.b);
+				pCurrentObject->objectColour.r,
+				pCurrentObject->objectColour.g,
+				pCurrentObject->objectColour.b);
 
 	//uniform float newColourRed;
 	//uniform float newColourGreen;
@@ -872,10 +527,10 @@ void DrawObject(glm::mat4 m,
 	//			sexyLightLocation.y, sexyLightLocation.z);
 
 	glUniform4f(diffuseColour_UL,
-				pCurrentObject->objectColourRGBA.r,
-				pCurrentObject->objectColourRGBA.g,
-				pCurrentObject->objectColourRGBA.b,
-				pCurrentObject->objectColourRGBA.a);	// 
+				pCurrentObject->objectColour.r,
+				pCurrentObject->objectColour.g,
+				pCurrentObject->objectColour.b,
+				pCurrentObject->objectColour.a);	// 
 
 	glUniform4f(specularColour_UL,
 				1.0f,	// R
@@ -978,9 +633,9 @@ glm::mat4 calculateWorldMatrix(GameObject* pCurrentObject)
 	// ******* TRANSLATION TRANSFORM *********
 	glm::mat4 matTrans
 		= glm::translate(glm::mat4(1.0f),
-						 glm::vec3(pCurrentObject->positionXYZ.x,
-								   pCurrentObject->positionXYZ.y,
-								   pCurrentObject->positionXYZ.z));
+						 glm::vec3(pCurrentObject->position.x,
+								   pCurrentObject->position.y,
+								   pCurrentObject->position.z));
 	matWorld = matWorld * matTrans;
 	// ******* TRANSLATION TRANSFORM *********
 
@@ -989,17 +644,17 @@ glm::mat4 calculateWorldMatrix(GameObject* pCurrentObject)
 	// ******* ROTATION TRANSFORM *********
 	//mat4x4_rotate_Z(m, m, (float) glfwGetTime());
 	glm::mat4 rotateZ = glm::rotate(glm::mat4(1.0f),
-									pCurrentObject->rotationXYZ.z,					// Angle 
+									pCurrentObject->rotation.z,					// Angle 
 									glm::vec3(0.0f, 0.0f, 1.0f));
 	matWorld = matWorld * rotateZ;
 
 	glm::mat4 rotateY = glm::rotate(glm::mat4(1.0f),
-									pCurrentObject->rotationXYZ.y,	//(float)glfwGetTime(),					// Angle 
+									pCurrentObject->rotation.y,	//(float)glfwGetTime(),					// Angle 
 									glm::vec3(0.0f, 1.0f, 0.0f));
 	matWorld = matWorld * rotateY;
 
 	glm::mat4 rotateX = glm::rotate(glm::mat4(1.0f),
-									pCurrentObject->rotationXYZ.x,	// (float)glfwGetTime(),					// Angle 
+									pCurrentObject->rotation.x,	// (float)glfwGetTime(),					// Angle 
 									glm::vec3(1.0f, 0.0f, 0.0f));
 	matWorld = matWorld * rotateX;
 	// ******* ROTATION TRANSFORM *********

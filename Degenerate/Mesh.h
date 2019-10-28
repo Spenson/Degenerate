@@ -6,10 +6,17 @@
 
 // This structure matches the file, so that our life is
 //   simpler and happier, and we all get along.
-struct VertexWithNormal
+//struct VertexWithNormal
+//{
+//	float x, y, z;
+//	float nx, ny, nz;		// NOW with NORMALS!!
+//};
+struct VertexPosNormTex
 {
-	float x, y, z;
-	float nx, ny, nz;		// NOW with NORMALS!!
+	glm::vec3 pos;
+	glm::vec3 norm;
+	glm::vec2 tex1;
+	glm::vec2 tex2;
 };
 
 struct TriangleIndex
@@ -25,8 +32,7 @@ public:
 	Mesh() {};			// Empty c'tor
 	~Mesh() {};		// Empty d'tor
 	// Store the vertices
-	std::vector<VertexWithNormal> vecVertices;
-
+	std::vector<VertexPosNormTex> vecVertices;
 	// Store the triangles
 	std::vector<TriangleIndex> vecTriangles;
 

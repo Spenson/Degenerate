@@ -13,14 +13,21 @@
 // The vertex structure 
 //	that's ON THE GPU (eventually) 
 // So dictated from THE SHADER
+//struct ModelVertex
+//{
+//	float x, y, z, w;			// w coordinate	
+//	float r, g, b, a;	// a = alpha (transparency)
+//	float nx, ny, nz, nw;
+//	float u0, v0, u1, v1;
+//};
 struct ModelVertex
 {
-	float x, y, z, w;			// w coordinate	
-	float r, g, b, a;	// a = alpha (transparency)
-	float nx, ny, nz, nw;
-	float u0, v0, u1, v1;
+	glm::vec4 pos;
+	glm::vec4 col;
+	glm::vec4 norm;
+	glm::vec2 tex0;
+	glm::vec2 tex1;
 };
-
 
 struct ModelDrawInfo
 {

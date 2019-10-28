@@ -42,19 +42,19 @@ void ModelDrawInfo::CalcExtents(void)
 	// We're good
 
 	// Assume the 1st vertex is the max and min (so we can compare)
-	this->minX = this->maxX = this->pVertices[0].x;
-	this->minY = this->maxY = this->pVertices[0].y;
-	this->minZ = this->maxZ = this->pVertices[0].z;
+	this->minX = this->maxX = this->pVertices[0].pos.x;
+	this->minY = this->maxY = this->pVertices[0].pos.y;
+	this->minZ = this->maxZ = this->pVertices[0].pos.z;
 
 	for (unsigned int index = 0; index != this->numberOfVertices; index++)
 	{
-		if (this->pVertices[index].x < this->minX) { this->minX = this->pVertices[index].x; }
-		if (this->pVertices[index].y < this->minY) { this->minY = this->pVertices[index].y; }
-		if (this->pVertices[index].z < this->minZ) { this->minZ = this->pVertices[index].z; }
+		if (this->pVertices[index].pos.x < this->minX) { this->minX = this->pVertices[index].pos.x; }
+		if (this->pVertices[index].pos.y < this->minY) { this->minY = this->pVertices[index].pos.y; }
+		if (this->pVertices[index].pos.z < this->minZ) { this->minZ = this->pVertices[index].pos.z; }
 
-		if (this->pVertices[index].x < this->maxX) { this->maxX = this->pVertices[index].x; }
-		if (this->pVertices[index].y < this->maxY) { this->maxY = this->pVertices[index].y; }
-		if (this->pVertices[index].z < this->maxZ) { this->maxZ = this->pVertices[index].z; }
+		if (this->pVertices[index].pos.x < this->maxX) { this->maxX = this->pVertices[index].pos.x; }
+		if (this->pVertices[index].pos.y < this->maxY) { this->maxY = this->pVertices[index].pos.y; }
+		if (this->pVertices[index].pos.z < this->maxZ) { this->maxZ = this->pVertices[index].pos.z; }
 	}
 
 	this->extentX = this->maxX - this->minX;
@@ -87,26 +87,26 @@ bool VAOManager::LoadModelIntoVAO(
 	for (unsigned int index = 0; index != drawInfo.numberOfVertices; index++)
 	{
 
-		drawInfo.pVertices[index].x = theMesh.vecVertices[index].x;
-		drawInfo.pVertices[index].y = theMesh.vecVertices[index].y;
-		drawInfo.pVertices[index].z = theMesh.vecVertices[index].z;
-		drawInfo.pVertices[index].w = 1.0f;		// Set to 1 if not sure
+		drawInfo.pVertices[index].pos.x = theMesh.vecVertices[index].pos.x;
+		drawInfo.pVertices[index].pos.y = theMesh.vecVertices[index].pos.y;
+		drawInfo.pVertices[index].pos.z = theMesh.vecVertices[index].pos.z;
+		drawInfo.pVertices[index].pos.w = 1.0f;		// Set to 1 if not sure
 
-		drawInfo.pVertices[index].r = 1.0f;
-		drawInfo.pVertices[index].g = 1.0f;
-		drawInfo.pVertices[index].b = 1.0f;
-		drawInfo.pVertices[index].a = 1.0f;		// Again, if not sure, set to 1.0f
+		drawInfo.pVertices[index].col.r = 1.0f;
+		drawInfo.pVertices[index].col.g = 1.0f;
+		drawInfo.pVertices[index].col.b = 1.0f;
+		drawInfo.pVertices[index].col.a = 1.0f;		// Again, if not sure, set to 1.0f
 
-		drawInfo.pVertices[index].nx = theMesh.vecVertices[index].nx;
-		drawInfo.pVertices[index].ny = theMesh.vecVertices[index].ny;
-		drawInfo.pVertices[index].nz = theMesh.vecVertices[index].nz;
-		drawInfo.pVertices[index].nw = 1.0f;		// if unsure, set to 1.0f
+		drawInfo.pVertices[index].norm.x = theMesh.vecVertices[index].norm.x;
+		drawInfo.pVertices[index].norm.y = theMesh.vecVertices[index].norm.y;
+		drawInfo.pVertices[index].norm.z = theMesh.vecVertices[index].norm.z;
+		drawInfo.pVertices[index].norm.w = 1.0f;		// if unsure, set to 1.0f
 
 		// These are the "texture coordinates", and we aren't loading them, yet
-		drawInfo.pVertices[index].u0 = 1.0f;
-		drawInfo.pVertices[index].v0 = 1.0f;
-		drawInfo.pVertices[index].u1 = 1.0f;
-		drawInfo.pVertices[index].v1 = 1.0f;
+		drawInfo.pVertices[index].tex0.s = 1.0f;
+		drawInfo.pVertices[index].tex0.t = 1.0f;
+		drawInfo.pVertices[index].tex1.s = 1.0f;
+		drawInfo.pVertices[index].tex1.t = 1.0f;
 
 	}
 
@@ -193,13 +193,13 @@ bool VAOManager::LoadModelIntoVAO(
 	glVertexAttribPointer(vpos_location, 4,		// now a vec4
 						  GL_FLOAT, GL_FALSE,
 						  sizeof(ModelVertex),						// sizeof(float) * 6,
-						  (void*)(offsetof(ModelVertex, x)));
+						  (void*)(offsetof(ModelVertex, pos.x)));
 
 	glEnableVertexAttribArray(vcol_location);	// vCol
 	glVertexAttribPointer(vcol_location, 4,		// vCol
 						  GL_FLOAT, GL_FALSE,
 						  sizeof(ModelVertex),
-						  (void*)(offsetof(ModelVertex, r)));
+						  (void*)(offsetof(ModelVertex, col.r)));
 
 
 	//	float nx, ny, nz, nw;
@@ -207,14 +207,14 @@ bool VAOManager::LoadModelIntoVAO(
 	glVertexAttribPointer(vnorm_location, 4,		// vNormal
 						  GL_FLOAT, GL_FALSE,
 						  sizeof(ModelVertex),
-						  (void*)(offsetof(ModelVertex, nx)));
+						  (void*)(offsetof(ModelVertex, norm.x)));
 
 	//	float u0, v0, u1, v1;
 	glEnableVertexAttribArray(vUV_location);		// vUVx2
 	glVertexAttribPointer(vUV_location, 4,		// vUVx2
 						  GL_FLOAT, GL_FALSE,
 						  sizeof(ModelVertex),
-						  (void*)(offsetof(ModelVertex, u0)));
+						  (void*)(offsetof(ModelVertex, tex0.s)));
 
 
 

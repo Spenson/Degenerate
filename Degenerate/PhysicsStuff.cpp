@@ -39,9 +39,9 @@ void PhysicsUpdate(std::vector<GameObject*>& vec_pGameObjects,
 
 			//NewPosition = Posistion + ( Vx * DeltaTime )
 
-			pCurObj->positionXYZ.x += pCurObj->velocity.x * deltaTime;
-			pCurObj->positionXYZ.y += pCurObj->velocity.y * deltaTime;
-			pCurObj->positionXYZ.z += pCurObj->velocity.z * deltaTime;
+			pCurObj->position.x += pCurObj->velocity.x * deltaTime;
+			pCurObj->position.y += pCurObj->velocity.y * deltaTime;
+			pCurObj->position.z += pCurObj->velocity.z * deltaTime;
 
 
 			float groundPlane = 0.0f;
@@ -51,7 +51,7 @@ void PhysicsUpdate(std::vector<GameObject*>& vec_pGameObjects,
 			float radius = 1.0f;
 //			direction = vec3( 0.0, +1.0, 0.0 )
 //		    velocity = 10.0f
-			if ( (pCurObj->positionXYZ.y - radius) <= groundPlane)
+			if ( (pCurObj->position.y - radius) <= groundPlane)
 			{
 				// It's hit the cube. Set the velocity to -ve of what it is
 				// fabs() is floating point absolute value
@@ -76,14 +76,14 @@ void PhysicsUpdate(std::vector<GameObject*>& vec_pGameObjects,
 			}
 
 			// Left plane 
-			if ( (pCurObj->positionXYZ.x) <= leftPlane)
+			if ( (pCurObj->position.x) <= leftPlane)
 			{
 				// It's hit the cube. Set the velocity to -ve of what it is
 				// fabs() is floating point absolute value
 				pCurObj->velocity.x = +fabs(pCurObj->velocity.x);
 			}
 			// Right plane 
-			if ( (pCurObj->positionXYZ.x) >= rightPlane)
+			if ( (pCurObj->position.x) >= rightPlane)
 			{
 				// It's hit the cube. Set the velocity to -ve of what it is
 				// fabs() is floating point absolute value
@@ -211,7 +211,7 @@ void HACK_BounceOffSomePlanes(GameObject* pTheBouncingBall, bool &didItCollideWi
 	float radius = 1.0f;
 	//			direction = vec3( 0.0, +1.0, 0.0 )
 	//		    velocity = 10.0f
-	if ((pTheBouncingBall->positionXYZ.y - radius) <= groundPlane)
+	if ((pTheBouncingBall->position.y - radius) <= groundPlane)
 	{
 		// It's hit the cube. Set the velocity to -ve of what it is
 		// fabs() is floating point absolute value
@@ -236,14 +236,14 @@ void HACK_BounceOffSomePlanes(GameObject* pTheBouncingBall, bool &didItCollideWi
 	}
 
 	// Left plane 
-	if ((pTheBouncingBall->positionXYZ.x) <= leftPlane)
+	if ((pTheBouncingBall->position.x) <= leftPlane)
 	{
 		// It's hit the cube. Set the velocity to -ve of what it is
 		// fabs() is floating point absolute value
 		pTheBouncingBall->velocity.x = +fabs(pTheBouncingBall->velocity.x);
 	}
 	// Right plane 
-	if ((pTheBouncingBall->positionXYZ.x) >= rightPlane)
+	if ((pTheBouncingBall->position.x) >= rightPlane)
 	{
 		// It's hit the cube. Set the velocity to -ve of what it is
 		// fabs() is floating point absolute value

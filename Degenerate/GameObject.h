@@ -26,13 +26,15 @@ public:
 	unsigned int friendlyIDNumber;
 	std::string friendlyName;
 
-	glm::vec3  positionXYZ;
-	glm::vec3  rotationXYZ;
+	glm::vec3 previousPosition;
+
+	glm::vec3  position;
+	glm::vec3  rotation;
 	glm::vec3  scale;
 
 	glm::mat4 matWorld;
 
-	glm::vec4  objectColourRGBA;
+	glm::vec4  objectColour;
 
 	// Likely want this now:
 	glm::vec4 diffuseColour;		// Colour of the object

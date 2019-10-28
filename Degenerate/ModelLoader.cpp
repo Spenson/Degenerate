@@ -73,13 +73,13 @@ bool ModelLoader::LoadPlyModel(
 	for (unsigned int index = 0; index != numberOfVertices; index++)
 	{
 		// -0.0312216 0.126304 0.00514924
-		VertexWithNormal tempVertex;
+		VertexPosNormTex tempVertex;
 
 		// -0.0312216 0.126304 0.00514924
-		theFile >> tempVertex.x >> tempVertex.y >> tempVertex.z;
+		theFile >> tempVertex.pos.x >> tempVertex.pos.y >> tempVertex.pos.z;
 
 		// Also load the normals
-		theFile >> tempVertex.nx >> tempVertex.ny >> tempVertex.nz;
+		theFile >> tempVertex.norm.x >> tempVertex.norm.y >> tempVertex.norm.z;
 
 		// Add this temp vertex to the vector of vertices
 		// (cMesh &theMesh)

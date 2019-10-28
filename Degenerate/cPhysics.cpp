@@ -55,9 +55,9 @@ void cPhysics::IntegrationStep(std::vector<GameObject*>& vec_pGameObjects, float
 
 					//NewPosition = Posistion + ( Vx * DeltaTime )
 
-			pCurObj->positionXYZ.x += pCurObj->velocity.x * deltaTime;
-			pCurObj->positionXYZ.y += pCurObj->velocity.y * deltaTime;
-			pCurObj->positionXYZ.z += pCurObj->velocity.z * deltaTime;
+			pCurObj->position.x += pCurObj->velocity.x * deltaTime;
+			pCurObj->position.y += pCurObj->velocity.y * deltaTime;
+			pCurObj->position.z += pCurObj->velocity.z * deltaTime;
 
 
 		}
@@ -82,24 +82,24 @@ void cPhysics::GetClosestTriangleToPoint(Point pointXYZ, Mesh& mesh, glm::vec3& 
 		TriangleIndex& curTriangle = mesh.vecTriangles[triIndex];
 
 		// Get the vertices of the triangle
-		VertexWithNormal triVert1 = mesh.vecVertices[curTriangle.a];
-		VertexWithNormal triVert2 = mesh.vecVertices[curTriangle.b];
-		VertexWithNormal triVert3 = mesh.vecVertices[curTriangle.c];
+		VertexPosNormTex triVert1 = mesh.vecVertices[curTriangle.a];
+		VertexPosNormTex triVert2 = mesh.vecVertices[curTriangle.b];
+		VertexPosNormTex triVert3 = mesh.vecVertices[curTriangle.c];
 
 		Point triVertPoint1;
-		triVertPoint1.x = triVert1.x;
-		triVertPoint1.y = triVert1.y;
-		triVertPoint1.z = triVert1.z;
+		triVertPoint1.x = triVert1.pos.x;
+		triVertPoint1.y = triVert1.pos.y;
+		triVertPoint1.z = triVert1.pos.z;
 
 		Point triVertPoint2;
-		triVertPoint2.x = triVert2.x;
-		triVertPoint2.y = triVert2.y;
-		triVertPoint2.z = triVert2.z;
+		triVertPoint2.x = triVert2.pos.x;
+		triVertPoint2.y = triVert2.pos.y;
+		triVertPoint2.z = triVert2.pos.z;
 
 		Point triVertPoint3;
-		triVertPoint3.x = triVert3.x;
-		triVertPoint3.y = triVert3.y;
-		triVertPoint3.z = triVert3.z;
+		triVertPoint3.x = triVert3.pos.x;
+		triVertPoint3.y = triVert3.pos.y;
+		triVertPoint3.z = triVert3.pos.z;
 
 		glm::vec3 curClosetPoint = ClosestPtPointTriangle(pointXYZ,
 														  triVertPoint1, triVertPoint2, triVertPoint3);
@@ -115,21 +115,21 @@ void cPhysics::GetClosestTriangleToPoint(Point pointXYZ, Mesh& mesh, glm::vec3& 
 			closestPoint = curClosetPoint;
 
 			// Copy the triangle information over, as well
-			closestTriangle.verts[0].x = triVert1.x;
-			closestTriangle.verts[0].y = triVert1.y;
-			closestTriangle.verts[0].z = triVert1.z;
-			closestTriangle.verts[1].x = triVert2.x;
-			closestTriangle.verts[1].y = triVert2.y;
-			closestTriangle.verts[1].z = triVert2.z;
-			closestTriangle.verts[2].x = triVert3.x;
-			closestTriangle.verts[2].y = triVert3.y;
-			closestTriangle.verts[2].z = triVert3.z;
+			closestTriangle.verts[0].x = triVert1.pos.x;
+			closestTriangle.verts[0].y = triVert1.pos.y;
+			closestTriangle.verts[0].z = triVert1.pos.z;
+			closestTriangle.verts[1].x = triVert2.pos.x;
+			closestTriangle.verts[1].y = triVert2.pos.y;
+			closestTriangle.verts[1].z = triVert2.pos.z;
+			closestTriangle.verts[2].x = triVert3.pos.x;
+			closestTriangle.verts[2].y = triVert3.pos.y;
+			closestTriangle.verts[2].z = triVert3.pos.z;
 
 			// TODO: Copy the normal, too	
 			// Quick is to average the normal of all 3 vertices
-			glm::vec3 triVert1Norm = glm::vec3(triVert1.nx, triVert1.ny, triVert1.nz);
-			glm::vec3 triVert2Norm = glm::vec3(triVert2.nx, triVert2.ny, triVert2.nz);
-			glm::vec3 triVert3Norm = glm::vec3(triVert3.nx, triVert3.ny, triVert3.nz);
+			glm::vec3 triVert1Norm = glm::vec3(triVert1.norm.x, triVert1.norm.y, triVert1.norm.z);
+			glm::vec3 triVert2Norm = glm::vec3(triVert2.norm.x, triVert2.norm.y, triVert2.norm.z);
+			glm::vec3 triVert3Norm = glm::vec3(triVert3.norm.x, triVert3.norm.y, triVert3.norm.z);
 
 			// Average of the vertex normals... 
 			closestTriangle.normal = (triVert1Norm + triVert2Norm + triVert3Norm) / 3.0f;
@@ -154,16 +154,17 @@ void cPhysics::TestForCollisions(std::vector<GameObject*>& vec_pGameObjects)
 {
 	// This will store all the collisions in this frame
 
+	std::vector<sCollisionInfo> vecCollisions;
 
 	for (unsigned int outerLoopIndex = 0;
 		 outerLoopIndex != vec_pGameObjects.size(); outerLoopIndex++)
 	{
-		std::vector<sCollisionInfo> vecCollisions;
+		GameObject* pA = vec_pGameObjects[outerLoopIndex];
+		pA->previousPosition = pA->position;
 		for (unsigned int innerLoopIndex = 0;
 			 innerLoopIndex != vec_pGameObjects.size(); innerLoopIndex++)
 		{
 			sCollisionInfo collisionInfo;
-			GameObject* pA = vec_pGameObjects[outerLoopIndex];
 			GameObject* pB = vec_pGameObjects[innerLoopIndex];
 
 
@@ -182,16 +183,14 @@ void cPhysics::TestForCollisions(std::vector<GameObject*>& vec_pGameObjects)
 				// It's the same object
 				// Do nothing
 			}
-			else if (pA->physicsShapeType == SPHERE &&
-					 pB->physicsShapeType == SPHERE)
+			else if (pA->physicsShapeType == SPHERE && pB->physicsShapeType == SPHERE)
 			{
 				if (DoSphereSphereCollisionTest(pA, pB, collisionInfo))
 				{
 					vecCollisions.push_back(collisionInfo);
 				}
 			}
-			else if (pA->physicsShapeType == SPHERE &&
-					 pB->physicsShapeType == MESH)
+			else if (pA->physicsShapeType == SPHERE && pB->physicsShapeType == MESH)
 			{
 				if (DoShphereMeshCollisionTest(pA, pB, collisionInfo))
 				{
@@ -201,10 +200,39 @@ void cPhysics::TestForCollisions(std::vector<GameObject*>& vec_pGameObjects)
 
 
 		}//for (unsigned int innerLoopIndex = 0;
-		if (!vecCollisions.empty())
-			mapCollisions[vec_pGameObjects[outerLoopIndex]->friendlyName] = vecCollisions;
+
+		//if (!vecCollisions.empty())
+		//	mapCollisions[vec_pGameObjects[outerLoopIndex]->friendlyName] = vecCollisions;
 
 	}//for (unsigned int outerLoopIndex = 0;
+
+	for (size_t index = 0; index < vecCollisions.size(); index++)
+	{
+	}
+	for (size_t index = 0; index < vecCollisions.size(); index++)
+	{
+		vecCollisions[index].pObject1->previousPosition = vecCollisions[index].pObject1->previousPosition + vecCollisions[index].adjustmentVector;
+		for (size_t idx = 0; idx < vecCollisions.size(); idx++)
+		{
+			if (vecCollisions[index].pObject1 == vecCollisions[idx].pObject2)
+			{
+				vecCollisions[idx].pObject2 = NULL;
+			}
+		}
+		if (vecCollisions[index].pObject2 != NULL)
+		{
+			if (vecCollisions[index].pObject1->physicsShapeType == SPHERE && vecCollisions[index].pObject2->physicsShapeType == SPHERE)
+			{
+				sphereCollisionResponse(vecCollisions[index]);
+			}
+			if (vecCollisions[index].pObject1->physicsShapeType == SPHERE && vecCollisions[index].pObject2->physicsShapeType == MESH)
+			{
+				sphereMeshCollisionResponse(vecCollisions[index]);
+			}
+		}
+	}
+
+
 }
 
 
@@ -223,54 +251,20 @@ bool cPhysics::DoSphereSphereCollisionTest(GameObject* pA, GameObject* pB,
 	// Run the sphere-sphere collision test
 	// If collided, load the collisionInfo struct and return true
 	// else return false;
-	float seperation = glm::distance(pA->positionXYZ, pB->positionXYZ);
+	float seperation = glm::distance(pA->position, pB->position);
 	float combineRadius = pA->SPHERE_radius + pB->SPHERE_radius;
 	if (seperation <= combineRadius)
 	{
 		collisionInfo.pObject1 = pA;
 		collisionInfo.pObject2 = pB;
-		
-		glm::vec3 midline = pA->positionXYZ - pB->positionXYZ;
 
-		glm::vec3 normal = glm::normalize(midline);
-	
-		collisionInfo.closestPoint = pA->positionXYZ + (midline* 0.5f);
+		glm::vec3 midline = pA->position - pB->position;
+
+		collisionInfo.closestPoint = pA->position + (midline * 0.5f);
 		collisionInfo.penetrationDistance = (combineRadius - seperation);
 		collisionInfo.directionOfApproach = glm::normalize(pA->velocity);
 		collisionInfo.adjustmentVector = (-collisionInfo.directionOfApproach) * collisionInfo.penetrationDistance;
-
-
-		glm::vec3 velocityVector = glm::normalize(pA->velocity);
-
-		// closestTriangle.normal
-		glm::vec3 reflectionVec = glm::reflect(velocityVector, normal);
-		reflectionVec = glm::normalize(reflectionVec);
-
-		float speed = glm::length(pA->velocity) * 0.5f;
-		float speedB = glm::length(pB->velocity) * 0.5f;
-
-		//speedB = glm::distance(glm::normalize(pB->velocity), normal);
-
-		
-
-		collisionInfo.bounceVelocity = (reflectionVec * speed) + (normal * speedB);
-
-		//glm::vec3 nv1; // new velocity for sphere 1
-		////glm::vec3 nv2; // new velocity for sphere 2
-		//// this can probably be optimised a bit, but it basically swaps the velocity amounts
-		//// that are perpendicular to the surface of the collistion.
-		//// If the spheres had different masses, then u would need to scale the amounts of
-		//// velocities exchanged inversely proportional to their masses.
-		//nv1 = pA->velocity;
-		//nv1 += projectUonV(pB->velocity, (pB->positionXYZ - pA->positionXYZ));
-		//nv1 -= projectUonV(pA->velocity, (pA->positionXYZ - pB->positionXYZ));
-		///*nv2 = pB->velocity;
-		//nv2 += projectUonV(pA->velocity, (pB->positionXYZ - pA->positionXYZ));
-		//nv2 -= projectUonV(pB->velocity, (pA->positionXYZ - pB->positionXYZ));*/
-		//collisionInfo.bounceVelocity = nv1;
-		//s2.velocity = nv2;
-
-
+		collisionInfo.reflectionNormal = glm::normalize(midline);
 
 		return true;
 	}
@@ -284,17 +278,17 @@ bool cPhysics::DoShphereMeshCollisionTest(GameObject* pA, GameObject* pB,
 	// TODO: Do the sphere-Mesh collision test
 	// If collided, load the collisionInfo struct and return true
 	//  else return false
-	Point closestPoint;
+	Point closestPoint = glm::vec3(0.0f, 0.0f, 0.0f);
 	sPhysicsTriangle closestTriangle;
 
 	Mesh transformedMesh;
 	CalculateTransformedMesh(mMeshes[pB->meshName], pB->matWorld, transformedMesh);
 
-	GetClosestTriangleToPoint(pA->positionXYZ, transformedMesh, closestPoint, closestTriangle);
+	GetClosestTriangleToPoint(pA->position, transformedMesh, closestPoint, closestTriangle);
 
 
 
-	float distance = glm::length(pA->positionXYZ - closestPoint);
+	float distance = glm::length(pA->position - closestPoint);
 	if (distance <= pA->SPHERE_radius)
 	{
 
@@ -302,26 +296,26 @@ bool cPhysics::DoShphereMeshCollisionTest(GameObject* pA, GameObject* pB,
 		collisionInfo.pObject2 = pB;
 
 		collisionInfo.closestPoint = closestPoint;
-		glm::vec3 vecSphereToClosestPoint = closestPoint - pA->positionXYZ;
+		glm::vec3 vecSphereToClosestPoint = closestPoint - pA->position;
 		float centreToContractDistance = glm::length(vecSphereToClosestPoint);
 		collisionInfo.penetrationDistance = (pA->SPHERE_radius - centreToContractDistance);
 		collisionInfo.directionOfApproach = glm::normalize(pA->velocity);
+		collisionInfo.adjustmentVector = glm::normalize(closestTriangle.normal) * collisionInfo.penetrationDistance;
 
-		collisionInfo.adjustmentVector = (-collisionInfo.directionOfApproach) * collisionInfo.penetrationDistance;
-
-		glm::vec3 velocityVector = glm::normalize(pA->velocity);
+		collisionInfo.reflectionNormal = closestTriangle.normal;
+		//glm::vec3 velocityVector = glm::normalize(pA->velocity);
 
 		// closestTriangle.normal
-		glm::vec3 reflectionVec = glm::reflect(velocityVector, glm::normalize(closestTriangle.normal));
-		reflectionVec = glm::normalize(reflectionVec);
+		//glm::vec3 reflectionVec = glm::reflect(velocityVector, glm::normalize(closestTriangle.normal));
+		//reflectionVec = glm::normalize(reflectionVec);
 
 		// Get lenght of the velocity vector
 
 
 
-		float speed = glm::length(pA->velocity);
+		//float speed = glm::length(pA->velocity);
 
-		collisionInfo.bounceVelocity = glm::vec3(reflectionVec.x, reflectionVec.y * 0.3, reflectionVec.z) * speed;
+		//collisionInfo.bounceVelocity = glm::vec3(reflectionVec.x, reflectionVec.y * 0.3, reflectionVec.z) * speed;
 
 
 		return true;
@@ -345,10 +339,10 @@ void cPhysics::CalculateTransformedMesh(Mesh& originalMesh, glm::mat4 matWorld,
 	// fVertWorldLocation = matModel * vec4(vertPosition.xyz, 1.0);
 
 
-	for (std::vector<VertexWithNormal>::iterator itVert = mesh_transformedInWorld.vecVertices.begin();
+	for (std::vector<VertexPosNormTex>::iterator itVert = mesh_transformedInWorld.vecVertices.begin();
 		 itVert != mesh_transformedInWorld.vecVertices.end(); itVert++)
 	{
-		glm::vec4 vertex = glm::vec4(itVert->x, itVert->y, itVert->z, 1.0f);
+		glm::vec4 vertex = glm::vec4(itVert->pos.x, itVert->pos.y, itVert->pos.z, 1.0f);
 
 
 		// boom goes the dynamite
@@ -356,9 +350,9 @@ void cPhysics::CalculateTransformedMesh(Mesh& originalMesh, glm::mat4 matWorld,
 		glm::vec4 vertexWorldTransformed = matWorld * vertex;
 
 		// Update 
-		itVert->x = vertexWorldTransformed.x;
-		itVert->y = vertexWorldTransformed.y;
-		itVert->z = vertexWorldTransformed.z;
+		itVert->pos.x = vertexWorldTransformed.x;
+		itVert->pos.y = vertexWorldTransformed.y;
+		itVert->pos.z = vertexWorldTransformed.z;
 
 
 		// CALCAULTE THE NORMALS for the this mesh, too (for the response)
@@ -366,7 +360,7 @@ void cPhysics::CalculateTransformedMesh(Mesh& originalMesh, glm::mat4 matWorld,
 		glm::mat4 matWorld_Inv_Transp = glm::inverse(glm::transpose(matWorld));
 
 
-		glm::vec4 normal = glm::vec4(itVert->nx, itVert->ny, itVert->nz, 1.0f);
+		glm::vec4 normal = glm::vec4(itVert->norm.x, itVert->norm.y, itVert->norm.z, 1.0f);
 
 		// boom goes the dynamite
 		// https://www.youtube.com/watch?v=W45DRy7M1no
@@ -375,9 +369,9 @@ void cPhysics::CalculateTransformedMesh(Mesh& originalMesh, glm::mat4 matWorld,
 
 		//normal = glm::normalize(normal);
 		// Update 
-		itVert->nx = normalWorldTransformed.x;
-		itVert->ny = normalWorldTransformed.y;
-		itVert->nz = normalWorldTransformed.z;
+		itVert->norm.x = normalWorldTransformed.x;
+		itVert->norm.y = normalWorldTransformed.y;
+		itVert->norm.z = normalWorldTransformed.z;
 	}
 
 	return;
@@ -397,16 +391,66 @@ void cPhysics::ProcessCollisions(void)
 			for (std::vector<sCollisionInfo>::iterator vecit = mapit->second.begin(); vecit != mapit->second.end(); vecit++)
 			{
 				adjustment += vecit->adjustmentVector;
-				velocity += vecit->bounceVelocity;
+				//velocity += vecit->bounceVelocity;
 			}
 			adjustment /= mapit->second.size();
 			velocity /= mapit->second.size();
 
-			pFindObjectByFriendlyName(mapit->first)->positionXYZ += adjustment;
+			pFindObjectByFriendlyName(mapit->first)->position += adjustment;
 
 			pFindObjectByFriendlyName(mapit->first)->velocity = velocity;
 		}
 		mapCollisions.clear();
 	}
+
+}
+
+void cPhysics::sphereCollisionResponse(sCollisionInfo& collisionInfo)
+{
+	GameObject* a = collisionInfo.pObject1;
+	GameObject* b = collisionInfo.pObject2;
+	glm::vec3 U1x, U1y, U2x, U2y, V1x, V1y, V2x, V2y;
+
+	float m1, m2, x1, x2;
+	glm::vec3 v1temp, v1, v2, v1x, v2x, v1y, v2y, x(a->position - b->position);
+
+	glm::normalize(x);
+	v1 = a->velocity;
+	x1 = dot(x, v1);
+	v1x = x * x1;
+	v1y = v1 - v1x;
+	m1 = 1.0f; //mass of 1
+
+	x = x * -1.0f;
+	v2 = b->velocity;
+	x2 = dot(x, v2);
+	v2x = x * x2;
+	v2y = v2 - v2x;
+	m2 = 1.0f; //mass of 1
+
+	//set the position of the spheres to their previous non contact positions to unstick them.
+	a->position = a->previousPosition;
+	b->position = b->previousPosition;
+	a->velocity = glm::vec3(v1x * (m1 - m2) / (m1 + m2) + v2x * (2 * m2) / (m1 + m2) + v1y) / 4.0f;
+	b->velocity = glm::vec3(v1x * (2 * m1) / (m1 + m2) + v2x * (m2 - m1) / (m1 + m2) + v2y) / 4.0f;
+}
+
+void cPhysics::sphereMeshCollisionResponse(sCollisionInfo& collisionInfo)
+{
+	GameObject* a = collisionInfo.pObject1;
+	GameObject* b = collisionInfo.pObject2;
+	glm::vec3 velocityVector = glm::normalize(a->velocity);
+
+	//closestTriangle.normal
+	glm::vec3 reflectionVec = glm::reflect(velocityVector, glm::normalize(collisionInfo.reflectionNormal));
+	reflectionVec = glm::normalize(reflectionVec);
+
+	// Get lenght of the velocity vector
+
+
+
+	float speed = glm::length(a->velocity);
+	a->position = a->previousPosition;
+	a->velocity = glm::vec3(reflectionVec.x, reflectionVec.y * 0.3, reflectionVec.z) * speed;
 
 }

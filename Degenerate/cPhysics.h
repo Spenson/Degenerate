@@ -35,7 +35,8 @@ public:
 		glm::vec3 directionOfApproach;
 		float penetrationDistance;
 		glm::vec3 adjustmentVector;
-		glm::vec3 bounceVelocity;
+		glm::vec3 reflectionNormal;
+		//glm::vec3 bounceVelocity;
 		GameObject* pObject1;		// Shpere
 		GameObject* pObject2;		// Sphere or Triangle
 	};
@@ -63,6 +64,9 @@ public:
 	void setGravity( glm::vec3 newGravityValue );
 	glm::vec3 getGravity(void);
 
+
+	void sphereCollisionResponse(sCollisionInfo& collisionInfo);
+	void sphereMeshCollisionResponse(sCollisionInfo& collisionInfo);
 
 private:
 

@@ -149,6 +149,7 @@ void cPhysics::GetClosestTrianglesToSphere(GameObject& testSphere, float distanc
 
 }
 
+unsigned expCount = 0;
 // Test each object with every other object
 void cPhysics::TestForCollisions(std::vector<GameObject*>& vec_pGameObjects)
 {
@@ -228,6 +229,25 @@ void cPhysics::TestForCollisions(std::vector<GameObject*>& vec_pGameObjects)
 			if (vecCollisions[index].pObject1->physicsShapeType == SPHERE && vecCollisions[index].pObject2->physicsShapeType == MESH)
 			{
 				sphereMeshCollisionResponse(vecCollisions[index]);
+			}
+
+			{
+				GameObject* explosion = new GameObject();
+				explosion->friendlyName = "explosion" + std::to_string(expCount);
+				explosion->meshName = "sphere";
+				explosion->position = vecCollisions[index].closestPoint;
+				explosion->velocity = glm::vec3(0.0f);
+				explosion->scale = glm::vec3(40.0f);
+				explosion->physicsShapeType = UNKNOWN;
+				explosion->objectColour = glm::vec4(0.9f, 0.1f, 0.1f, 1.0f);
+				explosion->specularColour = glm::vec4(1.0f, 1.0f, 0.7f, 0.001f);
+				explosion->inverseMass = 1.0f;
+				explosion->isWireframe = 0;
+				explosion->isVisible = 1;
+				explosion->disableDepthBufferTest = 0;
+				explosion->disableDepthBufferWrite = 0;
+				vec_pGameObjects.push_back(explosion);
+				expCount++;
 			}
 		}
 	}
@@ -464,8 +484,8 @@ void cPhysics::sphereMeshCollisionResponse(sCollisionInfo& collisionInfo)
 	a->position = collisionInfo.closestPoint;
 	a->meshName = "sphere";
 	a->scale = glm::vec3(40);
-	a->objectColour = glm::vec4(0.3f, 0.3f, 0.3f,1.0f);
-	a->specularColour = glm::vec4(0.0f,0.0f,0.0f,0.0f);
+	a->objectColour = glm::vec4(0.3f, 0.3f, 0.3f, 1.0f);
+	a->specularColour = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
 
 
 	//glm::vec3 velocityVector = glm::normalize(a->velocity);

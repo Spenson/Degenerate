@@ -250,7 +250,7 @@ int main(void)
 		double deltaTime = currentTime - lastTime;
 		lastTime = currentTime;
 
-		const double SOME_HUGE_TIME = 0.1;	// 100 ms;
+		const double SOME_HUGE_TIME = 0.075;	// 75 ms;
 		if (deltaTime > SOME_HUGE_TIME)
 		{
 			deltaTime = SOME_HUGE_TIME;
@@ -343,9 +343,9 @@ int main(void)
 			GameObject* newAstroid = new GameObject();
 			newAstroid->friendlyName = "Asteroid" + std::to_string(AsteroidCount);
 			newAstroid->position.z = 4000.0;
-			newAstroid->position.x = (rand() % 15000) - 7500.0;
-			newAstroid->position.y = (rand() % 15000) - 7500.0;
-			newAstroid->velocity.z = -((rand() % 1000) + 1);
+			newAstroid->position.x = (rand() % 10000) - 5000.0;
+			newAstroid->position.y = (rand() % 10000) - 5000.0;
+			newAstroid->velocity.z = -((rand() % 200) + 200);
 			newAstroid->velocity.x = 0;
 			newAstroid->velocity.y = 0;
 			newAstroid->scale = glm::vec3(1.0f);
@@ -373,7 +373,7 @@ int main(void)
 
 			std::cout << ::g_vec_pGameObjects.size() << std::endl;
 			AsteroidCount++;
-			//TimeSinceAsteroid = 0.0;
+			TimeSinceAsteroid = 0.0;
 		}
 
 
@@ -392,7 +392,7 @@ int main(void)
 		// - Draw it.
 
 
-		//Remove astroids to far away to matter && remove destroyed items
+		//Remove astroids to far away to matter && remove destroyed items && handle Exposions since we are looping anyway
 		for (std::vector<GameObject*>::iterator it = ::g_vec_pGameObjects.begin(); it != ::g_vec_pGameObjects.end(); it++)
 		{
 			if ((*it) == nullptr)
@@ -405,6 +405,15 @@ int main(void)
 			{
 				delete (*it);
 				::g_vec_pGameObjects.erase(it);
+			}
+			else if ((*it)->friendlyName.find("explosion") != std::string::npos)
+			{
+				(*it)->scale *=  (float)(2 * avgDeltaTimeThingy.getAverage()) + 1.0f;
+				if ((*it)->scale.x > 200.0f)
+				{
+					delete (*it);
+					::g_vec_pGameObjects.erase(it);
+				}
 			}
 		}
 

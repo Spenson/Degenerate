@@ -83,7 +83,10 @@ void LightManager::PassLightsToShader()
 						1.0f); // currently unused
 
 			glUniform4f(curUniLocs.Specular.location,
-						1.0f, 1.0f, 1.0f, 0.1f); //to be moved to object
+						curLight->Specular.r, 
+						curLight->Specular.g, 
+						curLight->Specular.b, 
+						curLight->Specular.a);
 
 			glUniform4f(curUniLocs.Atten.location,
 						curLight->ConstAtten,

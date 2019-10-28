@@ -7,4 +7,24 @@
     <File>Sphere_Radius_1_XYZ_n.ply</File>
     <Name>sphere</Name>
   </Mesh>
+  <Mesh>
+    <File>Parts_Exposed_to_Asteroids_xyz_n.ply</File>
+    <Name>PartsExposed</Name>
+  </Mesh>
+  <Mesh>
+    <File>Parts_Safe_from_Asteroids_xyz_n.ply</File>
+    <Name>PartsSafe</Name>
+  </Mesh>
+  <Mesh>
+    <File>Asteroid_011_xyz_n.ply</File>
+    <Name>Asteroid0</Name>
+  </Mesh>
+  <Mesh>
+    <File>Asteroid_014_xyz_n.ply</File>
+    <Name>Asteroid1</Name>
+  </Mesh>
+  <Mesh>
+    <File>Asteroid_015_xyz_n.ply</File>
+    <Name>Asteroid2</Name>
+  </Mesh>
 </MESHES>

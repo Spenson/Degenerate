@@ -162,7 +162,7 @@ int main(void)
 
 
 	ReadGameObjectsFromFile("../assets/config/GameObjects.xml", ::g_vec_pGameObjects, true);
-	
+
 	for (unsigned int index = 0;
 		 index != ::g_vec_pGameObjects.size(); index++)
 	{
@@ -233,8 +233,12 @@ int main(void)
 	lightMan.InitilizeLightUinformLocations(shaderProgID, "theLights", 10, lighterrors);
 	//Light* sexyLight = lightMan.GetLight(0);
 
-	CameraManager::GetCameraInstance()->SetPosition(glm::vec3(0, 0, 30.f));
-	CameraManager::GetCameraInstance()->LookRight(180);
+	CameraManager::GetCameraInstance()->SetPosition(glm::vec3(6000.0f, 3000.0f, 7000.0f));
+	CameraManager::GetCameraInstance()->LookRight(145);
+	CameraManager::GetCameraInstance()->LookUp(-18);
+
+	double TimeSinceAsteroid = 0.0;
+	unsigned AsteroidCount = 0;
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -269,8 +273,8 @@ int main(void)
 		// Projection matrix
 		p = glm::perspective(0.6f,		// FOV
 							 ratio,			// Aspect ratio
-							 0.1f,			// Near clipping plane
-							 1000.0f);		// Far clipping plane
+							 1.0f,			// Near clipping plane
+							 25000.0f);		// Far clipping plane
 
 		// View matrix
 		v = glm::mat4(1.0f);
@@ -290,12 +294,9 @@ int main(void)
 		lightMan.PassLightsToShader();
 
 
-
-
-
 		glUniform4f(eyeLocation_UL,
-					CameraManager::GetCameraInstance()->GetPosition().x, 
-					CameraManager::GetCameraInstance()->GetPosition().y, 
+					CameraManager::GetCameraInstance()->GetPosition().x,
+					CameraManager::GetCameraInstance()->GetPosition().y,
 					CameraManager::GetCameraInstance()->GetPosition().z, 1.0f);
 
 
@@ -335,14 +336,53 @@ int main(void)
 		// Update the objects through physics
 //		PhysicsUpdate( vec_pGameObjects, 0.01f );
 
+		TimeSinceAsteroid += avgDeltaTimeThingy.getAverage();
+
+		if (TimeSinceAsteroid > 1.0)
+		{
+			GameObject* newAstroid = new GameObject();
+			newAstroid->friendlyName = "Asteroid" + std::to_string(AsteroidCount);
+			newAstroid->position.z = 4000.0;
+			newAstroid->position.x = (rand() % 15000) - 7500.0;
+			newAstroid->position.y = (rand() % 15000) - 7500.0;
+			newAstroid->velocity.z = -((rand() % 1000) + 1);
+			newAstroid->velocity.x = 0;
+			newAstroid->velocity.y = 0;
+			newAstroid->scale = glm::vec3(1.0f);
+			newAstroid->physicsShapeType = SPHERE;
+			newAstroid->objectColour = glm::vec4(((rand() % 60) * 0.01) + 0.2);
+			newAstroid->specularColour = glm::vec4(1.0f, 1.0f, 1.0f, 0.01f);
+			newAstroid->inverseMass = 1.0f;
+			newAstroid->isWireframe = 0;
+			newAstroid->isVisible = 1;
+			newAstroid->disableDepthBufferTest = 0;
+			newAstroid->disableDepthBufferWrite = 0;
 
 
-//		pPhsyics->IntegrationStep(::g_vec_pGameObjects, 0.01f);
-//		pPhsyics->IntegrationStep(::g_vec_pGameObjects, (float)deltaTime);
-		double averageDeltaTime = avgDeltaTimeThingy.getAverage();
-		pPhsyics->IntegrationStep(::g_vec_pGameObjects, (float)averageDeltaTime);
+
+			int AstroidMeshNumber = rand() % 3;
+			newAstroid->meshName = "Asteroid" + std::to_string(AstroidMeshNumber);
+			newAstroid->SPHERE_radius = (AstroidMeshNumber = 0 ? 55.9f : AstroidMeshNumber = 1 ? 24.4f : 80.6f);
+			if (AstroidMeshNumber == 1)
+			{
+				newAstroid->SPHERE_radius *= 2;
+				newAstroid->scale *= 2;
+			}
+
+			::g_vec_pGameObjects.push_back(newAstroid);
+
+			std::cout << ::g_vec_pGameObjects.size() << std::endl;
+			AsteroidCount++;
+			//TimeSinceAsteroid = 0.0;
+		}
+
+
+
+
+		//		pPhsyics->IntegrationStep(::g_vec_pGameObjects, 0.01f);
+		//		pPhsyics->IntegrationStep(::g_vec_pGameObjects, (float)deltaTime);
+		pPhsyics->IntegrationStep(::g_vec_pGameObjects, (float)avgDeltaTimeThingy.getAverage());
 		pPhsyics->TestForCollisions(::g_vec_pGameObjects);
-		pPhsyics->ProcessCollisions();
 		// Let's draw all the closest points to the sphere
 		// on the terrain mesh....
 		// 
@@ -352,6 +392,21 @@ int main(void)
 		// - Draw it.
 
 
+		//Remove astroids to far away to matter && remove destroyed items
+		for (std::vector<GameObject*>::iterator it = ::g_vec_pGameObjects.begin(); it != ::g_vec_pGameObjects.end(); it++)
+		{
+			if ((*it) == nullptr)
+			{
+				::g_vec_pGameObjects.erase(it);
+			}
+			else if ((*it)->position.z < -20000 || (*it)->position.z > 20000 ||
+				(*it)->position.x < -20000 || (*it)->position.x > 20000 ||
+				(*it)->position.y < -20000 || (*it)->position.y > 20000)
+			{
+				delete (*it);
+				::g_vec_pGameObjects.erase(it);
+			}
+		}
 
 
 		if (bLightDebugSheresOn)

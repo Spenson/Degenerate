@@ -28,62 +28,62 @@ bool isCtrlKeyDownByAlone(int mods);
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 
-	const float CAMERASPEED = 0.5f;
+	const float CAMERASPEED = 100.0f;
 	const float MOVEMENTSPEED = 0.2f;
 	const float MAXSPEED = 8.0f;
 
 	if (!isShiftKeyDownByAlone(mods) && !isCtrlKeyDownByAlone(mods))
 	{
 
-		if (key == GLFW_KEY_UP)
-		{
+		//if (key == GLFW_KEY_UP)
+		//{
 
-			glm::vec3 balldir = CameraManager::GetCameraInstance()->GetTarget() - CameraManager::GetCameraInstance()->GetPosition();
-			balldir.y = 0;
-			balldir = glm::normalize(balldir);
-			//pFindObjectByFriendlyName("sphere1")->velocity = glm::vec3(0.0f, pFindObjectByFriendlyName("sphere1")->velocity.y, 0.0f);
-			pFindObjectByFriendlyName("sphere1")->velocity += (MOVEMENTSPEED * balldir);
-			if (glm::length(pFindObjectByFriendlyName("sphere1")->velocity) > MAXSPEED)
-			{
-				pFindObjectByFriendlyName("sphere1")->velocity = glm::normalize(pFindObjectByFriendlyName("sphere1")->velocity) * MAXSPEED;
-			}
-		}
-		if (key == GLFW_KEY_DOWN)
-		{
-				glm::vec3 balldir = CameraManager::GetCameraInstance()->GetTarget() - CameraManager::GetCameraInstance()->GetPosition();
-				balldir.y = 0;
-				balldir = glm::normalize(balldir);
-				//pFindObjectByFriendlyName("sphere1")->velocity = glm::vec3(0.0f, pFindObjectByFriendlyName("sphere1")->velocity.y, 0.0f);
-				pFindObjectByFriendlyName("sphere1")->velocity -= (MOVEMENTSPEED * balldir);
-				if (glm::length(pFindObjectByFriendlyName("sphere1")->velocity) > MAXSPEED)
-				{
-					pFindObjectByFriendlyName("sphere1")->velocity = glm::normalize(pFindObjectByFriendlyName("sphere1")->velocity) * MAXSPEED;
-				}
-		}
-		if (key == GLFW_KEY_LEFT)
-		{
-				glm::vec3 balldir = CameraManager::GetCameraInstance()->GetTarget() - CameraManager::GetCameraInstance()->GetPosition();
-				balldir.y = 0;
-				balldir = glm::normalize(glm::cross(balldir, glm::vec3(0.0f, 1.0f, 0.0f)));
-				//pFindObjectByFriendlyName("sphere1")->velocity = glm::vec3(0.0f, pFindObjectByFriendlyName("sphere1")->velocity.y, 0.0f);
-				pFindObjectByFriendlyName("sphere1")->velocity -= (MOVEMENTSPEED * balldir);
-				if (glm::length(pFindObjectByFriendlyName("sphere1")->velocity) > MAXSPEED)
-				{
-					pFindObjectByFriendlyName("sphere1")->velocity = glm::normalize(pFindObjectByFriendlyName("sphere1")->velocity) * MAXSPEED;
-				}
-		}
-		if (key == GLFW_KEY_RIGHT)
-		{
-				glm::vec3 balldir = CameraManager::GetCameraInstance()->GetTarget() - CameraManager::GetCameraInstance()->GetPosition();
-				balldir.y = 0;
-				balldir = glm::normalize(glm::cross(balldir, glm::vec3(0.0f, 1.0f, 0.0f)));
-				//pFindObjectByFriendlyName("sphere1")->velocity = glm::vec3(0.0f, pFindObjectByFriendlyName("sphere1")->velocity.y, 0.0f);
-				pFindObjectByFriendlyName("sphere1")->velocity += (MOVEMENTSPEED * balldir);
-				if (glm::length(pFindObjectByFriendlyName("sphere1")->velocity) > MAXSPEED)
-				{
-					pFindObjectByFriendlyName("sphere1")->velocity = glm::normalize(pFindObjectByFriendlyName("sphere1")->velocity) * MAXSPEED;
-				}
-		}
+		//	glm::vec3 balldir = CameraManager::GetCameraInstance()->GetTarget() - CameraManager::GetCameraInstance()->GetPosition();
+		//	balldir.y = 0;
+		//	balldir = glm::normalize(balldir);
+		//	//pFindObjectByFriendlyName("sphere1")->velocity = glm::vec3(0.0f, pFindObjectByFriendlyName("sphere1")->velocity.y, 0.0f);
+		//	pFindObjectByFriendlyName("sphere1")->velocity += (MOVEMENTSPEED * balldir);
+		//	if (glm::length(pFindObjectByFriendlyName("sphere1")->velocity) > MAXSPEED)
+		//	{
+		//		pFindObjectByFriendlyName("sphere1")->velocity = glm::normalize(pFindObjectByFriendlyName("sphere1")->velocity) * MAXSPEED;
+		//	}
+		//}
+		//if (key == GLFW_KEY_DOWN)
+		//{
+		//		glm::vec3 balldir = CameraManager::GetCameraInstance()->GetTarget() - CameraManager::GetCameraInstance()->GetPosition();
+		//		balldir.y = 0;
+		//		balldir = glm::normalize(balldir);
+		//		//pFindObjectByFriendlyName("sphere1")->velocity = glm::vec3(0.0f, pFindObjectByFriendlyName("sphere1")->velocity.y, 0.0f);
+		//		pFindObjectByFriendlyName("sphere1")->velocity -= (MOVEMENTSPEED * balldir);
+		//		if (glm::length(pFindObjectByFriendlyName("sphere1")->velocity) > MAXSPEED)
+		//		{
+		//			pFindObjectByFriendlyName("sphere1")->velocity = glm::normalize(pFindObjectByFriendlyName("sphere1")->velocity) * MAXSPEED;
+		//		}
+		//}
+		//if (key == GLFW_KEY_LEFT)
+		//{
+		//		glm::vec3 balldir = CameraManager::GetCameraInstance()->GetTarget() - CameraManager::GetCameraInstance()->GetPosition();
+		//		balldir.y = 0;
+		//		balldir = glm::normalize(glm::cross(balldir, glm::vec3(0.0f, 1.0f, 0.0f)));
+		//		//pFindObjectByFriendlyName("sphere1")->velocity = glm::vec3(0.0f, pFindObjectByFriendlyName("sphere1")->velocity.y, 0.0f);
+		//		pFindObjectByFriendlyName("sphere1")->velocity -= (MOVEMENTSPEED * balldir);
+		//		if (glm::length(pFindObjectByFriendlyName("sphere1")->velocity) > MAXSPEED)
+		//		{
+		//			pFindObjectByFriendlyName("sphere1")->velocity = glm::normalize(pFindObjectByFriendlyName("sphere1")->velocity) * MAXSPEED;
+		//		}
+		//}
+		//if (key == GLFW_KEY_RIGHT)
+		//{
+		//		glm::vec3 balldir = CameraManager::GetCameraInstance()->GetTarget() - CameraManager::GetCameraInstance()->GetPosition();
+		//		balldir.y = 0;
+		//		balldir = glm::normalize(glm::cross(balldir, glm::vec3(0.0f, 1.0f, 0.0f)));
+		//		//pFindObjectByFriendlyName("sphere1")->velocity = glm::vec3(0.0f, pFindObjectByFriendlyName("sphere1")->velocity.y, 0.0f);
+		//		pFindObjectByFriendlyName("sphere1")->velocity += (MOVEMENTSPEED * balldir);
+		//		if (glm::length(pFindObjectByFriendlyName("sphere1")->velocity) > MAXSPEED)
+		//		{
+		//			pFindObjectByFriendlyName("sphere1")->velocity = glm::normalize(pFindObjectByFriendlyName("sphere1")->velocity) * MAXSPEED;
+		//		}
+		//}
 
 
 

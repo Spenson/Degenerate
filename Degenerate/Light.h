@@ -17,7 +17,7 @@ public:
 	//vec4 diffuse;	
 	glm::vec3 Diffuse;
 
-	///vec4 specular; MOVE TO OBJECT 
+	glm::vec4 Specular;		
 
 	//vec4 atten;	
 	float ConstAtten;		// = 0.000001f;			// not really used (can turn off and on the light)

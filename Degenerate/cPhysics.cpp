@@ -10,7 +10,7 @@ cPhysics::cPhysics()
 	// This is a typical Earth gravity value. 
 	// note that this doesn't mean that the simulation will "look good", though... 
 //	this->m_Gravity = glm::vec3(0.0f, -9.81f, 0.0f);
-	this->m_Gravity = glm::vec3(0.0f, -1.0f, 0.0f);
+	this->m_Gravity = glm::vec3(0.0f, 0.0f, 0.0f);
 	return;
 }
 
@@ -275,6 +275,18 @@ bool cPhysics::DoSphereSphereCollisionTest(GameObject* pA, GameObject* pB,
 bool cPhysics::DoShphereMeshCollisionTest(GameObject* pA, GameObject* pB,
 										  sCollisionInfo& collisionInfo)
 {
+	//break if their is no possiblily of hitting
+	//rigged "broad phase"
+	if (pA->position.z > 1000 ||
+		pA->position.z < -8000 ||
+		pA->position.x >  3000 ||
+		pA->position.x < -3000 ||
+		pA->position.y >  3000 ||
+		pA->position.y < -3000)
+		return false;
+
+
+
 	// TODO: Do the sphere-Mesh collision test
 	// If collided, load the collisionInfo struct and return true
 	//  else return false
@@ -379,78 +391,95 @@ void cPhysics::CalculateTransformedMesh(Mesh& originalMesh, glm::mat4 matWorld,
 
 void cPhysics::ProcessCollisions(void)
 {
-	if (!mapCollisions.empty())
-	{
-		glm::vec3 adjustment;
-		glm::vec3 velocity;
-		for (std::map<std::string, std::vector<sCollisionInfo>>::iterator mapit = mapCollisions.begin(); mapit != mapCollisions.end(); mapit++)
-		{
-			adjustment = glm::vec3(0.0f);
-			velocity = glm::vec3(0.0f);
+	//if (!mapCollisions.empty())
+	//{
+	//	glm::vec3 adjustment;
+	//	glm::vec3 velocity;
+	//	for (std::map<std::string, std::vector<sCollisionInfo>>::iterator mapit = mapCollisions.begin(); mapit != mapCollisions.end(); mapit++)
+	//	{
+	//		adjustment = glm::vec3(0.0f);
+	//		velocity = glm::vec3(0.0f);
 
-			for (std::vector<sCollisionInfo>::iterator vecit = mapit->second.begin(); vecit != mapit->second.end(); vecit++)
-			{
-				adjustment += vecit->adjustmentVector;
-				//velocity += vecit->bounceVelocity;
-			}
-			adjustment /= mapit->second.size();
-			velocity /= mapit->second.size();
+	//		for (std::vector<sCollisionInfo>::iterator vecit = mapit->second.begin(); vecit != mapit->second.end(); vecit++)
+	//		{
+	//			adjustment += vecit->adjustmentVector;
+	//			//velocity += vecit->bounceVelocity;
+	//		}
+	//		adjustment /= mapit->second.size();
+	//		velocity /= mapit->second.size();
 
-			pFindObjectByFriendlyName(mapit->first)->position += adjustment;
+	//		pFindObjectByFriendlyName(mapit->first)->position += adjustment;
 
-			pFindObjectByFriendlyName(mapit->first)->velocity = velocity;
-		}
-		mapCollisions.clear();
-	}
+	//		pFindObjectByFriendlyName(mapit->first)->velocity = velocity;
+	//	}
+	//	mapCollisions.clear();
+	//}
 
 }
 
+
+//will make explosion no damage
 void cPhysics::sphereCollisionResponse(sCollisionInfo& collisionInfo)
 {
 	GameObject* a = collisionInfo.pObject1;
 	GameObject* b = collisionInfo.pObject2;
-	glm::vec3 U1x, U1y, U2x, U2y, V1x, V1y, V2x, V2y;
 
-	float m1, m2, x1, x2;
-	glm::vec3 v1temp, v1, v2, v1x, v2x, v1y, v2y, x(a->position - b->position);
+	a->velocity = glm::vec3(0.0f);
+	b->velocity = glm::vec3(0.0f);
 
-	glm::normalize(x);
-	v1 = a->velocity;
-	x1 = dot(x, v1);
-	v1x = x * x1;
-	v1y = v1 - v1x;
-	m1 = 1.0f; //mass of 1
+	//glm::vec3 U1x, U1y, U2x, U2y, V1x, V1y, V2x, V2y;
 
-	x = x * -1.0f;
-	v2 = b->velocity;
-	x2 = dot(x, v2);
-	v2x = x * x2;
-	v2y = v2 - v2x;
-	m2 = 1.0f; //mass of 1
+	//float m1, m2, x1, x2;
+	//glm::vec3 v1temp, v1, v2, v1x, v2x, v1y, v2y, x(a->position - b->position);
 
-	//set the position of the spheres to their previous non contact positions to unstick them.
-	a->position = a->previousPosition;
-	b->position = b->previousPosition;
-	a->velocity = glm::vec3(v1x * (m1 - m2) / (m1 + m2) + v2x * (2 * m2) / (m1 + m2) + v1y) / 4.0f;
-	b->velocity = glm::vec3(v1x * (2 * m1) / (m1 + m2) + v2x * (m2 - m1) / (m1 + m2) + v2y) / 4.0f;
+	//glm::normalize(x);
+	//v1 = a->velocity;
+	//x1 = dot(x, v1);
+	//v1x = x * x1;
+	//v1y = v1 - v1x;
+	//m1 = 1.0f; //mass of 1
+
+	//x = x * -1.0f;
+	//v2 = b->velocity;
+	//x2 = dot(x, v2);
+	//v2x = x * x2;
+	//v2y = v2 - v2x;
+	//m2 = 1.0f; //mass of 1
+
+	////set the position of the spheres to their previous non contact positions to unstick them.
+	//a->position = a->previousPosition;
+	//b->position = b->previousPosition;
+	//a->velocity = glm::vec3(v1x * (m1 - m2) / (m1 + m2) + v2x * (2 * m2) / (m1 + m2) + v1y) / 4.0f;
+	//b->velocity = glm::vec3(v1x * (2 * m1) / (m1 + m2) + v2x * (m2 - m1) / (m1 + m2) + v2y) / 4.0f;
 }
 
+//will make explosion and damage
 void cPhysics::sphereMeshCollisionResponse(sCollisionInfo& collisionInfo)
 {
 	GameObject* a = collisionInfo.pObject1;
 	GameObject* b = collisionInfo.pObject2;
-	glm::vec3 velocityVector = glm::normalize(a->velocity);
 
-	//closestTriangle.normal
-	glm::vec3 reflectionVec = glm::reflect(velocityVector, glm::normalize(collisionInfo.reflectionNormal));
-	reflectionVec = glm::normalize(reflectionVec);
+	a->velocity = glm::vec3(0.0f);
+	a->physicsShapeType = UNKNOWN;
+	a->position = collisionInfo.closestPoint;
+	a->meshName = "sphere";
+	a->scale = glm::vec3(40);
+	a->objectColour = glm::vec4(0.3f, 0.3f, 0.3f,1.0f);
+	a->specularColour = glm::vec4(0.0f,0.0f,0.0f,0.0f);
 
-	// Get lenght of the velocity vector
+
+	//glm::vec3 velocityVector = glm::normalize(a->velocity);
+
+	////closestTriangle.normal
+	//glm::vec3 reflectionVec = glm::reflect(velocityVector, glm::normalize(collisionInfo.reflectionNormal));
+	//reflectionVec = glm::normalize(reflectionVec);
+
+	//// Get lenght of the velocity vector
 
 
 
-	float speed = glm::length(a->velocity);
-	a->position = a->previousPosition;
-	a->velocity = glm::vec3(reflectionVec.x, reflectionVec.y * 0.3, reflectionVec.z) * speed;
+	//float speed = glm::length(a->velocity);
+	//a->position = a->previousPosition;
+	//a->velocity = glm::vec3(reflectionVec.x, reflectionVec.y, reflectionVec.z) * speed;
 
 }

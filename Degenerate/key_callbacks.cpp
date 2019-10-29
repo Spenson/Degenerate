@@ -84,7 +84,14 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		//			pFindObjectByFriendlyName("sphere1")->velocity = glm::normalize(pFindObjectByFriendlyName("sphere1")->velocity) * MAXSPEED;
 		//		}
 		//}
-
+		if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
+		{
+			LASERS = !LASERS;
+			if (LASERS)
+				std::cout << "LASERS!!!" << std::endl;
+			else
+				std::cout << "No Lasers :(" << std::endl;
+		}
 
 
 		// Move the camera (A & D for left and right, along the x axis)

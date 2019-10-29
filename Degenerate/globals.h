@@ -19,3 +19,4 @@ GameObject* pFindObjectByFriendlyNameMap(std::string name);
 //extern glm::vec3 sexyLightSpotDirection;
 
 extern bool bLightDebugSheresOn;
+extern bool LASERS;

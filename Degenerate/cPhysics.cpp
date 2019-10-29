@@ -447,6 +447,8 @@ void cPhysics::sphereCollisionResponse(sCollisionInfo& collisionInfo)
 	a->velocity = glm::vec3(0.0f);
 	b->velocity = glm::vec3(0.0f);
 
+	a->position = glm::vec3(25000, 25000, 25000);
+	b->position = glm::vec3(25000, 25000, 25000);
 	//glm::vec3 U1x, U1y, U2x, U2y, V1x, V1y, V2x, V2y;
 
 	//float m1, m2, x1, x2;
@@ -478,7 +480,7 @@ void cPhysics::sphereMeshCollisionResponse(sCollisionInfo& collisionInfo)
 {
 	GameObject* a = collisionInfo.pObject1;
 	GameObject* b = collisionInfo.pObject2;
-
+	a->friendlyName = "damage";
 	a->velocity = glm::vec3(0.0f);
 	a->physicsShapeType = UNKNOWN;
 	a->position = collisionInfo.closestPoint;

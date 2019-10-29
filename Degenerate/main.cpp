@@ -45,7 +45,7 @@
 void DrawObject(glm::mat4 m, GameObject* pCurrentObject, GLint shaderProgID, VAOManager* pVAOManager);
 glm::mat4 calculateWorldMatrix(GameObject* pCurrentObject);
 bool bLightDebugSheresOn = false;
-
+bool LASERS = false;
 
 
 // Load up my "scene"  (now global)
@@ -240,6 +240,7 @@ int main(void)
 	double TimeSinceAsteroid = 0.0;
 	unsigned AsteroidCount = 0;
 
+
 	while (!glfwWindowShouldClose(window))
 	{
 
@@ -332,7 +333,71 @@ int main(void)
 
 		}//for (int index...
 
+		if (LASERS)
+		{
+			for (size_t idx = 0; idx < ::g_vec_pGameObjects.size(); idx++)
+			{
+				if (::g_vec_pGameObjects[idx]->friendlyName.find("Asteroid") != std::string::npos ||
+					::g_vec_pGameObjects[idx]->friendlyName.find("explosion") != std::string::npos)
+				{
+					if (::g_vec_pGameObjects[idx]->position.z < 2000 &&
+						(::g_vec_pGameObjects[idx]->position.x <  3000 && ::g_vec_pGameObjects[idx]->position.x > -3000) &&
+						(::g_vec_pGameObjects[idx]->position.y <  3000 && ::g_vec_pGameObjects[idx]->position.y > -3000)
+						)
+					{
+						const glm::vec3 GUNPOS(0.0f, 0.0f, 300.0f);
+						glm::vec3 dir = glm::normalize(::g_vec_pGameObjects[idx]->position - GUNPOS);
+						dir *= 3.0f;
+						float dis = glm::distance(GUNPOS, ::g_vec_pGameObjects[idx]->position);
 
+						glm::vec3 lastPos = GUNPOS;
+
+						GameObject* laserpoint = new GameObject();
+						laserpoint->friendlyName = "laser";
+						laserpoint->meshName = "sphere";
+						laserpoint->velocity = glm::vec3(0.0f);
+						laserpoint->scale = glm::vec3(10.0f);
+						laserpoint->physicsShapeType = UNKNOWN;
+						laserpoint->objectColour = glm::vec4(0.3f, 0.4f, 1.0f, 1.0f);
+						laserpoint->specularColour = glm::vec4(1.0f, 1.0f, 0.7f, 0.001f);
+						laserpoint->inverseMass = 0.0f;
+						laserpoint->isWireframe = 0;
+						laserpoint->isVisible = 1;
+						laserpoint->disableDepthBufferTest = 0;
+						laserpoint->disableDepthBufferWrite = 0;
+
+						while (glm::distance(GUNPOS, lastPos) + 2 < dis)
+						{
+							lastPos += dir;
+							laserpoint->position = lastPos;
+
+							glm::mat4 matModel = glm::mat4(1.0f);
+							DrawObject(matModel, laserpoint,
+									   shaderProgID, pTheVAOManager);
+						}
+						if (::g_vec_pGameObjects[idx]->friendlyName.find("Asteroid") != std::string::npos)
+						{
+							GameObject* explosion = new GameObject();
+							explosion->friendlyName = "explosion";
+							explosion->meshName = "sphere";
+							explosion->position = ::g_vec_pGameObjects[idx]->position;
+							explosion->velocity = glm::vec3(0.0f);
+							explosion->scale = glm::vec3(40.0f);
+							explosion->physicsShapeType = UNKNOWN;
+							explosion->objectColour = glm::vec4(0.9f, 0.1f, 0.1f, 1.0f);
+							explosion->specularColour = glm::vec4(1.0f, 1.0f, 0.7f, 0.001f);
+							explosion->inverseMass = 1.0f;
+							explosion->isWireframe = 0;
+							explosion->isVisible = 1;
+							explosion->disableDepthBufferTest = 0;
+							explosion->disableDepthBufferWrite = 0;
+							::g_vec_pGameObjects.push_back(explosion);
+							::g_vec_pGameObjects[idx]->position = glm::vec3(25000, 25000, 25000);
+						}
+					}
+				}
+			}
+		}
 		// Update the objects through physics
 //		PhysicsUpdate( vec_pGameObjects, 0.01f );
 
@@ -342,10 +407,10 @@ int main(void)
 		{
 			GameObject* newAstroid = new GameObject();
 			newAstroid->friendlyName = "Asteroid" + std::to_string(AsteroidCount);
-			newAstroid->position.z = 4000.0;
+			newAstroid->position.z = 6000.0;
 			newAstroid->position.x = (rand() % 10000) - 5000.0;
 			newAstroid->position.y = (rand() % 10000) - 5000.0;
-			newAstroid->velocity.z = -((rand() % 200) + 200);
+			newAstroid->velocity.z = -((rand() % 300) + 200);
 			newAstroid->velocity.x = 0;
 			newAstroid->velocity.y = 0;
 			newAstroid->scale = glm::vec3(1.0f);
@@ -371,7 +436,7 @@ int main(void)
 
 			::g_vec_pGameObjects.push_back(newAstroid);
 
-			std::cout << ::g_vec_pGameObjects.size() << std::endl;
+			//std::cout << ::g_vec_pGameObjects.size() << std::endl;
 			AsteroidCount++;
 			TimeSinceAsteroid = 0.0;
 		}
@@ -393,26 +458,26 @@ int main(void)
 
 
 		//Remove astroids to far away to matter && remove destroyed items && handle Exposions since we are looping anyway
-		for (std::vector<GameObject*>::iterator it = ::g_vec_pGameObjects.begin(); it != ::g_vec_pGameObjects.end(); it++)
+		for (size_t idx = ::g_vec_pGameObjects.size() - 1; idx > 0; idx--)
 		{
-			if ((*it) == nullptr)
+			if (::g_vec_pGameObjects[idx] == nullptr)
 			{
-				::g_vec_pGameObjects.erase(it);
+				::g_vec_pGameObjects.erase(::g_vec_pGameObjects.begin() + idx);
 			}
-			else if ((*it)->position.z < -20000 || (*it)->position.z > 20000 ||
-				(*it)->position.x < -20000 || (*it)->position.x > 20000 ||
-				(*it)->position.y < -20000 || (*it)->position.y > 20000)
+			else if (::g_vec_pGameObjects[idx]->position.z < -20000 || ::g_vec_pGameObjects[idx]->position.z > 20000 ||
+					 ::g_vec_pGameObjects[idx]->position.x < -20000 || ::g_vec_pGameObjects[idx]->position.x > 20000 ||
+					 ::g_vec_pGameObjects[idx]->position.y < -20000 || ::g_vec_pGameObjects[idx]->position.y > 20000)
 			{
-				delete (*it);
-				::g_vec_pGameObjects.erase(it);
+				delete ::g_vec_pGameObjects[idx];
+				::g_vec_pGameObjects.erase(::g_vec_pGameObjects.begin() + idx);
 			}
-			else if ((*it)->friendlyName.find("explosion") != std::string::npos)
+			else if (::g_vec_pGameObjects[idx]->friendlyName.find("explosion") != std::string::npos)
 			{
-				(*it)->scale *=  (float)(2 * avgDeltaTimeThingy.getAverage()) + 1.0f;
-				if ((*it)->scale.x > 200.0f)
+				::g_vec_pGameObjects[idx]->scale *= (float)(2 * avgDeltaTimeThingy.getAverage()) + 1.0f;
+				if (::g_vec_pGameObjects[idx]->scale.x > 200.0f)
 				{
-					delete (*it);
-					::g_vec_pGameObjects.erase(it);
+					delete ::g_vec_pGameObjects[idx];
+					::g_vec_pGameObjects.erase(::g_vec_pGameObjects.begin() + idx);
 				}
 			}
 		}

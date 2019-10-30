@@ -83,7 +83,10 @@ void LightManager::PassLightsToShader()
 						1.0f); // currently unused
 
 			glUniform4f(curUniLocs.Specular.location,
-						1.0f, 1.0f, 1.0f, 0.1f); //to be moved to object
+						curLight->Specular.r,
+						curLight->Specular.g,
+						curLight->Specular.b,
+						curLight->Specular.a);
 
 			glUniform4f(curUniLocs.Atten.location,
 						curLight->ConstAtten,
@@ -109,8 +112,8 @@ void LightManager::PassLightsToShader()
 			}
 
 			glUniform4f(curUniLocs.Param1.location,
-						curlightType, 
-						curLight->SpotInnerAngle, 
+						curlightType,
+						curLight->SpotInnerAngle,
 						curLight->SpotOuterAngle,
 						1.0f);	// currently unused
 
@@ -156,7 +159,7 @@ void LightManager::GenerateLights(unsigned LightCount, bool resetExistingLights)
 	{
 		for (; vecLights.size() > LightCount;)
 		{
-			delete this->vecLights[vecLights.size()-1];
+			delete this->vecLights[vecLights.size() - 1];
 			vecLights.pop_back();
 		}
 	}

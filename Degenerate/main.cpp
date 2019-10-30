@@ -299,16 +299,16 @@ int main(void)
 					CameraManager::GetCameraInstance()->GetPosition().z, 1.0f);
 
 
-		//std::stringstream ssTitle;
-		//ssTitle
-		//	<< lightMan.GetLastLight()->Position.x << ", "
-		//	<< lightMan.GetLastLight()->Position.y << ", "
-		//	<< lightMan.GetLastLight()->Position.z
-		//	<< "Atten: "
-		//	<< lightMan.GetLastLight()->ConstAtten << " : "
-		//	<< lightMan.GetLastLight()->LinearAtten << " : "
-		//	<< lightMan.GetLastLight()->QuadraticAtten;
-		//glfwSetWindowTitle(window, ssTitle.str().c_str());
+		std::stringstream ssTitle;
+		ssTitle
+			<< lightMan.GetLastLight()->Position.x << ", "
+			<< lightMan.GetLastLight()->Position.y << ", "
+			<< lightMan.GetLastLight()->Position.z;
+			/*<< "Atten: "
+			<< lightMan.GetLastLight()->ConstAtten << " : "
+			<< lightMan.GetLastLight()->LinearAtten << " : "
+			<< lightMan.GetLastLight()->QuadraticAtten;*/
+		glfwSetWindowTitle(window, ssTitle.str().c_str());
 
 
 		glUniformMatrix4fv(matView_UL, 1, GL_FALSE, glm::value_ptr(v));
@@ -533,10 +533,10 @@ void DrawObject(glm::mat4 m,
 				pCurrentObject->objectColour.a);	// 
 
 	glUniform4f(specularColour_UL,
-				1.0f,	// R
-				1.0f,	// G
-				1.0f,	// B
-				1000.0f);	// Specular "power" (how shinny the object is)
+				pCurrentObject->specularColour.r,	// R
+				pCurrentObject->specularColour.g,	// G
+				pCurrentObject->specularColour.b,	// B
+				pCurrentObject->specularColour.a);	// Specular "power" (how shinny the object is)
 							// 1.0 to really big (10000.0f)
 
 

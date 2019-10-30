@@ -190,13 +190,14 @@ void ReadLightsFromFile(std::string File, LightManager& lightMan, bool clearExis
 		light->Position = GetXYZ(lightElement->FirstChildElement("Position"));
 		light->Direction = GetXYZ(lightElement->FirstChildElement("Direction"));
 		light->Diffuse = GetRGB(lightElement->FirstChildElement("Diffuse"));
+		light->Specular = GetRGBA(lightElement->FirstChildElement("Specular"));
 
 		light->ConstAtten = lightElement->FirstChildElement("ConstAtten")->FindAttribute("f")->FloatValue();
 		light->LinearAtten = lightElement->FirstChildElement("LinearAtten")->FindAttribute("f")->FloatValue();
 		light->QuadraticAtten = lightElement->FirstChildElement("QuadraticAtten")->FindAttribute("f")->FloatValue();
 		light->CutOffDistance = FLT_MAX;// lightElement->FirstChildElement("CutOffDistance")->FindAttribute("f")->FloatValue();
 
-		light->lightType = (Light::LightType) lightElement->FirstChildElement("LightType")->FindAttribute("type")->IntValue();
+		light->lightType = (Light::LightType)lightElement->FirstChildElement("LightType")->FindAttribute("type")->IntValue();
 
 		light->SpotInnerAngle = lightElement->FirstChildElement("SpotInnerAngle")->FindAttribute("f")->FloatValue();
 		light->SpotOuterAngle = lightElement->FirstChildElement("SpotOuterAngle")->FindAttribute("f")->FloatValue();
@@ -234,6 +235,7 @@ void WriteLightsToFile(std::string File, LightManager lightMan)
 		insertAttributes(newLightElement->InsertEndChild(new_xml_doc.NewElement("Position")), light->Position);
 		insertAttributes(newLightElement->InsertEndChild(new_xml_doc.NewElement("Direction")), light->Direction);
 		insertAttributes(newLightElement->InsertEndChild(new_xml_doc.NewElement("Diffuse")), light->Diffuse, true);
+		insertAttributes(newLightElement->InsertEndChild(new_xml_doc.NewElement("Specular")), light->Specular);
 
 		((tinyxml2::XMLElement*)newLightElement->InsertEndChild(new_xml_doc.NewElement("ConstAtten")))->SetAttribute("f", light->ConstAtten);
 		((tinyxml2::XMLElement*)newLightElement->InsertEndChild(new_xml_doc.NewElement("LinearAtten")))->SetAttribute("f", light->LinearAtten);
@@ -263,7 +265,7 @@ void ReadMeshesFromFile(std::string File, std::string MeshDir, std::map<std::str
 	for (;;)
 	{
 		currentName = meshElement->FirstChildElement("Name")->GetText();
-		if(! mapMeshes.count(currentName))
+		if (!mapMeshes.count(currentName))
 			if (!modelLoader->LoadPlyModel(MeshDir + meshElement->FirstChildElement("File")->GetText(), mapMeshes[currentName]))
 			{
 				std::cout << "Didn't find the file" << std::endl;

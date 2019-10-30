@@ -6,6 +6,7 @@ Light::Light()
 	Position = glm::vec3(0.0f);	
 	Direction = glm::vec3(0.0f,-1.0f,0.0f);
 	Diffuse = glm::vec3(1.0f);
+	Specular = glm::vec4(1.0f);
 
 	ConstAtten = 0.0f;	
 	LinearAtten = 0.0003f;

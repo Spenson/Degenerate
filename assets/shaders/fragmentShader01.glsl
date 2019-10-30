@@ -159,8 +159,8 @@ vec4 calcualteLightContrib( vec3 vertexMaterialColour, vec3 vertexNormal,
 		
 //		lightSpecularContrib = pow( max(0.0f, dot( eyeVector, reflectVector) ), objectSpecularPower )
 //			                   * vertexSpecular.rgb;	//* theLights[lightIndex].Specular.rgb
-		lightSpecularContrib = pow( max(0.0f, dot( eyeVector, reflectVector) ), objectSpecularPower )
-			                   * theLights[index].specular.rgb;
+		lightSpecularContrib = pow( max(0.0f, dot( eyeVector, reflectVector) ), objectSpecularPower)
+			                   * (theLights[index].specular.rgb * vertexSpecular.rgb);
 							   
 		// Attenuation
 		float attenuation = 1.0f / 

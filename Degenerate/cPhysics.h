@@ -67,6 +67,7 @@ public:
 
 	void sphereCollisionResponse(sCollisionInfo& collisionInfo);
 	void sphereMeshCollisionResponse(sCollisionInfo& collisionInfo);
+	bool DoSphereSphereCollisionTest(GameObject* pA, GameObject* pB);
 
 private:
 

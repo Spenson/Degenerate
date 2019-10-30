@@ -236,7 +236,7 @@ int main(void)
 	CameraManager::GetCameraInstance()->SetPosition(glm::vec3(6000.0f, 3000.0f, 7000.0f));
 	CameraManager::GetCameraInstance()->LookRight(145);
 	CameraManager::GetCameraInstance()->LookUp(-18);
-
+	CameraManager::GetCameraInstance()->MoveForward(-1000);
 	double TimeSinceAsteroid = 0.0;
 	unsigned AsteroidCount = 0;
 
@@ -357,7 +357,8 @@ int main(void)
 						laserpoint->meshName = "sphere";
 						laserpoint->velocity = glm::vec3(0.0f);
 						laserpoint->scale = glm::vec3(10.0f);
-						laserpoint->physicsShapeType = UNKNOWN;
+						laserpoint->physicsShapeType = SPHERE;
+						laserpoint->SPHERE_radius = 10.0f;
 						laserpoint->objectColour = glm::vec4(0.3f, 0.4f, 1.0f, 1.0f);
 						laserpoint->specularColour = glm::vec4(1.0f, 1.0f, 0.7f, 0.001f);
 						laserpoint->inverseMass = 0.0f;
@@ -366,7 +367,7 @@ int main(void)
 						laserpoint->disableDepthBufferTest = 0;
 						laserpoint->disableDepthBufferWrite = 0;
 
-						while (glm::distance(GUNPOS, lastPos) + 2 < dis)
+						while (!pPhsyics->DoSphereSphereCollisionTest(laserpoint, ::g_vec_pGameObjects[idx]))
 						{
 							lastPos += dir;
 							laserpoint->position = lastPos;
@@ -406,7 +407,7 @@ int main(void)
 		if (TimeSinceAsteroid > 1.0)
 		{
 			GameObject* newAstroid = new GameObject();
-			newAstroid->friendlyName = "Asteroid" + std::to_string(AsteroidCount);
+			newAstroid->friendlyName = "Asteroid";
 			newAstroid->position.z = 6000.0;
 			newAstroid->position.x = (rand() % 10000) - 5000.0;
 			newAstroid->position.y = (rand() % 10000) - 5000.0;
@@ -437,7 +438,6 @@ int main(void)
 			::g_vec_pGameObjects.push_back(newAstroid);
 
 			//std::cout << ::g_vec_pGameObjects.size() << std::endl;
-			AsteroidCount++;
 			TimeSinceAsteroid = 0.0;
 		}
 

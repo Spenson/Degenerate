@@ -209,9 +209,6 @@ void cPhysics::TestForCollisions(std::vector<GameObject*>& vec_pGameObjects)
 
 	for (size_t index = 0; index < vecCollisions.size(); index++)
 	{
-	}
-	for (size_t index = 0; index < vecCollisions.size(); index++)
-	{
 		vecCollisions[index].pObject1->previousPosition = vecCollisions[index].pObject1->previousPosition + vecCollisions[index].adjustmentVector;
 		for (size_t idx = 0; idx < vecCollisions.size(); idx++)
 		{
@@ -233,7 +230,7 @@ void cPhysics::TestForCollisions(std::vector<GameObject*>& vec_pGameObjects)
 
 			{
 				GameObject* explosion = new GameObject();
-				explosion->friendlyName = "explosion" + std::to_string(expCount);
+				explosion->friendlyName = "explosion";
 				explosion->meshName = "sphere";
 				explosion->position = vecCollisions[index].closestPoint;
 				explosion->velocity = glm::vec3(0.0f);
@@ -286,6 +283,21 @@ bool cPhysics::DoSphereSphereCollisionTest(GameObject* pA, GameObject* pB,
 		collisionInfo.adjustmentVector = (-collisionInfo.directionOfApproach) * collisionInfo.penetrationDistance;
 		collisionInfo.reflectionNormal = glm::normalize(midline);
 
+		return true;
+	}
+	return false;
+}
+
+bool cPhysics::DoSphereSphereCollisionTest(GameObject* pA, GameObject* pB)
+{
+	// TODO: 
+	// Run the sphere-sphere collision test
+	// If collided, load the collisionInfo struct and return true
+	// else return false;
+	float seperation = glm::distance(pA->position, pB->position);
+	float combineRadius = pA->SPHERE_radius + pB->SPHERE_radius;
+	if (seperation <= combineRadius)
+	{
 		return true;
 	}
 	return false;

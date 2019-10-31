@@ -1,11 +1,39 @@
 <LIGHTS>
   <Light>
+    <Position x="33.4" y="141.6" z="61.6"/>
+    <Direction x="4" y="5" z="6"/>
+    <Diffuse r="1" g="0.5" b="0"/>
+    <Specular r="1" g="0" b="0" a="0.01"/>
+    <ConstAtten f="0.01"/>
+    <LinearAtten f="0.1"/>
+    <QuadraticAtten f="0.5"/>
+    <CutOffDistance f="1"/>
+    <LightType type="0"/>
+    <SpotInnerAngle f="1"/>
+    <SpotOuterAngle f="1"/>
+    <IsLightOn b="1"/>
+  </Light>
+  <Light>
+    <Position x="36.3" y="142" z="60.7"/>
+    <Direction x="4" y="5" z="6"/>
+    <Diffuse r="1" g="0.5" b="0"/>
+    <Specular r="1" g="0" b="0" a="0.01"/>
+    <ConstAtten f="0.01"/>
+    <LinearAtten f="0.1"/>
+    <QuadraticAtten f="0.5"/>
+    <CutOffDistance f="1"/>
+    <LightType type="0"/>
+    <SpotInnerAngle f="1"/>
+    <SpotOuterAngle f="1"/>
+    <IsLightOn b="1"/>
+  </Light>
+  <Light>
     <Position x="-150" y="1500" z="-400"/>
     <Direction x="4" y="5" z="6"/>
     <Diffuse r="1" g="1" b="1"/>
     <Specular r="0.5" g="0.5" b="0.5" a="1.0"/>
     <ConstAtten f="0.01"/>
-    <LinearAtten f="0.0027"/>
+    <LinearAtten f="0.0015"/>
     <QuadraticAtten f="0.00000000000000001"/>
     <CutOffDistance f="3.402823466e+38"/>
     <LightType type="0"/>
@@ -13,7 +41,6 @@
     <SpotOuterAngle f="1"/>
     <IsLightOn b="1"/>
   </Light>
-  
   <Light>
     <Position x="135" y="0" z="-100"/>
     <Direction x="14" y="2" z="9"/>
@@ -56,7 +83,6 @@
     <SpotOuterAngle f="1"/>
     <IsLightOn b="1"/>
   </Light>
-
   <Light>
     <Position x="-4" y="6" z="-160"/>
     <Direction x="4" y="5" z="6"/>
@@ -70,20 +96,5 @@
     <SpotInnerAngle f="1"/>
     <SpotOuterAngle f="1"/>
     <IsLightOn b="1"/>
-  </Light>
-  
-  <Light>
-    <Position x="35" y="142" z="54"/>
-    <Direction x="4" y="5" z="6"/>
-    <Diffuse r="1" g="1" b="1"/>
-    <Specular r="1" g="0" b="0" a="0.01"/>
-    <ConstAtten f="1000.01"/>
-    <LinearAtten f="10000.0"/>
-    <QuadraticAtten f="1000.00000000000000001"/>
-    <CutOffDistance f="1"/>
-    <LightType type="0"/>
-    <SpotInnerAngle f="1"/>
-    <SpotOuterAngle f="1"/>
-    <IsLightOn b="0"/>
   </Light>
 </LIGHTS>

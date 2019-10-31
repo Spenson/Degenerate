@@ -7,6 +7,10 @@
     <File>Sphere_Radius_1_XYZ_n.ply</File>
     <Name>sphere</Name>
   </Mesh>
+  <Mesh>
+    <File>Inverse_Sphere_Radius_1_XYZ_n.ply</File>
+    <Name>inverse_sphere</Name>
+  </Mesh>
 
 
   <Mesh>

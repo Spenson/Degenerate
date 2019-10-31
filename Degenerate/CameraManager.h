@@ -18,6 +18,8 @@ public:
 	float Pitch(); //negitive for down
 	float Yaw(); //negitive for left
 
+	void SetTarget(glm::vec3 target);
+
 	void MoveForward(float distance); // negitive for back
 	void MoveRight(float distance); // negitive for left
 	void MoveUp(float distance);// negitive for down

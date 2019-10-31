@@ -7,7 +7,7 @@
     <Rotation x="0" y="0" z="0"/>
     <Scale x="1" y="1" z="1"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r="0.20" g=".15" b=".12" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -17,7 +17,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -41,7 +41,7 @@
     <Rotation x="0" y="-3" z="0"/>
     <Scale x="1" y="1" z="1"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".2" g=".2" b=".15" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -51,7 +51,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -75,7 +75,7 @@
     <Rotation x="0" y="-2.8" z="0"/>
     <Scale x="1" y="1" z="1"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".24" g=".22" b=".19" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -85,7 +85,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -106,7 +106,7 @@
     <Rotation x="0" y="0" z="0"/>
     <Scale x="1" y="1" z="1"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".24" g=".22" b=".19" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -116,7 +116,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -137,7 +137,7 @@
     <Rotation x="0" y="0" z="0"/>
     <Scale x="1" y="1" z="1"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".24" g=".22" b=".19" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -147,7 +147,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -170,7 +170,7 @@
     <Rotation x="0" y="-1.9" z="0"/>
     <Scale x="3" y="3" z="3"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".21" g=".21" b=".2" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -180,7 +180,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -201,7 +201,7 @@
     <Rotation x="0" y="0.0" z="0"/>
     <Scale x="5" y="5" z="5"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+     <Colour r=".21" g=".21" b=".2" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -211,7 +211,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -232,7 +232,7 @@
     <Rotation x="0" y="-0.7" z="0"/>
     <Scale x="5" y="5" z="5"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".21" g=".21" b=".2" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -242,7 +242,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -262,7 +262,7 @@
     <Rotation x="0" y="-0.7" z="0"/>
     <Scale x="2" y="2" z="2"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".15" g=".14" b=".13" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -272,7 +272,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -294,7 +294,7 @@
     <Rotation x="-1.7" y="-0.0" z="0"/>
     <Scale x="400" y="400" z="400"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".1" g=".3" b=".1" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -304,7 +304,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -325,7 +325,7 @@
     <Rotation x="-1.7" y="-0.0" z="0"/>
     <Scale x="400" y="400" z="400"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".1" g=".3" b=".1" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -335,7 +335,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -356,7 +356,7 @@
     <Rotation x="-1.7" y="-0.0" z="0"/>
     <Scale x="400" y="400" z="400"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".1" g=".3" b=".1" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -366,7 +366,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -387,7 +387,7 @@
     <Rotation x="-1.7" y="-0.0" z="0"/>
     <Scale x="400" y="400" z="400"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".1" g=".3" b=".1" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -397,7 +397,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -418,7 +418,7 @@
     <Rotation x="-1.7" y="-0.0" z="0"/>
     <Scale x="350" y="350" z="350"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".1" g=".3" b=".1" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -428,7 +428,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -449,7 +449,7 @@
     <Rotation x="-1.7" y="-0.0" z="0"/>
     <Scale x="350" y="350" z="350"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".1" g=".3" b=".1" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -459,7 +459,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -480,7 +480,7 @@
     <Rotation x="-1.7" y="-0.0" z="0"/>
     <Scale x="350" y="350" z="350"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".1" g=".3" b=".1" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -490,7 +490,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -511,7 +511,7 @@
     <Rotation x="-1.7" y="-0.0" z="0"/>
     <Scale x="350" y="350" z="350"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".1" g=".3" b=".1" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -521,7 +521,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -542,7 +542,7 @@
     <Rotation x="-1.7" y="-2.0" z="0"/>
     <Scale x="350" y="350" z="350"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".1" g=".3" b=".1" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -552,7 +552,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -573,7 +573,7 @@
     <Rotation x="-1.7" y="2.0" z="0"/>
     <Scale x="350" y="350" z="350"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".1" g=".3" b=".1" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -583,7 +583,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -604,7 +604,7 @@
     <Rotation x="-1.7" y="2.0" z="0"/>
     <Scale x="350" y="350" z="350"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".1" g=".3" b=".1" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -614,7 +614,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -635,7 +635,7 @@
     <Rotation x="-1.7" y="-2.0" z="0"/>
     <Scale x="350" y="350" z="350"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".1" g=".3" b=".1" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -645,7 +645,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -666,7 +666,7 @@
     <Rotation x="-1.7" y="-2.0" z="0"/>
     <Scale x="350" y="350" z="200"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".1" g=".3" b=".1" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -676,7 +676,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -697,7 +697,7 @@
     <Rotation x="-1.7" y="-2.0" z="0"/>
     <Scale x="350" y="350" z="200"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".1" g=".3" b=".1" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -707,7 +707,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -728,7 +728,7 @@
     <Rotation x="-1.7" y="-2.0" z="0"/>
     <Scale x="350" y="350" z="200"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".1" g=".3" b=".1" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -738,7 +738,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -759,7 +759,7 @@
     <Rotation x="-1.7" y="-2.0" z="0"/>
     <Scale x="350" y="350" z="200"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".1" g=".3" b=".1" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -769,7 +769,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -790,7 +790,7 @@
     <Rotation x="-1.7" y="-2.0" z="0"/>
     <Scale x="100" y="100" z="100"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".1" g=".3" b=".1" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -800,7 +800,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -821,7 +821,7 @@
     <Rotation x="-1.7" y="-2.0" z="0"/>
     <Scale x="100" y="100" z="100"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".1" g=".3" b=".1" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -831,7 +831,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -852,7 +852,7 @@
     <Rotation x="-1.7" y="-2.0" z="0"/>
     <Scale x="100" y="100" z="100"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".1" g=".3" b=".1" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -862,7 +862,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>
@@ -883,7 +883,7 @@
     <Rotation x="-1.7" y="-2.0" z="0"/>
     <Scale x="100" y="100" z="100"/>
 
-    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <Colour r=".1" g=".3" b=".1" a="1"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
@@ -893,7 +893,7 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
-    <PhysicsShapeType type="4"/>
+    <PhysicsShapeType type="5"/>
 
     <AABB>
       <max x="0.0" y="-2.0" z="-.9"/>

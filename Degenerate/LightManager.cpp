@@ -194,7 +194,8 @@ unsigned LightManager::GetLightCount()
 
 void LightManager::DeleteLights()
 {
-	for (unsigned int index = 0; index != this->vecLights.size(); index++)
+	LastIndex = 0;
+	for (unsigned int index = 0; index < this->vecLights.size(); index++)
 	{
 		delete this->vecLights[index];
 	}

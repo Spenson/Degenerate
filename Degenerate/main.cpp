@@ -46,7 +46,7 @@ void DrawObject(glm::mat4 m, GameObject* pCurrentObject, GLint shaderProgID, VAO
 glm::mat4 calculateWorldMatrix(GameObject* pCurrentObject);
 bool bLightDebugSheresOn = false;
 
-
+//std::vector<Light*> g_fireFlyLights;
 
 // Load up my "scene"  (now global)
 std::vector<GameObject*> g_vec_pGameObjects;
@@ -55,7 +55,8 @@ std::map<std::string /*FriendlyName*/, GameObject*> g_map_GameObjectsByFriendlyN
 std::map<std::string, Mesh> mMeshes;
 LightManager lightMan;
 
-//bool g_BallCollided = false;
+bool g_LightFlicker = true;
+bool g_Drone = false;
 
 
 //global so these are seen by the draw call... TODO: Find a better way if needed
@@ -186,8 +187,6 @@ int main(void)
 	pDebugSphere->inverseMass = 0.0f;			// Sphere won't move
 
 
-
-
 	//mat4x4_ortho(p, -ratio, ratio, -1.f, 1.f, 1.f, -1.f);
 
 
@@ -230,11 +229,38 @@ int main(void)
 
 	ReadLightsFromFile("../assets/config/Lights.xml", lightMan);
 
-	lightMan.InitilizeLightUinformLocations(shaderProgID, "theLights", 10, lighterrors);
+	lightMan.InitilizeLightUinformLocations(shaderProgID, "theLights", 50, lighterrors);
 	//Light* sexyLight = lightMan.GetLight(0);
 
 	CameraManager::GetCameraInstance()->SetPosition(glm::vec3(0, 0, 30.f));
 	CameraManager::GetCameraInstance()->Yaw(180);
+
+	float timePassed = 0.0f;
+
+	ReadCamera("../assets/config/Q2/Camera.xml");
+	ReadLightsFromFile("../assets/config/Q2/Lights.xml", lightMan, true);
+	::g_LightFlicker = false;
+
+
+
+
+
+
+
+
+
+
+	//GameObject* fireFly = new GameObject();
+	//fireFly->meshName = "fire_fly";
+	//fireFly->friendlyName = "inverse_sphere";
+	//fireFly->position = glm::vec3(0.0f, 0.0f, 0.0f);
+	//fireFly->rotation = glm::vec3(0.0f, 0.0f, 0.0f);
+	//fireFly->scale = glm::vec3(0.05f);
+	//fireFly->objectColour = glm::vec4(0.0f, 1.0f, 1.0f, 1.0f);
+	//fireFly->isWireframe = false;
+	//fireFly->inverseMass = 0.0f;			// Sphere won't move
+
+
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -320,6 +346,36 @@ int main(void)
 
 
 		// **************************************************
+		timePassed += avgDeltaTimeThingy.getAverage();
+		
+		if (::g_LightFlicker && timePassed > 0.1)
+		{
+			Light *left, *right;
+			left = lightMan.GetLight(0);
+			float rnd = float(rand() % 10000) * 0.0001f;
+			left->LinearAtten = rnd;
+
+			right = lightMan.GetLight(1);
+			rnd = float(rand() % 10000+1) * 0.0001f;
+			right->LinearAtten = rnd;
+
+			timePassed = 0.0f;
+
+		}
+
+		if (::g_Drone)
+		{
+			glm::vec3 pos;
+			float radius = 350.0f;
+			pos.x = (sin(currentTime) * radius) + 50.0f;
+			pos.y = 250.0f;
+			pos.z = (cos(currentTime) * radius) + -50.0f;
+
+			CameraManager::GetCameraInstance()->SetTarget(glm::vec3(50.0f, 50.0f, -50.0f));
+			CameraManager::GetCameraInstance()->SetPosition(pos);
+		}
+
+
 		// **************************************************
 		// Loop to draw everything in the scene
 

@@ -6,6 +6,7 @@ class CameraManagerImpl
 {
 public:
 	float yaw;
+	bool useTarget;
 	float pitch;
 	glm::vec3 cameraPos;
 	glm::vec3 cameraFront;
@@ -16,6 +17,7 @@ public:
 		pitch = 0.0f;
 		cameraPos = glm::vec3(0.0f);
 		cameraFront = glm::vec3(0.0f, 0.0f, 1.0f);
+		useTarget = false;
 		UpdateFront();
 	}
 
@@ -54,7 +56,7 @@ void CameraManager::Pitch(float rotation)
 		impl->pitch = 89.0f;
 	if (impl->pitch < -89.0f)
 		impl->pitch = -89.0f;
-
+	impl->useTarget = false;
 	impl->UpdateFront();
 }
 
@@ -65,6 +67,8 @@ void CameraManager::Yaw(float rotation)
 		impl->yaw -= 360;
 	if (impl->yaw < -360)
 		impl->yaw += 360;
+	impl->useTarget = false;
+
 	impl->UpdateFront();
 }
 
@@ -76,6 +80,12 @@ float CameraManager::Pitch()
 float CameraManager::Yaw()
 {
 	return impl->yaw;
+}
+
+void CameraManager::SetTarget(glm::vec3 target)
+{
+	impl->useTarget = true;
+	impl->target = target;
 }
 
 void CameraManager::MoveForward(float distance)
@@ -100,8 +110,12 @@ void CameraManager::SetPosition(glm::vec3 position)
 
 glm::vec3 CameraManager::GetTarget()
 {
-	impl->target = impl->cameraFront + impl->cameraPos;
-	return impl->cameraFront + impl->cameraPos;
+	if (!impl->useTarget)
+	{
+		impl->target = impl->cameraFront + impl->cameraPos;
+	}
+	
+	return impl->target;
 }
 
 glm::vec3 CameraManager::GetPosition()

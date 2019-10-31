@@ -63,6 +63,10 @@ void main()
 	
 	
 	vec4 materialColour = diffuseColour;
+
+	//if(diffuseColour == vec4(0.0f)){
+	//	materialColour = fColour;
+	//}
 //	vec4 materialColour = vec4(1.0f, 1.0f, 1.0f, 1.0f);
 //	vec4 specColour = vec4(0.0f,0.0f,0.0f,1.0f);// materialColour;
 	

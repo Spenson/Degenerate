@@ -46,7 +46,7 @@ void DrawObject(glm::mat4 m, GameObject* pCurrentObject, GLint shaderProgID, VAO
 glm::mat4 calculateWorldMatrix(GameObject* pCurrentObject);
 bool bLightDebugSheresOn = false;
 
-//std::vector<Light*> g_fireFlyLights;
+std::vector<Light*> g_fireFlyLights;
 
 // Load up my "scene"  (now global)
 std::vector<GameObject*> g_vec_pGameObjects;
@@ -163,7 +163,7 @@ int main(void)
 
 
 	ReadGameObjectsFromFile("../assets/config/GameObjects.xml", ::g_vec_pGameObjects, true);
-	
+
 	for (unsigned int index = 0;
 		 index != ::g_vec_pGameObjects.size(); index++)
 	{
@@ -248,19 +248,24 @@ int main(void)
 
 
 
+	glm::vec3 pointToSwarm = glm::vec3(44, 75, -162);
+	glm::vec3 alowedDis = glm::vec3(4, 5, 4);
 
 
-	//GameObject* fireFly = new GameObject();
-	//fireFly->meshName = "fire_fly";
-	//fireFly->friendlyName = "inverse_sphere";
-	//fireFly->position = glm::vec3(0.0f, 0.0f, 0.0f);
-	//fireFly->rotation = glm::vec3(0.0f, 0.0f, 0.0f);
-	//fireFly->scale = glm::vec3(0.05f);
-	//fireFly->objectColour = glm::vec4(0.0f, 1.0f, 1.0f, 1.0f);
-	//fireFly->isWireframe = false;
-	//fireFly->inverseMass = 0.0f;			// Sphere won't move
+	GameObject* fireFly = new GameObject();
+	fireFly->meshName = "inverse_sphere";
+	fireFly->friendlyName = "fire_fly";
+	fireFly->position = pointToSwarm;
+	fireFly->rotation = glm::vec3(0.0f, 0.0f, 0.0f);
+	fireFly->scale = glm::vec3(0.05f);
+	fireFly->objectColour = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	fireFly->diffuseColour = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	fireFly->specularColour = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	fireFly->isWireframe = false;
+	fireFly->inverseMass = 0.0f;			// Sphere won't move
 
-
+	std::vector<glm::vec3> modifiers;
+	modifiers.resize(10, glm::vec3(0.00004f));
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -320,12 +325,12 @@ int main(void)
 
 
 		glUniform4f(eyeLocation_UL,
-					CameraManager::GetCameraInstance()->GetPosition().x, 
-					CameraManager::GetCameraInstance()->GetPosition().y, 
+					CameraManager::GetCameraInstance()->GetPosition().x,
+					CameraManager::GetCameraInstance()->GetPosition().y,
 					CameraManager::GetCameraInstance()->GetPosition().z, 1.0f);
 
 
-		std::stringstream ssTitle;
+	/*	std::stringstream ssTitle;
 		ssTitle
 			<< lightMan.GetLastLight()->Position.x << ", "
 			<< lightMan.GetLastLight()->Position.y << ", "
@@ -338,7 +343,7 @@ int main(void)
 			<< lightMan.GetLastLight()->SpotInnerAngle << " : "
 			<< lightMan.GetLastLight()->SpotOuterAngle
 			;
-		glfwSetWindowTitle(window, ssTitle.str().c_str());
+		glfwSetWindowTitle(window, ssTitle.str().c_str());*/
 
 
 		glUniformMatrix4fv(matView_UL, 1, GL_FALSE, glm::value_ptr(v));
@@ -347,22 +352,6 @@ int main(void)
 
 		// **************************************************
 		timePassed += avgDeltaTimeThingy.getAverage();
-		
-		if (::g_LightFlicker && timePassed > 0.1)
-		{
-			Light *left, *right;
-			left = lightMan.GetLight(0);
-			float rnd = float(rand() % 10000) * 0.0001f;
-			left->LinearAtten = rnd;
-
-			right = lightMan.GetLight(1);
-			rnd = float(rand() % 10000+1) * 0.0001f;
-			right->LinearAtten = rnd;
-
-			timePassed = 0.0f;
-
-		}
-
 		if (::g_Drone)
 		{
 			glm::vec3 pos;
@@ -375,6 +364,75 @@ int main(void)
 			CameraManager::GetCameraInstance()->SetPosition(pos);
 		}
 
+		if (::g_LightFlicker && timePassed > 0.1)
+		{
+			Light* left, * right;
+			left = lightMan.GetLight(0, false);
+			float rnd = float(rand() % 10000) * 0.0001f;
+			left->LinearAtten = rnd;
+
+			right = lightMan.GetLight(1, false);
+			rnd = float(rand() % 10000 + 1) * 0.0001f;
+			right->LinearAtten = rnd;
+
+			timePassed = 0.0f;
+
+
+
+		}
+
+		if (::g_LightFlicker)
+			for (size_t idx = 0; idx < g_fireFlyLights.size(); idx++)
+			{
+
+				g_fireFlyLights[idx]->Position = glm::vec3(
+					g_fireFlyLights[idx]->Position.x + ((float)((rand() % 1000) - 100) * modifiers[idx].x),
+					g_fireFlyLights[idx]->Position.y + ((float)((rand() % 1000) - 100) * modifiers[idx].y),
+					g_fireFlyLights[idx]->Position.z + ((float)((rand() % 1000) - 100) * modifiers[idx].z)
+				);
+
+				if (idx == 0)
+					std::cout << idx << " : " << g_fireFlyLights[idx]->Position.x << ", " << g_fireFlyLights[idx]->Position.y << ", " << g_fireFlyLights[idx]->Position.z << std::endl;
+
+
+				if (g_fireFlyLights[idx]->Position.x > (pointToSwarm.x + alowedDis.x))
+				{
+					g_fireFlyLights[idx]->Position.x = (pointToSwarm.x + alowedDis.x);
+					modifiers[idx].x = -abs(modifiers[idx].x);
+				}
+				if (g_fireFlyLights[idx]->Position.x < (pointToSwarm.x - alowedDis.x))
+				{
+					g_fireFlyLights[idx]->Position.x = (pointToSwarm.x - alowedDis.x);
+					modifiers[idx].x = abs(modifiers[idx].x);
+				}
+				if (g_fireFlyLights[idx]->Position.y > (pointToSwarm.y + alowedDis.y))
+				{
+					g_fireFlyLights[idx]->Position.y = (pointToSwarm.y + alowedDis.y);
+					modifiers[idx].y = -abs(modifiers[idx].x);
+				}
+				if (g_fireFlyLights[idx]->Position.y < (pointToSwarm.y - alowedDis.y))
+				{
+					g_fireFlyLights[idx]->Position.y = (pointToSwarm.y - alowedDis.y);
+					modifiers[idx].y = abs(modifiers[idx].x);
+				}
+				if (g_fireFlyLights[idx]->Position.z > (pointToSwarm.z + alowedDis.z))
+				{
+					g_fireFlyLights[idx]->Position.z = (pointToSwarm.z + alowedDis.z);
+					modifiers[idx].z = -abs(modifiers[idx].x);
+				}
+				if (g_fireFlyLights[idx]->Position.z < (pointToSwarm.z - alowedDis.z))
+				{
+					g_fireFlyLights[idx]->Position.z = (pointToSwarm.z - alowedDis.z);
+					modifiers[idx].z = abs(modifiers[idx].x);
+				}
+				fireFly->position = g_fireFlyLights[idx]->Position;
+
+
+				glm::mat4 matModel = glm::mat4(1.0f);
+
+				DrawObject(matModel, fireFly,
+						   shaderProgID, pTheVAOManager);
+			}
 
 		// **************************************************
 		// Loop to draw everything in the scene
@@ -390,7 +448,6 @@ int main(void)
 					   shaderProgID, pTheVAOManager);
 
 		}//for (int index...
-
 
 		// Update the objects through physics
 //		PhysicsUpdate( vec_pGameObjects, 0.01f );
@@ -566,6 +623,8 @@ void DrawObject(glm::mat4 m,
 
 
 	// Find the location of the uniform variable newColour
+
+	
 
 	glUniform3f(newColour_location,
 				pCurrentObject->objectColour.r,

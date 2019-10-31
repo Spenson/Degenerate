@@ -35,6 +35,13 @@ void main()
 	vec3 theNormal = normalize(vNormal.xyz);
  	fNormal = matModelInverseTranspose * vec4(theNormal, 1.0f);
 	
+	//fColour = vec4(1.0f,1.0f,1.0f,1.0f) * -1.0f/((fVertWorldLocation.y-100)/15)
+//			+ vec4(1.0f,0.0f,0.0f,1.0f) * -1.0f/((fVertWorldLocation.y-50)/5)
+//			+ vec4(0.0f,1.0f,0.0f,1.0f) * -1.0f/((fVertWorldLocation.y-10)/2)
+//			+ vec4(0.0f,0.0f,1.0f,1.0f) * -1.0/(fVertWorldLocation.y)
+			;
+			
+
 	// Pass the colour and UV unchanged.
     fColour = vColour;	
 	fUVx2 = vUVx2;

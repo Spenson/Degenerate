@@ -37,14 +37,14 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	if (!isShiftKeyDownByAlone(mods) && !isCtrlKeyDownByAlone(mods))
 	{
 
-		//if (key == GLFW_KEY_UP)
-		//{
-		//	WriteCamera("../assets/config/Camera.xml");
-		//}
-		//if (key == GLFW_KEY_DOWN)
-		//{
-		//	ReadCamera("../assets/config/Camera.xml");
-		//}
+		if (key == GLFW_KEY_UP)
+		{
+			WriteCamera("../assets/config/Camera.xml");
+		}
+		if (key == GLFW_KEY_DOWN)
+		{
+			ReadCamera("../assets/config/Camera.xml");
+		}
 		//if (key == GLFW_KEY_LEFT)
 		//{
 		//	CAMERASPEED = 0.1f;
@@ -59,24 +59,24 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			{
 				ReadLightsFromFile("../assets/config/Q3/Lights.xml", lightMan, true);
 
-				//for (size_t idx = 0; idx < 10; idx++)
-				//{
-				//	g_fireFlyLights.push_back(lightMan.GetLight((lightMan.GetLightCount() - 1) - idx));
+				for (size_t idx = 0; idx < 10; idx++)
+				{
+					g_fireFlyLights.push_back(lightMan.GetLight((lightMan.GetLightCount() - 1) - idx));
 
-				//	g_fireFlyLights[idx]->Diffuse = glm::vec3(1.0f, 1.0f, 0.0f);
-				//	g_fireFlyLights[idx]->Position = glm::vec3(0.0f, 0.0f, 0.0f);
-				//	g_fireFlyLights[idx]->ConstAtten = 0.01;
-				//	g_fireFlyLights[idx]->LinearAtten = 0.5f;
-				//	g_fireFlyLights[idx]->QuadraticAtten = 0.5f;
-				//	g_fireFlyLights[idx]->lightType = Light::POINT_LIGHT;
-				//	g_fireFlyLights[idx]->isLightOn = 0;
+					g_fireFlyLights[idx]->Diffuse = glm::vec3(1.0f, 1.0f, 0.0f);
+					g_fireFlyLights[idx]->Position = glm::vec3((rand() % 8) - 4, (rand() % 10) - 5, (rand() % 8) - 4) + glm::vec3(44, 75, -162);
+					g_fireFlyLights[idx]->ConstAtten = 0.01;
+					g_fireFlyLights[idx]->LinearAtten = 0.5f;
+					g_fireFlyLights[idx]->QuadraticAtten = 0.5f;
+					g_fireFlyLights[idx]->lightType = Light::POINT_LIGHT;
+					g_fireFlyLights[idx]->isLightOn = 1;
 
-				//}
-				//g_fireFlyLights[9]->isLightOn = 1;
+				}
+
 			}
 			else
 			{
-				//g_fireFlyLights.clear();
+				g_fireFlyLights.clear();
 				ReadLightsFromFile("../assets/config/Q2/Lights.xml", lightMan, true);
 			}
 			::g_LightFlicker = !::g_LightFlicker;
@@ -101,6 +101,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		if (key == GLFW_KEY_4 && action == GLFW_PRESS)
 		{
 			::g_Drone = true;
+		}
+		if (key == GLFW_KEY_5 && action == GLFW_PRESS)
+		{
+			ReadCamera("../assets/config/Q7/Camera.xml");
 		}
 
 
@@ -144,21 +148,21 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 
 
-	/*	if (key == GLFW_KEY_1)
-		{
-			for (std::vector<GameObject*>::iterator it = ::g_vec_pGameObjects.begin(); it != g_vec_pGameObjects.end(); it++)
+		/*	if (key == GLFW_KEY_1)
 			{
-				(*it)->isWireframe = false;
+				for (std::vector<GameObject*>::iterator it = ::g_vec_pGameObjects.begin(); it != g_vec_pGameObjects.end(); it++)
+				{
+					(*it)->isWireframe = false;
+				}
 			}
-		}
-		if (key == GLFW_KEY_2)
-		{
-			for (std::vector<GameObject*>::iterator it = ::g_vec_pGameObjects.begin(); it != g_vec_pGameObjects.end(); it++)
+			if (key == GLFW_KEY_2)
 			{
-				(*it)->isWireframe = true;
-			}
+				for (std::vector<GameObject*>::iterator it = ::g_vec_pGameObjects.begin(); it != g_vec_pGameObjects.end(); it++)
+				{
+					(*it)->isWireframe = true;
+				}
 
-		}*/
+			}*/
 
 	}
 	///*  Comment Or Uncomment this line for light controls
@@ -292,7 +296,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			bLightDebugSheresOn = true;
 		}
 	}//if (isShiftKeyDownByAlone(mods))
-	
+
 	//*/
 
 	// Moving the pirate ship in a certain direction

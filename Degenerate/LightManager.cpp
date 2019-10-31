@@ -174,12 +174,13 @@ void LightManager::GenerateLights(std::vector<Light*> vecLights)
 	this->vecLights = vecLights;
 }
 
-Light* LightManager::GetLight(unsigned index)
+Light* LightManager::GetLight(unsigned index, bool changeIndex)
 {
 	if (index >= vecLights.size())
 		return nullptr;
-	LastIndex = index;
-	return this->vecLights[LastIndex];
+	if(changeIndex)
+		LastIndex = index;
+	return this->vecLights[index];
 }
 
 Light* LightManager::GetLastLight()

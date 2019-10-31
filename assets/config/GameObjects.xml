@@ -8,8 +8,8 @@
     <Scale x="1" y="1" z="1"/>
 
     <Colour r="0.0" g=".0" b=".0" a="0"/>
-    <DiffuseColour r="0" g="0" b="0" a="0"/>
-    <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
+    <DiffuseColour r="0.1" g="0.1" b="0.1" a="1"/>
+    <SpecularColour r=".0" g=".0" b=".0" a="0.01"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
     <AmbientDiffuseRatio f="0.5"/>
 

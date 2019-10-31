@@ -35,17 +35,17 @@ void main()
 	vec3 theNormal = normalize(vNormal.xyz);
  	fNormal = matModelInverseTranspose * vec4(theNormal, 1.0f);
 	
-//	fColour = vec4(1.0f,1.0f,1.0f,1.0f) * -1.0f/((fVertWorldLocation.y-100)/10)
-//			+ vec4(1.0f,0.0f,0.0f,1.0f) * -1.0f/((fVertWorldLocation.y-50)/5)
-//			+ vec4(0.0f,1.0f,0.0f,1.0f) * -1.0f/((fVertWorldLocation.y-10)/2)
-//			+ vec4(0.0f,0.0f,1.0f,1.0f) * -1.0/(fVertWorldLocation.y)
-//			;
 
-	fColour = vec4(0.0f,0.0f,1.0f,1.0f) * min(1.0f,(1.0/(abs(0-fVertWorldLocation.y)/1)))
-			+ vec4(0.5f,0.5f,0.3f,1.0f) * min(1.0f,(1.0/(abs(20-fVertWorldLocation.y)/12)))
-			+ vec4(0.1f,0.1f,0.1f,1.0f) * min(1.0f,(1.0/(abs(60-fVertWorldLocation.y)/30)))
-			+ vec4(1.0f,1.0f,1.0f,1.0f) * min(1.0f,(1.0/(abs(150-fVertWorldLocation.y)/22)));
-			
+	if(fVertWorldLocation.y == -2.0f)
+	{
+		fColour = vec4(0.1f,0.1f,0.9f,1.0f);
+	}
+	else
+	{
+		fColour = vec4(0.5f,0.5f,0.3f,1.0f) * min(1.0f, (1.0 / (abs(20 - fVertWorldLocation.y) / 10) ) )
+				+ vec4(0.1f,0.1f,0.1f,1.0f) * min(1.0f, (1.0 / (abs(60 - fVertWorldLocation.y) / 30) ) )
+				+ vec4(1.0f,1.0f,1.0f,1.0f) * min(1.0f, (1.0 / (abs(150 - fVertWorldLocation.y) / 22) ) );
+	}
 
 	// Pass the colour and UV unchanged.
     //fColour = vColour;	

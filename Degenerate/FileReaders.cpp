@@ -1,6 +1,7 @@
 #include "FileReaders.h"
 #include <tinyxml2/tinyxml2.h>
 #include <iostream>
+#include "CameraManager.h"
 
 
 
@@ -276,4 +277,34 @@ void ReadMeshesFromFile(std::string File, std::string MeshDir, std::map<std::str
 		meshElement = meshElement->NextSiblingElement();
 	}
 
+}
+
+void ReadCamera(std::string File)
+{
+	tinyxml2::XMLDocument xml_doc;
+	tinyxml2::XMLError eResult = xml_doc.LoadFile(File.c_str());
+	tinyxml2::XMLNode* root = xml_doc.FirstChildElement("CAMERA");
+	tinyxml2::XMLElement* meshElement = root->FirstChildElement("Camera");
+
+	CameraManager::GetCameraInstance()->Pitch(-(CameraManager::GetCameraInstance()->Pitch()));
+	CameraManager::GetCameraInstance()->Yaw(-(CameraManager::GetCameraInstance()->Yaw()));
+
+	CameraManager::GetCameraInstance()->Pitch(meshElement->FirstChildElement("Pitch")->FindAttribute("f")->FloatValue());
+	CameraManager::GetCameraInstance()->Yaw(meshElement->FirstChildElement("Yaw")->FindAttribute("f")->FloatValue());
+	CameraManager::GetCameraInstance()->SetPosition(GetXYZ(meshElement->FirstChildElement("Position")));
+}
+
+void WriteCamera(std::string File)
+{
+	tinyxml2::XMLDocument new_xml_doc;
+	tinyxml2::XMLNode* newRoot = new_xml_doc.InsertFirstChild(new_xml_doc.NewElement("CAMERA"));
+	tinyxml2::XMLElement* cameraElement = new_xml_doc.NewElement("Camera");
+
+
+	insertAttributes(cameraElement->InsertEndChild(new_xml_doc.NewElement("Position")), CameraManager::GetCameraInstance()->GetPosition());
+	((tinyxml2::XMLElement*)cameraElement->InsertEndChild(new_xml_doc.NewElement("Pitch")))->SetAttribute("f", CameraManager::GetCameraInstance()->Pitch());
+	((tinyxml2::XMLElement*)cameraElement->InsertEndChild(new_xml_doc.NewElement("Yaw")))->SetAttribute("f", CameraManager::GetCameraInstance()->Yaw());
+	(tinyxml2::XMLElement*)newRoot->InsertEndChild(cameraElement);
+
+	new_xml_doc.SaveFile(File.c_str());
 }

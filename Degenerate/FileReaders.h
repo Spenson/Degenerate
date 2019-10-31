@@ -11,3 +11,6 @@ void WriteGameObjectsToFile(std::string File, std::vector<GameObject*> vecGameOb
 void ReadLightsFromFile(std::string File, LightManager& lightMan, bool clearExistingLights = 1);
 void WriteLightsToFile(std::string File, LightManager lightMan);
 void ReadMeshesFromFile(std::string File, std::string MeshDir, std::map<std::string, Mesh>& mapMeshes, ModelLoader* modelLoader);
+
+void ReadCamera(std::string File);
+void WriteCamera(std::string File);

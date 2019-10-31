@@ -48,7 +48,7 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	xoffset *= sensitivity;
 	yoffset *= sensitivity;
 
-	CameraManager::GetCameraInstance()->LookUp(yoffset);
-	CameraManager::GetCameraInstance()->LookRight(xoffset);
+	CameraManager::GetCameraInstance()->Pitch(yoffset);
+	CameraManager::GetCameraInstance()->Yaw(xoffset);
 
 }

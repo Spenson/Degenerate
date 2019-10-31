@@ -66,6 +66,7 @@
     <None Include="..\assets\shaders\vertexShader01.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="..\assets\config\Camera.xml" />
     <Xml Include="..\assets\config\GameObjects.xml" />
     <Xml Include="..\assets\config\Lights.xml" />
     <Xml Include="..\assets\config\Meshes.xml" />

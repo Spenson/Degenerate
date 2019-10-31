@@ -189,5 +189,8 @@
     <Xml Include="..\assets\config\Meshes.xml">
       <Filter>Configs</Filter>
     </Xml>
+    <Xml Include="..\assets\config\Camera.xml">
+      <Filter>Configs</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

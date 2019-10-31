@@ -23,43 +23,41 @@ extern glm::mat4 calculateWorldMatrix(GameObject* pCurrentObject);
 
 bool isShiftKeyDownByAlone(int mods);
 bool isCtrlKeyDownByAlone(int mods);
-
+float CAMERASPEED = 0.1f;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 
-	const float CAMERASPEED = 2.f;
+	//float CAMERASPEED = 0.1f;
 	//const float MOVEMENTSPEED = 0.2f;
 	//const float MAXSPEED = 8.0f;
 
 	if (!isShiftKeyDownByAlone(mods) && !isCtrlKeyDownByAlone(mods))
 	{
 
-		//if (key == GLFW_KEY_UP)
-		//{
+		if (key == GLFW_KEY_UP)
+		{
 
-		//	glm::vec3 balldir = CameraManager::GetCameraInstance()->GetTarget() - CameraManager::GetCameraInstance()->GetPosition();
-		//	balldir.y = 0;
-		//	balldir = glm::normalize(balldir);
-		//	//pFindObjectByFriendlyName("sphere1")->velocity = glm::vec3(0.0f, pFindObjectByFriendlyName("sphere1")->velocity.y, 0.0f);
-		//	pFindObjectByFriendlyName("sphere1")->velocity += (MOVEMENTSPEED * balldir);
-		//	if (glm::length(pFindObjectByFriendlyName("sphere1")->velocity) > MAXSPEED)
-		//	{
-		//		pFindObjectByFriendlyName("sphere1")->velocity = glm::normalize(pFindObjectByFriendlyName("sphere1")->velocity) * MAXSPEED;
-		//	}
-		//}
-		//if (key == GLFW_KEY_DOWN)
-		//{
-		//	glm::vec3 balldir = CameraManager::GetCameraInstance()->GetTarget() - CameraManager::GetCameraInstance()->GetPosition();
-		//	balldir.y = 0;
-		//	balldir = glm::normalize(balldir);
-		//	//pFindObjectByFriendlyName("sphere1")->velocity = glm::vec3(0.0f, pFindObjectByFriendlyName("sphere1")->velocity.y, 0.0f);
-		//	pFindObjectByFriendlyName("sphere1")->velocity -= (MOVEMENTSPEED * balldir);
-		//	if (glm::length(pFindObjectByFriendlyName("sphere1")->velocity) > MAXSPEED)
-		//	{
-		//		pFindObjectByFriendlyName("sphere1")->velocity = glm::normalize(pFindObjectByFriendlyName("sphere1")->velocity) * MAXSPEED;
-		//	}
-		//}
+			WriteCamera("../assets/config/Camera.xml");
+		}
+		if (key == GLFW_KEY_DOWN)
+		{
+
+			ReadCamera("../assets/config/Camera.xml");
+		}
+
+		if (key == GLFW_KEY_LEFT)
+		{
+			CAMERASPEED = 0.1f;
+		}
+		if (key == GLFW_KEY_RIGHT)
+		{
+			CAMERASPEED = 2.0f;
+		}
+
+
+
+
 		//if (key == GLFW_KEY_LEFT)
 		//{
 		//	glm::vec3 balldir = CameraManager::GetCameraInstance()->GetTarget() - CameraManager::GetCameraInstance()->GetPosition();
@@ -177,6 +175,38 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		{
 			lightMan.GetLastLight()->Position.z += CAMERASPEED;		// Move the camera +0.01f units
 		}
+
+
+
+
+		if (key == GLFW_KEY_KP_4)
+		{
+			lightMan.GetLastLight()->Direction.x -= 0.01;		// Move the camera -0.01f units
+		}
+		if (key == GLFW_KEY_KP_6)
+		{
+			lightMan.GetLastLight()->Direction.x += 0.01;		// Move the camera +0.01f units
+		}
+		// Move the camera (Q & E for up and down, along the y axis)
+		if (key == GLFW_KEY_KP_2)
+		{
+			lightMan.GetLastLight()->Direction.y -= 0.01;		// Move the camera -0.01f units
+		}
+		if (key == GLFW_KEY_KP_8)
+		{
+			lightMan.GetLastLight()->Direction.y += 0.01;		// Move the camera +0.01f units
+		}
+
+		// Move the camera (W & S for towards and away, along the z axis)
+		if (key == GLFW_KEY_KP_7)
+		{
+			lightMan.GetLastLight()->Direction.z -= 0.01;		// Move the camera -0.01f units
+		}
+		if (key == GLFW_KEY_KP_9)
+		{
+			lightMan.GetLastLight()->Direction.z += 0.01;		// Move the camera +0.01f units
+		}
+
 
 		if (key == GLFW_KEY_1)
 		{

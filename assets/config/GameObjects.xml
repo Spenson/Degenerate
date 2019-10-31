@@ -193,12 +193,12 @@
     <DisableDepthTest b="0"/>
     <DisableDepthWrite b="0"/>
   </GameObject>
-  <GameObject>
+   <GameObject>
     <MeshName>Rock_Arch_01</MeshName>
     <FriendlyName>Arch2</FriendlyName>
 
     <Position x="-4" y="-6" z="-152"/>
-    <Rotation x="0" y="-0.4" z="0"/>
+    <Rotation x="0" y="0.0" z="0"/>
     <Scale x="5" y="5" z="5"/>
 
     <Colour r=".5" g=".5" b=".5" a="1"/>
@@ -254,12 +254,11 @@
     <Visible b="1"/>
     <DisableDepthTest b="0"/>
     <DisableDepthWrite b="0"/>
-  </GameObject>
-  <GameObject>
+  </GameObject><GameObject>
     <MeshName>Rock_02</MeshName>
     <FriendlyName>smallrock</FriendlyName>
 
-    <Position x="141" y="1.9" z="-88"/>
+    <Position x="136" y="0" z="-102"/>
     <Rotation x="0" y="-0.7" z="0"/>
     <Scale x="2" y="2" z="2"/>
 
@@ -287,4 +286,625 @@
     <DisableDepthWrite b="0"/>
   </GameObject>
 
+  <GameObject>
+    <MeshName>Mangrove_Tree_01</MeshName>
+    <FriendlyName>tree1</FriendlyName>
+
+    <Position x="130" y="-3" z="-82"/>
+    <Rotation x="-1.7" y="-0.0" z="0"/>
+    <Scale x="400" y="400" z="400"/>
+
+    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="4"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>Mangrove_Tree_01</MeshName>
+    <FriendlyName>tree2</FriendlyName>
+
+    <Position x="138" y="45" z="-156"/>
+    <Rotation x="-1.7" y="-0.0" z="0"/>
+    <Scale x="400" y="400" z="400"/>
+
+    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="4"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>Mangrove_Tree_02</MeshName>
+    <FriendlyName>tree3</FriendlyName>
+
+    <Position x="202" y="75" z="-46"/>
+    <Rotation x="-1.7" y="-0.0" z="0"/>
+    <Scale x="400" y="400" z="400"/>
+
+    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="4"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>Mangrove_Tree_02</MeshName>
+    <FriendlyName>tree4</FriendlyName>
+
+    <Position x="198" y="43" z="18"/>
+    <Rotation x="-1.7" y="-0.0" z="0"/>
+    <Scale x="400" y="400" z="400"/>
+
+    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="4"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>PalmTree_01</MeshName>
+    <FriendlyName>tree5</FriendlyName>
+
+    <Position x="214" y="18" z="78"/>
+    <Rotation x="-1.7" y="-0.0" z="0"/>
+    <Scale x="350" y="350" z="350"/>
+
+    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="4"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>PalmTree_01</MeshName>
+    <FriendlyName>tree6</FriendlyName>
+
+    <Position x="84" y="15" z="52"/>
+    <Rotation x="-1.7" y="-0.0" z="0"/>
+    <Scale x="350" y="350" z="350"/>
+
+    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="4"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>PalmTree_02</MeshName>
+    <FriendlyName>tree7</FriendlyName>
+
+    <Position x="80" y="81" z="-156"/>
+    <Rotation x="-1.7" y="-0.0" z="0"/>
+    <Scale x="350" y="350" z="350"/>
+
+    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="4"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>PalmTree_02</MeshName>
+    <FriendlyName>tree8</FriendlyName>
+
+    <Position x="12" y="81" z="-184"/>
+    <Rotation x="-1.7" y="-0.0" z="0"/>
+    <Scale x="350" y="350" z="350"/>
+
+    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="4"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>PalmTree_03</MeshName>
+    <FriendlyName>tree9</FriendlyName>
+
+    <Position x="-12" y="78" z="-200"/>
+    <Rotation x="-1.7" y="-2.0" z="0"/>
+    <Scale x="350" y="350" z="350"/>
+
+    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="4"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>PalmTree_03</MeshName>
+    <FriendlyName>tree10</FriendlyName>
+
+    <Position x="-78" y="75" z="-194"/>
+    <Rotation x="-1.7" y="2.0" z="0"/>
+    <Scale x="350" y="350" z="350"/>
+
+    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="4"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>PalmTree_04</MeshName>
+    <FriendlyName>tree11</FriendlyName>
+
+    <Position x="-124" y="35" z="-178"/>
+    <Rotation x="-1.7" y="2.0" z="0"/>
+    <Scale x="350" y="350" z="350"/>
+
+    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="4"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>PalmTree_04</MeshName>
+    <FriendlyName>tree12</FriendlyName>
+
+    <Position x="-146" y="7" z="-182"/>
+    <Rotation x="-1.7" y="-2.0" z="0"/>
+    <Scale x="350" y="350" z="350"/>
+
+    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="4"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>PalmTree_Tall_01</MeshName>
+    <FriendlyName>tree13</FriendlyName>
+
+    <Position x="158" y="24" z="-122"/>
+    <Rotation x="-1.7" y="-2.0" z="0"/>
+    <Scale x="350" y="350" z="200"/>
+
+    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="4"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>PalmTree_Tall_01</MeshName>
+    <FriendlyName>tree14</FriendlyName>
+
+    <Position x="166" y="87" z="-14"/>
+    <Rotation x="-1.7" y="-2.0" z="0"/>
+    <Scale x="350" y="350" z="200"/>
+
+    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="4"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>PalmTree_Tall_02</MeshName>
+    <FriendlyName>tree15</FriendlyName>
+
+    <Position x="210" y="93" z="-14"/>
+    <Rotation x="-1.7" y="-2.0" z="0"/>
+    <Scale x="350" y="350" z="200"/>
+
+    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="4"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>PalmTree_Tall_02</MeshName>
+    <FriendlyName>tree16</FriendlyName>
+
+    <Position x="206" y="41" z="42"/>
+    <Rotation x="-1.7" y="-2.0" z="0"/>
+    <Scale x="350" y="350" z="200"/>
+
+    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="4"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>Tree_Large_01</MeshName>
+    <FriendlyName>tree17</FriendlyName>
+
+    <Position x="190" y="85" z="-10"/>
+    <Rotation x="-1.7" y="-2.0" z="0"/>
+    <Scale x="100" y="100" z="100"/>
+
+    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="4"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>Tree_Large_01</MeshName>
+    <FriendlyName>tree18</FriendlyName>
+
+    <Position x="78" y="31" z="-26"/>
+    <Rotation x="-1.7" y="-2.0" z="0"/>
+    <Scale x="100" y="100" z="100"/>
+
+    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="4"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>Tree_Large_02</MeshName>
+    <FriendlyName>tree19</FriendlyName>
+
+    <Position x="44" y="61" z="-162"/>
+    <Rotation x="-1.7" y="-2.0" z="0"/>
+    <Scale x="100" y="100" z="100"/>
+
+    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="4"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>Tree_Large_02</MeshName>
+    <FriendlyName>tree20</FriendlyName>
+
+    <Position x="-52" y="58" z="-178"/>
+    <Rotation x="-1.7" y="-2.0" z="0"/>
+    <Scale x="100" y="100" z="100"/>
+
+    <Colour r=".5" g=".5" b=".5" a="1"/>
+    <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r=".1" g=".1" b=".1" a="1.0"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="4"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  
 </GAMEOBJECTS>

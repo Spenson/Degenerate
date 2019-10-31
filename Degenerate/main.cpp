@@ -234,7 +234,7 @@ int main(void)
 	//Light* sexyLight = lightMan.GetLight(0);
 
 	CameraManager::GetCameraInstance()->SetPosition(glm::vec3(0, 0, 30.f));
-	CameraManager::GetCameraInstance()->LookRight(180);
+	CameraManager::GetCameraInstance()->Yaw(180);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -303,11 +303,15 @@ int main(void)
 		ssTitle
 			<< lightMan.GetLastLight()->Position.x << ", "
 			<< lightMan.GetLastLight()->Position.y << ", "
-			<< lightMan.GetLastLight()->Position.z;
-			/*<< "Atten: "
+			<< lightMan.GetLastLight()->Position.z
+			<< "Atten: "
 			<< lightMan.GetLastLight()->ConstAtten << " : "
 			<< lightMan.GetLastLight()->LinearAtten << " : "
-			<< lightMan.GetLastLight()->QuadraticAtten;*/
+			<< lightMan.GetLastLight()->QuadraticAtten
+			<< "Light Angle: "
+			<< lightMan.GetLastLight()->SpotInnerAngle << " : "
+			<< lightMan.GetLastLight()->SpotOuterAngle
+			;
 		glfwSetWindowTitle(window, ssTitle.str().c_str());
 
 

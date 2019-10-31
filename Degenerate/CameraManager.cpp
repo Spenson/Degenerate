@@ -47,7 +47,7 @@ CameraManager* CameraManager::GetCameraInstance()
 	return pManager;
 }
 
-void CameraManager::LookUp(float rotation)
+void CameraManager::Pitch(float rotation)
 {
 	impl->pitch += rotation;
 	if (impl->pitch > 89.0f)
@@ -58,11 +58,24 @@ void CameraManager::LookUp(float rotation)
 	impl->UpdateFront();
 }
 
-void CameraManager::LookRight(float rotation)
+void CameraManager::Yaw(float rotation)
 {
 	impl->yaw += rotation;
-
+	if (impl->yaw > 360)
+		impl->yaw -= 360;
+	if (impl->yaw < -360)
+		impl->yaw += 360;
 	impl->UpdateFront();
+}
+
+float CameraManager::Pitch()
+{
+	return impl->pitch;
+}
+
+float CameraManager::Yaw()
+{
+	return impl->yaw;
 }
 
 void CameraManager::MoveForward(float distance)

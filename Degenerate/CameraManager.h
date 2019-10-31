@@ -12,8 +12,11 @@ class CameraManager{
 public:
 	static CameraManager* GetCameraInstance();
 
-	void LookUp(float rotation); //negitive for down
-	void LookRight(float rotation); //negitive for left
+	void Pitch(float rotation); //negitive for down
+	void Yaw(float rotation); //negitive for left
+
+	float Pitch(); //negitive for down
+	float Yaw(); //negitive for left
 
 	void MoveForward(float distance); // negitive for back
 	void MoveRight(float distance); // negitive for left

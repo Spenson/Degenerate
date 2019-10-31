@@ -94,6 +94,8 @@ void LightManager::PassLightsToShader()
 						curLight->QuadraticAtten,
 						curLight->CutOffDistance);
 
+			curLight->Direction = glm::normalize(curLight->Direction);
+
 			glUniform4f(curUniLocs.Direction.location,
 						curLight->Direction.x,
 						curLight->Direction.y,

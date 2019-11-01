@@ -19,9 +19,9 @@ GameObject* pFindObjectByFriendlyNameMap(std::string name);
 //// This is a "normalized" direction
 //// (i.e. the length is 1.0f)
 //extern glm::vec3 sexyLightSpotDirection;
-
+//
 extern bool bLightDebugSheresOn;
-extern bool g_LightFlicker;
-extern bool g_Drone;
-
-extern std::vector<Light*> g_fireFlyLights;
+//extern bool g_LightFlicker;
+//extern bool g_Drone;
+//
+//extern std::vector<Light*> g_fireFlyLights;

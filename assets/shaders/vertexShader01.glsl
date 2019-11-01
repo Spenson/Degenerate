@@ -36,18 +36,18 @@ void main()
  	fNormal = matModelInverseTranspose * vec4(theNormal, 1.0f);
 	
 
-	if(fVertWorldLocation.y == -2.0f)
-	{
-		fColour = vec4(0.1f,0.1f,0.9f,1.0f);
-	}
-	else
-	{
-		fColour = vec4(0.5f,0.5f,0.3f,1.0f) * min(1.0f, (1.0 / (abs(20 - fVertWorldLocation.y) / 10) ) )
-				+ vec4(0.1f,0.1f,0.1f,1.0f) * min(1.0f, (1.0 / (abs(60 - fVertWorldLocation.y) / 30) ) )
-				+ vec4(1.0f,1.0f,1.0f,1.0f) * min(1.0f, (1.0 / (abs(150 - fVertWorldLocation.y) / 22) ) );
-	}
+//	if(fVertWorldLocation.y == -2.0f)
+//	{
+//		fColour = vec4(0.1f,0.1f,0.9f,1.0f);
+//	}
+//	else
+//	{
+//		fColour = vec4(0.5f,0.5f,0.3f,1.0f) * min(1.0f, (1.0 / (abs(20 - fVertWorldLocation.y) / 10) ) )
+//				+ vec4(0.1f,0.1f,0.1f,1.0f) * min(1.0f, (1.0 / (abs(60 - fVertWorldLocation.y) / 30) ) )
+//				+ vec4(1.0f,1.0f,1.0f,1.0f) * min(1.0f, (1.0 / (abs(150 - fVertWorldLocation.y) / 22) ) );
+//	}
 
 	// Pass the colour and UV unchanged.
-    //fColour = vColour;	
+    fColour = vColour;	
 	fUVx2 = vUVx2;
 }

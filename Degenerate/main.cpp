@@ -55,8 +55,8 @@ std::map<std::string /*FriendlyName*/, GameObject*> g_map_GameObjectsByFriendlyN
 std::map<std::string, Mesh> mMeshes;
 LightManager lightMan;
 
-bool g_LightFlicker = true;
-bool g_Drone = false;
+//bool g_LightFlicker = true;
+//bool g_Drone = false;
 
 
 //global so these are seen by the draw call... TODO: Find a better way if needed
@@ -235,37 +235,37 @@ int main(void)
 	CameraManager::GetCameraInstance()->SetPosition(glm::vec3(0, 0, 30.f));
 	CameraManager::GetCameraInstance()->Yaw(180);
 
-	float timePassed = 0.0f;
+	//float timePassed = 0.0f;
 
-	ReadCamera("../assets/config/Q2/Camera.xml");
-	ReadLightsFromFile("../assets/config/Q2/Lights.xml", lightMan, true);
-	::g_LightFlicker = false;
-
-
+	ReadCamera("../assets/config/Camera.xml");
+	ReadLightsFromFile("../assets/config/Lights.xml", lightMan, true);
+	//::g_LightFlicker = false;
 
 
 
 
 
 
-	glm::vec3 pointToSwarm = glm::vec3(44, 75, -162);
-	glm::vec3 alowedDis = glm::vec3(4, 5, 4);
 
 
-	GameObject* fireFly = new GameObject();
-	fireFly->meshName = "inverse_sphere";
-	fireFly->friendlyName = "fire_fly";
-	fireFly->position = pointToSwarm;
-	fireFly->rotation = glm::vec3(0.0f, 0.0f, 0.0f);
-	fireFly->scale = glm::vec3(0.05f);
-	fireFly->objectColour = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	fireFly->diffuseColour = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	fireFly->specularColour = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	fireFly->isWireframe = false;
-	fireFly->inverseMass = 0.0f;			// Sphere won't move
+	//glm::vec3 pointToSwarm = glm::vec3(44, 75, -162);
+	//glm::vec3 alowedDis = glm::vec3(4, 5, 4);
 
-	std::vector<glm::vec3> modifiers;
-	modifiers.resize(10, glm::vec3(0.00004f));
+
+	//GameObject* fireFly = new GameObject();
+	//fireFly->meshName = "inverse_sphere";
+	//fireFly->friendlyName = "fire_fly";
+	//fireFly->position = pointToSwarm;
+	//fireFly->rotation = glm::vec3(0.0f, 0.0f, 0.0f);
+	//fireFly->scale = glm::vec3(0.05f);
+	//fireFly->objectColour = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	//fireFly->diffuseColour = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	//fireFly->specularColour = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	//fireFly->isWireframe = false;
+	//fireFly->inverseMass = 0.0f;			// Sphere won't move
+
+	//std::vector<glm::vec3> modifiers;
+	//modifiers.resize(10, glm::vec3(0.00004f));
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -351,7 +351,7 @@ int main(void)
 
 
 		// **************************************************
-		timePassed += avgDeltaTimeThingy.getAverage();
+	/*	timePassed += avgDeltaTimeThingy.getAverage();
 		if (::g_Drone)
 		{
 			glm::vec3 pos;
@@ -429,7 +429,7 @@ int main(void)
 
 				DrawObject(matModel, fireFly,
 						   shaderProgID, pTheVAOManager);
-			}
+			}*/
 
 		// **************************************************
 		// Loop to draw everything in the scene

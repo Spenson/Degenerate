@@ -25,7 +25,7 @@ bool isShiftKeyDownByAlone(int mods);
 bool isCtrlKeyDownByAlone(int mods);
 float CAMERASPEED = 2.0f;
 
-bool isDay = true;
+//bool isDay = true;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
@@ -53,7 +53,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		//{
 		//	CAMERASPEED = 2.0f;
 		//}
-		if (key == GLFW_KEY_TAB && action == GLFW_PRESS)
+		/*if (key == GLFW_KEY_TAB && action == GLFW_PRESS)
 		{
 			if (isDay)
 			{
@@ -105,7 +105,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		if (key == GLFW_KEY_5 && action == GLFW_PRESS)
 		{
 			ReadCamera("../assets/config/Q7/Camera.xml");
-		}
+		}*/
 
 
 
@@ -315,7 +315,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 				}
 			}*/
 			//std::vector<Light*> templights;
-			//ReadLightsFromFile("../assets/config/Lights.xml", lightMan, true);
+			ReadLightsFromFile("../assets/config/Lights.xml", lightMan, true);
 			//lightMan.GenerateLights(templights);
 		}
 		if (key == GLFW_KEY_X && action == GLFW_PRESS)

@@ -391,9 +391,6 @@ int main(void)
 					g_fireFlyLights[idx]->Position.z + ((float)((rand() % 1000) - 100) * modifiers[idx].z)
 				);
 
-				if (idx == 0)
-					std::cout << idx << " : " << g_fireFlyLights[idx]->Position.x << ", " << g_fireFlyLights[idx]->Position.y << ", " << g_fireFlyLights[idx]->Position.z << std::endl;
-
 
 				if (g_fireFlyLights[idx]->Position.x > (pointToSwarm.x + alowedDis.x))
 				{

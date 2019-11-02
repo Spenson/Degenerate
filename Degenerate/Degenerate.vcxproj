@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bomb.cpp" />
+    <ClCompile Include="Bullets.cpp" />
     <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="cLowPassFilter.cpp" />
     <ClCompile Include="cPhysics.cpp" />
@@ -32,6 +34,7 @@
     <ClCompile Include="imgui_draw.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="key_callbacks.cpp" />
+    <ClCompile Include="LASER.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="LightHelper.cpp" />
     <ClCompile Include="LightManager.cpp" />
@@ -39,27 +42,38 @@
     <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="mouse_callbacks.cpp" />
     <ClCompile Include="PhysicsStuff.cpp" />
+    <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="Robot.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="VAOManager.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bomb.h" />
+    <ClInclude Include="Bullets.h" />
     <ClInclude Include="CameraManager.h" />
     <ClInclude Include="cLowPassFilter.h" />
     <ClInclude Include="cPhysics.h" />
+    <ClInclude Include="Damage.h" />
     <ClInclude Include="FileReaders.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GFLW_callbacks.h" />
     <ClInclude Include="GLCommon.h" />
     <ClInclude Include="globals.h" />
+    <ClInclude Include="iWeapon.h" />
+    <ClInclude Include="LASER.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="LightHelper.h" />
     <ClInclude Include="LightManager.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="PhysicsStuff.h" />
+    <ClInclude Include="Projectile.h" />
+    <ClInclude Include="Robot.h" />
     <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="VAOManager.h" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\assets\shaders\fragmentShader01.glsl" />

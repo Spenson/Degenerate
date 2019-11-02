@@ -1,13 +1,19 @@
 #pragma once
 
 #include "GameObject.h"
+#include "Mesh.h"
 #include "Light.h"
+#include "cPhysics.h"
 #include <vector>
+#include <map>
 
 // returns NULL (0) if we didn't find it.
 GameObject* pFindObjectByFriendlyName(std::string name);
 GameObject* pFindObjectByFriendlyNameMap(std::string name);
 
+extern std::map<std::string, Mesh> mMeshes;
+extern cPhysics* pPhsyics;
+extern std::vector<GameObject*> g_vec_pGameObjects;
 //extern glm::vec3 sexyLightPosition;
 //extern float sexyLightConstAtten;
 //extern float sexyLightLinearAtten;

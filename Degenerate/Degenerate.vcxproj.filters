@@ -51,6 +51,12 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="ROBOT SIM">
+      <UniqueIdentifier>{8c67b0d8-06f3-4ef9-8d0e-6250d386ceec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ROBOT SIM\Weapons">
+      <UniqueIdentifier>{e599f821-8b7f-48d4-be3d-74375ce9a8a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui.cpp">
@@ -120,6 +126,22 @@
       <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="World.cpp">
+      <Filter>ROBOT SIM</Filter>
+    </ClCompile>
+    <ClCompile Include="Robot.cpp">
+      <Filter>ROBOT SIM</Filter>
+    </ClCompile>
+    <ClCompile Include="Bomb.cpp">
+      <Filter>ROBOT SIM\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullets.cpp">
+      <Filter>ROBOT SIM\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="LASER.cpp">
+      <Filter>ROBOT SIM\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLCommon.h">
@@ -169,6 +191,30 @@
     </ClInclude>
     <ClInclude Include="cLowPassFilter.h">
       <Filter>LowPassFilter</Filter>
+    </ClInclude>
+    <ClInclude Include="Robot.h">
+      <Filter>ROBOT SIM</Filter>
+    </ClInclude>
+    <ClInclude Include="iWeapon.h">
+      <Filter>ROBOT SIM</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>ROBOT SIM</Filter>
+    </ClInclude>
+    <ClInclude Include="Bomb.h">
+      <Filter>ROBOT SIM\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullets.h">
+      <Filter>ROBOT SIM\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="LASER.h">
+      <Filter>ROBOT SIM\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Damage.h">
+      <Filter>ROBOT SIM</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>ROBOT SIM</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

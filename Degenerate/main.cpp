@@ -40,7 +40,7 @@
 #include "LightManager.h"
 
 #include "FileReaders.h"
-
+#include "World.h"
 
 void DrawObject(glm::mat4 m, GameObject* pCurrentObject, GLint shaderProgID, VAOManager* pVAOManager);
 glm::mat4 calculateWorldMatrix(GameObject* pCurrentObject);
@@ -54,7 +54,7 @@ std::map<std::string /*FriendlyName*/, GameObject*> g_map_GameObjectsByFriendlyN
 
 std::map<std::string, Mesh> mMeshes;
 LightManager lightMan;
-
+cPhysics* pPhsyics;
 //bool g_LightFlicker = true;
 //bool g_Drone = false;
 
@@ -163,15 +163,15 @@ int main(void)
 
 
 	ReadGameObjectsFromFile("../assets/config/GameObjects.xml", ::g_vec_pGameObjects, true);
-
-	for (unsigned int index = 0;
+	::g_vec_pGameObjects[0]->matWorld = calculateWorldMatrix(::g_vec_pGameObjects[0]);
+	/*for (unsigned int index = 0;
 		 index != ::g_vec_pGameObjects.size(); index++)
 	{
 		if (::g_vec_pGameObjects[index]->physicsShapeType == MESH)
 		{
 			::g_vec_pGameObjects[index]->matWorld = calculateWorldMatrix(::g_vec_pGameObjects[index]);
 		}
-	}
+	}*/
 
 
 	// Will be moved placed around the scene
@@ -197,7 +197,7 @@ int main(void)
 	//float shipAccelz = 1000.0f;
 
 
-	cPhysics* pPhsyics = new cPhysics();
+	//cPhysics* pPhsyics = new cPhysics();
 
 	cLowPassFilter avgDeltaTimeThingy;
 
@@ -225,7 +225,7 @@ int main(void)
 
 	std::string lighterrors;
 
-	std::vector<Light*> templights;
+	//std::vector<Light*> templights;
 
 	ReadLightsFromFile("../assets/config/Lights.xml", lightMan);
 
@@ -242,12 +242,15 @@ int main(void)
 	//::g_LightFlicker = false;
 
 
+	
 
 
 
+	World world;
+	world.makeRobots(10);
 
 
-
+	double simTime = 0;
 	//glm::vec3 pointToSwarm = glm::vec3(44, 75, -162);
 	//glm::vec3 alowedDis = glm::vec3(4, 5, 4);
 
@@ -284,7 +287,7 @@ int main(void)
 		}
 
 		avgDeltaTimeThingy.addValue(deltaTime);
-
+		
 
 		glUseProgram(shaderProgID);
 
@@ -330,20 +333,22 @@ int main(void)
 					CameraManager::GetCameraInstance()->GetPosition().z, 1.0f);
 
 
-	/*	std::stringstream ssTitle;
+	/*	
+	std::stringstream ssTitle;
 		ssTitle
 			<< lightMan.GetLastLight()->Position.x << ", "
 			<< lightMan.GetLastLight()->Position.y << ", "
 			<< lightMan.GetLastLight()->Position.z
-			<< "Atten: "
+			<< " Atten: "
 			<< lightMan.GetLastLight()->ConstAtten << " : "
 			<< lightMan.GetLastLight()->LinearAtten << " : "
 			<< lightMan.GetLastLight()->QuadraticAtten
-			<< "Light Angle: "
+			<< " Light Angle: "
 			<< lightMan.GetLastLight()->SpotInnerAngle << " : "
 			<< lightMan.GetLastLight()->SpotOuterAngle
 			;
-		glfwSetWindowTitle(window, ssTitle.str().c_str());*/
+		glfwSetWindowTitle(window, ssTitle.str().c_str());
+		//*/
 
 
 		glUniformMatrix4fv(matView_UL, 1, GL_FALSE, glm::value_ptr(v));
@@ -446,6 +451,11 @@ int main(void)
 
 		}//for (int index...
 
+		simTime += avgDeltaTimeThingy.getAverage();
+		std::cout << "\n\nSimulated time: " << simTime << std::endl;
+
+		World::Update(avgDeltaTimeThingy.getAverage());
+
 		// Update the objects through physics
 //		PhysicsUpdate( vec_pGameObjects, 0.01f );
 
@@ -456,7 +466,7 @@ int main(void)
 		double averageDeltaTime = avgDeltaTimeThingy.getAverage();
 		pPhsyics->IntegrationStep(::g_vec_pGameObjects, (float)averageDeltaTime);
 		pPhsyics->TestForCollisions(::g_vec_pGameObjects);
-		pPhsyics->ProcessCollisions();
+		//pPhsyics->ProcessCollisions();
 		// Let's draw all the closest points to the sphere
 		// on the terrain mesh....
 		// 
@@ -596,6 +606,9 @@ void DrawObject(glm::mat4 m,
 				GLint shaderProgID,
 				VAOManager* pVAOManager)
 {
+
+	if(!pCurrentObject->isVisible)
+		return;
 	// mat4x4_identity(m);
 	m = calculateWorldMatrix(pCurrentObject); glm::mat4(1.0f);
 

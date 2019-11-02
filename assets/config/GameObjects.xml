@@ -17,6 +17,38 @@
     <Acceleration x="0.0" y="0.0" z="0.0"/>
     <InverseMass f="0"/>
 
+    <PhysicsShapeType type="4"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+
+  <!--<GameObject>
+    <MeshName>robot</MeshName>
+    <FriendlyName>tester</FriendlyName>
+
+    <Position x="0" y="20" z="0"/>
+    <Rotation x="0" y="0" z="0"/>
+    <Scale x="40" y="40" z="40"/>
+
+    <Colour r=".9" g=".5" b=".5" a="0"/>
+    <DiffuseColour r="0.1" g="0.1" b="0.1" a="1"/>
+    <SpecularColour r=".0" g=".0" b=".0" a="0.01"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
     <PhysicsShapeType type="5"/>
 
     <AABB>
@@ -33,4 +65,265 @@
 
 
 
+
+
+
+  <GameObject>
+    <MeshName>robot</MeshName>
+    <FriendlyName>robo1</FriendlyName>
+
+    <Position x="83" y="31.5" z="-24"/>
+    <Rotation x="0" y="0" z="0"/>
+    <Scale x="40" y="40" z="40"/>
+
+    <Colour r=".9" g=".5" b=".5" a="0"/>
+    <DiffuseColour r="0.1" g="0.1" b="0.1" a="1"/>
+    <SpecularColour r=".0" g=".0" b=".0" a="0.01"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="5"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  
+  <GameObject>
+    <MeshName>robot</MeshName>
+    <FriendlyName>robo2</FriendlyName>
+
+    <Position x="72" y="44" z="88"/>
+    <Rotation x="0" y="0" z="0"/>
+    <Scale x="40" y="40" z="40"/>
+
+    <Colour r=".9" g=".5" b=".5" a="0"/>
+    <DiffuseColour r="0.1" g="0.1" b="0.1" a="1"/>
+    <SpecularColour r=".0" g=".0" b=".0" a="0.01"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="5"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+
+
+  <GameObject>
+    <MeshName>robot</MeshName>
+    <FriendlyName>robo3</FriendlyName>
+
+    <Position x="0" y="4" z="0"/>
+    <Rotation x="0" y="0" z="0"/>
+    <Scale x="40" y="40" z="40"/>
+
+    <Colour r=".9" g=".5" b=".5" a="0"/>
+    <DiffuseColour r="0.1" g="0.1" b="0.1" a="1"/>
+    <SpecularColour r=".0" g=".0" b=".0" a="0.01"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="5"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+
+
+  <GameObject>
+    <MeshName>robot</MeshName>
+    <FriendlyName>robo4</FriendlyName>
+
+    <Position x="0" y="18" z="94"/>
+    <Rotation x="0" y="0" z="0"/>
+    <Scale x="40" y="40" z="40"/>
+
+    <Colour r=".9" g=".5" b=".5" a="0"/>
+    <DiffuseColour r="0.1" g="0.1" b="0.1" a="1"/>
+    <SpecularColour r=".0" g=".0" b=".0" a="0.01"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="5"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+
+  <GameObject>
+    <MeshName>robot</MeshName>
+    <FriendlyName>robo5</FriendlyName>
+
+    <Position x="-64" y="-34" z="-96"/>
+    <Rotation x="0" y="0" z="0"/>
+    <Scale x="40" y="40" z="40"/>
+
+    <Colour r=".9" g=".5" b=".5" a="0"/>
+    <DiffuseColour r="0.1" g="0.1" b="0.1" a="1"/>
+    <SpecularColour r=".0" g=".0" b=".0" a="0.01"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="5"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+
+  <GameObject>
+    <MeshName>robot</MeshName>
+    <FriendlyName>robo6</FriendlyName>
+
+    <Position x="72" y="-8" z="-98"/>
+    <Rotation x="0" y="0" z="0"/>
+    <Scale x="40" y="40" z="40"/>
+
+    <Colour r=".9" g=".5" b=".5" a="0"/>
+    <DiffuseColour r="0.1" g="0.1" b="0.1" a="1"/>
+    <SpecularColour r=".0" g=".0" b=".0" a="0.01"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="5"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+
+  <GameObject>
+    <MeshName>robot</MeshName>
+    <FriendlyName>robo7</FriendlyName>
+
+    <Position x="-64" y="-8" z="34"/>
+    <Rotation x="0" y="0" z="0"/>
+    <Scale x="40" y="40" z="40"/>
+
+    <Colour r=".9" g=".5" b=".5" a="0"/>
+    <DiffuseColour r="0.1" g="0.1" b="0.1" a="1"/>
+    <SpecularColour r=".0" g=".0" b=".0" a="0.01"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="5"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="1.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+
+  <GameObject>
+    <MeshName>robot</MeshName>
+    <FriendlyName>robo8</FriendlyName>
+
+    <Position x="-108" y="-24" z="-12"/>
+    <Rotation x="0" y="0" z="0"/>
+    <Scale x="40" y="40" z="40"/>
+
+    <Colour r=".9" g=".5" b=".5" a="0"/>
+    <DiffuseColour r="0.1" g="0.1" b="0.1" a="1"/>
+    <SpecularColour r=".0" g=".0" b=".0" a="0.01"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <AmbientDiffuseRatio f="0.5"/>
+
+    <Velocity x="0.0" y="0" z="0"/>
+    <Acceleration x="0.0" y="0.0" z="0.0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="5"/>
+
+    <AABB>
+      <max x="0.0" y="-2.0" z="-.9"/>
+      <min x="0.0" y="-2.0" z="-.9"/>
+    </AABB>
+    <Radius f="3.0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>-->
+  
 </GAMEOBJECTS>

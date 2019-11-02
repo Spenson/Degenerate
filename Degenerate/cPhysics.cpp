@@ -3,8 +3,6 @@
 #include <iostream>
 #include "globals.h"
 
-extern std::map<std::string, Mesh> mMeshes;
-
 cPhysics::cPhysics()
 {
 	// This is a typical Earth gravity value. 
@@ -454,3 +452,7 @@ void cPhysics::sphereMeshCollisionResponse(sCollisionInfo& collisionInfo)
 	a->velocity = glm::vec3(reflectionVec.x, reflectionVec.y * 0.3, reflectionVec.z) * speed;
 
 }
+
+
+
+

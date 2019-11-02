@@ -9,6 +9,7 @@ GameObject::GameObject()
 	this->debugColour = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 
 	this->velocity = glm::vec3(0.0f, 0.0f, 0.0f);
+	this->rotation = glm::vec3(0.0f, 0.0f, 0.0f);
 	this->accel = glm::vec3(0.0f, 0.0f, 0.0f);
 	this->inverseMass = 0.0f;	// Infinite mass
 	this->physicsShapeType = UNKNOWN;

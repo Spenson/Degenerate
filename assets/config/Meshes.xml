@@ -1,5 +1,9 @@
 <MESHES>
   <Mesh>
+    <File>bun_zipper_res2_XYZ_n.ply</File>
+    <Name>robot</Name>
+  </Mesh>
+  <Mesh>
     <File>Cube_1_Unit_from_origin_XYZ_n.ply</File>
       <Name>cube</Name>
   </Mesh>
@@ -11,11 +15,8 @@
     <File>Inverse_Sphere_Radius_1_XYZ_n.ply</File>
     <Name>inverse_sphere</Name>
   </Mesh>
-
-
   <Mesh>
     <File>arenaTerrain0780372.ply</File>
     <Name>Terrain</Name>
   </Mesh>
-
 </MESHES>

@@ -14,4 +14,18 @@
     <SpotOuterAngle f="15"/>
     <IsLightOn b="1"/>
   </Light>
+  <Light>
+    <Position x="0" y="20" z="0"/>
+    <Direction x="4" y="5" z="6"/>
+    <Diffuse r="1" g="1" b="1"/>
+    <Specular r="0.5" g="0.5" b="0.5" a="1.0"/>
+    <ConstAtten f="500"/>
+    <LinearAtten f="500"/>
+    <QuadraticAtten f="500"/>
+    <CutOffDistance f="3.402823466e+38"/>
+    <LightType type="0"/>
+    <SpotInnerAngle f="10"/>
+    <SpotOuterAngle f="15"/>
+    <IsLightOn b="0"/>
+  </Light>
 </LIGHTS>

@@ -68,6 +68,9 @@ public:
 	void sphereCollisionResponse(sCollisionInfo& collisionInfo);
 	void sphereMeshCollisionResponse(sCollisionInfo& collisionInfo);
 
+
+
+
 private:
 
 	// Does collision test and returns collision information

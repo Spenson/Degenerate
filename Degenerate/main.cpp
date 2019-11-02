@@ -68,6 +68,41 @@ GLint debugColour_UL;
 GLint bDoNotLight_UL;
 GLint newColour_location;
 
+ShaderManager* pTheShaderManager;
+VAOManager* pTheVAOManager;
+void DrawLine(glm::vec3 start, glm::vec3 end, float radius, glm::vec4 colour)
+{
+	glm::vec3 dir = glm::normalize(end - start);
+	glm::vec3 pos = start;
+
+	while (glm::distance(pos, end) > radius)
+	{
+		DrawSphere(pos, radius, colour);
+		pos += dir * radius;
+
+	}
+}
+void DrawSphere(glm::vec3 pos, float radius, glm::vec4 colour)
+{
+
+	GameObject* laserpoint = new GameObject();
+	laserpoint->friendlyName = "point";
+	laserpoint->meshName = "sphere";
+	laserpoint->scale = glm::vec3(radius);
+	laserpoint->objectColour = colour;
+	laserpoint->inverseMass = 0.0f;
+	laserpoint->isWireframe = 0;
+	laserpoint->isVisible = 1;
+	laserpoint->disableDepthBufferTest = 0;
+	laserpoint->disableDepthBufferWrite = 0;
+	laserpoint->position = pos;
+
+	glm::mat4 matModel = glm::mat4(1.0f);
+	DrawObject(matModel, laserpoint,
+			   pTheShaderManager->getIDFromFriendlyName("SimpleShader"), pTheVAOManager);
+
+}
+
 
 int main(void)
 {
@@ -120,7 +155,7 @@ int main(void)
 
 
 
-	ShaderManager* pTheShaderManager = new ShaderManager();
+	pTheShaderManager = new ShaderManager();
 
 	ShaderManager::Shader vertexShad;
 	vertexShad.fileName = "../assets/shaders/vertexShader01.glsl";
@@ -140,7 +175,7 @@ int main(void)
 
 	// Create a VAO Manager...
 	// #include "VAOManager.h"  (at the top of your file)
-	VAOManager* pTheVAOManager = new VAOManager();
+	pTheVAOManager = new VAOManager();
 	std::vector<ModelDrawInfo> vecDrawInfo;
 	// Note, the "filename" here is really the "model name" 
 	//  that we can look up later (i.e. it doesn't have to be the file name)
@@ -242,13 +277,13 @@ int main(void)
 	//::g_LightFlicker = false;
 
 
+
+
+
+
 	
-
-
-
-	World world;
-	world.makeRobots(10);
-
+	World::makeRobots(20);
+	
 
 	double simTime = 0;
 	//glm::vec3 pointToSwarm = glm::vec3(44, 75, -162);
@@ -280,14 +315,14 @@ int main(void)
 		double deltaTime = currentTime - lastTime;
 		lastTime = currentTime;
 
-		const double SOME_HUGE_TIME = 0.1;	// 100 ms;
+		const double SOME_HUGE_TIME = 0.25;	// 100 ms;
 		if (deltaTime > SOME_HUGE_TIME)
 		{
 			deltaTime = SOME_HUGE_TIME;
 		}
 
 		avgDeltaTimeThingy.addValue(deltaTime);
-		
+
 
 		glUseProgram(shaderProgID);
 
@@ -333,22 +368,22 @@ int main(void)
 					CameraManager::GetCameraInstance()->GetPosition().z, 1.0f);
 
 
-	/*	
-	std::stringstream ssTitle;
-		ssTitle
-			<< lightMan.GetLastLight()->Position.x << ", "
-			<< lightMan.GetLastLight()->Position.y << ", "
-			<< lightMan.GetLastLight()->Position.z
-			<< " Atten: "
-			<< lightMan.GetLastLight()->ConstAtten << " : "
-			<< lightMan.GetLastLight()->LinearAtten << " : "
-			<< lightMan.GetLastLight()->QuadraticAtten
-			<< " Light Angle: "
-			<< lightMan.GetLastLight()->SpotInnerAngle << " : "
-			<< lightMan.GetLastLight()->SpotOuterAngle
-			;
-		glfwSetWindowTitle(window, ssTitle.str().c_str());
-		//*/
+		/*
+		std::stringstream ssTitle;
+			ssTitle
+				<< lightMan.GetLastLight()->Position.x << ", "
+				<< lightMan.GetLastLight()->Position.y << ", "
+				<< lightMan.GetLastLight()->Position.z
+				<< " Atten: "
+				<< lightMan.GetLastLight()->ConstAtten << " : "
+				<< lightMan.GetLastLight()->LinearAtten << " : "
+				<< lightMan.GetLastLight()->QuadraticAtten
+				<< " Light Angle: "
+				<< lightMan.GetLastLight()->SpotInnerAngle << " : "
+				<< lightMan.GetLastLight()->SpotOuterAngle
+				;
+			glfwSetWindowTitle(window, ssTitle.str().c_str());
+			//*/
 
 
 		glUniformMatrix4fv(matView_UL, 1, GL_FALSE, glm::value_ptr(v));
@@ -435,6 +470,9 @@ int main(void)
 				DrawObject(matModel, fireFly,
 						   shaderProgID, pTheVAOManager);
 			}*/
+		simTime += deltaTime;
+		std::cout << "\n\nSimulated time: " << simTime << std::endl;
+		World::Update(deltaTime);
 
 		// **************************************************
 		// Loop to draw everything in the scene
@@ -451,10 +489,7 @@ int main(void)
 
 		}//for (int index...
 
-		simTime += avgDeltaTimeThingy.getAverage();
-		std::cout << "\n\nSimulated time: " << simTime << std::endl;
 
-		World::Update(avgDeltaTimeThingy.getAverage());
 
 		// Update the objects through physics
 //		PhysicsUpdate( vec_pGameObjects, 0.01f );
@@ -607,7 +642,7 @@ void DrawObject(glm::mat4 m,
 				VAOManager* pVAOManager)
 {
 
-	if(!pCurrentObject->isVisible)
+	if (!pCurrentObject->isVisible)
 		return;
 	// mat4x4_identity(m);
 	m = calculateWorldMatrix(pCurrentObject); glm::mat4(1.0f);
@@ -634,7 +669,7 @@ void DrawObject(glm::mat4 m,
 
 	// Find the location of the uniform variable newColour
 
-	
+
 
 	glUniform3f(newColour_location,
 				pCurrentObject->objectColour.r,

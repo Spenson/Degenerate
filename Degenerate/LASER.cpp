@@ -1,5 +1,6 @@
 #include "LASER.h"
 #include "World.h"
+#include "globals.h"
 
 void LASER::SetPosition(glm::vec3 pos)
 {
@@ -23,5 +24,6 @@ bool LASER::IsSightLine()
 
 void LASER::Shoot(glm::vec3 target)
 {
+	DrawLine(this->GetPosition(), target, 0.5, this->pGameObject->objectColour);
 	World::DealDamage(target, 1, 0.04f);
 }

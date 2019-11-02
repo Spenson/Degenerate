@@ -4,6 +4,7 @@
 
 class Robot
 {
+	glm::vec3 lastTarget;
 public:
 	GameObject* pGameObject;
 	double TimeSinceShot;

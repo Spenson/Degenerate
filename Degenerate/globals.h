@@ -14,6 +14,8 @@ GameObject* pFindObjectByFriendlyNameMap(std::string name);
 extern std::map<std::string, Mesh> mMeshes;
 extern cPhysics* pPhsyics;
 extern std::vector<GameObject*> g_vec_pGameObjects;
+extern void DrawLine(glm::vec3 start, glm::vec3 end, float radius, glm::vec4 colour);
+extern void DrawSphere(glm::vec3 pos, float radius, glm::vec4 colour);
 //extern glm::vec3 sexyLightPosition;
 //extern float sexyLightConstAtten;
 //extern float sexyLightLinearAtten;

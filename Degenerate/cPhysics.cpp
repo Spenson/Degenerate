@@ -7,7 +7,7 @@ cPhysics::cPhysics()
 {
 	// This is a typical Earth gravity value. 
 	// note that this doesn't mean that the simulation will "look good", though... 
-//	this->m_Gravity = glm::vec3(0.0f, -9.81f, 0.0f);
+	//this->m_Gravity = glm::vec3(0.0f, -9.81f, 0.0f);
 	this->m_Gravity = glm::vec3(0.0f, -1.0f, 0.0f);
 	return;
 }

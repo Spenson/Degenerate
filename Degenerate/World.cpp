@@ -3,14 +3,15 @@
 #include "Bomb.h"
 #include "Bullets.h"
 #include "LASER.h"
+#include "Rocket.h"
 #include <iostream>
 
 size_t World::robotCount = 0;
 size_t World::damageCount = 0;
-size_t World::projectileCount = 0;
 std::vector<Robot*> World::robots;
 std::vector<Damage*> World::damagepoints;
-std::vector<Projectile*> World::projectiles;
+
+bool World::slightLineCheck;
 
 glm::vec3 GroundCheck(glm::vec3 pointXYZ, GameObject* pB)
 {
@@ -67,12 +68,25 @@ glm::vec3 GroundCheck(glm::vec3 pointXYZ, GameObject* pB)
 	}
 }
 
-glm::vec3 World::GetTarget(glm::vec3 pos, bool isSightLineTpye)
+glm::vec3 World::GetTarget(glm::vec3 pos, glm::vec3 lastTarget, bool isSightLineTpye, bool lasttargetmiss)
 {
 	glm::vec3 target = glm::vec3(0.0f);
+	if(!lasttargetmiss)
+		for (size_t inner = 0; inner < robots.size(); ++inner)
+		{
+			if (lastTarget == robots[inner]->pGameObject->position && robots[inner]->health > 0.0f)
+				lastTarget;
+		}
+
+
 	if (isSightLineTpye)
 	{
-		float LastClosest = 0.0f;
+		float LastClosest;
+		if(lasttargetmiss)
+			LastClosest = glm::distance(pos, lastTarget);
+		else
+			LastClosest = 0.0f;
+
 		float NextClosest = FLT_MAX;
 		size_t botsChecked = 0;
 
@@ -85,7 +99,7 @@ glm::vec3 World::GetTarget(glm::vec3 pos, bool isSightLineTpye)
 					continue;
 				float dis = glm::distance(pos, robots[inner]->pGameObject->position);
 
-				if (dis > LastClosest&& dis < NextClosest)
+				if (dis > LastClosest && dis < NextClosest)
 				{
 					if (robots[inner]->health > 0.0f)
 					{
@@ -131,14 +145,18 @@ glm::vec3 World::GetTarget(glm::vec3 pos, bool isSightLineTpye)
 
 		for (size_t inner = 0; inner < robots.size(); ++inner)
 		{
+			if (pos == robots[inner]->pGameObject->position)
+				continue;
 
 			float dis = glm::distance(pos, robots[inner]->pGameObject->position);
 
 			if (dis < closest)
 			{
-				target = robots[inner]->pGameObject->position;
-				closest = dis;
-
+				if (robots[inner]->health > 0.0f)
+				{
+					target = robots[inner]->pGameObject->position;
+					closest = dis;
+				}
 			}
 		}
 
@@ -177,24 +195,9 @@ void World::Update(double deltaTime)
 	}
 	for (size_t idx = 0; idx < damagepoints.size(); idx++)
 	{
-		if (damagepoints[idx]->timeExisted > 0.1)
-		{
-			damagepoints[idx]->pGameObject->isVisible = false;
-			//for (int index = 0; index != ::g_vec_pGameObjects.size(); index++)
-			//{
-			//	if (::g_vec_pGameObjects[index]->friendlyIDNumber == damagepoints[idx]->pGameObject->friendlyIDNumber)
-			//		::g_vec_pGameObjects.erase(::g_vec_pGameObjects.begin() + index);
-			//}
-			//damagepoints.erase(damagepoints.begin() + idx);
-		}
-	/*	else
-		{
-			damagepoints[idx]->timeExisted += deltaTime;
-			std::cout << "Damage existed " << damagepoints[idx]->timeExisted << " at : (" << damagepoints[idx]->pGameObject->position.x << ", "
-				<< damagepoints[idx]->pGameObject->position.y << ", "
-				<< damagepoints[idx]->pGameObject->position.z << ") with Radius : " << damagepoints[idx]->pGameObject->scale.x << std::endl;
-		}*/
+		damagepoints[idx]->Update(deltaTime);
 	}
+
 }
 
 void World::makeRobots(size_t count)
@@ -214,8 +217,9 @@ void World::makeRobots(size_t count)
 
 		//iWeapon* weapon;
 		int randWeapon = rand() % 100;
-		if (randWeapon < 33)
+		if (randWeapon < 30)
 		{
+			std::cout << robo->pGameObject->friendlyName << " has bullets" << std::endl;
 			Bullets* bill = new Bullets();
 			bill->pGameObject = new GameObject();
 			bill->pGameObject->meshName = "cube";
@@ -228,8 +232,9 @@ void World::makeRobots(size_t count)
 			robo->pWeapon = bill;
 			g_vec_pGameObjects.push_back(bill->pGameObject);
 		}
-		else if (randWeapon < 66)
+		else if (randWeapon < 30)
 		{
+			std::cout << robo->pGameObject->friendlyName << " has LASER" << std::endl;
 			LASER* theLASER = new LASER();
 			theLASER->pGameObject = new GameObject();
 			theLASER->pGameObject->meshName = "cube";
@@ -242,8 +247,9 @@ void World::makeRobots(size_t count)
 			robo->pWeapon = theLASER;
 			g_vec_pGameObjects.push_back(theLASER->pGameObject);
 		}
-		else if (randWeapon < 100)
+		else if (randWeapon < 90)
 		{
+			std::cout << robo->pGameObject->friendlyName << " has Bomb" << std::endl;
 			Bomb* daBomb = new Bomb();
 			daBomb->pGameObject = new GameObject();
 			daBomb->pGameObject->meshName = "cube";
@@ -256,9 +262,24 @@ void World::makeRobots(size_t count)
 			robo->pWeapon = daBomb;
 			g_vec_pGameObjects.push_back(daBomb->pGameObject);
 		}
+		else if (randWeapon < 100)
+		{
+			std::cout << robo->pGameObject->friendlyName << " has Bomb" << std::endl;
+			Rocket* rocket = new Rocket();
+			rocket->pGameObject = new GameObject();
+			rocket->pGameObject->meshName = "cube";
+			rocket->pGameObject->friendlyName = "weapon" + std::to_string(robotCount);
+			rocket->pGameObject->objectColour = glm::vec4(0.0f, 1.0f, 1.0f, 1.0f);
+			rocket->pGameObject->specularColour = glm::vec4(1.0f);
+			rocket->pGameObject->scale = glm::vec3(1.0f);
+			rocket->pGameObject->position = robo->pGameObject->position;
+			rocket->pGameObject->position.y += 3.0f;
+			robo->pWeapon = rocket;
+			g_vec_pGameObjects.push_back(rocket->pGameObject);
+		}
 
 		//Fire on first frame
-		robo->TimeSinceShot = robo->pWeapon->ReloadTime();
+		robo->TimeSinceShot = robo->pWeapon->ReloadTime() - 0.1f;
 
 		g_vec_pGameObjects.push_back(robo->pGameObject);
 		robots.push_back(robo);

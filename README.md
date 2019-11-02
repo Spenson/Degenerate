@@ -1,2 +1,0 @@
-# Degenerate
-Degenerate Game Engine

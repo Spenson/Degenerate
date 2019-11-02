@@ -11,5 +11,6 @@ public:
 	virtual glm::vec3 GetPosition();
 	virtual float ReloadTime();
 	virtual bool IsSightLine();
-	virtual void Shoot(glm::vec3 target);
+	virtual void Shoot(glm::vec3 target); 
+	virtual bool LastTargetUnreachable() { return false; };
 };

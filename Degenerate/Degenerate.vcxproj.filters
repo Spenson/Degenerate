@@ -141,7 +141,10 @@
     <ClCompile Include="LASER.cpp">
       <Filter>ROBOT SIM\Weapons</Filter>
     </ClCompile>
-    <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="Damage.cpp">
+      <Filter>ROBOT SIM</Filter>
+    </ClCompile>
+    <ClCompile Include="Rocket.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLCommon.h">
@@ -213,8 +216,8 @@
     <ClInclude Include="Damage.h">
       <Filter>ROBOT SIM</Filter>
     </ClInclude>
-    <ClInclude Include="Projectile.h">
-      <Filter>ROBOT SIM</Filter>
+    <ClInclude Include="Rocket.h">
+      <Filter>ROBOT SIM\Weapons</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

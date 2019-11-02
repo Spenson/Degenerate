@@ -11,4 +11,5 @@ public:
 	virtual float ReloadTime();
 	virtual bool IsSightLine();
 	virtual void Shoot(glm::vec3 target);
+	virtual bool LastTargetUnreachable() { return false; };
 };

@@ -1,12 +1,11 @@
 #pragma once
+
 #include "iWeapon.h"
 #include "GameObject.h"
 
-class Bomb : public iWeapon
+class Rocket : public iWeapon
 {
-	
-	float lastVelocity;
-	glm::vec3 lastHitTarget;
+	bool lasttargetunreachable;
 public:
 	GameObject* pGameObject;
 
@@ -15,5 +14,5 @@ public:
 	virtual float ReloadTime();
 	virtual bool IsSightLine();
 	virtual void Shoot(glm::vec3 target);
-	virtual bool LastTargetUnreachable(){return false;};
+	virtual bool LastTargetUnreachable(){return lasttargetunreachable;};
 };

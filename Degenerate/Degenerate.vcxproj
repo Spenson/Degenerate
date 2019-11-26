@@ -19,82 +19,87 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\dependencies\src\glad.c" />
     <ClCompile Include="Camera\CameraManager.cpp" />
     <ClCompile Include="Camera\cFlyCamera.cpp" />
-    <ClCompile Include="cLowPassFilter.cpp" />
-    <ClCompile Include="cPhysics.cpp" />
-    <ClCompile Include="cPhysics_Ericson.cpp" />
+    <ClCompile Include="Camera\ThirdPersonCamera.cpp" />
     <ClCompile Include="DebugRenderer\cDebugRenderer.cpp" />
     <ClCompile Include="DebugRenderer\cDebugRenderer_BuiltInShapes.cpp" />
     <ClCompile Include="DebugRenderer\CErrorLog.cpp" />
     <ClCompile Include="DebugRenderer\cGLRenderStateHelper.cpp" />
     <ClCompile Include="DebugRenderer\COpenGLError.cpp" />
-    <ClCompile Include="DrawCalls.cpp" />
-    <ClCompile Include="FileReaders.cpp" />
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="GFLW_callbacks.cpp" />
-    <ClCompile Include="glad.c" />
-    <ClCompile Include="ImGui\imgui.cpp" />
-    <ClCompile Include="ImGui\imgui_demo.cpp" />
-    <ClCompile Include="ImGui\imgui_draw.cpp" />
-    <ClCompile Include="ImGui\imgui_widgets.cpp" />
-    <ClCompile Include="key_callbacks.cpp" />
-    <ClCompile Include="LightManager\Light.cpp" />
-    <ClCompile Include="LightManager\LightHelper.cpp" />
-    <ClCompile Include="LightManager\LightManager.cpp" />
+    <ClCompile Include="GameObject\cGameObject.cpp" />
+    <ClCompile Include="Lighting\cLightHelper.cpp" />
+    <ClCompile Include="Lighting\Light.cpp" />
+    <ClCompile Include="Lighting\LightManager.cpp" />
+    <ClCompile Include="LoadingStuff\FileReaders.cpp" />
+    <ClCompile Include="LoadingStuff\LoadScene.cpp" />
+    <ClCompile Include="LowPassFilter\cLowPassFilter.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MatrixCalc.cpp" />
-    <ClCompile Include="ModelLoader.cpp" />
-    <ClCompile Include="mouse_callbacks.cpp" />
-    <ClCompile Include="PhysicsStuff.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="ShaderManager.cpp" />
+    <ClCompile Include="ModelStuff\cModelLoader.cpp" />
+    <ClCompile Include="ParticalEffects\cParticleEmitter.cpp" />
+    <ClCompile Include="Physics\cPhysics.cpp" />
+    <ClCompile Include="Physics\cPhysics_Ericson.cpp" />
+    <ClCompile Include="Physics\SubdivideWorld.cpp" />
+    <ClCompile Include="ShaderManager\cShader.cpp" />
+    <ClCompile Include="ShaderManager\cShaderManager.cpp" />
+    <ClCompile Include="SimpleShaderStuff\Rendering.cpp" />
+    <ClCompile Include="SimpleShaderStuff\UniformManager.cpp" />
     <ClCompile Include="Texture\C24BitBMPpixel.cpp" />
     <ClCompile Include="Texture\cBasicTextureManager.cpp" />
     <ClCompile Include="Texture\CTextureFromBMP.cpp" />
-    <ClCompile Include="VAOManager.cpp" />
+    <ClCompile Include="UserInputs\GFLW_callbacks.cpp" />
+    <ClCompile Include="UserInputs\key_callbacks.cpp" />
+    <ClCompile Include="UserInputs\mouse_callbacks.cpp" />
+    <ClCompile Include="UserInputs\UserInput.cpp" />
+    <ClCompile Include="VAOManager\cVAOManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera\CameraManager.h" />
     <ClInclude Include="Camera\cFlyCamera.h" />
-    <ClInclude Include="cLowPassFilter.h" />
-    <ClInclude Include="cPhysics.h" />
+    <ClInclude Include="Camera\ThirdPersonCamera.h" />
     <ClInclude Include="DebugRenderer\cDebugRenderer.h" />
     <ClInclude Include="DebugRenderer\CErrorLog.h" />
     <ClInclude Include="DebugRenderer\cGLRenderStateHelper.h" />
     <ClInclude Include="DebugRenderer\COpenGLError.h" />
     <ClInclude Include="DebugRenderer\iDebugRenderer.h" />
-    <ClInclude Include="DrawCalls.h" />
-    <ClInclude Include="FileReaders.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="GFLW_callbacks.h" />
+    <ClInclude Include="GameObject\cGameObject.h" />
     <ClInclude Include="GLCommon.h" />
     <ClInclude Include="globals.h" />
-    <ClInclude Include="LightManager\Light.h" />
-    <ClInclude Include="LightManager\LightHelper.h" />
-    <ClInclude Include="LightManager\LightManager.h" />
-    <ClInclude Include="MatrixCalc.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="ModelLoader.h" />
-    <ClInclude Include="PhysicsStuff.h" />
-    <ClInclude Include="ShaderManager.h" />
+    <ClInclude Include="Lighting\cLightHelper.h" />
+    <ClInclude Include="Lighting\Light.h" />
+    <ClInclude Include="Lighting\LightManager.h" />
+    <ClInclude Include="LoadingStuff\FileReaders.h" />
+    <ClInclude Include="LoadingStuff\LoadScene.h" />
+    <ClInclude Include="LowPassFilter\cLowPassFilter.h" />
+    <ClInclude Include="ModelStuff\cMesh.h" />
+    <ClInclude Include="ModelStuff\cModelLoader.h" />
+    <ClInclude Include="ParticalEffects\cParticleEmitter.h" />
+    <ClInclude Include="Physics\cPhysics.h" />
+    <ClInclude Include="Physics\SubdivideWorld.h" />
+    <ClInclude Include="ShaderManager\cShaderManager.h" />
+    <ClInclude Include="SimpleShaderStuff\Rendering.h" />
+    <ClInclude Include="SimpleShaderStuff\UniformManager.h" />
     <ClInclude Include="Texture\C24BitBMPpixel.h" />
     <ClInclude Include="Texture\cBasicTextureManager.h" />
     <ClInclude Include="Texture\CTextureFromBMP.h" />
-    <ClInclude Include="VAOManager.h" />
+    <ClInclude Include="UserInputs\GFLW_callbacks.h" />
+    <ClInclude Include="VAOManager\cVAOManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\assets\shaders\fragmentShader01.glsl" />
-    <None Include="..\assets\shaders\vertexShader01.glsl" />
+    <None Include="assets\shaders\fragmentShader01.glsl" />
+    <None Include="assets\shaders\vertexShader01.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="..\assets\config\GameObjects.xml" />
-    <Xml Include="..\assets\config\Lights.xml" />
-    <Xml Include="..\assets\config\Meshes.xml" />
+    <Xml Include="assets\config\GameObjects.xml" />
+    <Xml Include="assets\config\GameObjects2.xml" />
+    <Xml Include="assets\config\Lights.xml" />
+    <Xml Include="assets\config\Meshes.xml" />
+    <Xml Include="assets\config\Textures.xml" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{21528F71-B203-45E9-A8E8-DD08BB397F2D}</ProjectGuid>
+    <ProjectGuid>{88B5A12D-5940-4A53-9257-8EB3ACE79BAD}</ProjectGuid>
     <RootNamespace>Degenerate</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -144,20 +149,28 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)Dependencies/include;$(SolutionDir)Dependencies/include/ImGui;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Dependencies/lib/$(Configuration)/$(PlatformShortName);$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)$(PlatformShortName)\$(Configuration)\</OutDir>
+    <IntDir>$(PlatformShortName)\$(Configuration)\</IntDir>
+    <IncludePath>$(SolutionDir)Dependencies\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\lib\$(PlatformShortName)\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)Dependencies/include;$(SolutionDir)Dependencies/include/ImGui;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Dependencies/lib/$(Configuration)/$(PlatformShortName);$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)$(PlatformShortName)\$(Configuration)\</OutDir>
+    <IntDir>$(PlatformShortName)\$(Configuration)\</IntDir>
+    <IncludePath>$(SolutionDir)Dependencies\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\lib\$(PlatformShortName)\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)Dependencies/include;$(SolutionDir)Dependencies/include/ImGui;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Dependencies/lib/$(Configuration)/$(PlatformShortName);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Dependencies\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\lib\$(PlatformShortName)\$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)$(PlatformShortName)\$(Configuration)\</OutDir>
+    <IntDir>$(PlatformShortName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)Dependencies/include;$(SolutionDir)Dependencies/include/ImGui;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Dependencies/lib/$(Configuration)/$(PlatformShortName);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Dependencies\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependencies\lib\$(PlatformShortName)\$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)$(PlatformShortName)\$(Configuration)\</OutDir>
+    <IntDir>$(PlatformShortName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

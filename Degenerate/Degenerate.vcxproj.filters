@@ -1,127 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="ImGui">
-      <UniqueIdentifier>{cfb95bf8-851b-4982-b1cf-b2b6b8de3dfe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="glad">
-      <UniqueIdentifier>{421574c7-1dfd-4141-b41a-bbf0c6883095}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="UserInput">
-      <UniqueIdentifier>{58f701de-39f1-4cbc-9a20-dfcef875db33}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObject">
-      <UniqueIdentifier>{4922828f-922d-41ae-b991-58a42a1d3b5c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physics">
-      <UniqueIdentifier>{e4e3da13-dca8-4a77-a0c1-4253b9bebb8d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="VAOManager">
-      <UniqueIdentifier>{e701bac7-9b23-4aa1-9e99-7435ab1cf73d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shaders">
-      <UniqueIdentifier>{8c6516f2-9b50-4e24-a3ac-897dcbead436}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ShaderManager">
-      <UniqueIdentifier>{4c0b5723-5a5e-4020-bd0c-413d588cace0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Model">
-      <UniqueIdentifier>{bdd9a9e3-1efa-4a32-a3c5-01f1220c6e77}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Lighting">
-      <UniqueIdentifier>{e7e0f344-b40e-495c-b225-22f2ccd67165}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="FileReaders">
-      <UniqueIdentifier>{5aa58bd0-4343-414a-88eb-5e2de5277ddd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Camera">
-      <UniqueIdentifier>{8252d7bb-0da4-424e-b33e-325ea3c2575d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Configs">
-      <UniqueIdentifier>{17f26d51-6578-4abc-8e1b-98e43df82319}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="LowPassFilter">
-      <UniqueIdentifier>{23d1223f-7e8d-4c63-8743-bb3d2785a393}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render">
-      <UniqueIdentifier>{07d888a6-5910-458e-a0c6-1d07cca40826}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DebugRenderer">
-      <UniqueIdentifier>{acd79155-41ab-4c84-95e0-73546b13f058}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GLOBAL">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Texture">
-      <UniqueIdentifier>{8a9326aa-7cd0-4953-abc8-45776b9fe890}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="glad.c">
-      <Filter>glad</Filter>
-    </ClCompile>
-    <ClCompile Include="VAOManager.cpp">
-      <Filter>VAOManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>ShaderManager</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderManager.cpp">
-      <Filter>ShaderManager</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelLoader.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
-    <ClCompile Include="GFLW_callbacks.cpp">
-      <Filter>UserInput</Filter>
-    </ClCompile>
-    <ClCompile Include="key_callbacks.cpp">
-      <Filter>UserInput</Filter>
-    </ClCompile>
-    <ClCompile Include="cPhysics.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="cPhysics_Ericson.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicsStuff.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="mouse_callbacks.cpp">
-      <Filter>UserInput</Filter>
-    </ClCompile>
-    <ClCompile Include="FileReaders.cpp">
-      <Filter>FileReaders</Filter>
-    </ClCompile>
-    <ClCompile Include="cLowPassFilter.cpp">
-      <Filter>LowPassFilter</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="DrawCalls.cpp">
-      <Filter>Render</Filter>
-    </ClCompile>
-    <ClCompile Include="MatrixCalc.cpp">
-      <Filter>Render</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui.cpp">
-      <Filter>ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_demo.cpp">
-      <Filter>ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_draw.cpp">
-      <Filter>ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_widgets.cpp">
-      <Filter>ImGui</Filter>
-    </ClCompile>
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="DebugRenderer\cDebugRenderer.cpp">
       <Filter>DebugRenderer</Filter>
     </ClCompile>
@@ -137,13 +17,6 @@
     <ClCompile Include="DebugRenderer\COpenGLError.cpp">
       <Filter>DebugRenderer</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Camera\CameraManager.cpp">
-      <Filter>Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera\cFlyCamera.cpp">
-      <Filter>Camera</Filter>
-    </ClCompile>
     <ClCompile Include="Texture\C24BitBMPpixel.cpp">
       <Filter>Texture</Filter>
     </ClCompile>
@@ -153,59 +26,85 @@
     <ClCompile Include="Texture\CTextureFromBMP.cpp">
       <Filter>Texture</Filter>
     </ClCompile>
-    <ClCompile Include="LightManager\Light.cpp">
+    <ClCompile Include="..\dependencies\src\glad.c">
+      <Filter>glad</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderManager\cShader.cpp">
+      <Filter>ShaderManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderManager\cShaderManager.cpp">
+      <Filter>ShaderManager</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\cGameObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="VAOManager\cVAOManager.cpp">
+      <Filter>VAOManager</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleShaderStuff\UniformManager.cpp">
+      <Filter>SimpleShader</Filter>
+    </ClCompile>
+    <ClCompile Include="UserInputs\GFLW_callbacks.cpp">
+      <Filter>UserInput</Filter>
+    </ClCompile>
+    <ClCompile Include="UserInputs\key_callbacks.cpp">
+      <Filter>UserInput</Filter>
+    </ClCompile>
+    <ClCompile Include="UserInputs\mouse_callbacks.cpp">
+      <Filter>UserInput</Filter>
+    </ClCompile>
+    <ClCompile Include="UserInputs\UserInput.cpp">
+      <Filter>UserInput</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera\CameraManager.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera\cFlyCamera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelStuff\cModelLoader.cpp">
+      <Filter>ModelStuff</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticalEffects\cParticleEmitter.cpp">
+      <Filter>ParticalEffects</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleShaderStuff\Rendering.cpp">
+      <Filter>SimpleShader</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\cPhysics.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\SubdivideWorld.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="LowPassFilter\cLowPassFilter.cpp">
+      <Filter>LowPassFilter</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\cPhysics_Ericson.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingStuff\LoadScene.cpp">
+      <Filter>LoadingStuff</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingStuff\FileReaders.cpp">
+      <Filter>LoadingStuff</Filter>
+    </ClCompile>
+    <ClCompile Include="Lighting\cLightHelper.cpp">
       <Filter>Lighting</Filter>
     </ClCompile>
-    <ClCompile Include="LightManager\LightHelper.cpp">
+    <ClCompile Include="Lighting\Light.cpp">
       <Filter>Lighting</Filter>
     </ClCompile>
-    <ClCompile Include="LightManager\LightManager.cpp">
+    <ClCompile Include="Lighting\LightManager.cpp">
       <Filter>Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera\ThirdPersonCamera.cpp">
+      <Filter>Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GLCommon.h">
-      <Filter>GLOBAL</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Model</Filter>
-    </ClInclude>
-    <ClInclude Include="VAOManager.h">
-      <Filter>VAOManager</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderManager.h">
-      <Filter>ShaderManager</Filter>
-    </ClInclude>
-    <ClInclude Include="globals.h">
-      <Filter>GLOBAL</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelLoader.h">
-      <Filter>Model</Filter>
-    </ClInclude>
-    <ClInclude Include="GFLW_callbacks.h">
-      <Filter>UserInput</Filter>
-    </ClInclude>
-    <ClInclude Include="cPhysics.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicsStuff.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="FileReaders.h">
-      <Filter>FileReaders</Filter>
-    </ClInclude>
-    <ClInclude Include="cLowPassFilter.h">
-      <Filter>LowPassFilter</Filter>
-    </ClInclude>
-    <ClInclude Include="DrawCalls.h">
-      <Filter>Render</Filter>
-    </ClInclude>
-    <ClInclude Include="MatrixCalc.h">
-      <Filter>Render</Filter>
-    </ClInclude>
+    <ClInclude Include="GLCommon.h" />
+    <ClInclude Include="globals.h" />
     <ClInclude Include="DebugRenderer\cDebugRenderer.h">
       <Filter>DebugRenderer</Filter>
     </ClInclude>
@@ -221,12 +120,6 @@
     <ClInclude Include="DebugRenderer\iDebugRenderer.h">
       <Filter>DebugRenderer</Filter>
     </ClInclude>
-    <ClInclude Include="Camera\CameraManager.h">
-      <Filter>Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera\cFlyCamera.h">
-      <Filter>Camera</Filter>
-    </ClInclude>
     <ClInclude Include="Texture\C24BitBMPpixel.h">
       <Filter>Texture</Filter>
     </ClInclude>
@@ -236,33 +129,143 @@
     <ClInclude Include="Texture\CTextureFromBMP.h">
       <Filter>Texture</Filter>
     </ClInclude>
-    <ClInclude Include="LightManager\Light.h">
+    <ClInclude Include="ShaderManager\cShaderManager.h">
+      <Filter>ShaderManager</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\cGameObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="VAOManager\cVAOManager.h">
+      <Filter>VAOManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleShaderStuff\UniformManager.h">
+      <Filter>SimpleShader</Filter>
+    </ClInclude>
+    <ClInclude Include="UserInputs\GFLW_callbacks.h">
+      <Filter>UserInput</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera\CameraManager.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera\cFlyCamera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelStuff\cModelLoader.h">
+      <Filter>ModelStuff</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelStuff\cMesh.h">
+      <Filter>ModelStuff</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticalEffects\cParticleEmitter.h">
+      <Filter>ParticalEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleShaderStuff\Rendering.h">
+      <Filter>SimpleShader</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\cPhysics.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\SubdivideWorld.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="LowPassFilter\cLowPassFilter.h">
+      <Filter>LowPassFilter</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingStuff\LoadScene.h">
+      <Filter>LoadingStuff</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingStuff\FileReaders.h">
+      <Filter>LoadingStuff</Filter>
+    </ClInclude>
+    <ClInclude Include="Lighting\cLightHelper.h">
       <Filter>Lighting</Filter>
     </ClInclude>
-    <ClInclude Include="LightManager\LightHelper.h">
+    <ClInclude Include="Lighting\Light.h">
       <Filter>Lighting</Filter>
     </ClInclude>
-    <ClInclude Include="LightManager\LightManager.h">
+    <ClInclude Include="Lighting\LightManager.h">
       <Filter>Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera\ThirdPersonCamera.h">
+      <Filter>Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\assets\shaders\fragmentShader01.glsl">
+    <Filter Include="DebugRenderer">
+      <UniqueIdentifier>{0712cb83-17e5-411e-93c8-01a7fe758260}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="glad">
+      <UniqueIdentifier>{7d1418fb-bc87-464d-92d6-547958264f82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderManager">
+      <UniqueIdentifier>{09e56bc5-c02d-42ea-83eb-002dd6069e70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{477fc76d-15ca-40e3-9c11-c253f3991cc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VAOManager">
+      <UniqueIdentifier>{f6ebd614-dbc3-4b68-94cd-455448afc27a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SimpleShader">
+      <UniqueIdentifier>{c178e5dc-5eac-47cb-baba-3b8516b6973f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UserInput">
+      <UniqueIdentifier>{04f4513b-4da9-4c76-abda-3dcf292d93f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{57a91efe-7bd9-4f76-89f9-cbe0c4907723}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ModelStuff">
+      <UniqueIdentifier>{e5a4d6db-2963-482e-b124-1a7982cc2e94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ParticalEffects">
+      <UniqueIdentifier>{df803fa9-a031-4d2a-97e5-04edcbb45052}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{2b3db6b5-64b2-446b-b9cd-32b5cb234c56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LowPassFilter">
+      <UniqueIdentifier>{e7492a95-892b-497a-952f-fa0a60b44b26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{4d3748a8-4da5-47d9-b423-c251357c07f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LoadingStuff">
+      <UniqueIdentifier>{599a4d1c-f0ce-4178-ae76-346925115ef8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lighting">
+      <UniqueIdentifier>{bad3a230-d2e0-4d4e-8836-cda0eb1ec080}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LoadingStuff\Configs">
+      <UniqueIdentifier>{4ad12e0d-cee0-42a4-a5a2-8fd3a060d5a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Texture">
+      <UniqueIdentifier>{b38f96fd-1892-4ba7-ba20-4c6a00c8f300}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\shaders\fragmentShader01.glsl">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="..\assets\shaders\vertexShader01.glsl">
+    <None Include="assets\shaders\vertexShader01.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="..\assets\config\GameObjects.xml">
-      <Filter>Configs</Filter>
+    <Xml Include="assets\config\GameObjects.xml">
+      <Filter>LoadingStuff\Configs</Filter>
     </Xml>
-    <Xml Include="..\assets\config\Lights.xml">
-      <Filter>Configs</Filter>
+    <Xml Include="assets\config\Lights.xml">
+      <Filter>LoadingStuff\Configs</Filter>
     </Xml>
-    <Xml Include="..\assets\config\Meshes.xml">
-      <Filter>Configs</Filter>
+    <Xml Include="assets\config\Meshes.xml">
+      <Filter>LoadingStuff\Configs</Filter>
+    </Xml>
+    <Xml Include="assets\config\GameObjects2.xml">
+      <Filter>LoadingStuff\Configs</Filter>
+    </Xml>
+    <Xml Include="assets\config\Textures.xml">
+      <Filter>LoadingStuff\Configs</Filter>
     </Xml>
   </ItemGroup>
 </Project>

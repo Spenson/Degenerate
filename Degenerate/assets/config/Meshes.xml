@@ -1,0 +1,10 @@
+<MESHES>
+  <Mesh>
+    <File>Entire_Babbage_Space_Station_xyz_n_uv(trivial).ply</File>
+    <Name>FloatingCities</Name>
+  </Mesh>
+  <Mesh>
+    <File>Ship.ply</File>
+    <Name>Ship</Name>
+  </Mesh>
+</MESHES>

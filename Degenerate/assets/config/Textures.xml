@@ -1,0 +1,19 @@
+<TEXTURES>
+  <TextureGroup>
+    <Dir>assets/textures/</Dir>
+    <File>Untitled.bmp</File>
+  </TextureGroup>
+
+  <TextureGroup>
+    <Dir>assets/textures/cubemaps/</Dir>
+    <Cube>
+      <Name>space</Name>
+      <Right>SpaceBox_right1_posX.bmp</Right>
+      <Left>SpaceBox_left2_negX.bmp</Left>
+      <Up>SpaceBox_top3_posY.bmp</Up>
+      <Down>SpaceBox_bottom4_negY.bmp</Down>
+      <Front>SpaceBox_front5_posZ.bmp</Front>
+      <Back>SpaceBox_back6_negZ.bmp</Back>
+    </Cube>
+  </TextureGroup>
+</TEXTURES>

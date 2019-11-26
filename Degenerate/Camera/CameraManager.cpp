@@ -2,20 +2,31 @@
 #include <glm/glm.hpp>
 
 
-class CameraManagerImpl
+FreeCameraManager* g_pFreeCamera = new FreeCameraManager();
+
+
+class FreeCameraManagerImpl
 {
 public:
 	float yaw;
 	float pitch;
+	float LastX;
+	float LastY;
+	float movement_speed;
+	float rotation_speed;
+	bool LockTarget;
 	glm::vec3 cameraPos;
 	glm::vec3 cameraFront;
 	glm::vec3 target;
-	CameraManagerImpl()
+	FreeCameraManagerImpl()
 	{
-		yaw = 90.0f;
-		pitch = 0.0f;
-		cameraPos = glm::vec3(0.0f);
-		cameraFront = glm::vec3(0.0f, 0.0f, 1.0f);
+		this->yaw = 90.0f;
+		this->pitch = 0.0f;
+		this->movement_speed = 1.0f;
+		this->rotation_speed = 0.05f;
+		this->cameraPos = glm::vec3(0.0f);
+		this->cameraFront = glm::vec3(0.0f, 0.0f, 1.0f);
+		this->LockTarget = false;
 		UpdateFront();
 	}
 
@@ -29,74 +40,164 @@ public:
 	}
 };
 
-CameraManager* CameraManager::pManager = nullptr;
+//FreeCameraManager* FreeCameraManager::pManager = nullptr;
 
 
-CameraManager::CameraManager()
+FreeCameraManager::FreeCameraManager()
 {
-	impl = new CameraManagerImpl();
+	impl = new FreeCameraManagerImpl();
 }
 
 
-CameraManager* CameraManager::GetCameraInstance()
+//FreeCameraManager* FreeCameraManager::GetCameraInstance()
+//{
+//	if (!pManager)
+//	{
+//		pManager = new FreeCameraManager();
+//	}
+//	return pManager;
+//}
+
+double FreeCameraManager::XChange(double newX)
 {
-	if (!pManager)
-	{
-		pManager = new CameraManager();
-	}
-	return pManager;
+	float diffX = 0.0f;
+	if (impl->LastX != 0.0f)
+		diffX = newX - impl->LastX;
+
+	impl->LastX = newX;
+	return diffX;
 }
 
-void CameraManager::LookUp(float rotation)
+double FreeCameraManager::YChange(double newY)
 {
-	impl->pitch += rotation;
+	float diffY = 0.0f;
+	if (impl->LastY != 0.0f)
+		diffY = newY - impl->LastY;
+
+	impl->LastY = newY;
+	return diffY;
+}
+
+void FreeCameraManager::Pitch(float rotation)
+{
+	impl->pitch += rotation * impl->rotation_speed;
 	if (impl->pitch > 89.0f)
 		impl->pitch = 89.0f;
 	if (impl->pitch < -89.0f)
 		impl->pitch = -89.0f;
+	impl->LockTarget = false;
+	impl->UpdateFront();
+}
+
+void FreeCameraManager::Yaw(float rotation)
+{
+	impl->yaw += rotation * impl->rotation_speed;
+	if (impl->yaw > 360)
+		impl->yaw -= 360;
+	if (impl->yaw < -360)
+		impl->yaw += 360;
+	impl->LockTarget = false;
 
 	impl->UpdateFront();
 }
 
-void CameraManager::LookRight(float rotation)
+float FreeCameraManager::Pitch()
 {
-	impl->yaw += rotation;
-
-	impl->UpdateFront();
+	return impl->pitch;
 }
 
-void CameraManager::MoveForward(float distance)
+float FreeCameraManager::Yaw()
 {
-	impl->cameraPos += distance * impl->cameraFront;
+	return impl->yaw;
 }
 
-void CameraManager::MoveRight(float distance)
+void FreeCameraManager::Sensitivity(float sens)
 {
-	impl->cameraPos += glm::normalize(glm::cross(impl->cameraFront, glm::vec3(0.0f, 1.0f, 0.0f))) * distance;
+	impl->rotation_speed = sens;
+
+	if (impl->rotation_speed < 0.001f)
+		impl->rotation_speed = 0.001f;
+}
+float FreeCameraManager::Sensitivity()
+{
+	return impl->rotation_speed;
+}
+void FreeCameraManager::Speed(float speed)
+{
+	impl->movement_speed = speed;
+	if (impl->movement_speed < 0.001f)
+		impl->movement_speed = 0.001f;
+}
+float FreeCameraManager::Speed()
+{
+	return impl->movement_speed;
 }
 
-void CameraManager::MoveUp(float distance)
+void FreeCameraManager::Target(glm::vec3* target)
 {
-	impl->cameraPos.y += distance;
+	impl->LockTarget = true;
+	impl->target = *target;
 }
 
-void CameraManager::SetPosition(glm::vec3 position)
+void FreeCameraManager::Target(glm::vec3 target)
+{
+	impl->LockTarget = true;
+	impl->target = target;
+}
+
+glm::vec3 FreeCameraManager::Target()
+{
+	return impl->target;
+}
+
+bool FreeCameraManager::LockTarget()
+{
+	return impl->LockTarget;
+}
+
+void FreeCameraManager::LockTarget(bool isOnTarget)
+{
+	impl->LockTarget = isOnTarget;
+}
+
+void FreeCameraManager::MoveForward(float distance)
+{
+	impl->cameraPos += (distance * impl->movement_speed) * impl->cameraFront;
+}
+
+void FreeCameraManager::MoveRight(float distance)
+{
+	impl->cameraPos += glm::normalize(glm::cross(impl->cameraFront, glm::vec3(0.0f, 1.0f, 0.0f))) * (distance * impl->movement_speed);
+}
+
+void FreeCameraManager::MoveUp(float distance)
+{
+	impl->cameraPos.y += (distance * impl->movement_speed);
+}
+
+void FreeCameraManager::SetPosition(glm::vec3 position)
 {
 	impl->cameraPos = position;
 }
 
-glm::vec3 CameraManager::GetTarget()
+glm::vec3 FreeCameraManager::GetTarget()
 {
-	impl->target = impl->cameraFront + impl->cameraPos;
-	return impl->cameraFront + impl->cameraPos;
+
+	if (!impl->LockTarget)
+	{
+		impl->target = impl->cameraFront + impl->cameraPos;
+	}
+
+	return impl->target;
 }
 
-glm::vec3 CameraManager::GetPosition()
+glm::vec3 FreeCameraManager::GetPosition()
 {
 	return impl->cameraPos;
 }
 
-glm::vec3 CameraManager::GetUpVector()
+glm::vec3 FreeCameraManager::GetUpVector()
 {
 	return glm::vec3(0.0f, 1.0f, 0.0f);
 }
+

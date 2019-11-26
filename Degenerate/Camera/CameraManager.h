@@ -2,18 +2,36 @@
 #include <glm/glm.hpp>
 
 
-class CameraManagerImpl;
+class FreeCameraManagerImpl;
 
-class CameraManager{
-	CameraManagerImpl* impl;
-	static CameraManager* pManager;
-	CameraManager();
+class FreeCameraManager{
+	FreeCameraManagerImpl* impl;
+	//static FreeCameraManager* pManager;
 
 public:
-	static CameraManager* GetCameraInstance();
+	FreeCameraManager();
+	//static FreeCameraManager* GetCameraInstance();
 
-	void LookUp(float rotation); //negitive for down
-	void LookRight(float rotation); //negitive for left
+
+	double XChange(double newX);
+	double YChange(double newY);
+
+	void Pitch(float rotation); //negitive for down
+	void Yaw(float rotation); //negitive for left
+	float Pitch(); //negitive for down
+	float Yaw(); //negitive for left
+
+	void Sensitivity(float sens);
+	float Sensitivity();
+	void Speed(float sens);
+	float Speed();
+
+	void Target(glm::vec3* target);
+	void Target(glm::vec3 target);
+	glm::vec3 Target();
+
+	bool LockTarget();
+	void LockTarget(bool isOnTarget);
 
 	void MoveForward(float distance); // negitive for back
 	void MoveRight(float distance); // negitive for left

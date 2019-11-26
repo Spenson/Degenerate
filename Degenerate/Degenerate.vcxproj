@@ -19,46 +19,68 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CameraManager.cpp" />
+    <ClCompile Include="Camera\CameraManager.cpp" />
+    <ClCompile Include="Camera\cFlyCamera.cpp" />
     <ClCompile Include="cLowPassFilter.cpp" />
     <ClCompile Include="cPhysics.cpp" />
     <ClCompile Include="cPhysics_Ericson.cpp" />
+    <ClCompile Include="DebugRenderer\cDebugRenderer.cpp" />
+    <ClCompile Include="DebugRenderer\cDebugRenderer_BuiltInShapes.cpp" />
+    <ClCompile Include="DebugRenderer\CErrorLog.cpp" />
+    <ClCompile Include="DebugRenderer\cGLRenderStateHelper.cpp" />
+    <ClCompile Include="DebugRenderer\COpenGLError.cpp" />
+    <ClCompile Include="DrawCalls.cpp" />
     <ClCompile Include="FileReaders.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GFLW_callbacks.cpp" />
     <ClCompile Include="glad.c" />
-    <ClCompile Include="imgui.cpp" />
-    <ClCompile Include="imgui_demo.cpp" />
-    <ClCompile Include="imgui_draw.cpp" />
-    <ClCompile Include="imgui_widgets.cpp" />
+    <ClCompile Include="ImGui\imgui.cpp" />
+    <ClCompile Include="ImGui\imgui_demo.cpp" />
+    <ClCompile Include="ImGui\imgui_draw.cpp" />
+    <ClCompile Include="ImGui\imgui_widgets.cpp" />
     <ClCompile Include="key_callbacks.cpp" />
-    <ClCompile Include="Light.cpp" />
-    <ClCompile Include="LightHelper.cpp" />
-    <ClCompile Include="LightManager.cpp" />
+    <ClCompile Include="LightManager\Light.cpp" />
+    <ClCompile Include="LightManager\LightHelper.cpp" />
+    <ClCompile Include="LightManager\LightManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MatrixCalc.cpp" />
     <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="mouse_callbacks.cpp" />
     <ClCompile Include="PhysicsStuff.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
+    <ClCompile Include="Texture\C24BitBMPpixel.cpp" />
+    <ClCompile Include="Texture\cBasicTextureManager.cpp" />
+    <ClCompile Include="Texture\CTextureFromBMP.cpp" />
     <ClCompile Include="VAOManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CameraManager.h" />
+    <ClInclude Include="Camera\CameraManager.h" />
+    <ClInclude Include="Camera\cFlyCamera.h" />
     <ClInclude Include="cLowPassFilter.h" />
     <ClInclude Include="cPhysics.h" />
+    <ClInclude Include="DebugRenderer\cDebugRenderer.h" />
+    <ClInclude Include="DebugRenderer\CErrorLog.h" />
+    <ClInclude Include="DebugRenderer\cGLRenderStateHelper.h" />
+    <ClInclude Include="DebugRenderer\COpenGLError.h" />
+    <ClInclude Include="DebugRenderer\iDebugRenderer.h" />
+    <ClInclude Include="DrawCalls.h" />
     <ClInclude Include="FileReaders.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GFLW_callbacks.h" />
     <ClInclude Include="GLCommon.h" />
     <ClInclude Include="globals.h" />
-    <ClInclude Include="Light.h" />
-    <ClInclude Include="LightHelper.h" />
-    <ClInclude Include="LightManager.h" />
+    <ClInclude Include="LightManager\Light.h" />
+    <ClInclude Include="LightManager\LightHelper.h" />
+    <ClInclude Include="LightManager\LightManager.h" />
+    <ClInclude Include="MatrixCalc.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="PhysicsStuff.h" />
     <ClInclude Include="ShaderManager.h" />
+    <ClInclude Include="Texture\C24BitBMPpixel.h" />
+    <ClInclude Include="Texture\cBasicTextureManager.h" />
+    <ClInclude Include="Texture\CTextureFromBMP.h" />
     <ClInclude Include="VAOManager.h" />
   </ItemGroup>
   <ItemGroup>

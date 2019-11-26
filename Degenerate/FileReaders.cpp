@@ -83,14 +83,14 @@ void ReadGameObjectsFromFile(std::string File, std::vector<GameObject*>& vecGame
 		object->friendlyName = objectElement->FirstChildElement("FriendlyName")->GetText();
 
 		object->position = GetXYZ(objectElement->FirstChildElement("Position"));
-		object->rotation = GetXYZ(objectElement->FirstChildElement("Rotation"));
+		//object->rotation = GetXYZ(objectElement->FirstChildElement("Rotation"));
 
 		object->scale = GetXYZ(objectElement->FirstChildElement("Scale"));
 
 		object->objectColour = GetRGBA(objectElement->FirstChildElement("Colour"));
 		object->diffuseColour = GetRGBA(objectElement->FirstChildElement("DiffuseColour"));
 		object->specularColour = GetRGBA(objectElement->FirstChildElement("SpecularColour"));
-		object->ambientToDiffuseRatio = objectElement->FirstChildElement("AmbientDiffuseRatio")->FindAttribute("f")->FloatValue();
+		//object->ambientToDiffuseRatio = objectElement->FirstChildElement("AmbientDiffuseRatio")->FindAttribute("f")->FloatValue();
 		object->debugColour = GetRGBA(objectElement->FirstChildElement("DebugColour"));
 
 
@@ -132,7 +132,7 @@ void WriteGameObjectsToFile(std::string File, std::vector<GameObject*> vecGameOb
 		((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(new_xml_doc.NewElement("FriendlyName")))->SetText(object->friendlyName.c_str());
 
 		insertAttributes(newObjectElement->InsertEndChild(new_xml_doc.NewElement("Position")), object->position);
-		insertAttributes(newObjectElement->InsertEndChild(new_xml_doc.NewElement("Rotation")), object->rotation);
+		//insertAttributes(newObjectElement->InsertEndChild(new_xml_doc.NewElement("Rotation")), object->rotation);
 		insertAttributes(newObjectElement->InsertEndChild(new_xml_doc.NewElement("Scale")), object->scale);
 
 		insertAttributes(newObjectElement->InsertEndChild(new_xml_doc.NewElement("Colour")), object->objectColour);
@@ -140,7 +140,7 @@ void WriteGameObjectsToFile(std::string File, std::vector<GameObject*> vecGameOb
 		insertAttributes(newObjectElement->InsertEndChild(new_xml_doc.NewElement("SpecularColour")), object->specularColour);
 		insertAttributes(newObjectElement->InsertEndChild(new_xml_doc.NewElement("DebugColour")), object->debugColour);
 
-		((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(new_xml_doc.NewElement("AmbientDiffuseRatio")))->SetAttribute("f", object->ambientToDiffuseRatio);
+		//((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(new_xml_doc.NewElement("AmbientDiffuseRatio")))->SetAttribute("f", object->ambientToDiffuseRatio);
 
 		insertAttributes(newObjectElement->InsertEndChild(new_xml_doc.NewElement("Velocity")), object->velocity);
 		insertAttributes(newObjectElement->InsertEndChild(new_xml_doc.NewElement("Acceleration")), object->accel);

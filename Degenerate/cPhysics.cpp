@@ -409,10 +409,10 @@ void cPhysics::sphereCollisionResponse(sCollisionInfo& collisionInfo)
 {
 	GameObject* a = collisionInfo.pObject1;
 	GameObject* b = collisionInfo.pObject2;
-	glm::vec3 U1x, U1y, U2x, U2y, V1x, V1y, V2x, V2y;
+	//glm::vec3 U1x, U1y, U2x, U2y, V1x, V1y, V2x, V2y;
 
 	float m1, m2, x1, x2;
-	glm::vec3 v1temp, v1, v2, v1x, v2x, v1y, v2y, x(a->position - b->position);
+	glm::vec3 v1, v2, v1x, v2x, v1y, v2y, x(a->position - b->position);
 
 	glm::normalize(x);
 	v1 = a->velocity;

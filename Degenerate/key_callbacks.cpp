@@ -8,8 +8,8 @@
 #include "globals.h"			// for find object
 
 #include "FileReaders.h"
-#include "LightManager.h"
-#include "CameraManager.h"
+#include "LightManager/LightManager.h"
+#include "Camera/CameraManager.h"
 
 #include <stdio.h>		// for fprintf()
 #include <vector>

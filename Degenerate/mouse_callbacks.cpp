@@ -6,7 +6,7 @@
 #include "GFLW_callbacks.h"
 #include "globals.h"			// for find object
 
-#include "CameraManager.h"
+#include "Camera/CameraManager.h"
 
 //#include <stdio.h>		// for fprintf()
 

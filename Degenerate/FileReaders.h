@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
-#include "LightManager.h"
+#include "LightManager/LightManager.h"
 #include "ModelLoader.h"
 #include <vector>
 #include <map>

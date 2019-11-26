@@ -16,9 +16,8 @@
 #include "ModelLoader.h"			
 #include "VAOManager.h"		// NEW
 #include "GameObject.h"
-#include "CameraManager.h"
+#include "Camera/CameraManager.h"
 
-#include "ShaderManager.h"
 
 #include <sstream>
 
@@ -33,17 +32,21 @@
 //#include "DebugRenderer/cDebugRenderer.h"
 
 // Used to visualize the attenuation of the lights...
-#include "LightHelper.h"
+#include "LightManager/LightHelper.h"
 
 // Keyboard, error, mouse, etc. are now here
 #include "GFLW_callbacks.h"
-#include "LightManager.h"
+#include "LightManager/LightManager.h"
 
 #include "FileReaders.h"
 
 
-void DrawObject(glm::mat4 m, GameObject* pCurrentObject, GLint shaderProgID, VAOManager* pVAOManager);
-glm::mat4 calculateWorldMatrix(GameObject* pCurrentObject);
+#include "DrawCalls.h"
+#include "MatrixCalc.h"
+
+
+//void DrawObject(glm::mat4 m, GameObject* pCurrentObject, GLint shaderProgID, VAOManager* pVAOManager);
+//glm::mat4 calculateWorldMatrix(GameObject* pCurrentObject);
 bool bLightDebugSheresOn = false;
 
 
@@ -59,13 +62,6 @@ LightManager lightMan;
 
 
 //global so these are seen by the draw call... TODO: Find a better way if needed
-GLint matModel_UL;
-GLint matModelIT_UL;
-GLint diffuseColour_UL;
-GLint specularColour_UL;
-GLint debugColour_UL;
-GLint bDoNotLight_UL;
-GLint newColour_location;
 
 
 int main(void)
@@ -117,26 +113,6 @@ int main(void)
 	pTheModelLoader->LoadPlyModel("../assets/models/Sphere_Radius_1_XYZ_n.ply", mMeshes["sphereMesh"]);
 
 
-
-
-	ShaderManager* pTheShaderManager = new ShaderManager();
-
-	ShaderManager::Shader vertexShad;
-	vertexShad.fileName = "../assets/shaders/vertexShader01.glsl";
-
-	ShaderManager::Shader fragShader;
-	fragShader.fileName = "../assets/shaders/fragmentShader01.glsl";
-
-	if (!pTheShaderManager->createProgramFromFile("SimpleShader", vertexShad, fragShader))
-	{
-		std::cout << "Error: didn't compile the shader" << std::endl;
-		std::cout << pTheShaderManager->getLastError();
-		return -1;
-	}
-
-	GLuint shaderProgID = pTheShaderManager->getIDFromFriendlyName("SimpleShader");
-
-
 	// Create a VAO Manager...
 	// #include "VAOManager.h"  (at the top of your file)
 	VAOManager* pTheVAOManager = new VAOManager();
@@ -163,14 +139,6 @@ int main(void)
 
 	ReadGameObjectsFromFile("../assets/config/GameObjects.xml", ::g_vec_pGameObjects, true);
 	
-	for (unsigned int index = 0;
-		 index != ::g_vec_pGameObjects.size(); index++)
-	{
-		if (::g_vec_pGameObjects[index]->physicsShapeType == MESH)
-		{
-			::g_vec_pGameObjects[index]->matWorld = calculateWorldMatrix(::g_vec_pGameObjects[index]);
-		}
-	}
 
 
 	// Will be moved placed around the scene
@@ -178,7 +146,7 @@ int main(void)
 	pDebugSphere->meshName = "sphere";
 	pDebugSphere->friendlyName = "debug_sphere";
 	pDebugSphere->position = glm::vec3(0.0f, 0.0f, 0.0f);
-	pDebugSphere->rotation = glm::vec3(0.0f, 0.0f, 0.0f);
+	//pDebugSphere->rotation = glm::vec3(0.0f, 0.0f, 0.0f);
 	pDebugSphere->scale = glm::vec3(0.1f);
 	//	pDebugSphere->objectColourRGBA = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
 	pDebugSphere->debugColour = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
@@ -209,19 +177,7 @@ int main(void)
 	double lastTime = glfwGetTime();
 
 
-	GLint eyeLocation_UL = glGetUniformLocation(shaderProgID, "eyeLocation");
 
-	GLint matView_UL = glGetUniformLocation(shaderProgID, "matView");
-	GLint matProj_UL = glGetUniformLocation(shaderProgID, "matProj");
-
-	// Declared above in global. TODO: As above
-	matModel_UL = glGetUniformLocation(shaderProgID, "matModel");
-	matModelIT_UL = glGetUniformLocation(shaderProgID, "matModelInverseTranspose");
-	diffuseColour_UL = glGetUniformLocation(shaderProgID, "diffuseColour");
-	specularColour_UL = glGetUniformLocation(shaderProgID, "specularColour");
-	debugColour_UL = glGetUniformLocation(shaderProgID, "debugColour");
-	bDoNotLight_UL = glGetUniformLocation(shaderProgID, "bDoNotLight");
-	newColour_location = glGetUniformLocation(shaderProgID, "newColour");
 
 
 	std::string lighterrors;
@@ -477,125 +433,6 @@ int main(void)
 }
 
 
-void DrawObject(glm::mat4 m,
-				GameObject* pCurrentObject,
-				GLint shaderProgID,
-				VAOManager* pVAOManager)
-{
-	// mat4x4_identity(m);
-	m = calculateWorldMatrix(pCurrentObject); glm::mat4(1.0f);
-
-
-
-	//uniform mat4 matModel;		// Model or World 
-	//uniform mat4 matView; 		// View or camera
-	//uniform mat4 matProj;
-
-
-	glUniformMatrix4fv(matModel_UL, 1, GL_FALSE, glm::value_ptr(m));
-	//glUniformMatrix4fv(matView_UL, 1, GL_FALSE, glm::value_ptr(v));
-	//glUniformMatrix4fv(matProj_UL, 1, GL_FALSE, glm::value_ptr(p));
-
-	// Calcualte the inverse transpose of the model matrix and pass that...
-	// Stripping away scaling and translation, leaving only rotation
-	// Because the normal is only a direction, really
-
-
-	glm::mat4 matModelInverseTranspose = glm::inverse(glm::transpose(m));
-	glUniformMatrix4fv(matModelIT_UL, 1, GL_FALSE, glm::value_ptr(matModelInverseTranspose));
-
-
-	// Find the location of the uniform variable newColour
-
-	glUniform3f(newColour_location,
-				pCurrentObject->objectColour.r,
-				pCurrentObject->objectColour.g,
-				pCurrentObject->objectColour.b);
-
-	//uniform float newColourRed;
-	//uniform float newColourGreen;
-	//uniform float newColourBlue;
-	//GLint newColourRed_UL = glGetUniformLocation(shaderProgID, "newColourRed");
-	//GLint newColourGreen_UL = glGetUniformLocation(shaderProgID, "newColourGreen");
-	//GLint newColourBlue_UL = glGetUniformLocation(shaderProgID, "newColourBlue");
-
-	//glUniform1f(newColourRed_UL, pCurrentObject->objectColourRGBA.r);
-	//glUniform1f(newColourGreen_UL, pCurrentObject->objectColourRGBA.g);
-	//glUniform1f(newColourBlue_UL, pCurrentObject->objectColourRGBA.b);
-	//GLint lighPosition_UL = glGetUniformLocation(shaderProgID, "lightPosition");
-	//glUniform3f(lighPosition_UL, sexyLightLocation.x,
-	//			sexyLightLocation.y, sexyLightLocation.z);
-
-	glUniform4f(diffuseColour_UL,
-				pCurrentObject->objectColour.r,
-				pCurrentObject->objectColour.g,
-				pCurrentObject->objectColour.b,
-				pCurrentObject->objectColour.a);	// 
-
-	glUniform4f(specularColour_UL,
-				1.0f,	// R
-				1.0f,	// G
-				1.0f,	// B
-				1000.0f);	// Specular "power" (how shinny the object is)
-							// 1.0 to really big (10000.0f)
-
-
-	//uniform vec4 debugColour;
-	//uniform bool bDoNotLight;
-
-	if (pCurrentObject->isWireframe)
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);		// LINES
-		glUniform4f(debugColour_UL,
-					pCurrentObject->debugColour.r,
-					pCurrentObject->debugColour.g,
-					pCurrentObject->debugColour.b,
-					pCurrentObject->debugColour.a);
-		glUniform1f(bDoNotLight_UL, (float)GL_TRUE);
-	}
-	else
-	{	// Regular object (lit and not wireframe)
-		glUniform1f(bDoNotLight_UL, (float)GL_FALSE);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);		// SOLID
-	}
-	//glPointSize(15.0f);
-
-	if (pCurrentObject->disableDepthBufferTest)
-	{
-		glDisable(GL_DEPTH_TEST);					// DEPTH Test OFF
-	}
-	else
-	{
-		glEnable(GL_DEPTH_TEST);						// Turn ON depth test
-	}
-
-	if (pCurrentObject->disableDepthBufferWrite)
-	{
-		glDisable(GL_DEPTH);						// DON'T Write to depth buffer
-	}
-	else
-	{
-		glEnable(GL_DEPTH);								// Write to depth buffer
-	}
-
-
-	//		glDrawArrays(GL_TRIANGLES, 0, 2844);
-	//		glDrawArrays(GL_TRIANGLES, 0, numberOfVertsOnGPU);
-
-	ModelDrawInfo drawInfo;
-	//if (pTheVAOManager->FindDrawInfoByModelName("bunny", drawInfo))
-	if (pVAOManager->FindDrawInfoByModelName(pCurrentObject->meshName, drawInfo))
-	{
-		glBindVertexArray(drawInfo.VAO_ID);
-		glDrawElements(GL_TRIANGLES,
-					   drawInfo.numberOfIndices,
-					   GL_UNSIGNED_INT,
-					   0);
-		glBindVertexArray(0);
-	}
-
-	return;
-} // DrawObject;
 // 
 
 // returns NULL (0) if we didn't find it.
@@ -623,52 +460,4 @@ GameObject* pFindObjectByFriendlyNameMap(std::string name)
 }
 
 
-// This is JUST the transformation lines from the DrawObject call
-glm::mat4 calculateWorldMatrix(GameObject* pCurrentObject)
-{
 
-	glm::mat4 matWorld = glm::mat4(1.0f);
-
-
-	// ******* TRANSLATION TRANSFORM *********
-	glm::mat4 matTrans
-		= glm::translate(glm::mat4(1.0f),
-						 glm::vec3(pCurrentObject->position.x,
-								   pCurrentObject->position.y,
-								   pCurrentObject->position.z));
-	matWorld = matWorld * matTrans;
-	// ******* TRANSLATION TRANSFORM *********
-
-
-
-	// ******* ROTATION TRANSFORM *********
-	//mat4x4_rotate_Z(m, m, (float) glfwGetTime());
-	glm::mat4 rotateZ = glm::rotate(glm::mat4(1.0f),
-									pCurrentObject->rotation.z,					// Angle 
-									glm::vec3(0.0f, 0.0f, 1.0f));
-	matWorld = matWorld * rotateZ;
-
-	glm::mat4 rotateY = glm::rotate(glm::mat4(1.0f),
-									pCurrentObject->rotation.y,	//(float)glfwGetTime(),					// Angle 
-									glm::vec3(0.0f, 1.0f, 0.0f));
-	matWorld = matWorld * rotateY;
-
-	glm::mat4 rotateX = glm::rotate(glm::mat4(1.0f),
-									pCurrentObject->rotation.x,	// (float)glfwGetTime(),					// Angle 
-									glm::vec3(1.0f, 0.0f, 0.0f));
-	matWorld = matWorld * rotateX;
-	// ******* ROTATION TRANSFORM *********
-
-
-
-	// ******* SCALE TRANSFORM *********
-	glm::mat4 scale = glm::scale(glm::mat4(1.0f),
-								 glm::vec3(pCurrentObject->scale.x,
-										   pCurrentObject->scale.y,
-										   pCurrentObject->scale.z));
-	matWorld = matWorld * scale;
-	// ******* SCALE TRANSFORM *********
-
-
-	return matWorld;
-}

@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -55,25 +47,23 @@
     <Filter Include="LowPassFilter">
       <UniqueIdentifier>{23d1223f-7e8d-4c63-8743-bb3d2785a393}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Render">
+      <UniqueIdentifier>{07d888a6-5910-458e-a0c6-1d07cca40826}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DebugRenderer">
+      <UniqueIdentifier>{acd79155-41ab-4c84-95e0-73546b13f058}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GLOBAL">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Texture">
+      <UniqueIdentifier>{8a9326aa-7cd0-4953-abc8-45776b9fe890}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="imgui.cpp">
-      <Filter>ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_demo.cpp">
-      <Filter>ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_draw.cpp">
-      <Filter>ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_widgets.cpp">
-      <Filter>ImGui</Filter>
-    </ClCompile>
     <ClCompile Include="glad.c">
       <Filter>glad</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="VAOManager.cpp">
       <Filter>VAOManager</Filter>
@@ -93,9 +83,6 @@
     <ClCompile Include="key_callbacks.cpp">
       <Filter>UserInput</Filter>
     </ClCompile>
-    <ClCompile Include="LightHelper.cpp">
-      <Filter>Lighting</Filter>
-    </ClCompile>
     <ClCompile Include="cPhysics.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
@@ -108,17 +95,8 @@
     <ClCompile Include="mouse_callbacks.cpp">
       <Filter>UserInput</Filter>
     </ClCompile>
-    <ClCompile Include="LightManager.cpp">
-      <Filter>Lighting</Filter>
-    </ClCompile>
-    <ClCompile Include="Light.cpp">
-      <Filter>Lighting</Filter>
-    </ClCompile>
     <ClCompile Include="FileReaders.cpp">
       <Filter>FileReaders</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraManager.cpp">
-      <Filter>Camera</Filter>
     </ClCompile>
     <ClCompile Include="cLowPassFilter.cpp">
       <Filter>LowPassFilter</Filter>
@@ -126,10 +104,68 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="DrawCalls.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrixCalc.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_demo.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_draw.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_widgets.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugRenderer\cDebugRenderer.cpp">
+      <Filter>DebugRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugRenderer\cDebugRenderer_BuiltInShapes.cpp">
+      <Filter>DebugRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugRenderer\CErrorLog.cpp">
+      <Filter>DebugRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugRenderer\cGLRenderStateHelper.cpp">
+      <Filter>DebugRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugRenderer\COpenGLError.cpp">
+      <Filter>DebugRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Camera\CameraManager.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera\cFlyCamera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture\C24BitBMPpixel.cpp">
+      <Filter>Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture\cBasicTextureManager.cpp">
+      <Filter>Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture\CTextureFromBMP.cpp">
+      <Filter>Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="LightManager\Light.cpp">
+      <Filter>Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="LightManager\LightHelper.cpp">
+      <Filter>Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="LightManager\LightManager.cpp">
+      <Filter>Lighting</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLCommon.h">
-      <Filter>Header Files</Filter>
+      <Filter>GLOBAL</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>GameObject</Filter>
@@ -144,16 +180,13 @@
       <Filter>ShaderManager</Filter>
     </ClInclude>
     <ClInclude Include="globals.h">
-      <Filter>Header Files</Filter>
+      <Filter>GLOBAL</Filter>
     </ClInclude>
     <ClInclude Include="ModelLoader.h">
       <Filter>Model</Filter>
     </ClInclude>
     <ClInclude Include="GFLW_callbacks.h">
       <Filter>UserInput</Filter>
-    </ClInclude>
-    <ClInclude Include="LightHelper.h">
-      <Filter>Lighting</Filter>
     </ClInclude>
     <ClInclude Include="cPhysics.h">
       <Filter>Physics</Filter>
@@ -164,17 +197,53 @@
     <ClInclude Include="FileReaders.h">
       <Filter>FileReaders</Filter>
     </ClInclude>
-    <ClInclude Include="LightManager.h">
-      <Filter>Lighting</Filter>
-    </ClInclude>
-    <ClInclude Include="Light.h">
-      <Filter>Lighting</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraManager.h">
-      <Filter>Camera</Filter>
-    </ClInclude>
     <ClInclude Include="cLowPassFilter.h">
       <Filter>LowPassFilter</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawCalls.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="MatrixCalc.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugRenderer\cDebugRenderer.h">
+      <Filter>DebugRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugRenderer\CErrorLog.h">
+      <Filter>DebugRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugRenderer\cGLRenderStateHelper.h">
+      <Filter>DebugRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugRenderer\COpenGLError.h">
+      <Filter>DebugRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugRenderer\iDebugRenderer.h">
+      <Filter>DebugRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera\CameraManager.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera\cFlyCamera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture\C24BitBMPpixel.h">
+      <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture\cBasicTextureManager.h">
+      <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture\CTextureFromBMP.h">
+      <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="LightManager\Light.h">
+      <Filter>Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="LightManager\LightHelper.h">
+      <Filter>Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="LightManager\LightManager.h">
+      <Filter>Lighting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

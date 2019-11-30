@@ -98,11 +98,11 @@ public:
 
 	void setDebugRenderer(iDebugRenderer* pDebugRenderer);
 
+	iDebugRenderer* m_pDebugRenderer;
 private:
 	static unsigned int next_uniqueID;
 	unsigned int m_uniqueID;
 
-	iDebugRenderer* m_pDebugRenderer;
 };
 
 cGameObject* pFindObjectByFriendlyName(std::string name);

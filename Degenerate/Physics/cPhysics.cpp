@@ -39,9 +39,25 @@ void cPhysics::IntegrationStep(std::vector<cGameObject*>& vec_pGameObjects, floa
 			// Forward Explicit Euler Inetegration
 			//NewVelocty += Velocity + ( Ax * DeltaTime )
 
-			// 
-			// These should be different pCurObj->accel = this->m_Gravity;
+			// These should be different 
+			// pCurObj->accel = this->m_Gravity;
 
+			//pCurObj->velocity.x += pCurObj->accel.x * deltaTime;
+			//pCurObj->velocity.y += pCurObj->accel.y * deltaTime;
+			//pCurObj->velocity.z += pCurObj->accel.z * deltaTime;
+			//pCurObj->velocity += pCurObj->accel * deltaTime;
+			//		// Or you can do this...
+			//		CurObj.velocity += CurObj.accel * deltaTime;
+					//NewPosition = Posistion + ( Vx * DeltaTime )
+			//glm::quat rotate = pCurObj->getQAngularVelocity();
+			//rotate.w *= deltaTime;
+
+						// THIS SHOULD NOT BE BECAUSE YA... VELOCITY IS NOT RELETIVE
+			//pCurObj->MoveInRelativeDirection(pCurObj->velocity * deltaTime);
+			//pCurObj->positionXYZ += pCurObj->velocity * deltaTime;
+			//pCurObj->positionXYZ.x += pCurObj->velocity.x * deltaTime;
+			//pCurObj->positionXYZ.y += pCurObj->velocity.y * deltaTime;
+			//pCurObj->positionXYZ.z += pCurObj->velocity.z * deltaTime;
 
 
 			/*rk4
@@ -58,7 +74,7 @@ void cPhysics::IntegrationStep(std::vector<cGameObject*>& vec_pGameObjects, floa
 								  (2.0f * inc3) +
 								  (1.0f * inc4) ) / 6.0f;
 
-			
+
 			// Position Adjust
 			step = pCurObj->velocity / 4.0f;
 
@@ -75,23 +91,36 @@ void cPhysics::IntegrationStep(std::vector<cGameObject*>& vec_pGameObjects, floa
 			//*/
 
 
-			/*rk6
+			///*rk6
+			//Gravity
+			glm::vec3 step = this->m_Gravity / 6.0f;
+
+			glm::vec3 inc1 = this->m_Gravity + (step * 0.0f);
+			glm::vec3 inc2 = this->m_Gravity + (step * 1.0f);
+			glm::vec3 inc3 = this->m_Gravity + (step * 2.0f);
+			glm::vec3 inc4 = this->m_Gravity + (step * 3.0f);
+			glm::vec3 inc5 = this->m_Gravity + (step * 4.0f);
+			glm::vec3 inc6 = this->m_Gravity + (step * 5.0f);
+
+			pCurObj->velocity += (((1.0f * inc1) + (2.0f * inc2) + (3.0f * inc3) +
+				(3.0f * inc4) + (2.0f * inc5) + (1.0f * inc6)
+								   ) / 12.0f) * deltaTime;
+
+
+
 			// Velocity Adjust
-			glm::vec3 step = pCurObj->accel / 6.0f;
+			step = pCurObj->accel / 6.0f;
 
-			glm::vec3 inc1 = pCurObj->accel + (step * 0.0f);
-			glm::vec3 inc2 = pCurObj->accel + (step * 1.0f);
-			glm::vec3 inc3 = pCurObj->accel + (step * 2.0f);
-			glm::vec3 inc4 = pCurObj->accel + (step * 3.0f);
-			glm::vec3 inc5 = pCurObj->accel + (step * 4.0f);
-			glm::vec3 inc6 = pCurObj->accel + (step * 5.0f);
+			inc1 = pCurObj->accel + (step * 0.0f);
+			inc2 = pCurObj->accel + (step * 1.0f);
+			inc3 = pCurObj->accel + (step * 2.0f);
+			inc4 = pCurObj->accel + (step * 3.0f);
+			inc5 = pCurObj->accel + (step * 4.0f);
+			inc6 = pCurObj->accel + (step * 5.0f);
 
-			pCurObj->velocity += ((1.0f * inc1) +
-								  (2.0f * inc2) + 
-								  (3.0f * inc3) + 
-								  (3.0f * inc4) + 
-								  (2.0f * inc5) + 
-								  (1.0f * inc6) ) / 12.0f;
+			pCurObj->velocity += (((1.0f * inc1) + (2.0f * inc2) + (3.0f * inc3) +
+				(3.0f * inc4) + (2.0f * inc5) + (1.0f * inc6))
+								  / 12.0f) * deltaTime;
 
 
 			// Position Adjust
@@ -104,47 +133,20 @@ void cPhysics::IntegrationStep(std::vector<cGameObject*>& vec_pGameObjects, floa
 			inc5 = pCurObj->velocity + (step * 4.0f);
 			inc6 = pCurObj->velocity + (step * 5.0f);
 
-			pCurObj->positionXYZ += ((1.0f * inc1) +
-									 (2.0f * inc2) +
-									 (3.0f * inc3) +
-									 (3.0f * inc4) +
-									 (2.0f * inc5) +
-									 (1.0f * inc6) ) / 12.0f;
+			pCurObj->positionXYZ += (((1.0f * inc1) + (2.0f * inc2) + (3.0f * inc3) +
+				(3.0f * inc4) + (2.0f * inc5) + (1.0f * inc6))
+									 / 12.0f) * deltaTime;
 
 			//*/
 
 
-			//pCurObj->velocity.x += pCurObj->accel.x * deltaTime;
-			//pCurObj->velocity.y += pCurObj->accel.y * deltaTime;
-			//pCurObj->velocity.z += pCurObj->accel.z * deltaTime;
-
-			pCurObj->velocity += pCurObj->accel * deltaTime;
-			//		// Or you can do this...
-			//		CurObj.velocity += CurObj.accel * deltaTime;
-
-					//NewPosition = Posistion + ( Vx * DeltaTime )
-
-			//glm::quat rotate = pCurObj->getQAngularVelocity();
-			//rotate.w *= deltaTime;
-
-
-
-
-			// CHANGE THIS MESS
-			// Add Angular Accel??? (Torque)
+			// *DONE* CHANGE THIS MESS
+			// Add Angular Accel??? 
 			if (pCurObj->getQAngularVelocity() != glm::quat(glm::vec3(0.0f)))
 			{
 				glm::quat rotate = glm::slerp(pCurObj->getQOrientation(), pCurObj->getQOrientation() * pCurObj->getQAngularVelocity(), deltaTime);
 				pCurObj->setOrientation(rotate);
 			}
-
-			// THIS SHOULD NOT BE BECAUSE YA... VELOCITY IS NOT RELETIVE
-			pCurObj->MoveInRelativeDirection(pCurObj->velocity * deltaTime);
-
-
-			//pCurObj->positionXYZ.x += pCurObj->velocity.x * deltaTime;
-			//pCurObj->positionXYZ.y += pCurObj->velocity.y * deltaTime;
-			//pCurObj->positionXYZ.z += pCurObj->velocity.z * deltaTime;
 
 
 		}
@@ -234,7 +236,7 @@ void cPhysics::GetClosestTriangleToPoint(Point pointXYZ, cMesh& mesh, glm::vec3&
 // FOR THE PATTERNS AND FRAMEWORKS MID-TERM
 // 
 // This is like the method above, but doesn't test for the y axis, which gives you the 
-// TRIANGLE (not the point) that that point is over (or under). 
+// TRIANGLE (not the testPoint) that that testPoint is over (or under). 
 // 
 void cPhysics::GetClosestTriangleToPoint_FRAMEWORKS_AND_PATTERNS(Point pointXYZ, cMesh& mesh, sPhysicsTriangle& closestTriangle)
 {
@@ -338,47 +340,69 @@ void cPhysics::TestForCollisions(std::vector<cGameObject*>& vec_pGameObjects, st
 	for (unsigned int outerLoopIndex = 0;
 		 outerLoopIndex != vec_pGameObjects.size(); outerLoopIndex++)
 	{
-		if (vec_pGameObjects[outerLoopIndex]->physicsShapeType == POINTSET)
+		cGameObject* object = vec_pGameObjects[outerLoopIndex];
+		if (object->physicsShapeType == POINTSET)
 		{
-			glm::mat4 objMat = calculateWorldMatrix(vec_pGameObjects[outerLoopIndex], glm::mat4(1.0));
-			for (size_t pointIdx = 0; pointIdx < vec_pGameObjects[outerLoopIndex]->vecPhysTestPoints.size(); pointIdx++)
+			glm::mat4 objMat = calculateWorldMatrix(object, glm::mat4(1.0));
+			for (size_t pointIdx = 0; pointIdx < object->vecPhysTestPoints.size(); pointIdx++)
 			{
-				glm::vec3 point = vec_pGameObjects[outerLoopIndex]->vecPhysTestPoints[pointIdx];
-				point = objMat * glm::vec4(point, 1.0f);
+				glm::vec3 testPoint = object->vecPhysTestPoints[pointIdx];
+				testPoint = objMat * glm::vec4(testPoint, 1.0f);
 
-				if (WorldRegion::mapRegions.find(WorldRegion::GenerateID(point)) != WorldRegion::mapRegions.end())
+				if (WorldRegion::mapRegions.find(WorldRegion::GenerateID(testPoint)) != WorldRegion::mapRegions.end())
 				{
-					WorldRegion* wr = WorldRegion::mapRegions[WorldRegion::GenerateID(point)];
-					glm::vec3 closestPoint = glm::vec3(FLT_MAX);
-					size_t closestIdx = 0;
+					WorldRegion* wr = WorldRegion::mapRegions[WorldRegion::GenerateID(testPoint)];
 					for (std::set<size_t>::iterator i = wr->vecTriangles.begin(); i != wr->vecTriangles.end(); i++)
 					{
-						glm::vec3 curClosestPoint = ClosestPtPointTriangle(point,
-																		   WorldRegion::AllTriangles[*i]->a,
-																		   WorldRegion::AllTriangles[*i]->b,
-																		   WorldRegion::AllTriangles[*i]->c);
-						if (glm::distance(point, curClosestPoint) < glm::distance(point, closestPoint))
+						UnraveiledTriangle* tri = WorldRegion::AllTriangles[*i];
+						glm::vec3 collisionPoint = glm::vec3(0.0f);
+						float barA = 0, barB = 0, barC = 0;
+						if (IntersectLineTriangle(object->positionXYZ, testPoint, tri->a, tri->b, tri->c,
+												  barA, barB, barC, collisionPoint))
 						{
-							closestPoint = curClosestPoint;
-							closestIdx = *i;
+							object->m_pDebugRenderer->addLine(testPoint, object->positionXYZ, glm::vec3(1.0f,0.0f,0.0f));
+							object->m_pDebugRenderer->addLine(object->positionXYZ, collisionPoint, glm::vec3(0.0f, 1.0f, 0.0f));
+							object->m_pDebugRenderer->addLine(testPoint, collisionPoint, glm::vec3(0.0f, 0.0f, 1.0f));
+							//if(glm::length(collisionPoint - testPoint) !=0)
+							//object->velocity *= glm::normalize(collisionPoint - testPoint);
+							object->velocity *= 0.9f;
+							todraw.push_back(collisionPoint);
+							todraw.push_back(testPoint);
+							object->positionXYZ += (collisionPoint - testPoint);
 						}
-
 					}
 
-					//if(glm::distance(point, closestPoint) > 2.0f)
-					//	continue;
+					//WorldRegion* wr = WorldRegion::mapRegions[WorldRegion::GenerateID(testPoint)];
+					//glm::vec3 closestPoint = glm::vec3(FLT_MAX);
+					//size_t closestIdx = 0;
+					//for (std::set<size_t>::iterator i = wr->vecTriangles.begin(); i != wr->vecTriangles.end(); i++)
+					//{
+					//	glm::vec3 curClosestPoint = ClosestPtPointTriangle(testPoint,
+					//													   WorldRegion::AllTriangles[*i]->a,
+					//													   WorldRegion::AllTriangles[*i]->b,
+					//													   WorldRegion::AllTriangles[*i]->c);
+					//	if (glm::distance(testPoint, curClosestPoint) < glm::distance(testPoint, closestPoint))
+					//	{
+					//		closestPoint = curClosestPoint;
+					//		closestIdx = *i;
+					//	}
 
-					todraw.push_back(closestPoint);
+					//}
 
-					glm::vec3 trinorm = glm::normalize(WorldRegion::AllTriangles[closestIdx]->an *
-													   WorldRegion::AllTriangles[closestIdx]->bn *
-													   WorldRegion::AllTriangles[closestIdx]->cn);
+					////if(glm::distance(testPoint, closestPoint) > 2.0f)
+					////	continue;
 
-					if (glm::dot((point - closestPoint), trinorm) < 0.0f && glm::dot((point - closestPoint), trinorm) > -1.0f)
-					{
-						vec_pGameObjects[outerLoopIndex]->positionXYZ += trinorm * glm::distance(point, closestPoint);
-						//printf("collided = %f\n", glm::dot((point - closestPoint), trinorm));
-					}
+					//todraw.push_back(closestPoint);
+
+					//glm::vec3 trinorm = glm::normalize(WorldRegion::AllTriangles[closestIdx]->an *
+					//								   WorldRegion::AllTriangles[closestIdx]->bn *
+					//								   WorldRegion::AllTriangles[closestIdx]->cn);
+
+					//if (glm::dot((testPoint - closestPoint), trinorm) < 0.0f && glm::dot((testPoint - closestPoint), trinorm) > -1.0f)
+					//{
+					//	vec_pGameObjects[outerLoopIndex]->positionXYZ += trinorm * glm::distance(testPoint, closestPoint);
+					//	//printf("collided = %f\n", glm::dot((testPoint - closestPoint), trinorm));
+					//}
 
 				}
 			}

@@ -67,40 +67,66 @@ int cPhysics::TestSphereTriangle(Sphere s, Point a, Point b, Point c, Point& p)
 	return glm::dot(v, v) <= s.r * s.r;
 }
 
-bool sameSign(float a, float b)
+float cPhysics::ScalarTriple(Vector u, Vector v, Vector w)
 {
-	if(a >= 0.0f && b >= 0.0f)
-		return true;
-	if (a < 0.0f && b < 0.0f)
-		return true;
-	return false;
+	// = (u × v) · w
+
+	return glm::dot(glm::cross(u, v), w);
 }
 
-bool cPhysics::IntersectionLineTriangle(Point p, Point q, Point a, Point b, Point c, glm::vec3& intersection)
+bool SameSign(float u, float v)
+{
+	if ((u < 0) ^ (v < 0))
+		return false;
+
+	return true;
+}
+
+// Given line pq and ccw triangle abc, return whether line pierces triangle. If
+// so, also return the barycentric coordinates (u,v,w) of the intersection point
+bool cPhysics::IntersectLineTriangle(Point p, Point q, Point a, Point b, Point c,
+									 float& u, float& v, float& w,
+									 Point& collisionPoint)
 {
 	Vector pq = q - p;
 	Vector pa = a - p;
 	Vector pb = b - p;
 	Vector pc = c - p;
-	// Test if pq is inside the edges bc, ca and ab. Done by testing 
-	// that the signed tetrahedral volumes, computed using scalar triple 
-	// products, are all positive 
 
-	Vector m = glm::cross(pq, pc);
-	intersection.x = glm::dot(pb,m);
-	intersection.y = -glm::dot(pa, m);
-	if (!sameSign(intersection.x, intersection.y)) return 0;
-	intersection.z = glm::dot(pa, glm::cross(pq, pb));
-	if (!sameSign(intersection.x, intersection.z)) return 0;
+	// Test if pq is inside the edges bc, ca and ab. Done by testing
+	// that the signed tetrahedral volumes, computed using scalar triple
+	// products, are all positive
+	
+	//Vector m = glm::cross(pq, pc); 
+	//u = glm::dot(pb, m); // ScalarTriple(pq, pc, pb); 
+	//v = -glm::dot(pa, m); // ScalarTriple(pq, pa, pc); 
+	//if (!SameSign(u, v)) return 0; 
+	//w = ScalarTriple(pq, pb, pa); 
+	//if (!SameSign(u, w)) return 0;
+	
+	u = ScalarTriple(pq, pc, pb);
+	if (u < 0.0f) { return false; }
+	v = ScalarTriple(pq, pa, pc);
+	if (v < 0.0f) { return false; }
+	w = ScalarTriple(pq, pb, pa);
+	if (w < 0.0f) { return false; }
 
-	//*/
-	// Compute the barycentric coordinates (u, v, w) determining the 
-	// intersection point r,r=u*a+v*b+w*c 
-	float denom = 1.0f / (intersection.x + intersection.y + intersection.z);
-	intersection.x *= denom;
-	intersection.y *= denom;
-	intersection.z *= denom; //w=1.0f-u-v;
+	// Compute the barycentric coordinates (u, v, w) determining the
+	// intersection point r, r = u*a + v*b + w*c
+	float denom = 1.0f / (u + v + w);
+	u *= denom;
+	v *= denom;
+	w *= denom; // w = 1.0f - u - v;
 
-	return 1;
+	// Compute collision point from barycentric coordinates
+	collisionPoint = u * a + v * b + w * c;
 
+
+	// Added Because Above calculation is as if the line p, q is extened infinately
+	if(glm::distance(p, collisionPoint) > glm::distance(p, q)
+	   || glm::distance(q, collisionPoint) > glm::distance(p, q))
+		return false;
+
+
+	return true;
 }

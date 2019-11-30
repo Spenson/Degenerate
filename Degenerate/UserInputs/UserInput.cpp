@@ -18,7 +18,7 @@ bool g_MouseIsInsideWindow = false;
 bool g_MouseLeftButtonIsDown = false;
 
 glm::vec3 inputRotation = glm::vec3(0.0f);
-float speed = 25.0f;
+float speed = 3.0f;
 
 // Declared in theMain
 //extern cFlyCamera* g_pFlyCamera;
@@ -451,11 +451,14 @@ void ProcessAsyncKeys(GLFWwindow* window)
 		if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)	// "down"
 		{
 			//pFindObjectByFriendlyName("Ship")->MoveInRelativeDirection(glm::vec3(0.0,0.0,1.0));
-			pFindObjectByFriendlyName("Ship")->velocity = glm::vec3(0.0f, 0.0f, speed);
+			glm::vec4 accel =  glm::vec4(0.0f, 0.0f, speed, 1.0f);
+			accel = glm::mat4(pFindObjectByFriendlyName("Ship")->getQOrientation()) * accel;
+
+			pFindObjectByFriendlyName("Ship")->accel = accel;
 		}
 		else
 		{
-			pFindObjectByFriendlyName("Ship")->velocity = glm::vec3(0.0f);
+			pFindObjectByFriendlyName("Ship")->accel = glm::vec3(0.0f);
 		}
 
 
@@ -465,6 +468,20 @@ void ProcessAsyncKeys(GLFWwindow* window)
 	// If no keys are down, move the camera
 	if (isShiftDown(window))
 	{
+		if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)	// "down"
+		{
+			//pFindObjectByFriendlyName("Ship")->MoveInRelativeDirection(glm::vec3(0.0,0.0,1.0));
+			glm::vec4 accel = glm::vec4(0.0f, 0.0f, -speed, 1.0f);
+			accel = glm::mat4(pFindObjectByFriendlyName("Ship")->getQOrientation()) * accel;
+
+			pFindObjectByFriendlyName("Ship")->accel = accel;
+		}
+		else
+		{
+			pFindObjectByFriendlyName("Ship")->accel = glm::vec3(0.0f);
+		}
+
+
 		if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
 		{
 			//::g_pFreeCamera->Speed(::g_pFreeCamera->Speed() - 0.1f);

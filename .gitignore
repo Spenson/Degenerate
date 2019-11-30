@@ -3,6 +3,8 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+Entire_Babbage_Space_Station_xyz_n_uv(trivial).ply
+
 # User-specific files
 *.suo
 *.user

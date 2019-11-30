@@ -83,7 +83,7 @@ vec4 calcualteLightContrib( vec3 vertexMaterialColour, vec3 vertexNormal,
 	 
 void main()  
 {
-	// Shader Type #1  	
+	// Shader Type #1  	Do Not Light
 	if ( boolModifiers.x == 1.0f)
 	{
 		pixelColour.rgb = debugColour.rgb;
@@ -91,28 +91,59 @@ void main()
 		return;
 	}
 	
+	// Shader Type #2 Imposters
+	if ( boolModifiers.w == 1.0f )
+	{
+		// If true, then:
+		// - don't light
+		// - texture map
+		// - Use colour to compare to black and change alpha 
+		// - Use colour to compare the black for discard
+		vec3 texRGB = texture( textSamp00, fUVx2.st ).rgb;
+		
+		pixelColour.rgb = texRGB.rgb;
+		
+		// Note that your eye doesn't see this, 
+		// Use this equation instead: 0.21 R + 0.72 G + 0.07 B
+		float grey = (texRGB.r + texRGB.g + texRGB.b)/3.0f;
+		
+		// If it's REALLY black, then discard
+		if ( grey < 0.05 ) 	{	discard; }
+		
+		// Otherwise control alpha with "black and white" amount
+		pixelColour.a = grey;
+		if ( pixelColour.a < diffuseColour.a )
+		{
+			pixelColour.a = diffuseColour.a;
+		}
+		
+		// pixelColour.a = diffuseColour.a;
+		return;
+	}
 
+
+	// Shader Type #3 skyBox
 	if ( boolModifiers.y == 1.0f )
 	{
 		// I sample the skybox using the normal from the surface
 		vec3 skyColour = texture( skyBox, fNormal.xyz ).rgb;
 		pixelColour.rgb = skyColour.rgb;
-//		pixelColour.rgb *= 0.01f;
-//		pixelColour.rgb = fNormal.xyz;
+		// pixelColour.rgb *= 0.01f;
+		// pixelColour.rgb = fNormal.xyz;
 		pixelColour.a = 1.0f;				// NOT transparent
 		
-//		pixelColour.rgb *= 1.5f;		// Make it a little brighter
+		// pixelColour.rgb *= 1.5f;		// Make it a little brighter
 		return;
 	}
 	
 		
 	
-	// Shader Type #2
+	// Shader Type #4/4.5 Diffuse and texture
 	vec4 materialColour = diffuseColour;
 
 	vec4 outColour;
-//	vec4 materialColour = vec4(1.0f, 1.0f, 1.0f, 1.0f);
-//	vec4 specColour = vec4(0.0f,0.0f,0.0f,1.0f);// materialColour;
+	// vec4 materialColour = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	// vec4 specColour = vec4(0.0f,0.0f,0.0f,1.0f);// materialColour;
 	if(boolModifiers.z == 0.0f){
 		vec3 tex0_RGB = texture( textSamp00, fUVx2.st ).rgb;
 		vec3 tex1_RGB = texture( textSamp01, fUVx2.st ).rgb;

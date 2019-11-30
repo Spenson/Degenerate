@@ -71,20 +71,21 @@ public:
 	glm::vec3 getGravity(void);
 
 	// Takes a mesh in "model space" and converts it into "world space"
-	void CalculateTransformedMesh( cMesh &originalMesh, glm::mat4 matWorld, 
-							       cMesh &mesh_transformedInWorld );
+	void CalculateTransformedMesh( cMesh &originalMesh, glm::mat4 matWorld, cMesh &mesh_transformedInWorld );
 
-	bool IntersectionLineTriangle(Point p, Point q, Point a, Point b, Point c, glm::vec3& intersection);
+	float ScalarTriple(Vector u, Vector v, Vector w);
+	bool IntersectLineTriangle(Point p, Point q, 
+							   Point a, Point b, Point c,
+							   float& u, float& v, float& w,
+							   Point& collisionPoint);
 
 
 private:
 
 	// Does collision test and returns collision information
 	// Returns true if collision, and will load collisionInfo struct
-	bool DoSphereSphereCollisionTest( cGameObject* pA, cGameObject *pB, 
-									  sCollisionInfo &collisionInfo );
-	bool DoShphereMeshCollisionTest( cGameObject* pA, cGameObject* pB,
-									 sCollisionInfo &collisionInfo );
+	bool DoSphereSphereCollisionTest( cGameObject* pA, cGameObject *pB, sCollisionInfo &collisionInfo );
+	bool DoShphereMeshCollisionTest( cGameObject* pA, cGameObject* pB, sCollisionInfo &collisionInfo );
 
 
 	glm::vec3  m_Gravity;

@@ -143,10 +143,10 @@ void DrawObject(glm::mat4 matModel, cGameObject* pCurrentObject, GLint shaderPro
 
 	// Find the location of the uniform variable newColour
 
-	glUniform3f(UniformManager::newColour_location,
+	/*glUniform3f(UniformManager::newColour_location,
 				pCurrentObject->objectColourRGBA.r,
 				pCurrentObject->objectColourRGBA.g,
-				pCurrentObject->objectColourRGBA.b);
+				pCurrentObject->objectColourRGBA.b);*/
 
 	glUniform4f(UniformManager::diffuseColour_UL,
 				pCurrentObject->diffuseColour.r,
@@ -160,7 +160,11 @@ void DrawObject(glm::mat4 matModel, cGameObject* pCurrentObject, GLint shaderPro
 				pCurrentObject->specularColour.b,	// B
 				pCurrentObject->specularColour.a);	// Specular "power" (how shinny the object is)
 							// 1.0 to really big (10000.0f)
-
+	glUniform4f(UniformManager::debugColour_UL,
+				pCurrentObject->debugColour.r,
+				pCurrentObject->debugColour.g,
+				pCurrentObject->debugColour.b,
+				pCurrentObject->debugColour.a);
 
 	//uniform vec4 debugColour;
 	//uniform bool bDoNotLight;
@@ -170,11 +174,7 @@ void DrawObject(glm::mat4 matModel, cGameObject* pCurrentObject, GLint shaderPro
 	if (pCurrentObject->isWireframe)
 	{
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);		// LINES
-		glUniform4f(UniformManager::debugColour_UL,
-					pCurrentObject->debugColour.r,
-					pCurrentObject->debugColour.g,
-					pCurrentObject->debugColour.b,
-					pCurrentObject->debugColour.a);
+		
 		//glUniform1f(UniformManager::bDoNotLight_UL, (float)GL_TRUE);
 		doNotLight = GL_TRUE;
 	}

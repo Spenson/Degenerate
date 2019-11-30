@@ -137,16 +137,30 @@ int main(void)
 
 	double lastTime = glfwGetTime();
 
-
+	cGameObject* collisionShpere = new cGameObject();
+	//collisionShpere->diffuseColour = glm::vec4(0.8f, 0.2f, 0.2f, 0.5f);
+	collisionShpere->debugColour = glm::vec4(0.8f, 0.2f, 0.2f, 1.0f);
+	collisionShpere->doNotLight = true;
+	//collisionShpere->specularColour = glm::vec4(0.0f);
+	collisionShpere->meshName = "sphere_lowres";
+	collisionShpere->friendlyName = "collision";
+	//collisionShpere->positionXYZ = closestPoint;
+	collisionShpere->scale = 0.5f;
+	collisionShpere->useDiffuse = true;
 
 
 	ThirdPersonCamera tpc;
 	tpc.SetPlayerObject(pFindObjectByFriendlyName("Ship"));
-	tpc.SetPositionRelitiveToObject(glm::vec3(0.0f, 15.0f, -50.0f));
-	tpc.SetTargetRelitiveToObject(glm::vec3(0.0f, 5.0f, 10.0f));
+	tpc.SetPositionRelitiveToObject(glm::vec3(0.0f, 10.0f, -50.0f));
+	tpc.SetTargetRelitiveToObject(glm::vec3(0.0f, 10.0f, 0.0f));
 
 
+	for (cGameObject* object : ::g_vec_pGameObjects)
+	{
+		object->setDebugRenderer(pDebugRenderer);
+	}
 
+	std::vector<glm::vec3> todraw;
 	while (!glfwWindowShouldClose(window))
 	{
 
@@ -189,7 +203,10 @@ int main(void)
 
 		//Frame Rate in title bar
 		std::stringstream ssTitle;
-		ssTitle << "Degenerate | " << 1.0 / avgDeltaTimeThingy.getAverage() << " (" << 1.0 / deltaTime << " | " << deltaTime << ")";
+		ssTitle << "Degenerate | " << 1.0 / avgDeltaTimeThingy.getAverage() << " (" << 1.0 / deltaTime << " | " << deltaTime << ")" 
+			<< " Pos: (" << pFindObjectByFriendlyName("Ship")->positionXYZ.x << ", " 
+			<< pFindObjectByFriendlyName("Ship")->positionXYZ.y << ", " 
+			<< pFindObjectByFriendlyName("Ship")->positionXYZ.z << ")";
 		glfwSetWindowTitle(window, ssTitle.str().c_str());
 
 
@@ -287,10 +304,10 @@ int main(void)
 					DrawObject(matModel, ::g_pDebugCube, UniformManager::shaderProgID, pTheVAOManager);
 
 
-					glm::vec3 closestPoint = glm::vec3(0.0f);
+				/*	glm::vec3 closestPoint = glm::vec3(0.0f);
 					size_t closestIdx = -1;
 					float closestDist = FLT_MAX;
-					UnraveiledTriangle* tri = WorldRegion::AllTriangles[0];
+					UnraveiledTriangle* tri = nullptr;// = new UnraveiledTriangle();//WorldRegion::AllTriangles[0];
 
 
 					for (std::set<size_t>::iterator i = wr->vecTriangles.begin(); i != wr->vecTriangles.end(); i++)
@@ -337,7 +354,7 @@ int main(void)
 					::g_pDebugSphere->positionXYZ = closestPoint;
 					DrawObject(glm::mat4(1.0f), ::g_pDebugSphere, UniformManager::shaderProgID, pTheVAOManager);
 
-					pDebugRenderer->addLine(closestPoint, (closestPoint + (norm * 10.0f)), glm::vec3(1.0f));*/
+					pDebugRenderer->addLine(closestPoint, (closestPoint + (norm * 10.0f)), glm::vec3(1.0f));
 
 
 					if (glm::dot(glm::normalize(point - closestPoint), norm) <= 0.0f)
@@ -380,10 +397,11 @@ int main(void)
 						::g_vec_pGameObjects.push_back(collisionShpere);
 
 						pObject->positionXYZ += norm * glm::distance(point, closestPoint);
+						pObject->velocity = glm::vec3(0.0f);
 						//break;
 					}
 
-
+					*/
 
 				} // if (!wr->vecTriangles.empty())
 			} // if (WorldRegion::mapRegions.find(WorldRegion::GenerateID(point)) != WorldRegion::mapRegions.end())
@@ -400,23 +418,19 @@ int main(void)
 		pPhsyics->IntegrationStep(::g_vec_pGameObjects, deltaTime);//(float)averageDeltaTime);
 
 
-		//std::vector<glm::vec3> todraw;
-		//pPhsyics->TestForCollisions(::g_vec_pGameObjects, todraw);
+		
+		pPhsyics->TestForCollisions(::g_vec_pGameObjects, todraw);
 
 
 
 
 
 
-		//for (size_t i = 0; i < todraw.size(); i++)
-		//{
-		//	::g_pDebugSphere->scale = 0.5f;
-		//	::g_pDebugSphere->isWireframe = true;
-
-		//	::g_pDebugSphere->debugColour = glm::vec4(1.0f, 1.0f, 0.0f, 1.0f);
-		//	::g_pDebugSphere->positionXYZ = todraw[i];
-		//	DrawObject(glm::mat4(1.0f), ::g_pDebugSphere, UniformManager::shaderProgID, pTheVAOManager);
-		//}
+		for (size_t i = 0; i < todraw.size(); i++)
+		{
+			collisionShpere->positionXYZ = todraw[i];
+			DrawObject(glm::mat4(1.0f), collisionShpere, UniformManager::shaderProgID, pTheVAOManager);
+		}
 
 
 

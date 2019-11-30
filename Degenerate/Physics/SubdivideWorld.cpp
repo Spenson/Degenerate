@@ -157,6 +157,7 @@ void WorldRegion::init(cMesh* mesh, float halfLength)
 	 
 	if (f.good())
 	{
+		printf("Reading in triangles.\n");
 		unsigned long long Id = 0;
 		size_t triIdx = 0;
 		while (!f.eof())

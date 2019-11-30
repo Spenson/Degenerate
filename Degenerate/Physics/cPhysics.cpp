@@ -363,9 +363,10 @@ void cPhysics::TestForCollisions(std::vector<cGameObject*>& vec_pGameObjects, st
 							object->m_pDebugRenderer->addLine(testPoint, object->positionXYZ, glm::vec3(1.0f,0.0f,0.0f));
 							object->m_pDebugRenderer->addLine(object->positionXYZ, collisionPoint, glm::vec3(0.0f, 1.0f, 0.0f));
 							object->m_pDebugRenderer->addLine(testPoint, collisionPoint, glm::vec3(0.0f, 0.0f, 1.0f));
-							//if(glm::length(collisionPoint - testPoint) !=0)
-							//object->velocity *= glm::normalize(collisionPoint - testPoint);
-							object->velocity *= 0.9f;
+							if(glm::length(collisionPoint - testPoint) !=0)
+								object->velocity = glm::cross(object->velocity, -glm::normalize(collisionPoint - testPoint))/2.0f;
+								//object->velocity *= glm::normalize(collisionPoint - testPoint);
+							//object->velocity *= 0.9f;
 							todraw.push_back(collisionPoint);
 							todraw.push_back(testPoint);
 							object->positionXYZ += (collisionPoint - testPoint);

@@ -163,7 +163,7 @@ void TestLoad(cVAOManager* pTheVAOManager, cModelLoader* pTheModelLoader, GLuint
 	vec_pGameObjects.push_back(pSkyBoxSphere);
 
 
-	WorldRegion::init(&mapMeshes["Babbage"], 20.0f);
+	WorldRegion::init("Babbage", &mapMeshes["Babbage"], 20.0f);
 
 
 
@@ -172,7 +172,7 @@ void TestLoad(cVAOManager* pTheVAOManager, cModelLoader* pTheModelLoader, GLuint
 
 
 
-	pFindObjectByFriendlyName("Ship")->isImposter = true;
+	//pFindObjectByFriendlyName("Ship")->isImposter = true;
 
 
 

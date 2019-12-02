@@ -58,6 +58,8 @@
     <ClInclude Include="Camera\CameraManager.h" />
     <ClInclude Include="Camera\cFlyCamera.h" />
     <ClInclude Include="Camera\ThirdPersonCamera.h" />
+    <ClInclude Include="Commands\iCommand.h" />
+    <ClInclude Include="Commands\MoveCommand.h" />
     <ClInclude Include="DebugRenderer\cDebugRenderer.h" />
     <ClInclude Include="DebugRenderer\CErrorLog.h" />
     <ClInclude Include="DebugRenderer\cGLRenderStateHelper.h" />

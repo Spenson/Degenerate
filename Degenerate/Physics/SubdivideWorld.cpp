@@ -36,11 +36,11 @@ unsigned long long WorldRegion::GenerateID(glm::vec3 point)
 
 #include <fstream>
 
-void WorldRegion::Output()
+void WorldRegion::Output(std::string regionFile)
 {
 	std::fstream file;
 
-	file.open("assets/regions.txt", std::fstream::out);
+	file.open(regionFile, std::fstream::out);
 	for (static std::map<unsigned long long, WorldRegion*>::iterator i = mapRegions.begin(); i != mapRegions.end(); i++)
 	{
 		for (std::set<size_t>::iterator is = i->second->vecTriangles.begin(); is != i->second->vecTriangles.end(); is++)
@@ -111,7 +111,7 @@ void WorldRegion::GenerateRegions()
 
 }
 
-void WorldRegion::init(cMesh* mesh, float halfLength)
+void WorldRegion::init(std::string meshName, cMesh* mesh, float halfLength)
 {
 	if (halfLength == 0.0f) {}
 	else if (s_HalfLength == 0.0f)
@@ -153,7 +153,9 @@ void WorldRegion::init(cMesh* mesh, float halfLength)
 		AllTriangles.push_back(new UnraveiledTriangle(a, b, c, an, bn, cn));
 	}
 
-	std::ifstream f("assets/regions.txt");
+	std::string regionFile = "assets/regions_" + meshName + ".txt";
+
+	std::ifstream f(regionFile);
 	 
 	if (f.good())
 	{
@@ -177,7 +179,7 @@ void WorldRegion::init(cMesh* mesh, float halfLength)
 			DivideTrianglesIntoRegions(i, AllTriangles[i]->a, AllTriangles[i]->b, AllTriangles[i]->c, 1.0f);
 		}
 
-		Output();
+		Output(regionFile);
 	}
 	return;
 }

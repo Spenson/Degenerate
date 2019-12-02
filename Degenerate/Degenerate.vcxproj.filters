@@ -189,6 +189,8 @@
     <ClInclude Include="Camera\ThirdPersonCamera.h">
       <Filter>Camera</Filter>
     </ClInclude>
+    <ClInclude Include="Commands\MoveCommand.h" />
+    <ClInclude Include="Commands\iCommand.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="DebugRenderer">

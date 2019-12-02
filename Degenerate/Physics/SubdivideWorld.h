@@ -27,13 +27,13 @@ class WorldRegion
 										   float const& maxTriangleSideLength = 1.0f);
 	static float s_HalfLength;
 public:
-	static void init(cMesh* mesh, float halfLength = 0.0f);
+	static void init(std::string meshName, cMesh* mesh, float halfLength = 0.0f);
 	static unsigned long long GenerateID(glm::vec3 point);
 
 	static std::vector<UnraveiledTriangle*> AllTriangles;
 	static std::map<unsigned long long, WorldRegion*> mapRegions;
 
-	static void Output();
+	static void Output(std::string regionFile);
 
 	static float HalfLength() { return s_HalfLength; }
 

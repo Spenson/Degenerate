@@ -189,14 +189,15 @@ void main()
 //	pixelColour.a = diffuseColour.a; 		// "a" for alpha, same as "w"
 	
 	// Control the alpha channel from the texture	  
-	pixelColour.a = 1.0f;
-//	if ( tex0_RGB.r <= 0.01f )		// Basically "black"
-//	{
-//		discard;
-//		//pixelColour.a = 0.0f;
-//	}
+	//pixelColour.a = 1.0f;
+	pixelColour.a = diffuseColour.a;
+	if ( pixelColour.a <= 0.001f )		// Basically "black"
+	{
+		discard;
+		//pixelColour.a = 0.0f;
+	}
 	// Projector is too dim
-	pixelColour.rgb *= 1.5f;
+	//pixelColour.rgb *= 1.5f;
 
 }	
 

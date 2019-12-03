@@ -1,7 +1,18 @@
 <TEXTURES>
   <TextureGroup>
     <Dir>assets/textures/</Dir>
-    <File>Untitled.bmp</File>
+    <File>BLACK.bmp</File>
+    <File>DARK_SEA_GREEN.bmp</File>
+    <File>DREADHUL_square.bmp</File>
+    <File>GENERICP_square.bmp</File>
+    <File>GRATE2_square.bmp</File>
+    <File>GUNGINE_square.bmp</File>
+    <File>LIGHT_SEA_GREEN.bmp</File>
+    <File>OFF_WHITE.bmp</File>
+    <File>PLATE_square.bmp</File>
+    <File>RED.bmp</File>
+    <File>WHITE.bmp</File>
+    <File>YELLOW.bmp</File>
   </TextureGroup>
 
   <TextureGroup>

@@ -263,9 +263,6 @@
     <Xml Include="assets\config\Meshes.xml">
       <Filter>LoadingStuff\Configs</Filter>
     </Xml>
-    <Xml Include="assets\config\GameObjects2.xml">
-      <Filter>LoadingStuff\Configs</Filter>
-    </Xml>
     <Xml Include="assets\config\Textures.xml">
       <Filter>LoadingStuff\Configs</Filter>
     </Xml>

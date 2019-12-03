@@ -126,6 +126,9 @@ void TestLoad(cVAOManager* pTheVAOManager, cModelLoader* pTheModelLoader, GLuint
 
 	LoadGameObjectsFromXMLFile("assets/config/GameObjects.xml", vec_pGameObjects);
 
+	//SaveGameObjectsToXMLFile("assets/config/GameObjectsExample.xml", vec_pGameObjects);
+
+
 	//TODO: Load basic Rquired Models
 
 	::g_pDebugSphere = new cGameObject();

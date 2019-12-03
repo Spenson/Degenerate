@@ -241,6 +241,12 @@ cGameObject* LoadGameObjectNode(tinyxml2::XMLElement* objectElement)
 	if (objectElement->FirstChildElement("DoNotLight"))
 		object->isWireframe = objectElement->FirstChildElement("DoNotLight")->FindAttribute("b")->BoolValue();
 
+	if (objectElement->FirstChildElement("IsImposter"))
+		object->isImposter = objectElement->FirstChildElement("IsImposter")->FindAttribute("b")->BoolValue();
+
+	if (objectElement->FirstChildElement("UseDiffuse"))
+		object->useDiffuse = objectElement->FirstChildElement("UseDiffuse")->FindAttribute("b")->BoolValue();
+
 	if (objectElement->FirstChildElement("Wireframe"))
 		object->isWireframe = objectElement->FirstChildElement("Wireframe")->FindAttribute("b")->BoolValue();
 
@@ -358,6 +364,8 @@ tinyxml2::XMLElement* SaveGameObjectNode(cGameObject* object, tinyxml2::XMLDocum
 	}
 
 	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("DoNotLight")))->SetAttribute("b", object->doNotLight);
+	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("IsImposter")))->SetAttribute("b", object->isImposter);
+	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("UseDiffuse")))->SetAttribute("b", object->useDiffuse);
 	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("Wireframe")))->SetAttribute("b", object->isWireframe);
 	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("Visible")))->SetAttribute("b", object->isVisible);
 	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("DisableDepthTest")))->SetAttribute("b", object->disableDepthBufferTest);

@@ -1,0 +1,516 @@
+<GAMEOBJECTS>
+    <GameObject>
+        <MeshName>Babbage</MeshName>
+        <FriendlyName>Babbage</FriendlyName>
+        <Position x="0" y="0" z="0"/>
+        <Velocity x="0" y="0" z="0"/>
+        <Acceleration x="0" y="0" z="0"/>
+        <Scale f="1"/>
+        <InverseMass f="0"/>
+        <PhysicsShapeType type="0"/>
+        <AABB>
+            <max x="0" y="0" z="0"/>
+            <min x="0" y="0" z="0"/>
+        </AABB>
+        <Radius f="0"/>
+        <ObjectColour r="1" g="1" b="0.44999999" a="0.5"/>
+        <DiffuseColour r="1" g="1" b="1" a="1"/>
+        <SpecularColour r="1" g="1" b="1" a="1000"/>
+        <DebugColour r="1" g="1" b="1" a="1"/>
+        <Textures>
+            <texture index="0" name="gridtexture.bmp" ratio="1"/>
+            <texture index="1" name="" ratio="0"/>
+            <texture index="2" name="" ratio="0"/>
+            <texture index="3" name="" ratio="0"/>
+        </Textures>
+        <DoNotLight b="false"/>
+        <IsImposter b="false"/>
+        <UseDiffuse b="false"/>
+        <Wireframe b="false"/>
+        <Visible b="true"/>
+        <DisableDepthTest b="false"/>
+        <DisableDepthWrite b="false"/>
+        <Rotation x="0" y="-0" z="0"/>
+    </GameObject>
+    <GameObject>
+        <MeshName>Ship</MeshName>
+        <FriendlyName>Ship</FriendlyName>
+        <Position x="50" y="0" z="0"/>
+        <Velocity x="0" y="0" z="0"/>
+        <Acceleration x="0" y="0" z="0"/>
+        <Scale f="1"/>
+        <InverseMass f="1"/>
+        <PhysicsShapeType type="6"/>
+        <AABB>
+            <max x="0" y="0" z="0"/>
+            <min x="0" y="0" z="0"/>
+        </AABB>
+        <Radius f="0"/>
+        <TestPoints>
+            <point x="1.6" y="-0.60000002" z="10"/>
+            <point x="-1.6" y="-0.60000002" z="10"/>
+            <point x="3.8" y="-0.25" z="6"/>
+            <point x="-3.8" y="-0.25" z="6"/>
+            <point x="5.75" y="0.17" z="-5"/>
+            <point x="-5.75" y="0.17" z="-5"/>
+            <point x="0" y="1.4" z="1"/>
+            <point x="0" y="0" z="4.5999999"/>
+            <point x="0" y="-1" z="3.3"/>
+            <point x="2.3" y="-1.3" z="3.3"/>
+            <point x="-2.3" y="-1.3" z="3.3"/>
+            <point x="-2.75" y="1.7" z="-10"/>
+            <point x="2.75" y="1.7" z="-10"/>
+            <point x="-2.2" y="-0.40000001" z="-10"/>
+            <point x="2.2" y="-0.40000001" z="-10"/>
+        </TestPoints>
+        <ObjectColour r="1" g="1" b="0.44999999" a="0.5"/>
+        <DiffuseColour r="1" g="1" b="1" a="1"/>
+        <SpecularColour r="1" g="1" b="1" a="1000"/>
+        <DebugColour r="1" g="1" b="1" a="1"/>
+        <Textures>
+            <texture index="0" name="gridtexture.bmp" ratio="1"/>
+            <texture index="1" name="" ratio="0"/>
+            <texture index="2" name="" ratio="0"/>
+            <texture index="3" name="" ratio="0"/>
+        </Textures>
+        <DoNotLight b="false"/>
+        <IsImposter b="false"/>
+        <UseDiffuse b="false"/>
+        <Wireframe b="false"/>
+        <Visible b="true"/>
+        <DisableDepthTest b="false"/>
+        <DisableDepthWrite b="false"/>
+        <Rotation x="0" y="-0" z="0"/>
+    </GameObject>
+    <GameObject>
+        <MeshName>Black</MeshName>
+        <FriendlyName>Black</FriendlyName>
+        <Position x="800" y="0" z="0"/>
+        <Velocity x="0" y="0" z="0"/>
+        <Acceleration x="0" y="0" z="0"/>
+        <Scale f="50"/>
+        <InverseMass f="0"/>
+        <PhysicsShapeType type="0"/>
+        <AABB>
+            <max x="0" y="0" z="0"/>
+            <min x="0" y="0" z="0"/>
+        </AABB>
+        <Radius f="0"/>
+        <ObjectColour r="1" g="1" b="0.44999999" a="0.5"/>
+        <DiffuseColour r="1" g="1" b="1" a="1"/>
+        <SpecularColour r="1" g="1" b="1" a="1000"/>
+        <DebugColour r="1" g="1" b="1" a="1"/>
+        <Textures>
+            <texture index="0" name="gridtexture.bmp" ratio="1"/>
+            <texture index="1" name="" ratio="0"/>
+            <texture index="2" name="" ratio="0"/>
+            <texture index="3" name="" ratio="0"/>
+        </Textures>
+        <DoNotLight b="false"/>
+        <IsImposter b="false"/>
+        <UseDiffuse b="false"/>
+        <Wireframe b="false"/>
+        <Visible b="true"/>
+        <DisableDepthTest b="false"/>
+        <DisableDepthWrite b="false"/>
+        <Rotation x="-0.00095698377" y="-0" z="0"/>
+        <ChildObjects>
+            <GameObject>
+                <MeshName>DGreen</MeshName>
+                <FriendlyName>DGreen</FriendlyName>
+                <Position x="0" y="0" z="0"/>
+                <Velocity x="0" y="0" z="0"/>
+                <Acceleration x="0" y="0" z="0"/>
+                <Scale f="50"/>
+                <InverseMass f="0"/>
+                <PhysicsShapeType type="0"/>
+                <AABB>
+                    <max x="0" y="0" z="0"/>
+                    <min x="0" y="0" z="0"/>
+                </AABB>
+                <Radius f="0"/>
+                <ObjectColour r="1" g="1" b="0.44999999" a="0.5"/>
+                <DiffuseColour r="1" g="1" b="1" a="1"/>
+                <SpecularColour r="1" g="1" b="1" a="1000"/>
+                <DebugColour r="1" g="1" b="1" a="1"/>
+                <Textures>
+                    <texture index="0" name="gridtexture.bmp" ratio="1"/>
+                    <texture index="1" name="" ratio="0"/>
+                    <texture index="2" name="" ratio="0"/>
+                    <texture index="3" name="" ratio="0"/>
+                </Textures>
+                <DoNotLight b="false"/>
+                <IsImposter b="false"/>
+                <UseDiffuse b="false"/>
+                <Wireframe b="false"/>
+                <Visible b="true"/>
+                <DisableDepthTest b="false"/>
+                <DisableDepthWrite b="false"/>
+                <Rotation x="-0.00095698377" y="-0" z="0"/>
+            </GameObject>
+            <GameObject>
+                <MeshName>Dreadhul</MeshName>
+                <FriendlyName>Dreadhul</FriendlyName>
+                <Position x="0" y="0" z="0"/>
+                <Velocity x="0" y="0" z="0"/>
+                <Acceleration x="0" y="0" z="0"/>
+                <Scale f="50"/>
+                <InverseMass f="0"/>
+                <PhysicsShapeType type="0"/>
+                <AABB>
+                    <max x="0" y="0" z="0"/>
+                    <min x="0" y="0" z="0"/>
+                </AABB>
+                <Radius f="0"/>
+                <ObjectColour r="1" g="1" b="0.44999999" a="0.5"/>
+                <DiffuseColour r="1" g="1" b="1" a="1"/>
+                <SpecularColour r="1" g="1" b="1" a="1000"/>
+                <DebugColour r="1" g="1" b="1" a="1"/>
+                <Textures>
+                    <texture index="0" name="gridtexture.bmp" ratio="1"/>
+                    <texture index="1" name="" ratio="0"/>
+                    <texture index="2" name="" ratio="0"/>
+                    <texture index="3" name="" ratio="0"/>
+                </Textures>
+                <DoNotLight b="false"/>
+                <IsImposter b="false"/>
+                <UseDiffuse b="false"/>
+                <Wireframe b="false"/>
+                <Visible b="true"/>
+                <DisableDepthTest b="false"/>
+                <DisableDepthWrite b="false"/>
+                <Rotation x="-0.00095698377" y="-0" z="0"/>
+            </GameObject>
+            <GameObject>
+                <MeshName>Grate</MeshName>
+                <FriendlyName>Grate</FriendlyName>
+                <Position x="0" y="0" z="0"/>
+                <Velocity x="0" y="0" z="0"/>
+                <Acceleration x="0" y="0" z="0"/>
+                <Scale f="50"/>
+                <InverseMass f="0"/>
+                <PhysicsShapeType type="0"/>
+                <AABB>
+                    <max x="0" y="0" z="0"/>
+                    <min x="0" y="0" z="0"/>
+                </AABB>
+                <Radius f="0"/>
+                <ObjectColour r="1" g="1" b="0.44999999" a="0.5"/>
+                <DiffuseColour r="1" g="1" b="1" a="1"/>
+                <SpecularColour r="1" g="1" b="1" a="1000"/>
+                <DebugColour r="1" g="1" b="1" a="1"/>
+                <Textures>
+                    <texture index="0" name="gridtexture.bmp" ratio="1"/>
+                    <texture index="1" name="" ratio="0"/>
+                    <texture index="2" name="" ratio="0"/>
+                    <texture index="3" name="" ratio="0"/>
+                </Textures>
+                <DoNotLight b="false"/>
+                <IsImposter b="false"/>
+                <UseDiffuse b="false"/>
+                <Wireframe b="false"/>
+                <Visible b="true"/>
+                <DisableDepthTest b="false"/>
+                <DisableDepthWrite b="false"/>
+                <Rotation x="-0.00095698377" y="-0" z="0"/>
+            </GameObject>
+            <GameObject>
+                <MeshName>Gungine</MeshName>
+                <FriendlyName>Gungine</FriendlyName>
+                <Position x="0" y="0" z="0"/>
+                <Velocity x="0" y="0" z="0"/>
+                <Acceleration x="0" y="0" z="0"/>
+                <Scale f="50"/>
+                <InverseMass f="0"/>
+                <PhysicsShapeType type="0"/>
+                <AABB>
+                    <max x="0" y="0" z="0"/>
+                    <min x="0" y="0" z="0"/>
+                </AABB>
+                <Radius f="0"/>
+                <ObjectColour r="1" g="1" b="0.44999999" a="0.5"/>
+                <DiffuseColour r="1" g="1" b="1" a="1"/>
+                <SpecularColour r="1" g="1" b="1" a="1000"/>
+                <DebugColour r="1" g="1" b="1" a="1"/>
+                <Textures>
+                    <texture index="0" name="gridtexture.bmp" ratio="1"/>
+                    <texture index="1" name="" ratio="0"/>
+                    <texture index="2" name="" ratio="0"/>
+                    <texture index="3" name="" ratio="0"/>
+                </Textures>
+                <DoNotLight b="false"/>
+                <IsImposter b="false"/>
+                <UseDiffuse b="false"/>
+                <Wireframe b="false"/>
+                <Visible b="true"/>
+                <DisableDepthTest b="false"/>
+                <DisableDepthWrite b="false"/>
+                <Rotation x="-0.00095698377" y="-0" z="0"/>
+            </GameObject>
+            <GameObject>
+                <MeshName>LGreen</MeshName>
+                <FriendlyName>LGreen</FriendlyName>
+                <Position x="0" y="0" z="0"/>
+                <Velocity x="0" y="0" z="0"/>
+                <Acceleration x="0" y="0" z="0"/>
+                <Scale f="50"/>
+                <InverseMass f="0"/>
+                <PhysicsShapeType type="0"/>
+                <AABB>
+                    <max x="0" y="0" z="0"/>
+                    <min x="0" y="0" z="0"/>
+                </AABB>
+                <Radius f="0"/>
+                <ObjectColour r="1" g="1" b="0.44999999" a="0.5"/>
+                <DiffuseColour r="1" g="1" b="1" a="1"/>
+                <SpecularColour r="1" g="1" b="1" a="1000"/>
+                <DebugColour r="1" g="1" b="1" a="1"/>
+                <Textures>
+                    <texture index="0" name="gridtexture.bmp" ratio="1"/>
+                    <texture index="1" name="" ratio="0"/>
+                    <texture index="2" name="" ratio="0"/>
+                    <texture index="3" name="" ratio="0"/>
+                </Textures>
+                <DoNotLight b="false"/>
+                <IsImposter b="false"/>
+                <UseDiffuse b="false"/>
+                <Wireframe b="false"/>
+                <Visible b="true"/>
+                <DisableDepthTest b="false"/>
+                <DisableDepthWrite b="false"/>
+                <Rotation x="-0.00095698377" y="-0" z="0"/>
+            </GameObject>
+            <GameObject>
+                <MeshName>OWhite</MeshName>
+                <FriendlyName>OWhite</FriendlyName>
+                <Position x="0" y="0" z="0"/>
+                <Velocity x="0" y="0" z="0"/>
+                <Acceleration x="0" y="0" z="0"/>
+                <Scale f="50"/>
+                <InverseMass f="0"/>
+                <PhysicsShapeType type="0"/>
+                <AABB>
+                    <max x="0" y="0" z="0"/>
+                    <min x="0" y="0" z="0"/>
+                </AABB>
+                <Radius f="0"/>
+                <ObjectColour r="1" g="1" b="0.44999999" a="0.5"/>
+                <DiffuseColour r="1" g="1" b="1" a="1"/>
+                <SpecularColour r="1" g="1" b="1" a="1000"/>
+                <DebugColour r="1" g="1" b="1" a="1"/>
+                <Textures>
+                    <texture index="0" name="gridtexture.bmp" ratio="1"/>
+                    <texture index="1" name="" ratio="0"/>
+                    <texture index="2" name="" ratio="0"/>
+                    <texture index="3" name="" ratio="0"/>
+                </Textures>
+                <DoNotLight b="false"/>
+                <IsImposter b="false"/>
+                <UseDiffuse b="false"/>
+                <Wireframe b="false"/>
+                <Visible b="true"/>
+                <DisableDepthTest b="false"/>
+                <DisableDepthWrite b="false"/>
+                <Rotation x="-0.00095698377" y="-0" z="0"/>
+            </GameObject>
+            <GameObject>
+                <MeshName>Plate</MeshName>
+                <FriendlyName>Plate</FriendlyName>
+                <Position x="0" y="0" z="0"/>
+                <Velocity x="0" y="0" z="0"/>
+                <Acceleration x="0" y="0" z="0"/>
+                <Scale f="50"/>
+                <InverseMass f="0"/>
+                <PhysicsShapeType type="0"/>
+                <AABB>
+                    <max x="0" y="0" z="0"/>
+                    <min x="0" y="0" z="0"/>
+                </AABB>
+                <Radius f="0"/>
+                <ObjectColour r="1" g="1" b="0.44999999" a="0.5"/>
+                <DiffuseColour r="1" g="1" b="1" a="1"/>
+                <SpecularColour r="1" g="1" b="1" a="1000"/>
+                <DebugColour r="1" g="1" b="1" a="1"/>
+                <Textures>
+                    <texture index="0" name="gridtexture.bmp" ratio="1"/>
+                    <texture index="1" name="" ratio="0"/>
+                    <texture index="2" name="" ratio="0"/>
+                    <texture index="3" name="" ratio="0"/>
+                </Textures>
+                <DoNotLight b="false"/>
+                <IsImposter b="false"/>
+                <UseDiffuse b="false"/>
+                <Wireframe b="false"/>
+                <Visible b="true"/>
+                <DisableDepthTest b="false"/>
+                <DisableDepthWrite b="false"/>
+                <Rotation x="-0.00095698377" y="-0" z="0"/>
+            </GameObject>
+            <GameObject>
+                <MeshName>Red</MeshName>
+                <FriendlyName>Red</FriendlyName>
+                <Position x="0" y="0" z="0"/>
+                <Velocity x="0" y="0" z="0"/>
+                <Acceleration x="0" y="0" z="0"/>
+                <Scale f="50"/>
+                <InverseMass f="0"/>
+                <PhysicsShapeType type="0"/>
+                <AABB>
+                    <max x="0" y="0" z="0"/>
+                    <min x="0" y="0" z="0"/>
+                </AABB>
+                <Radius f="0"/>
+                <ObjectColour r="1" g="1" b="0.44999999" a="0.5"/>
+                <DiffuseColour r="1" g="1" b="1" a="1"/>
+                <SpecularColour r="1" g="1" b="1" a="1000"/>
+                <DebugColour r="1" g="1" b="1" a="1"/>
+                <Textures>
+                    <texture index="0" name="gridtexture.bmp" ratio="1"/>
+                    <texture index="1" name="" ratio="0"/>
+                    <texture index="2" name="" ratio="0"/>
+                    <texture index="3" name="" ratio="0"/>
+                </Textures>
+                <DoNotLight b="false"/>
+                <IsImposter b="false"/>
+                <UseDiffuse b="false"/>
+                <Wireframe b="false"/>
+                <Visible b="true"/>
+                <DisableDepthTest b="false"/>
+                <DisableDepthWrite b="false"/>
+                <Rotation x="-0.00095698377" y="-0" z="0"/>
+            </GameObject>
+            <GameObject>
+                <MeshName>White</MeshName>
+                <FriendlyName>White</FriendlyName>
+                <Position x="0" y="0" z="0"/>
+                <Velocity x="0" y="0" z="0"/>
+                <Acceleration x="0" y="0" z="0"/>
+                <Scale f="50"/>
+                <InverseMass f="0"/>
+                <PhysicsShapeType type="0"/>
+                <AABB>
+                    <max x="0" y="0" z="0"/>
+                    <min x="0" y="0" z="0"/>
+                </AABB>
+                <Radius f="0"/>
+                <ObjectColour r="1" g="1" b="0.44999999" a="0.5"/>
+                <DiffuseColour r="1" g="1" b="1" a="1"/>
+                <SpecularColour r="1" g="1" b="1" a="1000"/>
+                <DebugColour r="1" g="1" b="1" a="1"/>
+                <Textures>
+                    <texture index="0" name="gridtexture.bmp" ratio="1"/>
+                    <texture index="1" name="" ratio="0"/>
+                    <texture index="2" name="" ratio="0"/>
+                    <texture index="3" name="" ratio="0"/>
+                </Textures>
+                <DoNotLight b="false"/>
+                <IsImposter b="false"/>
+                <UseDiffuse b="false"/>
+                <Wireframe b="false"/>
+                <Visible b="true"/>
+                <DisableDepthTest b="false"/>
+                <DisableDepthWrite b="false"/>
+                <Rotation x="-0.00095698377" y="-0" z="0"/>
+            </GameObject>
+            <GameObject>
+                <MeshName>Yellow</MeshName>
+                <FriendlyName>Yellow</FriendlyName>
+                <Position x="0" y="0" z="0"/>
+                <Velocity x="0" y="0" z="0"/>
+                <Acceleration x="0" y="0" z="0"/>
+                <Scale f="50"/>
+                <InverseMass f="0"/>
+                <PhysicsShapeType type="0"/>
+                <AABB>
+                    <max x="0" y="0" z="0"/>
+                    <min x="0" y="0" z="0"/>
+                </AABB>
+                <Radius f="0"/>
+                <ObjectColour r="1" g="1" b="0.44999999" a="0.5"/>
+                <DiffuseColour r="1" g="1" b="1" a="1"/>
+                <SpecularColour r="1" g="1" b="1" a="1000"/>
+                <DebugColour r="1" g="1" b="1" a="1"/>
+                <Textures>
+                    <texture index="0" name="gridtexture.bmp" ratio="1"/>
+                    <texture index="1" name="" ratio="0"/>
+                    <texture index="2" name="" ratio="0"/>
+                    <texture index="3" name="" ratio="0"/>
+                </Textures>
+                <DoNotLight b="false"/>
+                <IsImposter b="false"/>
+                <UseDiffuse b="false"/>
+                <Wireframe b="false"/>
+                <Visible b="true"/>
+                <DisableDepthTest b="false"/>
+                <DisableDepthWrite b="false"/>
+                <Rotation x="-0.00095698377" y="-0" z="0"/>
+            </GameObject>
+        </ChildObjects>
+    </GameObject>
+    <GameObject>
+        <MeshName>XWing</MeshName>
+        <FriendlyName>XWing</FriendlyName>
+        <Position x="-800" y="0" z="0"/>
+        <Velocity x="0" y="0" z="0"/>
+        <Acceleration x="0" y="0" z="0"/>
+        <Scale f="25"/>
+        <InverseMass f="0"/>
+        <PhysicsShapeType type="0"/>
+        <AABB>
+            <max x="0" y="0" z="0"/>
+            <min x="0" y="0" z="0"/>
+        </AABB>
+        <Radius f="0"/>
+        <ObjectColour r="1" g="1" b="0.44999999" a="0.5"/>
+        <DiffuseColour r="1" g="1" b="1" a="1"/>
+        <SpecularColour r="1" g="1" b="1" a="1000"/>
+        <DebugColour r="1" g="1" b="1" a="1"/>
+        <Textures>
+            <texture index="0" name="gridtexture.bmp" ratio="1"/>
+            <texture index="1" name="" ratio="0"/>
+            <texture index="2" name="" ratio="0"/>
+            <texture index="3" name="" ratio="0"/>
+        </Textures>
+        <DoNotLight b="false"/>
+        <IsImposter b="false"/>
+        <UseDiffuse b="false"/>
+        <Wireframe b="false"/>
+        <Visible b="true"/>
+        <DisableDepthTest b="false"/>
+        <DisableDepthWrite b="false"/>
+        <Rotation x="0" y="-0" z="0"/>
+    </GameObject>
+    <GameObject>
+        <MeshName>YWing</MeshName>
+        <FriendlyName>YWing</FriendlyName>
+        <Position x="-500" y="0" z="-50"/>
+        <Velocity x="0" y="0" z="0"/>
+        <Acceleration x="0" y="0" z="0"/>
+        <Scale f="0.1"/>
+        <InverseMass f="0"/>
+        <PhysicsShapeType type="0"/>
+        <AABB>
+            <max x="0" y="0" z="0"/>
+            <min x="0" y="0" z="0"/>
+        </AABB>
+        <Radius f="0"/>
+        <ObjectColour r="1" g="1" b="0.44999999" a="0.5"/>
+        <DiffuseColour r="1" g="1" b="1" a="0.5"/>
+        <SpecularColour r="1" g="1" b="1" a="1000"/>
+        <DebugColour r="1" g="1" b="1" a="1"/>
+        <Textures>
+            <texture index="0" name="gridtexture.bmp" ratio="1"/>
+            <texture index="1" name="" ratio="0"/>
+            <texture index="2" name="" ratio="0"/>
+            <texture index="3" name="" ratio="0"/>
+        </Textures>
+        <DoNotLight b="false"/>
+        <IsImposter b="false"/>
+        <UseDiffuse b="false"/>
+        <Wireframe b="false"/>
+        <Visible b="true"/>
+        <DisableDepthTest b="false"/>
+        <DisableDepthWrite b="false"/>
+        <Rotation x="0" y="-0" z="0"/>
+    </GameObject>
+</GAMEOBJECTS>

@@ -94,7 +94,6 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="assets\config\GameObjects.xml" />
-    <Xml Include="assets\config\GameObjects2.xml" />
     <Xml Include="assets\config\Lights.xml" />
     <Xml Include="assets\config\Meshes.xml" />
     <Xml Include="assets\config\Textures.xml" />

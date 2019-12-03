@@ -14,7 +14,7 @@
         </AABB>
         <Radius f="1"/>
         <TestPoints>
-            <point x="1" y="0.5" z="2.3"/>
+         6   <point x="1" y="0.5" z="2.3"/>
             <point x="2" y="0.5" z="2.3"/>
             <point x="3" y="0.5" z="2.3"/>
         </TestPoints>

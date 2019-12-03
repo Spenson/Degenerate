@@ -18,7 +18,7 @@ bool g_MouseIsInsideWindow = false;
 bool g_MouseLeftButtonIsDown = false;
 
 glm::vec3 inputRotation = glm::vec3(0.0f);
-float speed = 3.0f;
+float speed = 20.0f;
 
 // Declared in theMain
 //extern cFlyCamera* g_pFlyCamera;

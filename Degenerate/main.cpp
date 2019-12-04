@@ -176,7 +176,7 @@ int main(void)
 
 			//if (glm::distance(ObjA, ::g_pFlyCamera->eye) < glm::distance(ObjB, ::g_pFlyCamera->eye))
 			//if (glm::distance(ObjA, ::g_pFreeCamera->GetPosition()) < glm::distance(ObjB, ::g_pFreeCamera->GetPosition()))
-			if (glm::distance(ObjA, tpc.Position()) < glm::distance(ObjB, tpc.Position()))
+			if (glm::distance(ObjA, tpc.Position()) < glm::distance(ObjB, tpc.Position()) && ::g_vec_pGameObjects[index]->friendlyName != "Ship")
 			{
 				// Out of order, so swap the positions...
 				//cGameObject* pTemp = ::g_vec_pGameObjects[index];
@@ -274,6 +274,10 @@ int main(void)
 
 		//pFindObjectByFriendlyName("Ship")->positionXYZ.x += 0.51f;
 		cGameObject* pObject = pFindObjectByFriendlyName("Ship");
+
+
+		pDebugRenderer->addLine(pObject->positionXYZ, pObject->positionXYZ + glm::vec3(0,10,0), glm::vec3(1));
+
 
 		std::vector<glm::vec3> points = pObject->vecPhysTestPoints;
 		glm::mat4 shipMat = calculateWorldMatrix(pObject, glm::mat4(1.0));

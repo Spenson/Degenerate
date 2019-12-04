@@ -27,7 +27,7 @@
       <MeshName>Ship</MeshName>
       <FriendlyName>Ship</FriendlyName>
 
-      <Position x="5000" y="0" z="0"/>
+      <Position x="50" y="0" z="0"/>
       <Rotation x="0" y="0" z="0"/>
       <Scale f="1" x="1" y="1" z="1"/>
 
@@ -42,6 +42,10 @@
      
       <PhysicsShapeType type="6"/>
 
+      <Textures>
+        <texture index="0" name="Untitled.bmp" ratio="1"/>
+      </Textures>
+      
       <TestPoints>
         <point x="1.6" y="-0.6" z="10"/>
         <point x="-1.6" y="-0.6" z="10"/>

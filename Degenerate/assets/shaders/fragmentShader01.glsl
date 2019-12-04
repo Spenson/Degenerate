@@ -126,7 +126,7 @@ void main()
 	if ( boolModifiers.y == 1.0f )
 	{
 		// I sample the skybox using the normal from the surface
-		vec3 skyColour = texture( skyBox, fNormal.xyz ).rgb;
+		vec3 skyColour = texture( skyBox, -fNormal.xyz ).rgb;
 		pixelColour.rgb = skyColour.rgb;
 		// pixelColour.rgb *= 0.01f;
 		// pixelColour.rgb = fNormal.xyz;

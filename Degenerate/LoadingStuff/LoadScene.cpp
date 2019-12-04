@@ -142,7 +142,7 @@ void TestLoad(cVAOManager* pTheVAOManager, cModelLoader* pTheModelLoader, GLuint
 	pSkyBoxSphere->meshName = "sphere_hires";
 	pSkyBoxSphere->friendlyName = "skybox";
 	pSkyBoxSphere->positionXYZ = glm::vec3(0.0f, 0.0f, 0.0f);
-	pSkyBoxSphere->setOrientation(glm::vec3(180.0f, 0.0f, 0.0f)); // easier on the eyes
+	pSkyBoxSphere->updateOrientation(glm::vec3(90.0f, 0.0f, 0.0f));
 	pSkyBoxSphere->scale = 5.0f;
 	pSkyBoxSphere->textureRatio[0] = 1.0f;
 	pSkyBoxSphere->physicsShapeType = UNKNOWN;

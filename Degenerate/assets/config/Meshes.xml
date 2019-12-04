@@ -67,4 +67,8 @@
     <File>starwars_Y-Wing.ply</File>
     <Name>YWing</Name>
   </Mesh>
+  <Mesh>
+    <File>1x1_2Tri_Quad_2_Sided_xyz_n_uv.ply</File>
+    <Name>Imposter</Name>
+  </Mesh>
 </MESHES>

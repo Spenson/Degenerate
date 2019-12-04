@@ -1,71 +1,71 @@
 <GAMEOBJECTS>
-    <GameObject>
-      <MeshName>Babbage</MeshName>
-      <FriendlyName>Babbage</FriendlyName>
+  <GameObject>
+    <MeshName>Babbage</MeshName>
+    <FriendlyName>Babbage</FriendlyName>
 
-      <Position x="0" y="0" z="0"/>
-      <Rotation x="0" y="0" z="0"/>
-      <Scale f="1" x="1" y="1" z="1"/>
+    <Position x="0" y="0" z="0"/>
+    <Rotation x="0" y="0" z="0"/>
+    <Scale f="1" x="1" y="1" z="1"/>
 
-      <ObjectColour r="1" g="1" b=".45" a="0.5"/>
-      <DiffuseColour r="1" g="1" b="1" a="1"/>
-      <SpecularColour r="1" g="1" b="1" a="1000"/>
-      <DebugColour r="1" g="1" b="1" a="1"/>
+    <ObjectColour r="1" g="1" b=".45" a="0.5"/>
+    <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r="1" g="1" b="1" a="1000"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
 
-      <Velocity x="0" y="0" z="0"/>
-      <Acceleration x="0" y="0" z="0"/>
-      <InverseMass f="0"/>
+    <Velocity x="0" y="0" z="0"/>
+    <Acceleration x="0" y="0" z="0"/>
+    <InverseMass f="0"/>
 
-      <PhysicsShapeType type="0"/>
+    <PhysicsShapeType type="0"/>
 
-      <Wireframe b="0"/>
-      <Visible b="1"/>
-      <DisableDepthTest b="0"/>
-      <DisableDepthWrite b="0"/>
-    </GameObject>
-    <GameObject>
-      <MeshName>Ship</MeshName>
-      <FriendlyName>Ship</FriendlyName>
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>Ship</MeshName>
+    <FriendlyName>Ship</FriendlyName>
 
-      <Position x="50" y="0" z="0"/>
-      <Rotation x="0" y="0" z="0"/>
-      <Scale f="1" x="1" y="1" z="1"/>
+    <Position x="50" y="0" z="0"/>
+    <Rotation x="0" y="0" z="0"/>
+    <Scale f="1" x="1" y="1" z="1"/>
 
-      <ObjectColour r="1" g="1" b=".45" a="0.5"/>
-      <DiffuseColour r="1" g="1" b="1" a="1"/>
-      <SpecularColour r="1" g="1" b="1" a="1000"/>
-      <DebugColour r="1" g="1" b="1" a="1"/>
+    <ObjectColour r="1" g="1" b=".45" a="0.5"/>
+    <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r="1" g="1" b="1" a="1000"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
 
-      <Velocity x="0" y="0" z="0"/>
-      <Acceleration x="0" y="0" z="0"/>
-      <InverseMass f="1.0f"/>
-     
-      <PhysicsShapeType type="6"/>
+    <Velocity x="0" y="0" z="0"/>
+    <Acceleration x="0" y="0" z="0"/>
+    <InverseMass f="1.0f"/>
 
-      <TestPoints>
-        <point x="1.6" y="-0.6" z="10"/>
-        <point x="-1.6" y="-0.6" z="10"/>
-        <point x="3.8" y="-0.25" z="6"/>
-        <point x="-3.8" y="-0.25" z="6"/>
-        <point x="5.75" y="0.17" z="-5"/>
-        <point x="-5.75" y="0.17" z="-5"/>
-        <point x="0.0" y="1.4" z="1.0"/>
-        <point x="0.0" y="0.0" z="4.6"/>
-        <point x="0.0" y="-1.0" z="3.3"/>
-        <point x="2.3" y="-1.3" z="3.3"/>
-        <point x="-2.3" y="-1.3" z="3.3"/>
-        <point x="-2.75" y="1.7" z="-10.0"/>
-        <point x="2.75" y="1.7" z="-10.0"/>
-        <point x="-2.2" y="-0.4" z="-10.0"/>
-        <point x="2.2" y="-0.4" z="-10.0"/>
-      </TestPoints>
-      
-      
-      <Wireframe b="0"/>
-      <Visible b="1"/>
-      <DisableDepthTest b="0"/>
-      <DisableDepthWrite b="0"/>
-    </GameObject>
+    <PhysicsShapeType type="6"/>
+
+    <TestPoints>
+      <point x="1.6" y="-0.6" z="10"/>
+      <point x="-1.6" y="-0.6" z="10"/>
+      <point x="3.8" y="-0.25" z="6"/>
+      <point x="-3.8" y="-0.25" z="6"/>
+      <point x="5.75" y="0.17" z="-5"/>
+      <point x="-5.75" y="0.17" z="-5"/>
+      <point x="0.0" y="1.4" z="1.0"/>
+      <point x="0.0" y="0.0" z="4.6"/>
+      <point x="0.0" y="-1.0" z="3.3"/>
+      <point x="2.3" y="-1.3" z="3.3"/>
+      <point x="-2.3" y="-1.3" z="3.3"/>
+      <point x="-2.75" y="1.7" z="-10.0"/>
+      <point x="2.75" y="1.7" z="-10.0"/>
+      <point x="-2.2" y="-0.4" z="-10.0"/>
+      <point x="2.2" y="-0.4" z="-10.0"/>
+    </TestPoints>
+
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
   <GameObject>
     <MeshName>Black</MeshName>
     <FriendlyName>Black</FriendlyName>
@@ -78,6 +78,12 @@
     <DiffuseColour r="1" g="1" b="1" a="1"/>
     <SpecularColour r="1" g="1" b="1" a="1000"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
+    <Textures>
+      <texture index="0" name="BLACK.bmp" ratio="1"/>
+      <texture index="1" name="" ratio="0"/>
+      <texture index="2" name="" ratio="0"/>
+      <texture index="3" name="" ratio="0"/>
+    </Textures>
 
     <Velocity x="0" y="0" z="0"/>
     <Acceleration x="0" y="0" z="0"/>
@@ -89,257 +95,349 @@
     <Visible b="1"/>
     <DisableDepthTest b="0"/>
     <DisableDepthWrite b="0"/>
+    <ChildObjects>
+      <GameObject>
+        <MeshName>DGreen</MeshName>
+        <FriendlyName>DGreen</FriendlyName>
+
+        <Position x="0" y="0" z="0"/>
+        <Rotation x="0" y="0" z="0"/>
+        <Scale f="50" x="50" y="50" z="50"/>
+
+        <ObjectColour r="1" g="1" b=".45" a="0.5"/>
+        <DiffuseColour r="1" g="1" b="1" a="1"/>
+        <SpecularColour r="1" g="1" b="1" a="1000"/>
+        <DebugColour r="1" g="1" b="1" a="1"/>
+        <Textures>
+          <texture index="0" name="DARK_SEA_GREEN.bmp" ratio="1"/>
+          <texture index="1" name="" ratio="0"/>
+          <texture index="2" name="" ratio="0"/>
+          <texture index="3" name="" ratio="0"/>
+        </Textures>
+
+        <Velocity x="0" y="0" z="0"/>
+        <Acceleration x="0" y="0" z="0"/>
+        <InverseMass f="0"/>
+
+        <PhysicsShapeType type="0"/>
+
+        <Wireframe b="0"/>
+        <Visible b="1"/>
+        <DisableDepthTest b="0"/>
+        <DisableDepthWrite b="0"/>
+      </GameObject>
+      <GameObject>
+        <MeshName>Dreadhul</MeshName>
+        <FriendlyName>Dreadhul</FriendlyName>
+
+        <Position x="0" y="0" z="0"/>
+        <Rotation x="0" y="0" z="0"/>
+        <Scale f="50" x="50" y="50" z="50"/>
+
+        <ObjectColour r="1" g="1" b=".45" a="0.5"/>
+        <DiffuseColour r="1" g="1" b="1" a="1"/>
+        <SpecularColour r="1" g="1" b="1" a="1000"/>
+        <DebugColour r="1" g="1" b="1" a="1"/>
+        <Textures>
+          <texture index="0" name="DREADHUL_square.bmp" ratio="1"/>
+          <texture index="1" name="" ratio="0"/>
+          <texture index="2" name="" ratio="0"/>
+          <texture index="3" name="" ratio="0"/>
+        </Textures>
+
+        <Velocity x="0" y="0" z="0"/>
+        <Acceleration x="0" y="0" z="0"/>
+        <InverseMass f="0"/>
+
+        <PhysicsShapeType type="0"/>
+
+        <Wireframe b="0"/>
+        <Visible b="1"/>
+        <DisableDepthTest b="0"/>
+        <DisableDepthWrite b="0"/>
+      </GameObject>
+      <GameObject>
+        <MeshName>Grate</MeshName>
+        <FriendlyName>Grate</FriendlyName>
+
+        <Position x="0" y="0" z="0"/>
+        <Rotation x="0" y="0" z="0"/>
+        <Scale f="50" x="50" y="50" z="50"/>
+
+        <ObjectColour r="1" g="1" b=".45" a="0.5"/>
+        <DiffuseColour r="1" g="1" b="1" a="1"/>
+        <SpecularColour r="1" g="1" b="1" a="1000"/>
+        <DebugColour r="1" g="1" b="1" a="1"/>
+        <Textures>
+          <texture index="0" name="GRATE2_square.bmp" ratio="1"/>
+          <texture index="1" name="" ratio="0"/>
+          <texture index="2" name="" ratio="0"/>
+          <texture index="3" name="" ratio="0"/>
+        </Textures>
+        <Velocity x="0" y="0" z="0"/>
+        <Acceleration x="0" y="0" z="0"/>
+        <InverseMass f="0"/>
+
+        <PhysicsShapeType type="0"/>
+
+        <Wireframe b="0"/>
+        <Visible b="1"/>
+        <DisableDepthTest b="0"/>
+        <DisableDepthWrite b="0"/>
+      </GameObject>
+      <GameObject>
+        <MeshName>Gungine</MeshName>
+        <FriendlyName>Gungine</FriendlyName>
+
+        <Position x="0" y="0" z="0"/>
+        <Rotation x="0" y="0" z="0"/>
+        <Scale f="50" x="50" y="50" z="50"/>
+
+        <ObjectColour r="1" g="1" b=".45" a="0.5"/>
+        <DiffuseColour r="1" g="1" b="1" a="1"/>
+        <SpecularColour r="1" g="1" b="1" a="1000"/>
+        <DebugColour r="1" g="1" b="1" a="1"/>
+        <Textures>
+          <texture index="0" name="GUNGINE_square.bmp" ratio="1"/>
+          <texture index="1" name="" ratio="0"/>
+          <texture index="2" name="" ratio="0"/>
+          <texture index="3" name="" ratio="0"/>
+        </Textures>
+
+        <Velocity x="0" y="0" z="0"/>
+        <Acceleration x="0" y="0" z="0"/>
+        <InverseMass f="0"/>
+
+        <PhysicsShapeType type="0"/>
+
+        <Wireframe b="0"/>
+        <Visible b="1"/>
+        <DisableDepthTest b="0"/>
+        <DisableDepthWrite b="0"/>
+      </GameObject>
+      <GameObject>
+        <MeshName>LGreen</MeshName>
+        <FriendlyName>LGreen</FriendlyName>
+
+        <Position x="0" y="0" z="0"/>
+        <Rotation x="0" y="0" z="0"/>
+        <Scale f="50" x="50" y="50" z="50"/>
+
+        <ObjectColour r="1" g="1" b=".45" a="0.5"/>
+        <DiffuseColour r="1" g="1" b="1" a="1"/>
+        <SpecularColour r="1" g="1" b="1" a="1000"/>
+        <DebugColour r="1" g="1" b="1" a="1"/>
+        <Textures>
+          <texture index="0" name="LIGHT_SEA_GREEN.bmp" ratio="1"/>
+          <texture index="1" name="" ratio="0"/>
+          <texture index="2" name="" ratio="0"/>
+          <texture index="3" name="" ratio="0"/>
+        </Textures>
+
+        <Velocity x="0" y="0" z="0"/>
+        <Acceleration x="0" y="0" z="0"/>
+        <InverseMass f="0"/>
+
+        <PhysicsShapeType type="0"/>
+
+        <Wireframe b="0"/>
+        <Visible b="1"/>
+        <DisableDepthTest b="0"/>
+        <DisableDepthWrite b="0"/>
+      </GameObject>
+      <GameObject>
+        <MeshName>OWhite</MeshName>
+        <FriendlyName>OWhite</FriendlyName>
+
+        <Position x="0" y="0" z="0"/>
+        <Rotation x="0" y="0" z="0"/>
+        <Scale f="50" x="50" y="50" z="50"/>
+
+        <ObjectColour r="1" g="1" b=".45" a="0.5"/>
+        <DiffuseColour r="1" g="1" b="1" a="1"/>
+        <SpecularColour r="1" g="1" b="1" a="1000"/>
+        <DebugColour r="1" g="1" b="1" a="1"/>
+        <Textures>
+          <texture index="0" name="OFF_WHITE.bmp" ratio="1"/>
+          <texture index="1" name="" ratio="0"/>
+          <texture index="2" name="" ratio="0"/>
+          <texture index="3" name="" ratio="0"/>
+        </Textures>
+
+        <Velocity x="0" y="0" z="0"/>
+        <Acceleration x="0" y="0" z="0"/>
+        <InverseMass f="0"/>
+
+        <PhysicsShapeType type="0"/>
+
+        <Wireframe b="0"/>
+        <Visible b="1"/>
+        <DisableDepthTest b="0"/>
+        <DisableDepthWrite b="0"/>
+      </GameObject>
+      <GameObject>
+        <MeshName>Plate</MeshName>
+        <FriendlyName>Plate</FriendlyName>
+
+        <Position x="0" y="0" z="0"/>
+        <Rotation x="0" y="0" z="0"/>
+        <Scale f="50" x="50" y="50" z="50"/>
+
+        <ObjectColour r="1" g="1" b=".45" a="0.5"/>
+        <DiffuseColour r="1" g="1" b="1" a="1"/>
+        <SpecularColour r="1" g="1" b="1" a="1000"/>
+        <DebugColour r="1" g="1" b="1" a="1"/>
+        <Textures>
+          <texture index="0" name="PLATE_square.bmp" ratio="1"/>
+          <texture index="1" name="" ratio="0"/>
+          <texture index="2" name="" ratio="0"/>
+          <texture index="3" name="" ratio="0"/>
+        </Textures>
+
+        <Velocity x="0" y="0" z="0"/>
+        <Acceleration x="0" y="0" z="0"/>
+        <InverseMass f="0"/>
+
+        <PhysicsShapeType type="0"/>
+
+        <Wireframe b="0"/>
+        <Visible b="1"/>
+        <DisableDepthTest b="0"/>
+        <DisableDepthWrite b="0"/>
+      </GameObject>
+      <GameObject>
+        <MeshName>Red</MeshName>
+        <FriendlyName>Red</FriendlyName>
+
+        <Position x="0" y="0" z="0"/>
+        <Rotation x="0" y="0" z="0"/>
+        <Scale f="50" x="50" y="50" z="50"/>
+
+        <ObjectColour r="1" g="1" b=".45" a="0.5"/>
+        <DiffuseColour r="1" g="1" b="1" a="1"/>
+        <SpecularColour r="1" g="1" b="1" a="1000"/>
+        <DebugColour r="1" g="1" b="1" a="1"/>
+        <Textures>
+          <texture index="0" name="RED.bmp" ratio="1"/>
+          <texture index="1" name="" ratio="0"/>
+          <texture index="2" name="" ratio="0"/>
+          <texture index="3" name="" ratio="0"/>
+        </Textures>
+
+        <Velocity x="0" y="0" z="0"/>
+        <Acceleration x="0" y="0" z="0"/>
+        <InverseMass f="0"/>
+
+        <PhysicsShapeType type="0"/>
+
+        <Wireframe b="0"/>
+        <Visible b="1"/>
+        <DisableDepthTest b="0"/>
+        <DisableDepthWrite b="0"/>
+      </GameObject>
+      <GameObject>
+        <MeshName>White</MeshName>
+        <FriendlyName>White</FriendlyName>
+
+        <Position x="0" y="0" z="0"/>
+        <Rotation x="0" y="0" z="0"/>
+        <Scale f="50" x="50" y="50" z="50"/>
+
+        <ObjectColour r="1" g="1" b=".45" a="0.5"/>
+        <DiffuseColour r="1" g="1" b="1" a="1"/>
+        <SpecularColour r="1" g="1" b="1" a="1000"/>
+        <DebugColour r="1" g="1" b="1" a="1"/>
+        <Textures>
+          <texture index="0" name="WHITE.bmp" ratio="1"/>
+          <texture index="1" name="" ratio="0"/>
+          <texture index="2" name="" ratio="0"/>
+          <texture index="3" name="" ratio="0"/>
+        </Textures>
+
+        <Velocity x="0" y="0" z="0"/>
+        <Acceleration x="0" y="0" z="0"/>
+        <InverseMass f="0"/>
+
+        <PhysicsShapeType type="0"/>
+
+        <Wireframe b="0"/>
+        <Visible b="1"/>
+        <DisableDepthTest b="0"/>
+        <DisableDepthWrite b="0"/>
+      </GameObject>
+      <GameObject>
+        <MeshName>Yellow</MeshName>
+        <FriendlyName>Yellow</FriendlyName>
+
+        <Position x="0" y="0" z="0"/>
+        <Rotation x="0" y="0" z="0"/>
+        <Scale f="50" x="50" y="50" z="50"/>
+
+        <ObjectColour r="1" g="1" b=".45" a="0.5"/>
+        <DiffuseColour r="1" g="1" b="1" a="1"/>
+        <SpecularColour r="1" g="1" b="1" a="1000"/>
+        <DebugColour r="1" g="1" b="1" a="1"/>
+        <Textures>
+          <texture index="0" name="YELLOW.bmp" ratio="1"/>
+          <texture index="1" name="" ratio="0"/>
+          <texture index="2" name="" ratio="0"/>
+          <texture index="3" name="" ratio="0"/>
+        </Textures>
+
+        <Velocity x="0" y="0" z="0"/>
+        <Acceleration x="0" y="0" z="0"/>
+        <InverseMass f="0"/>
+
+        <PhysicsShapeType type="0"/>
+
+        <Wireframe b="0"/>
+        <Visible b="1"/>
+        <DisableDepthTest b="0"/>
+        <DisableDepthWrite b="0"/>
+      </GameObject>
+    </ChildObjects>
   </GameObject>
-  <GameObject>
-    <MeshName>DGreen</MeshName>
-    <FriendlyName>DGreen</FriendlyName>
 
-    <Position x="800" y="0" z="0"/>
-    <Rotation x="180" y="0" z="0"/>
-    <Scale f="50" x="50" y="50" z="50"/>
-
-    <ObjectColour r="1" g="1" b=".45" a="0.5"/>
-    <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="1" b="1" a="1000"/>
-    <DebugColour r="1" g="1" b="1" a="1"/>
-
-    <Velocity x="0" y="0" z="0"/>
-    <Acceleration x="0" y="0" z="0"/>
-    <InverseMass f="0"/>
-
-    <PhysicsShapeType type="0"/>
-
-    <Wireframe b="0"/>
-    <Visible b="1"/>
-    <DisableDepthTest b="0"/>
-    <DisableDepthWrite b="0"/>
-  </GameObject>
-  <GameObject>
-    <MeshName>Dreadhul</MeshName>
-    <FriendlyName>Dreadhul</FriendlyName>
-
-    <Position x="800" y="0" z="0"/>
-    <Rotation x="180" y="0" z="0"/>
-    <Scale f="50" x="50" y="50" z="50"/>
-
-    <ObjectColour r="1" g="1" b=".45" a="0.5"/>
-    <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="1" b="1" a="1000"/>
-    <DebugColour r="1" g="1" b="1" a="1"/>
-
-    <Velocity x="0" y="0" z="0"/>
-    <Acceleration x="0" y="0" z="0"/>
-    <InverseMass f="0"/>
-
-    <PhysicsShapeType type="0"/>
-
-    <Wireframe b="0"/>
-    <Visible b="1"/>
-    <DisableDepthTest b="0"/>
-    <DisableDepthWrite b="0"/>
-  </GameObject>
-  <GameObject>
-    <MeshName>Grate</MeshName>
-    <FriendlyName>Grate</FriendlyName>
-
-    <Position x="800" y="0" z="0"/>
-    <Rotation x="180" y="0" z="0"/>
-    <Scale f="50" x="50" y="50" z="50"/>
-
-    <ObjectColour r="1" g="1" b=".45" a="0.5"/>
-    <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="1" b="1" a="1000"/>
-    <DebugColour r="1" g="1" b="1" a="1"/>
-
-    <Velocity x="0" y="0" z="0"/>
-    <Acceleration x="0" y="0" z="0"/>
-    <InverseMass f="0"/>
-
-    <PhysicsShapeType type="0"/>
-
-    <Wireframe b="0"/>
-    <Visible b="1"/>
-    <DisableDepthTest b="0"/>
-    <DisableDepthWrite b="0"/>
-  </GameObject>
-  <GameObject>
-    <MeshName>Gungine</MeshName>
-    <FriendlyName>Gungine</FriendlyName>
-
-    <Position x="800" y="0" z="0"/>
-    <Rotation x="180" y="0" z="0"/>
-    <Scale f="50" x="50" y="50" z="50"/>
-
-    <ObjectColour r="1" g="1" b=".45" a="0.5"/>
-    <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="1" b="1" a="1000"/>
-    <DebugColour r="1" g="1" b="1" a="1"/>
-
-    <Velocity x="0" y="0" z="0"/>
-    <Acceleration x="0" y="0" z="0"/>
-    <InverseMass f="0"/>
-
-    <PhysicsShapeType type="0"/>
-
-    <Wireframe b="0"/>
-    <Visible b="1"/>
-    <DisableDepthTest b="0"/>
-    <DisableDepthWrite b="0"/>
-  </GameObject>
-  <GameObject>
-    <MeshName>LGreen</MeshName>
-    <FriendlyName>LGreen</FriendlyName>
-
-    <Position x="800" y="0" z="0"/>
-    <Rotation x="180" y="0" z="0"/>
-    <Scale f="50" x="50" y="50" z="50"/>
-
-    <ObjectColour r="1" g="1" b=".45" a="0.5"/>
-    <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="1" b="1" a="1000"/>
-    <DebugColour r="1" g="1" b="1" a="1"/>
-
-    <Velocity x="0" y="0" z="0"/>
-    <Acceleration x="0" y="0" z="0"/>
-    <InverseMass f="0"/>
-
-    <PhysicsShapeType type="0"/>
-
-    <Wireframe b="0"/>
-    <Visible b="1"/>
-    <DisableDepthTest b="0"/>
-    <DisableDepthWrite b="0"/>
-  </GameObject>
-  <GameObject>
-    <MeshName>OWhite</MeshName>
-    <FriendlyName>OWhite</FriendlyName>
-
-    <Position x="800" y="0" z="0"/>
-    <Rotation x="180" y="0" z="0"/>
-    <Scale f="50" x="50" y="50" z="50"/>
-
-    <ObjectColour r="1" g="1" b=".45" a="0.5"/>
-    <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="1" b="1" a="1000"/>
-    <DebugColour r="1" g="1" b="1" a="1"/>
-
-    <Velocity x="0" y="0" z="0"/>
-    <Acceleration x="0" y="0" z="0"/>
-    <InverseMass f="0"/>
-
-    <PhysicsShapeType type="0"/>
-
-    <Wireframe b="0"/>
-    <Visible b="1"/>
-    <DisableDepthTest b="0"/>
-    <DisableDepthWrite b="0"/>
-  </GameObject>
-  <GameObject>
-    <MeshName>Plate</MeshName>
-    <FriendlyName>Plate</FriendlyName>
-
-    <Position x="800" y="0" z="0"/>
-    <Rotation x="180" y="0" z="0"/>
-    <Scale f="50" x="50" y="50" z="50"/>
-
-    <ObjectColour r="1" g="1" b=".45" a="0.5"/>
-    <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="1" b="1" a="1000"/>
-    <DebugColour r="1" g="1" b="1" a="1"/>
-
-    <Velocity x="0" y="0" z="0"/>
-    <Acceleration x="0" y="0" z="0"/>
-    <InverseMass f="0"/>
-
-    <PhysicsShapeType type="0"/>
-
-    <Wireframe b="0"/>
-    <Visible b="1"/>
-    <DisableDepthTest b="0"/>
-    <DisableDepthWrite b="0"/>
-  </GameObject>
-  <GameObject>
-    <MeshName>Red</MeshName>
-    <FriendlyName>Red</FriendlyName>
-
-    <Position x="800" y="0" z="0"/>
-    <Rotation x="180" y="0" z="0"/>
-    <Scale f="50" x="50" y="50" z="50"/>
-
-    <ObjectColour r="1" g="1" b=".45" a="0.5"/>
-    <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="1" b="1" a="1000"/>
-    <DebugColour r="1" g="1" b="1" a="1"/>
-
-    <Velocity x="0" y="0" z="0"/>
-    <Acceleration x="0" y="0" z="0"/>
-    <InverseMass f="0"/>
-
-    <PhysicsShapeType type="0"/>
-
-    <Wireframe b="0"/>
-    <Visible b="1"/>
-    <DisableDepthTest b="0"/>
-    <DisableDepthWrite b="0"/>
-  </GameObject>
-  <GameObject>
-    <MeshName>White</MeshName>
-    <FriendlyName>White</FriendlyName>
-
-    <Position x="800" y="0" z="0"/>
-    <Rotation x="180" y="0" z="0"/>
-    <Scale f="50" x="50" y="50" z="50"/>
-
-    <ObjectColour r="1" g="1" b=".45" a="0.5"/>
-    <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="1" b="1" a="1000"/>
-    <DebugColour r="1" g="1" b="1" a="1"/>
-
-    <Velocity x="0" y="0" z="0"/>
-    <Acceleration x="0" y="0" z="0"/>
-    <InverseMass f="0"/>
-
-    <PhysicsShapeType type="0"/>
-
-    <Wireframe b="0"/>
-    <Visible b="1"/>
-    <DisableDepthTest b="0"/>
-    <DisableDepthWrite b="0"/>
-  </GameObject>
-  <GameObject>
-    <MeshName>Yellow</MeshName>
-    <FriendlyName>Yellow</FriendlyName>
-
-    <Position x="800" y="0" z="0"/>
-    <Rotation x="180" y="0" z="0"/>
-    <Scale f="50" x="50" y="50" z="50"/>
-
-    <ObjectColour r="1" g="1" b=".45" a="0.5"/>
-    <DiffuseColour r="1" g="1" b="1" a="1"/>
-    <SpecularColour r="1" g="1" b="1" a="1000"/>
-    <DebugColour r="1" g="1" b="1" a="1"/>
-
-    <Velocity x="0" y="0" z="0"/>
-    <Acceleration x="0" y="0" z="0"/>
-    <InverseMass f="0"/>
-
-    <PhysicsShapeType type="0"/>
-
-    <Wireframe b="0"/>
-    <Visible b="1"/>
-    <DisableDepthTest b="0"/>
-    <DisableDepthWrite b="0"/>
-  </GameObject>
   <GameObject>
     <MeshName>XWing</MeshName>
     <FriendlyName>XWing</FriendlyName>
 
     <Position x="-800" y="0" z="0"/>
-    <Rotation x="0" y="0" z="0"/>
+    <Rotation x="270" y="0" z="0"/>
     <Scale f="25" x="25" y="25" z="25"/>
 
     <ObjectColour r="1" g="1" b=".45" a="0.5"/>
     <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r="1" g="1" b="1" a="1000"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <Textures>
+      <texture index="0" name="GENERICP_square.bmp" ratio=".5"/>
+      <texture index="1" name="DREADHUL_square.bmp" ratio=".5"/>
+      <texture index="2" name="" ratio="0"/>
+      <texture index="3" name="" ratio="0"/>
+    </Textures>
+
+    <Velocity x="0" y="0" z="0"/>
+    <Acceleration x="0" y="0" z="0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>YWing</MeshName>
+    <FriendlyName>YWing</FriendlyName>
+
+    <Position x="-500" y="0" z="-50"/>
+    <Rotation x="-90" y="0" z="0"/>
+    <Scale f=".1" x=".1" y=".1" z=".1"/>
+
+    <ObjectColour r="1" g="1" b=".45" a="0.5"/>
+    <DiffuseColour r="1" g="1" b="1" a="0.5"/>
     <SpecularColour r="1" g="1" b="1" a="1000"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
 
@@ -358,14 +456,50 @@
     <MeshName>YWing</MeshName>
     <FriendlyName>YWing</FriendlyName>
 
-    <Position x="-500" y="0" z="-50"/>
-    <Rotation x="0" y="0" z="0"/>
+    <Position x="-1200" y="0" z="-50"/>
+    <Rotation x="-90" y="0" z="0"/>
     <Scale f=".1" x=".1" y=".1" z=".1"/>
 
     <ObjectColour r="1" g="1" b=".45" a="0.5"/>
-    <DiffuseColour r="1" g="1" b="1" a="0.5"/>
+    <DiffuseColour r="1" g="1" b="1" a="0.1"/>
     <SpecularColour r="1" g="1" b="1" a="1000"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
+    <Textures>
+      <texture index="0" name="fx3_Panels_Color.bmp" ratio=".5"/>
+      <texture index="1" name="fx3_Panels_Shiny2 - original.bmp" ratio=".5"/>
+      <texture index="2" name="" ratio="0"/>
+      <texture index="3" name="" ratio="0"/>
+    </Textures>
+    <Velocity x="0" y="0" z="0"/>
+    <Acceleration x="0" y="0" z="0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>XWing</MeshName>
+    <FriendlyName>XWing</FriendlyName>
+
+    <Position x="1500" y="-100" z="0"/>
+    <Rotation x="270" y="0" z="0"/>
+    <Scale f="25" x="25" y="25" z="25"/>
+
+    <ObjectColour r="1" g="1" b=".45" a="0.5"/>
+    <DiffuseColour r="1" g="1" b="1" a=".42"/>
+    <SpecularColour r="1" g="1" b="1" a="10"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+    <Textures>
+      <texture index="0" name="GUNGINE_square.bmp" ratio=".5"/>
+      <texture index="1" name="GENERICP_square.bmp" ratio=".5"/>
+      <texture index="2" name="" ratio="0"/>
+      <texture index="3" name="" ratio="0"/>
+    </Textures>
+    <DoNotLight b="true"/>
 
     <Velocity x="0" y="0" z="0"/>
     <Acceleration x="0" y="0" z="0"/>
@@ -377,6 +511,39 @@
     <Visible b="1"/>
     <DisableDepthTest b="0"/>
     <DisableDepthWrite b="0"/>
+    <ChildObjects>
+      <GameObject>
+        <MeshName>Imposter</MeshName>
+        <FriendlyName>Imposter</FriendlyName>
+
+        <Position x="-50" y="0" z="0"/>
+        <Rotation x="0" y="90" z="0"/>
+        <Scale f="50" x="50" y="50" z="1"/>
+
+        <ObjectColour r="1" g="1" b=".45" a="0.5"/>
+        <DiffuseColour r="1" g="1" b="1" a="1"/>
+        <SpecularColour r="1" g="1" b="1" a="10"/>
+        <DebugColour r="1" g="1" b="1" a="1"/>
+        <Textures>
+          <texture index="0" name="PlasmaRing.bmp" ratio=".5"/>
+          <texture index="1" name="" ratio="0"/>
+          <texture index="2" name="" ratio="0"/>
+          <texture index="3" name="" ratio="0"/>
+        </Textures>
+        <IsImposter b="true"/>
+
+        <Velocity x="0" y="0" z="0"/>
+        <Acceleration x="0" y="0" z="0"/>
+        <InverseMass f="0"/>
+
+        <PhysicsShapeType type="0"/>
+
+        <Wireframe b="0"/>
+        <Visible b="1"/>
+        <DisableDepthTest b="0"/>
+        <DisableDepthWrite b="0"/>
+      </GameObject>
+    </ChildObjects>
   </GameObject>
 
 

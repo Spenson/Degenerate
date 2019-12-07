@@ -308,111 +308,9 @@ int main(void)
 					DrawObject(matModel, ::g_pDebugCube, UniformManager::shaderProgID, pTheVAOManager);
 
 
-				/*	glm::vec3 closestPoint = glm::vec3(0.0f);
-					size_t closestIdx = -1;
-					float closestDist = FLT_MAX;
-					UnraveiledTriangle* tri = nullptr;// = new UnraveiledTriangle();//WorldRegion::AllTriangles[0];
-
-
-					for (std::set<size_t>::iterator i = wr->vecTriangles.begin(); i != wr->vecTriangles.end(); i++)
-					{
-						UnraveiledTriangle* currentTri = WorldRegion::AllTriangles[*i];
-						glm::vec3 curClosestPoint = pPhsyics->ClosestPtPointTriangle(point, currentTri->a, currentTri->b, currentTri->c);
-
-						if (glm::dot(glm::normalize(pObject->positionXYZ - closestPoint), glm::normalize((currentTri->an + currentTri->bn + currentTri->cn) / 3.0f)) <= 0.0f)
-							continue;
-
-						if (glm::distance(curClosestPoint, point) < closestDist)
-						{
-							closestDist = glm::distance(curClosestPoint, point);
-							closestPoint = curClosestPoint;
-							closestIdx = *i;
-							tri = currentTri;
-						} // if (glm::distance(curClosestPoint, point) < closestDist)
-					} // for (std::set<size_t>::iterator i = wr->vecTriangles.begin(); i != wr->vecTriangles.end(); i++)
-
-					if (closestIdx == -1)
-					{
-						for (std::set<size_t>::iterator i = wr->vecTriangles.begin(); i != wr->vecTriangles.end(); i++)
-						{
-							UnraveiledTriangle* currentTri = WorldRegion::AllTriangles[*i];
-							glm::vec3 curClosestPoint = pPhsyics->ClosestPtPointTriangle(point, currentTri->a, currentTri->b, currentTri->c);
-
-							if (glm::distance(curClosestPoint, point) < closestDist)
-							{
-								closestDist = glm::distance(curClosestPoint, point);
-								closestPoint = curClosestPoint;
-								closestIdx = *i;
-								tri = currentTri;
-							} // if (glm::distance(curClosestPoint, point) < closestDist)
-						} // for (std::set<size_t>::iterator i = wr->vecTriangles.begin(); i != wr->vecTriangles.end(); i++)
-					}
-
-					//tri = WorldRegion::AllTriangles[closestIdx];
-					//TODO: calc face normal
-					glm::vec3 norm = glm::normalize((tri->an + tri->bn + tri->cn) / 3.0f);
-
-					/*::g_pDebugSphere->scale = 0.5f;
-					::g_pDebugSphere->isWireframe = true;
-					::g_pDebugSphere->debugColour = glm::vec4(1.0f, 1.0f, 0.0f, 1.0f);
-					::g_pDebugSphere->positionXYZ = closestPoint;
-					DrawObject(glm::mat4(1.0f), ::g_pDebugSphere, UniformManager::shaderProgID, pTheVAOManager);
-
-					pDebugRenderer->addLine(closestPoint, (closestPoint + (norm * 10.0f)), glm::vec3(1.0f));
-
-
-					if (glm::dot(glm::normalize(point - closestPoint), norm) <= 0.0f)
-					{
-						//if (glm::dot(glm::normalize(pObject->positionXYZ - closestPoint), norm) <= 0.0f) // your center is behind closest tri / are right inside an object
-						//{
-						//	// Loop through and find proper triangle
-						//	for (std::set<size_t>::iterator i = wr->vecTriangles.begin(); i != wr->vecTriangles.end(); i++)
-						//	{
-						//		UnraveiledTriangle* currentTri = WorldRegion::AllTriangles[*i];
-						//		glm::vec3 curClosestPoint = pPhsyics->ClosestPtPointTriangle(point, currentTri->a, currentTri->b, currentTri->c);
-
-
-						//		//glm::vec3 norm = glm::normalize((currentTri->an + currentTri->bn + currentTri->cn) / 3.0f);
-						//		// Is center behind triangle
-						//		if (glm::dot(glm::normalize(pObject->positionXYZ - closestPoint), glm::normalize((currentTri->an + currentTri->bn + currentTri->cn) / 3.0f)) <= 0.0f)
-						//			continue;
-						//		//tri = WorldRegion::AllTriangles[*i];
-						//		//glm::vec3 curClosestPoint = pPhsyics->ClosestPtPointTriangle(point, tri->a, tri->b, tri->c);
-
-						//		if (glm::distance(curClosestPoint, point) < closestDist)
-						//		{
-						//			closestDist = glm::distance(curClosestPoint, point);
-						//			closestPoint = curClosestPoint;
-						//			closestIdx = *i;
-						//			tri = currentTri;
-						//		} // if (glm::distance(curClosestPoint, point) < closestDist)
-						//	} // for (std::set<size_t>::iterator i = wr->vecTriangles.begin(); i != wr->vecTriangles.end(); i++)
-						//} // if (closestIdx == -1)
-
-						cGameObject* collisionShpere = new cGameObject();
-						collisionShpere->diffuseColour = glm::vec4(0.8f, 0.2f, 0.2f, 0.5f);
-						collisionShpere->specularColour = glm::vec4(0.0f);
-						collisionShpere->meshName = "sphere_lowres";
-						collisionShpere->friendlyName = "collision";
-						collisionShpere->positionXYZ = closestPoint;
-						collisionShpere->scale = 0.5f;
-						collisionShpere->useDiffuse = true;
-
-						::g_vec_pGameObjects.push_back(collisionShpere);
-
-						pObject->positionXYZ += norm * glm::distance(point, closestPoint);
-						pObject->velocity = glm::vec3(0.0f);
-						//break;
-					}
-
-					*/
-
 				} // if (!wr->vecTriangles.empty())
 			} // if (WorldRegion::mapRegions.find(WorldRegion::GenerateID(point)) != WorldRegion::mapRegions.end())
 		} // for (size_t i = 0; i < points.size(); i++)
-
-
-
 
 
 
@@ -427,23 +325,11 @@ int main(void)
 
 
 
-
-
-
 		for (size_t i = 0; i < todraw.size(); i++)
 		{
 			collisionShpere->positionXYZ = todraw[i];
 			DrawObject(glm::mat4(1.0f), collisionShpere, UniformManager::shaderProgID, pTheVAOManager);
 		}
-
-
-
-
-
-
-
-
-
 
 
 		// TODO: Add Back in (Possibly in separate methond)

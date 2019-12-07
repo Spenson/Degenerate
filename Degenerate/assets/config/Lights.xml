@@ -1,80 +1,267 @@
 <LIGHTS>
-  <Light>
-    <Position x="0" y="1500" z="0"/>
-    <Rotation x="4" y="5" z="6"/>
-    <Diffuse r="1" g="1" b="1"/>
-    <ConstAtten f="0.01"/>
-    <LinearAtten f="0.001"/>
-    <QuadraticAtten f="0.00000000000000001"/>
-    <CutOffDistance f="3.402823466e+38"/>
-    <LightType type="0"/>
-    <SpotInnerAngle f="10"/>
-    <SpotOuterAngle f="15"/>
-    <IsLightOn b="1"/>
-  </Light>
-  <Light>
-    <Position x="500" y="100" z="300"/>
-    <Rotation x="4" y="5" z="6"/>
-    <Diffuse r="1" g="1" b="1"/>
-    <ConstAtten f="0.01"/>
-    <LinearAtten f="0.001"/>
-    <QuadraticAtten f="0.00000000000000001"/>
-    <CutOffDistance f="3.402823466e+38"/>
-    <LightType type="0"/>
-    <SpotInnerAngle f="10"/>
-    <SpotOuterAngle f="15"/>
-    <IsLightOn b="1"/>
-  </Light>
-  <Light>
-    <Position x="500" y="100" z="-300"/>
-    <Rotation x="4" y="5" z="6"/>
-    <Diffuse r="1" g="1" b="1"/>
-    <ConstAtten f="0.01"/>
-    <LinearAtten f="0.001"/>
-    <QuadraticAtten f="0.00000000000000001"/>
-    <CutOffDistance f="3.402823466e+38"/>
-    <LightType type="0"/>
-    <SpotInnerAngle f="10"/>
-    <SpotOuterAngle f="15"/>
-    <IsLightOn b="1"/>
-  </Light>
-  <Light>
-    <Position x="-500" y="100" z="300"/>
-    <Rotation x="4" y="5" z="6"/>
-    <Diffuse r="1" g="1" b="1"/>
-    <ConstAtten f="0.01"/>
-    <LinearAtten f="0.001"/>
-    <QuadraticAtten f="0.00000000000000001"/>
-    <CutOffDistance f="3.402823466e+38"/>
-    <LightType type="0"/>
-    <SpotInnerAngle f="10"/>
-    <SpotOuterAngle f="15"/>
-    <IsLightOn b="1"/>
-  </Light>
-  <Light>
-    <Position x="-500" y="100" z="-300"/>
-    <Rotation x="4" y="5" z="6"/>
-    <Diffuse r="1" g="1" b="1"/>
-    <ConstAtten f="0.01"/>
-    <LinearAtten f="0.001"/>
-    <QuadraticAtten f="0.00000000000000001"/>
-    <CutOffDistance f="3.402823466e+38"/>
-    <LightType type="0"/>
-    <SpotInnerAngle f="10"/>
-    <SpotOuterAngle f="15"/>
-    <IsLightOn b="1"/>
-  </Light>
-  <Light>
-    <Position x="0" y="1500" z="0"/>
-    <Rotation x="4" y="5" z="6"/>
-    <Diffuse r="1" g="1" b="1"/>
-    <ConstAtten f="0.000000000000000001"/>
-    <LinearAtten f="0.00000000000006"/>
-    <QuadraticAtten f="0.00000000000000000001"/>
-    <CutOffDistance f="3.402823466e+38"/>
-    <LightType type="0"/>
-    <SpotInnerAngle f="10"/>
-    <SpotOuterAngle f="15"/>
-    <IsLightOn b="0"/>
-  </Light>
+    <Light>
+        <Rotation x="0" y="0" z="0"/>
+        <Direction x="4" y="5" z="6"/>
+        <Position x="0" y="1500" z="0"/>
+        <Diffuse r="1" g="1" b="1"/>
+        <Specular r="1" g="1" b="1" a="1"/>
+        <ConstAtten f="0.0099999998"/>
+        <LinearAtten f="0.001"/>
+        <QuadraticAtten f="9.9999998e-18"/>
+        <LightType type="0"/>
+        <SpotInnerAngle f="10"/>
+        <SpotOuterAngle f="15"/>
+        <IsLightOn b="true"/>
+    </Light>
+    <Light>
+        <Rotation x="0" y="0" z="0"/>
+        <Direction x="4" y="5" z="6"/>
+        <Position x="500" y="100" z="300"/>
+        <Diffuse r="1" g="1" b="1"/>
+        <Specular r="1" g="1" b="1" a="1"/>
+        <ConstAtten f="0.0099999998"/>
+        <LinearAtten f="0.001"/>
+        <QuadraticAtten f="9.9999998e-18"/>
+        <LightType type="0"/>
+        <SpotInnerAngle f="10"/>
+        <SpotOuterAngle f="15"/>
+        <IsLightOn b="true"/>
+    </Light>
+    <Light>
+        <Rotation x="0" y="0" z="0"/>
+        <Direction x="4" y="5" z="6"/>
+        <Position x="500" y="100" z="-300"/>
+        <Diffuse r="1" g="1" b="1"/>
+        <Specular r="1" g="1" b="1" a="1"/>
+        <ConstAtten f="0.0099999998"/>
+        <LinearAtten f="0.001"/>
+        <QuadraticAtten f="9.9999998e-18"/>
+        <LightType type="0"/>
+        <SpotInnerAngle f="10"/>
+        <SpotOuterAngle f="15"/>
+        <IsLightOn b="true"/>
+    </Light>
+    <Light>
+        <Rotation x="0" y="0" z="0"/>
+        <Direction x="4" y="5" z="6"/>
+        <Position x="-500" y="100" z="300"/>
+        <Diffuse r="1" g="1" b="1"/>
+        <Specular r="1" g="1" b="1" a="1"/>
+        <ConstAtten f="0.0099999998"/>
+        <LinearAtten f="0.001"/>
+        <QuadraticAtten f="9.9999998e-18"/>
+        <LightType type="0"/>
+        <SpotInnerAngle f="10"/>
+        <SpotOuterAngle f="15"/>
+        <IsLightOn b="true"/>
+    </Light>
+    <Light>
+        <Rotation x="0" y="0" z="0"/>
+        <Direction x="4" y="5" z="6"/>
+        <Position x="-500" y="100" z="-300"/>
+        <Diffuse r="1" g="1" b="1"/>
+        <Specular r="1" g="1" b="1" a="1"/>
+        <ConstAtten f="0.0099999998"/>
+        <LinearAtten f="0.001"/>
+        <QuadraticAtten f="9.9999998e-18"/>
+        <LightType type="0"/>
+        <SpotInnerAngle f="10"/>
+        <SpotOuterAngle f="15"/>
+        <IsLightOn b="true"/>
+    </Light>
+    <Light>
+        <Rotation x="0" y="0" z="0"/>
+        <Direction x="4" y="5" z="6"/>
+        <Position x="0" y="1500" z="0"/>
+        <Diffuse r="1" g="1" b="1"/>
+        <Specular r="1" g="1" b="1" a="1"/>
+        <ConstAtten f="1e-18"/>
+        <LinearAtten f="5.9999999e-14"/>
+        <QuadraticAtten f="9.9999997e-21"/>
+        <LightType type="0"/>
+        <SpotInnerAngle f="10"/>
+        <SpotOuterAngle f="15"/>
+        <IsLightOn b="false"/>
+    </Light>
+    <Light>
+        <Rotation x="0" y="0" z="0"/>
+        <Direction x="0" y="0" z="0"/>
+        <Position x="-821" y="92.5" z="-19"/>
+        <Diffuse r="1" g="0" b="0"/>
+        <Specular r="0.5" g="0.5" b="0.5" a="1"/>
+        <ConstAtten f="2.1e-10"/>
+        <LinearAtten f="0.050000001"/>
+        <QuadraticAtten f="0.0040000002"/>
+        <LightType type="0"/>
+        <SpotInnerAngle f="10"/>
+        <SpotOuterAngle f="15"/>
+        <IsLightOn b="true"/>
+    </Light>
+    <Light>
+        <Rotation x="0" y="0" z="0"/>
+        <Direction x="0" y="0" z="0"/>
+        <Position x="-778" y="94.5" z="-18"/>
+        <Diffuse r="1" g="0" b="0"/>
+        <Specular r="0.5" g="0.5" b="0.5" a="1"/>
+        <ConstAtten f="2.1e-10"/>
+        <LinearAtten f="0.050000001"/>
+        <QuadraticAtten f="0.0040000002"/>
+        <LightType type="0"/>
+        <SpotInnerAngle f="10"/>
+        <SpotOuterAngle f="15"/>
+        <IsLightOn b="true"/>
+    </Light>
+    <Light>
+        <Rotation x="0" y="0" z="0"/>
+        <Direction x="0" y="0" z="0"/>
+        <Position x="-778" y="94.5" z="23.5"/>
+        <Diffuse r="1" g="0" b="0"/>
+        <Specular r="0.5" g="0.5" b="0.5" a="1"/>
+        <ConstAtten f="2.1e-10"/>
+        <LinearAtten f="0.050000001"/>
+        <QuadraticAtten f="0.0040000002"/>
+        <LightType type="0"/>
+        <SpotInnerAngle f="10"/>
+        <SpotOuterAngle f="15"/>
+        <IsLightOn b="true"/>
+    </Light>
+    <Light>
+        <Rotation x="0" y="0" z="0"/>
+        <Direction x="0" y="0" z="0"/>
+        <Position x="-819.5" y="94.5" z="23.5"/>
+        <Diffuse r="1" g="0" b="0"/>
+        <Specular r="0.5" g="0.5" b="0.5" a="1"/>
+        <ConstAtten f="2.1e-10"/>
+        <LinearAtten f="0.050000001"/>
+        <QuadraticAtten f="0.0040000002"/>
+        <LightType type="0"/>
+        <SpotInnerAngle f="10"/>
+        <SpotOuterAngle f="15"/>
+        <IsLightOn b="true"/>
+    </Light>
+    <Light>
+        <Rotation x="0" y="0" z="0"/>
+        <Direction x="0" y="0" z="0"/>
+        <Position x="-536" y="-84.5" z="-49.5"/>
+        <Diffuse r="1" g="0.5" b="0.25"/>
+        <Specular r="0.5" g="0.5" b="0.5" a="1"/>
+        <ConstAtten f="2.1e-10"/>
+        <LinearAtten f="0.050000001"/>
+        <QuadraticAtten f="0.0040000002"/>
+        <LightType type="0"/>
+        <SpotInnerAngle f="10"/>
+        <SpotOuterAngle f="15"/>
+        <IsLightOn b="true"/>
+    </Light>
+    <Light>
+        <Rotation x="0" y="0" z="0"/>
+        <Direction x="0" y="0" z="0"/>
+        <Position x="-463" y="-84.5" z="-49.5"/>
+        <Diffuse r="1" g="0.5" b="0.25"/>
+        <Specular r="1" g="1" b="1" a="1"/>
+        <ConstAtten f="2.1e-10"/>
+        <LinearAtten f="0.050000001"/>
+        <QuadraticAtten f="0.0040000002"/>
+        <LightType type="0"/>
+        <SpotInnerAngle f="10"/>
+        <SpotOuterAngle f="15"/>
+        <IsLightOn b="true"/>
+    </Light>
+    <Light>
+        <Rotation x="0" y="0" z="0"/>
+        <Direction x="0" y="0" z="0"/>
+        <Position x="-1237.5" y="-82.5" z="-48"/>
+        <Diffuse r="1" g="0.5" b="0.25"/>
+        <Specular r="0.5" g="0.5" b="0.5" a="1"/>
+        <ConstAtten f="2.1e-10"/>
+        <LinearAtten f="0.050000001"/>
+        <QuadraticAtten f="0.0040000002"/>
+        <LightType type="0"/>
+        <SpotInnerAngle f="10"/>
+        <SpotOuterAngle f="15"/>
+        <IsLightOn b="true"/>
+    </Light>
+    <Light>
+        <Rotation x="0" y="0" z="0"/>
+        <Direction x="0" y="0" z="0"/>
+        <Position x="-1166.5" y="-81.5" z="-47"/>
+        <Diffuse r="1" g="0.5" b="0.25"/>
+        <Specular r="0.5" g="0.5" b="0.5" a="1"/>
+        <ConstAtten f="2.1e-10"/>
+        <LinearAtten f="0.050000001"/>
+        <QuadraticAtten f="0.0040000002"/>
+        <LightType type="0"/>
+        <SpotInnerAngle f="10"/>
+        <SpotOuterAngle f="15"/>
+        <IsLightOn b="true"/>
+    </Light>
+    <Light>
+        <Rotation x="0" y="0" z="0"/>
+        <Direction x="0" y="0" z="0"/>
+        <Position x="1522.5" y="-6" z="-16"/>
+        <Diffuse r="1" g="0" b="0"/>
+        <Specular r="0.5" g="0.5" b="0.5" a="1"/>
+        <ConstAtten f="2.1e-10"/>
+        <LinearAtten f="0.050000001"/>
+        <QuadraticAtten f="0.0040000002"/>
+        <LightType type="0"/>
+        <SpotInnerAngle f="10"/>
+        <SpotOuterAngle f="15"/>
+        <IsLightOn b="true"/>
+    </Light>
+    <Light>
+        <Rotation x="0" y="0" z="0"/>
+        <Direction x="0" y="0" z="0"/>
+        <Position x="1522.5" y="-6" z="22.5"/>
+        <Diffuse r="1" g="0" b="0"/>
+        <Specular r="0.5" g="0.5" b="0.5" a="1"/>
+        <ConstAtten f="0.00019999999"/>
+        <LinearAtten f="0.050000001"/>
+        <QuadraticAtten f="0.0040000002"/>
+        <LightType type="0"/>
+        <SpotInnerAngle f="10"/>
+        <SpotOuterAngle f="15"/>
+        <IsLightOn b="true"/>
+    </Light>
+    <Light>
+        <Rotation x="0" y="0" z="0"/>
+        <Direction x="0" y="0" z="0"/>
+        <Position x="1481" y="-6" z="22.5"/>
+        <Diffuse r="1" g="0" b="0"/>
+        <Specular r="0.5" g="0.5" b="0.5" a="1"/>
+        <ConstAtten f="2.1e-10"/>
+        <LinearAtten f="0.050000001"/>
+        <QuadraticAtten f="0.0040000002"/>
+        <LightType type="0"/>
+        <SpotInnerAngle f="10"/>
+        <SpotOuterAngle f="15"/>
+        <IsLightOn b="true"/>
+    </Light>
+    <Light>
+        <Rotation x="0" y="0" z="0"/>
+        <Direction x="0" y="0" z="0"/>
+        <Position x="1481" y="-6" z="-17"/>
+        <Diffuse r="1" g="0" b="0"/>
+        <Specular r="0.5" g="0.5" b="0.5" a="1"/>
+        <ConstAtten f="2.1e-10"/>
+        <LinearAtten f="0.050000001"/>
+        <QuadraticAtten f="0.0040000002"/>
+        <LightType type="0"/>
+        <SpotInnerAngle f="10"/>
+        <SpotOuterAngle f="15"/>
+        <IsLightOn b="true"/>
+    </Light>
+    <Light>
+        <Direction x="862" y="-50.5" z="-200"/>
+        <Position x="862" y="-76.5" z="-171.5"/>
+        <Diffuse r="1" g="0" b="0"/>
+        <Specular r="0.5" g="0.5" b="0.5" a="1"/>
+      <ConstAtten f="0.00001"/>
+      <LinearAtten f="0.00021"/>
+      <QuadraticAtten f="0.001"/>
+        <LightType type="1"/>
+        <SpotInnerAngle f="30"/>
+        <SpotOuterAngle f="30"/>
+        <IsLightOn b="true"/>
+    </Light>
 </LIGHTS>

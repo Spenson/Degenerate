@@ -429,7 +429,7 @@ void LoadLightsFromXMLFile(std::string File, LightManager* g_pLightManager, bool
 		light = new Light();
 
 		if (lightElement->FirstChildElement("Rotation"))
-			light->Direction = GetXYZ(lightElement->FirstChildElement("Rotation"));
+			light->Rotation = GetXYZ(lightElement->FirstChildElement("Rotation"));
 		if (lightElement->FirstChildElement("Direction"))
 			light->Direction = GetXYZ(lightElement->FirstChildElement("Direction"));
 		if (lightElement->FirstChildElement("Position"))
@@ -437,7 +437,7 @@ void LoadLightsFromXMLFile(std::string File, LightManager* g_pLightManager, bool
 		if (lightElement->FirstChildElement("Diffuse"))
 			light->Diffuse = GetRGB(lightElement->FirstChildElement("Diffuse"));
 		if (lightElement->FirstChildElement("Specular"))
-			light->Diffuse = GetRGBA(lightElement->FirstChildElement("Specular"));
+			light->Specular = GetRGBA(lightElement->FirstChildElement("Specular"));
 
 		if (lightElement->FirstChildElement("ConstAtten"))
 			light->ConstAtten = lightElement->FirstChildElement("ConstAtten")->FindAttribute("f")->FloatValue();
@@ -499,7 +499,7 @@ void SaveLightsToXMLFile(std::string File, LightManager* g_pLightManager)
 		((tinyxml2::XMLElement*)newLightElement->InsertEndChild(new_xml_doc.NewElement("ConstAtten")))->SetAttribute("f", light->ConstAtten);
 		((tinyxml2::XMLElement*)newLightElement->InsertEndChild(new_xml_doc.NewElement("LinearAtten")))->SetAttribute("f", light->LinearAtten);
 		((tinyxml2::XMLElement*)newLightElement->InsertEndChild(new_xml_doc.NewElement("QuadraticAtten")))->SetAttribute("f", light->QuadraticAtten);
-		((tinyxml2::XMLElement*)newLightElement->InsertEndChild(new_xml_doc.NewElement("CutOffDistance")))->SetAttribute("f", light->CutOffDistance);
+		//((tinyxml2::XMLElement*)newLightElement->InsertEndChild(new_xml_doc.NewElement("CutOffDistance")))->SetAttribute("f", light->CutOffDistance);
 
 		((tinyxml2::XMLElement*)newLightElement->InsertEndChild(new_xml_doc.NewElement("LightType")))->SetAttribute("type", light->lightType);
 

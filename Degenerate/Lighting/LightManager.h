@@ -37,7 +37,7 @@ public:
 	void PassLightsToShader();
 	void GenerateLights(unsigned LightCount, bool resetCurrentLights);
 	void GenerateLights(std::vector<Light*> vecLights);
-	Light* GetLight(unsigned index);
+	Light* GetLight(unsigned index, bool changeIndex = true);
 	Light* GetLastLight();
 	size_t GetLightCount();
 	void DeleteLights();

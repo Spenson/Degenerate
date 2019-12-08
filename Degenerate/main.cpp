@@ -203,9 +203,9 @@ int main(void)
 
 		//Frame Rate in title bar
 		std::stringstream ssTitle;
-		ssTitle << "Degenerate | " << 1.0 / avgDeltaTimeThingy.getAverage() << " (" << 1.0 / deltaTime << " | " << deltaTime << ")" 
-			<< " Pos: (" << pFindObjectByFriendlyName("Ship")->positionXYZ.x << ", " 
-			<< pFindObjectByFriendlyName("Ship")->positionXYZ.y << ", " 
+		ssTitle << "Degenerate | " << 1.0 / avgDeltaTimeThingy.getAverage() << " (" << 1.0 / deltaTime << " | " << deltaTime << ")"
+			<< " Pos: (" << pFindObjectByFriendlyName("Ship")->positionXYZ.x << ", "
+			<< pFindObjectByFriendlyName("Ship")->positionXYZ.y << ", "
 			<< pFindObjectByFriendlyName("Ship")->positionXYZ.z << ")";
 		glfwSetWindowTitle(window, ssTitle.str().c_str());
 
@@ -275,6 +275,12 @@ int main(void)
 		//pFindObjectByFriendlyName("Ship")->positionXYZ.x += 0.51f;
 		cGameObject* pObject = pFindObjectByFriendlyName("Ship");
 
+		/*
+			<point x="-2.75" y="1.7" z="-10.0"/>
+			<point x="2.75" y="1.7" z="-10.0"/>
+		*/
+
+
 		std::vector<glm::vec3> points = pObject->vecPhysTestPoints;
 		glm::mat4 shipMat = calculateWorldMatrix(pObject, glm::mat4(1.0));
 		for (size_t i = 0; i < points.size(); i++)
@@ -304,35 +310,19 @@ int main(void)
 					DrawObject(matModel, ::g_pDebugCube, UniformManager::shaderProgID, pTheVAOManager);
 
 
-				/*	glm::vec3 closestPoint = glm::vec3(0.0f);
-					size_t closestIdx = -1;
-					float closestDist = FLT_MAX;
-					UnraveiledTriangle* tri = nullptr;// = new UnraveiledTriangle();//WorldRegion::AllTriangles[0];
+					/*	glm::vec3 closestPoint = glm::vec3(0.0f);
+						size_t closestIdx = -1;
+						float closestDist = FLT_MAX;
+						UnraveiledTriangle* tri = nullptr;// = new UnraveiledTriangle();//WorldRegion::AllTriangles[0];
 
 
-					for (std::set<size_t>::iterator i = wr->vecTriangles.begin(); i != wr->vecTriangles.end(); i++)
-					{
-						UnraveiledTriangle* currentTri = WorldRegion::AllTriangles[*i];
-						glm::vec3 curClosestPoint = pPhsyics->ClosestPtPointTriangle(point, currentTri->a, currentTri->b, currentTri->c);
-
-						if (glm::dot(glm::normalize(pObject->positionXYZ - closestPoint), glm::normalize((currentTri->an + currentTri->bn + currentTri->cn) / 3.0f)) <= 0.0f)
-							continue;
-
-						if (glm::distance(curClosestPoint, point) < closestDist)
-						{
-							closestDist = glm::distance(curClosestPoint, point);
-							closestPoint = curClosestPoint;
-							closestIdx = *i;
-							tri = currentTri;
-						} // if (glm::distance(curClosestPoint, point) < closestDist)
-					} // for (std::set<size_t>::iterator i = wr->vecTriangles.begin(); i != wr->vecTriangles.end(); i++)
-
-					if (closestIdx == -1)
-					{
 						for (std::set<size_t>::iterator i = wr->vecTriangles.begin(); i != wr->vecTriangles.end(); i++)
 						{
 							UnraveiledTriangle* currentTri = WorldRegion::AllTriangles[*i];
 							glm::vec3 curClosestPoint = pPhsyics->ClosestPtPointTriangle(point, currentTri->a, currentTri->b, currentTri->c);
+
+							if (glm::dot(glm::normalize(pObject->positionXYZ - closestPoint), glm::normalize((currentTri->an + currentTri->bn + currentTri->cn) / 3.0f)) <= 0.0f)
+								continue;
 
 							if (glm::distance(curClosestPoint, point) < closestDist)
 							{
@@ -342,66 +332,82 @@ int main(void)
 								tri = currentTri;
 							} // if (glm::distance(curClosestPoint, point) < closestDist)
 						} // for (std::set<size_t>::iterator i = wr->vecTriangles.begin(); i != wr->vecTriangles.end(); i++)
-					}
 
-					//tri = WorldRegion::AllTriangles[closestIdx];
-					//TODO: calc face normal
-					glm::vec3 norm = glm::normalize((tri->an + tri->bn + tri->cn) / 3.0f);
+						if (closestIdx == -1)
+						{
+							for (std::set<size_t>::iterator i = wr->vecTriangles.begin(); i != wr->vecTriangles.end(); i++)
+							{
+								UnraveiledTriangle* currentTri = WorldRegion::AllTriangles[*i];
+								glm::vec3 curClosestPoint = pPhsyics->ClosestPtPointTriangle(point, currentTri->a, currentTri->b, currentTri->c);
 
-					/*::g_pDebugSphere->scale = 0.5f;
-					::g_pDebugSphere->isWireframe = true;
-					::g_pDebugSphere->debugColour = glm::vec4(1.0f, 1.0f, 0.0f, 1.0f);
-					::g_pDebugSphere->positionXYZ = closestPoint;
-					DrawObject(glm::mat4(1.0f), ::g_pDebugSphere, UniformManager::shaderProgID, pTheVAOManager);
+								if (glm::distance(curClosestPoint, point) < closestDist)
+								{
+									closestDist = glm::distance(curClosestPoint, point);
+									closestPoint = curClosestPoint;
+									closestIdx = *i;
+									tri = currentTri;
+								} // if (glm::distance(curClosestPoint, point) < closestDist)
+							} // for (std::set<size_t>::iterator i = wr->vecTriangles.begin(); i != wr->vecTriangles.end(); i++)
+						}
 
-					pDebugRenderer->addLine(closestPoint, (closestPoint + (norm * 10.0f)), glm::vec3(1.0f));
+						//tri = WorldRegion::AllTriangles[closestIdx];
+						//TODO: calc face normal
+						glm::vec3 norm = glm::normalize((tri->an + tri->bn + tri->cn) / 3.0f);
+
+						/*::g_pDebugSphere->scale = 0.5f;
+						::g_pDebugSphere->isWireframe = true;
+						::g_pDebugSphere->debugColour = glm::vec4(1.0f, 1.0f, 0.0f, 1.0f);
+						::g_pDebugSphere->positionXYZ = closestPoint;
+						DrawObject(glm::mat4(1.0f), ::g_pDebugSphere, UniformManager::shaderProgID, pTheVAOManager);
+
+						pDebugRenderer->addLine(closestPoint, (closestPoint + (norm * 10.0f)), glm::vec3(1.0f));
 
 
-					if (glm::dot(glm::normalize(point - closestPoint), norm) <= 0.0f)
-					{
-						//if (glm::dot(glm::normalize(pObject->positionXYZ - closestPoint), norm) <= 0.0f) // your center is behind closest tri / are right inside an object
-						//{
-						//	// Loop through and find proper triangle
-						//	for (std::set<size_t>::iterator i = wr->vecTriangles.begin(); i != wr->vecTriangles.end(); i++)
-						//	{
-						//		UnraveiledTriangle* currentTri = WorldRegion::AllTriangles[*i];
-						//		glm::vec3 curClosestPoint = pPhsyics->ClosestPtPointTriangle(point, currentTri->a, currentTri->b, currentTri->c);
+						if (glm::dot(glm::normalize(point - closestPoint), norm) <= 0.0f)
+						{
+							//if (glm::dot(glm::normalize(pObject->positionXYZ - closestPoint), norm) <= 0.0f) // your center is behind closest tri / are right inside an object
+							//{
+							//	// Loop through and find proper triangle
+							//	for (std::set<size_t>::iterator i = wr->vecTriangles.begin(); i != wr->vecTriangles.end(); i++)
+							//	{
+							//		UnraveiledTriangle* currentTri = WorldRegion::AllTriangles[*i];
+							//		glm::vec3 curClosestPoint = pPhsyics->ClosestPtPointTriangle(point, currentTri->a, currentTri->b, currentTri->c);
 
 
-						//		//glm::vec3 norm = glm::normalize((currentTri->an + currentTri->bn + currentTri->cn) / 3.0f);
-						//		// Is center behind triangle
-						//		if (glm::dot(glm::normalize(pObject->positionXYZ - closestPoint), glm::normalize((currentTri->an + currentTri->bn + currentTri->cn) / 3.0f)) <= 0.0f)
-						//			continue;
-						//		//tri = WorldRegion::AllTriangles[*i];
-						//		//glm::vec3 curClosestPoint = pPhsyics->ClosestPtPointTriangle(point, tri->a, tri->b, tri->c);
+							//		//glm::vec3 norm = glm::normalize((currentTri->an + currentTri->bn + currentTri->cn) / 3.0f);
+							//		// Is center behind triangle
+							//		if (glm::dot(glm::normalize(pObject->positionXYZ - closestPoint), glm::normalize((currentTri->an + currentTri->bn + currentTri->cn) / 3.0f)) <= 0.0f)
+							//			continue;
+							//		//tri = WorldRegion::AllTriangles[*i];
+							//		//glm::vec3 curClosestPoint = pPhsyics->ClosestPtPointTriangle(point, tri->a, tri->b, tri->c);
 
-						//		if (glm::distance(curClosestPoint, point) < closestDist)
-						//		{
-						//			closestDist = glm::distance(curClosestPoint, point);
-						//			closestPoint = curClosestPoint;
-						//			closestIdx = *i;
-						//			tri = currentTri;
-						//		} // if (glm::distance(curClosestPoint, point) < closestDist)
-						//	} // for (std::set<size_t>::iterator i = wr->vecTriangles.begin(); i != wr->vecTriangles.end(); i++)
-						//} // if (closestIdx == -1)
+							//		if (glm::distance(curClosestPoint, point) < closestDist)
+							//		{
+							//			closestDist = glm::distance(curClosestPoint, point);
+							//			closestPoint = curClosestPoint;
+							//			closestIdx = *i;
+							//			tri = currentTri;
+							//		} // if (glm::distance(curClosestPoint, point) < closestDist)
+							//	} // for (std::set<size_t>::iterator i = wr->vecTriangles.begin(); i != wr->vecTriangles.end(); i++)
+							//} // if (closestIdx == -1)
 
-						cGameObject* collisionShpere = new cGameObject();
-						collisionShpere->diffuseColour = glm::vec4(0.8f, 0.2f, 0.2f, 0.5f);
-						collisionShpere->specularColour = glm::vec4(0.0f);
-						collisionShpere->meshName = "sphere_lowres";
-						collisionShpere->friendlyName = "collision";
-						collisionShpere->positionXYZ = closestPoint;
-						collisionShpere->scale = 0.5f;
-						collisionShpere->useDiffuse = true;
+							cGameObject* collisionShpere = new cGameObject();
+							collisionShpere->diffuseColour = glm::vec4(0.8f, 0.2f, 0.2f, 0.5f);
+							collisionShpere->specularColour = glm::vec4(0.0f);
+							collisionShpere->meshName = "sphere_lowres";
+							collisionShpere->friendlyName = "collision";
+							collisionShpere->positionXYZ = closestPoint;
+							collisionShpere->scale = 0.5f;
+							collisionShpere->useDiffuse = true;
 
-						::g_vec_pGameObjects.push_back(collisionShpere);
+							::g_vec_pGameObjects.push_back(collisionShpere);
 
-						pObject->positionXYZ += norm * glm::distance(point, closestPoint);
-						pObject->velocity = glm::vec3(0.0f);
-						//break;
-					}
+							pObject->positionXYZ += norm * glm::distance(point, closestPoint);
+							pObject->velocity = glm::vec3(0.0f);
+							//break;
+						}
 
-					*/
+						*/
 
 				} // if (!wr->vecTriangles.empty())
 			} // if (WorldRegion::mapRegions.find(WorldRegion::GenerateID(point)) != WorldRegion::mapRegions.end())
@@ -418,10 +424,12 @@ int main(void)
 		pPhsyics->IntegrationStep(::g_vec_pGameObjects, deltaTime);//(float)averageDeltaTime);
 
 
-		
+
 		pPhsyics->TestForCollisions(::g_vec_pGameObjects, todraw);
 
 
+		g_pLightManager->GetLight(g_pLightManager->GetLightCount() - 1, false)->Position = calculateWorldMatrix(pFindObjectByFriendlyName("Ship"), glm::mat4(1.0)) * glm::vec4(-2.75, .5, -10.0, 1);
+		g_pLightManager->GetLight(g_pLightManager->GetLightCount() - 2, false)->Position = calculateWorldMatrix(pFindObjectByFriendlyName("Ship"), glm::mat4(1.0)) * glm::vec4(2.75, .5, -10.0, 1);
 
 
 

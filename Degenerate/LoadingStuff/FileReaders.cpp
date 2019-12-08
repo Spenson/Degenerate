@@ -239,7 +239,7 @@ cGameObject* LoadGameObjectNode(tinyxml2::XMLElement* objectElement)
 	}
 
 	if (objectElement->FirstChildElement("DoNotLight"))
-		object->isWireframe = objectElement->FirstChildElement("DoNotLight")->FindAttribute("b")->BoolValue();
+		object->doNotLight = objectElement->FirstChildElement("DoNotLight")->FindAttribute("b")->BoolValue();
 
 	if (objectElement->FirstChildElement("IsImposter"))
 		object->isImposter = objectElement->FirstChildElement("IsImposter")->FindAttribute("b")->BoolValue();

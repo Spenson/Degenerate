@@ -1,6 +1,7 @@
 <TEXTURES>
   <TextureGroup>
     <Dir>assets/textures/</Dir>
+    <File>Untitled.bmp</File>
     <File>BLACK.bmp</File>
     <File>DARK_SEA_GREEN.bmp</File>
     <File>DREADHUL_square.bmp</File>

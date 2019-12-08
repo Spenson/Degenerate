@@ -8,7 +8,7 @@
     <Scale f="1" x="1" y="1" z="1"/>
 
     <ObjectColour r="1" g="1" b=".45" a="0.5"/>
-    <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <DiffuseColour r="0.5" g="0.5" b="0.5" a="1"/>
     <SpecularColour r="1" g="1" b="1" a="1000"/>
     <DebugColour r="1" g="1" b="1" a="1"/>
 
@@ -17,7 +17,7 @@
     <InverseMass f="0"/>
 
     <PhysicsShapeType type="0"/>
-
+    <UseDiffuse b="1"/>
     <Wireframe b="0"/>
     <Visible b="1"/>
     <DisableDepthTest b="0"/>
@@ -41,6 +41,10 @@
     <InverseMass f="1.0f"/>
 
     <PhysicsShapeType type="6"/>
+
+    <Textures>
+      <texture index="0" name="Untitled.bmp" ratio="1"/>
+    </Textures>
 
     <TestPoints>
       <point x="1.6" y="-0.6" z="10"/>
@@ -499,7 +503,7 @@
       <texture index="2" name="" ratio="0"/>
       <texture index="3" name="" ratio="0"/>
     </Textures>
-    <DoNotLight b="true"/>
+    <DoNotLight b="false"/>
 
     <Velocity x="0" y="0" z="0"/>
     <Acceleration x="0" y="0" z="0"/>
@@ -546,5 +550,34 @@
     </ChildObjects>
   </GameObject>
 
+
+
+
+
+  <!--<GameObject>
+    <MeshName>cube</MeshName>
+    <FriendlyName>test</FriendlyName>
+
+    <Position x="2000" y="-100" z="0"/>
+    <Rotation x="0" y="-90" z="0"/>
+    <Scale f="500" x="5000" y="5000" z="1"/>
+
+    <ObjectColour r="1" g="1" b=".45" a="1"/>
+    <DiffuseColour r="1" g="1" b="1" a="1"/>
+    <SpecularColour r="1" g="1" b="1" a="100"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+
+
+    <Velocity x="0" y="0" z="0"/>
+    <Acceleration x="0" y="0" z="0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="0"/>
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>-->
 
 </GAMEOBJECTS>

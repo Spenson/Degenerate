@@ -1,7 +1,59 @@
 <LIGHTS>
   <Light>
-    <Position x="0" y="1500" z="0"/>
-    <Rotation x="4" y="5" z="6"/>
+    <Position x="-2.75" y="0.5" z="-10.0"/>
+    <Diffuse r="1" g="0" b="0"/>
+    <Specular r="0.5" g="0.5" b="0.5" a="1"/>
+    <ConstAtten f="2.1e-10"/>
+    <LinearAtten f="0.08"/>
+    <QuadraticAtten f="0.3"/>
+    <LightType type="0"/>
+    <SpotInnerAngle f="10"/>
+    <SpotOuterAngle f="15"/>
+    <IsLightOn b="true"/>
+  </Light>
+  <Light>
+    <Position x="2.75" y="0.5" z="-10.0"/>
+    <Diffuse r="1" g="0" b="0"/>
+    <Specular r="0.5" g="0.5" b="0.5" a="1"/>
+    <ConstAtten f="2.1e-10"/>
+    <LinearAtten f="0.08"/>
+    <QuadraticAtten f="0.3"/>
+    <LightType type="0"/>
+    <SpotInnerAngle f="10"/>
+    <SpotOuterAngle f="15"/>
+    <IsLightOn b="true"/>
+  </Light>
+
+  <Light>
+    <Direction x="0.15" y="0" z="1"/>
+    <Position x="1.6" y="-0.6" z="10"/>
+    <Diffuse r="1" g="1" b="1"/>
+    <Specular r="0.5" g="0.5" b="0.5" a="1"/>
+    <ConstAtten f="0.0000000001"/>
+    <LinearAtten f="0.0001"/>
+    <QuadraticAtten f="0.0001"/>
+    <LightType type="1"/>
+    <SpotInnerAngle f="7.5"/>
+    <SpotOuterAngle f="12.5"/>
+    <IsLightOn b="true"/>
+  </Light>
+  <Light>
+    <Direction x="-0.15" y="0" z="1"/>
+    <Position x="-1.6" y="-0.6" z="10"/>
+    <Diffuse r="1" g="1" b="1"/>
+    <Specular r="0.5" g="0.5" b="0.5" a="1"/>
+    <ConstAtten f="0.0000000001"/>
+    <LinearAtten f="0.0001"/>
+    <QuadraticAtten f="0.0001"/>
+    <LightType type="1"/>
+    <SpotInnerAngle f="7.5"/>
+    <SpotOuterAngle f="12.5"/>
+    <IsLightOn b="true"/>
+  </Light>
+  
+  
+  <Light>
+    <Position x="500" y="1500" z="0"/>
     <Diffuse r="1" g="1" b="1"/>
     <ConstAtten f="0.01"/>
     <LinearAtten f="0.001"/>
@@ -12,7 +64,7 @@
     <SpotOuterAngle f="15"/>
     <IsLightOn b="1"/>
   </Light>
-  <Light>
+  <!--<Light>
     <Position x="500" y="100" z="300"/>
     <Rotation x="4" y="5" z="6"/>
     <Diffuse r="1" g="1" b="1"/>
@@ -76,5 +128,5 @@
     <SpotInnerAngle f="10"/>
     <SpotOuterAngle f="15"/>
     <IsLightOn b="0"/>
-  </Light>
+  </Light>-->
 </LIGHTS>

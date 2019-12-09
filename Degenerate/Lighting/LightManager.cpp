@@ -74,10 +74,14 @@ void LightManager::PassLightsToShader()
 		ShaderLightUniformLocations& curUniLocs = this->vecUniformLocations[index];
 		if (curLight->isLightOn)
 		{
+
+			glm::vec3 pos = curLight->matrix * glm::vec4(curLight->Position, 1.0f);
+
+			
 			glUniform4f(curUniLocs.Position.location,
-						curLight->Position.x,
-						curLight->Position.y,
-						curLight->Position.z,
+						pos.x,
+						pos.y,
+						pos.z,
 						1.0f); // currently unused
 
 			glUniform4f(curUniLocs.Diffuse.location,
@@ -99,7 +103,7 @@ void LightManager::PassLightsToShader()
 						curLight->CutOffDistance);
 
 
-			glm::vec3 EulerAngleRadians;
+			/*glm::vec3 EulerAngleRadians;
 			EulerAngleRadians.x = glm::radians(curLight->Rotation.x);
 			EulerAngleRadians.y = glm::radians(curLight->Rotation.y);
 			EulerAngleRadians.z = glm::radians(curLight->Rotation.z);
@@ -107,7 +111,12 @@ void LightManager::PassLightsToShader()
 			glm::quat angleChange = glm::quat(EulerAngleRadians);
 			glm::mat4 matRotation = glm::mat4(angleChange);
 
-			glm::vec4 dir = (matRotation * glm::vec4(glm::normalize(curLight->Direction), 1.0f));
+
+
+			glm::vec4 dir = (matRotation * glm::vec4(glm::normalize(curLight->Direction), 1.0f));*/
+
+			glm::vec4 dir = glm::inverse(glm::transpose(curLight->matrix)) * glm::vec4(curLight->Direction, 1.0f);
+
 
 			glUniform4f(curUniLocs.Direction.location,
 						dir.x,

@@ -83,6 +83,7 @@ vec4 calcualteLightContrib( vec3 vertexMaterialColour, vec3 vertexNormal,
 	 
 void main()  
 {
+
 	// Shader Type #1  	Do Not Light
 	if ( boolModifiers.x == 1.0f)
 	{
@@ -99,16 +100,27 @@ void main()
 		// - texture map
 		// - Use colour to compare to black and change alpha 
 		// - Use colour to compare the black for discard
-		vec3 texRGB = texture( textSamp00, fUVx2.st ).rgb;
+		//vec3 texRGB = texture( textSamp00, fUVx2.st ).rgb;
 		
-		pixelColour.rgb = texRGB.rgb;
+		vec3 tex0_RGB = texture( textSamp00, fUVx2.st ).rgb;
+		vec3 tex1_RGB = texture( textSamp01, fUVx2.st ).rgb;
+		vec3 tex2_RGB = texture( textSamp02, fUVx2.st ).rgb;
+		vec3 tex3_RGB = texture( textSamp03, fUVx2.st ).rgb;
 		
+		vec3 texRGB =   ( tex_0_3_ratio.x * tex0_RGB ) 
+					  + ( tex_0_3_ratio.y * tex1_RGB )
+					  + ( tex_0_3_ratio.z * tex2_RGB )
+					  + ( tex_0_3_ratio.w * tex3_RGB );
+
 		// Note that your eye doesn't see this, 
 		// Use this equation instead: 0.21 R + 0.72 G + 0.07 B
 		float grey = (texRGB.r + texRGB.g + texRGB.b)/3.0f;
 		
 		// If it's REALLY black, then discard
 		if ( grey < 0.05 ) 	{	discard; }
+
+
+		pixelColour.rgb = texRGB.rgb;
 		
 		// Otherwise control alpha with "black and white" amount
 		pixelColour.a = grey;
@@ -128,15 +140,16 @@ void main()
 		// I sample the skybox using the normal from the surface
 		vec3 skyColour = texture( skyBox, -fNormal.xyz ).rgb;
 		pixelColour.rgb = skyColour.rgb;
-		// pixelColour.rgb *= 0.01f;
-		// pixelColour.rgb = fNormal.xyz;
-		pixelColour.a = 1.0f;				// NOT transparent
-		
-		// pixelColour.rgb *= 1.5f;		// Make it a little brighter
+		pixelColour.a = 1.0f;				
+		//pixelColour.rgb *= 1.5f;		// Make it a little brighter
 		return;
 	}
 	
 		
+	if ( diffuseColour.a <= 0.01f )		// Basically "invisable"
+	{
+		discard;
+	}
 	
 	// Shader Type #4/4.5 Diffuse and texture
 	vec4 materialColour = diffuseColour;
@@ -191,11 +204,6 @@ void main()
 	// Control the alpha channel from the texture	  
 	//pixelColour.a = 1.0f;
 	pixelColour.a = diffuseColour.a;
-	if ( pixelColour.a <= 0.001f )		// Basically "black"
-	{
-		discard;
-		//pixelColour.a = 0.0f;
-	}
 	// Projector is too dim
 	//pixelColour.rgb *= 1.5f;
 

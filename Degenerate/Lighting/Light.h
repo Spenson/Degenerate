@@ -8,7 +8,8 @@ public:
 	Light();
 	virtual ~Light();
 
-	glm::vec3 Rotation; // Euler Degree will convert to quat
+	//glm::vec3 Rotation; // Euler Degree will convert to quat
+	glm::mat4 matrix;
 	glm::vec3 Direction; 
 	glm::vec3 Position;
 	glm::vec3 Diffuse;

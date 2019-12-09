@@ -110,7 +110,7 @@ void LoadTexturesFromFile(std::string File, cBasicTextureManager* TextureManager
 			//std::cout << node->Name() << std::endl;
 			if (strcmp(node->Name(), "File") == 0)
 			{
-				
+
 				if (::g_pTextureManager->Create2DTextureFromBMPFile(node->GetText(), true))
 					std::cout << "Loaded texture: " << node->GetText() << std::endl;
 				else
@@ -239,7 +239,7 @@ cGameObject* LoadGameObjectNode(tinyxml2::XMLElement* objectElement)
 	}
 
 	if (objectElement->FirstChildElement("DoNotLight"))
-		object->isWireframe = objectElement->FirstChildElement("DoNotLight")->FindAttribute("b")->BoolValue();
+		object->doNotLight = objectElement->FirstChildElement("DoNotLight")->FindAttribute("b")->BoolValue();
 
 	if (objectElement->FirstChildElement("IsImposter"))
 		object->isImposter = objectElement->FirstChildElement("IsImposter")->FindAttribute("b")->BoolValue();
@@ -428,8 +428,8 @@ void LoadLightsFromXMLFile(std::string File, LightManager* g_pLightManager, bool
 	{
 		light = new Light();
 
-		if (lightElement->FirstChildElement("Rotation"))
-			light->Direction = GetXYZ(lightElement->FirstChildElement("Rotation"));
+		//if (lightElement->FirstChildElement("Rotation"))
+		//	light->Rotation = GetXYZ(lightElement->FirstChildElement("Rotation"));
 		if (lightElement->FirstChildElement("Direction"))
 			light->Direction = GetXYZ(lightElement->FirstChildElement("Direction"));
 		if (lightElement->FirstChildElement("Position"))
@@ -437,7 +437,7 @@ void LoadLightsFromXMLFile(std::string File, LightManager* g_pLightManager, bool
 		if (lightElement->FirstChildElement("Diffuse"))
 			light->Diffuse = GetRGB(lightElement->FirstChildElement("Diffuse"));
 		if (lightElement->FirstChildElement("Specular"))
-			light->Diffuse = GetRGBA(lightElement->FirstChildElement("Specular"));
+			light->Specular = GetRGBA(lightElement->FirstChildElement("Specular"));
 
 		if (lightElement->FirstChildElement("ConstAtten"))
 			light->ConstAtten = lightElement->FirstChildElement("ConstAtten")->FindAttribute("f")->FloatValue();
@@ -490,7 +490,7 @@ void SaveLightsToXMLFile(std::string File, LightManager* g_pLightManager)
 
 		tinyxml2::XMLElement* newLightElement = new_xml_doc.NewElement("Light");
 
-		SetXYZ(newLightElement->InsertEndChild(new_xml_doc.NewElement("Rotation")), light->Rotation);
+		//SetXYZ(newLightElement->InsertEndChild(new_xml_doc.NewElement("Rotation")), light->Rotation);
 		SetXYZ(newLightElement->InsertEndChild(new_xml_doc.NewElement("Direction")), light->Direction);
 		SetXYZ(newLightElement->InsertEndChild(new_xml_doc.NewElement("Position")), light->Position);
 		SetRGB(newLightElement->InsertEndChild(new_xml_doc.NewElement("Diffuse")), light->Diffuse);
@@ -499,7 +499,7 @@ void SaveLightsToXMLFile(std::string File, LightManager* g_pLightManager)
 		((tinyxml2::XMLElement*)newLightElement->InsertEndChild(new_xml_doc.NewElement("ConstAtten")))->SetAttribute("f", light->ConstAtten);
 		((tinyxml2::XMLElement*)newLightElement->InsertEndChild(new_xml_doc.NewElement("LinearAtten")))->SetAttribute("f", light->LinearAtten);
 		((tinyxml2::XMLElement*)newLightElement->InsertEndChild(new_xml_doc.NewElement("QuadraticAtten")))->SetAttribute("f", light->QuadraticAtten);
-		((tinyxml2::XMLElement*)newLightElement->InsertEndChild(new_xml_doc.NewElement("CutOffDistance")))->SetAttribute("f", light->CutOffDistance);
+		//((tinyxml2::XMLElement*)newLightElement->InsertEndChild(new_xml_doc.NewElement("CutOffDistance")))->SetAttribute("f", light->CutOffDistance);
 
 		((tinyxml2::XMLElement*)newLightElement->InsertEndChild(new_xml_doc.NewElement("LightType")))->SetAttribute("type", light->lightType);
 

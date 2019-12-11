@@ -11,19 +11,19 @@ bool FollowCurveCommand::IsDone()
 	return m_Done;
 }
 
-glm::vec3 getCurvePoint(std::vector<glm::vec3> const& points, float step)
+glm::vec3 getCurvePoint(std::vector<glm::vec3> const& points, float const& step)
 {
+
+	if (points.size() == 1)
+	{
+		return points[0];
+	}
 
 	std::vector<glm::vec3> newPoints;
 
 	for(size_t idx = 0; idx < points.size()-1; idx++)
 	{
 		newPoints.push_back(((points[idx+1] - points[idx]) * step) + points[idx]);
-	}
-
-	if (newPoints.size() == 1)
-	{
-		return newPoints[0];
 	}
 
 	return getCurvePoint(newPoints, step);

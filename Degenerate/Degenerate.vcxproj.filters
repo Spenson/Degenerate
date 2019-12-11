@@ -117,6 +117,7 @@
     <ClCompile Include="Commands\FollowCurveCommand.cpp" />
     <ClCompile Include="Commands\FollowObjectCommand.cpp" />
     <ClCompile Include="Commands\LocationTrigger.cpp" />
+    <ClCompile Include="Commands\cLuaBrain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLCommon.h" />
@@ -226,6 +227,7 @@
     <ClInclude Include="Commands\FollowCurveCommand.h" />
     <ClInclude Include="Commands\FollowObjectCommand.h" />
     <ClInclude Include="Commands\LocationTrigger.h" />
+    <ClInclude Include="Commands\cLuaBrain.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="DebugRenderer">

@@ -23,6 +23,7 @@
 #include <sstream>
 
 #include "Commands/Commands.h"
+#include "Commands/cLuaBrain.h"
 
 cFlyCamera* g_pFlyCamera = NULL;
 cBasicTextureManager* g_pTextureManager = NULL;
@@ -153,18 +154,35 @@ int main(void)
 	tpc.SetTargetRelitiveToObject(glm::vec3(0.0f, 10.0f, 0.0f));
 
 
-	g_ParentCommandGroup = MakeCommand("ParallelGroup", "Parent", "");
+	g_ParentCommandGroup = createParent("Parent");
 
 	g_pFreeCamera->SetPosition(glm::vec3(100,1100,-30));
 	//iCommand* group = MakeCommand("SerialGroup", "GroupTest", "Ship 100.0 0.0 -30.0 20.0 15.0 15.0");
 
-	std::vector<iCommand*> commands;
+	//std::vector<iCommand*> commands;
 	//commands.push_back(MakeCommand("Move", "move1", "Ship 100.0 0.0 -30.0 20.0 0.0 0.0"));
 	//commands.push_back(MakeCommand("Rotate", "rotate1", "Ship 100.0 0.0 -30.0 20.0 0.0 0.0"));
-	commands.push_back(MakeCommand("FollowCurve", "curveTest", "Ship   100.0 1000.0 -30.0   200.0 1000.0 0.0   200.0 1000.0 -100.0   100.0 1000.0 -300.0   400.0 1000.0 -100.0   20.0 10.0 10.0"));
-	commands.push_back(MakeCommand("FollowObject", "followTest", "Ship Ship2   100.0 12.0 40.0 20.0"));
-	AddCommandsToGroup(commands);
+	//commands.push_back(MakeCommand("FollowCurve", "curveTest", "Ship   100.0 1000.0 -30.0   200.0 1000.0 0.0   200.0 1000.0 -100.0   100.0 1000.0 -300.0   400.0 1000.0 -100.0   20.0 10.0 10.0"));
+	//commands.push_back(MakeCommand("FollowObject", "followTest", "Ship Ship2   100.0 12.0 40.0 20.0"));
+	//AddCommandsToGroup(commands);
 
+
+
+	cLuaBrain* p_LuaScripts = new cLuaBrain();
+
+
+	std::ifstream t("assets/script.lua");
+	std::string luaScript = std::string((std::istreambuf_iterator<char>(t)),
+						 std::istreambuf_iterator<char>());
+	t.close();
+
+
+	/*std::string luaScript = "a = \"FollowCurve\" \
+							b = \"curveTest\" \
+							c = \"Ship   100.0 1000.0 -30.0   200.0 1000.0 0.0   200.0 1000.0 -100.0   100.0 1000.0 -300.0   400.0 1000.0 -100.0   20.0 10.0 10.0\"\
+							d = CreateCommand(a,b,c)\
+							AddCommandToGroup(d, 0)";*/
+	p_LuaScripts->RunThis(luaScript);
 	/*MoveCommand* move = new MoveCommand("test");
 
 	sPair To;		To.numData = glm::vec4(100.0f, 0.0, -30.0, 1.0f);
@@ -242,10 +260,7 @@ int main(void)
 
 		avgDeltaTimeThingy.addValue(deltaTime);
 		
-		if (!g_ParentCommandGroup->IsDone())
-		{
-			g_ParentCommandGroup->Update(deltaTime);
-		}
+
 
 
 		//Frame Rate in title bar
@@ -345,7 +360,10 @@ int main(void)
 
 
 
-
+		if (!g_ParentCommandGroup->IsDone())
+		{
+			g_ParentCommandGroup->Update(deltaTime);
+		}
 
 
 

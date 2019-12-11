@@ -7,6 +7,7 @@
 #include "RotateCommand.h"
 #include "FollowCurveCommand.h"
 #include "FollowObjectCommand.h"
+#include "LocationTrigger.h"
 
 
 #include <iostream>
@@ -29,7 +30,12 @@ extern iCommand* g_ParentCommandGroup;
 //	}
 //}
 
-iCommand* MakeCommand(std::string type, std::string name, std::string params)
+
+std::map<int, iCommand*> commandLookup;
+
+
+
+int MakeCommand(std::string type, std::string name, std::string params)
 {
 	iCommand* command = nullptr;
 
@@ -134,12 +140,34 @@ iCommand* MakeCommand(std::string type, std::string name, std::string params)
 		ss >> vecParams[0].numData.w;
 		command->Init(vecParams);
 	}
+	else if ("LocationTrigger")
+	{
+		command = new LocationTrigger(name);
+
+		std::stringstream ss(params);
+
+		std::string objectName;
+		ss >> objectName;
+
+		std::vector<sPair> vecParams(2);
+		ss >> vecParams[0].numData.x;
+		ss >> vecParams[0].numData.y;
+		ss >> vecParams[0].numData.z;
+
+		ss >> vecParams[1].numData.x;
+
+		command->SetGameObject(pFindObjectByFriendlyName(objectName));
+		command->Init(vecParams);
+	}
 	else
 	{
 		std::cout << "Error: Unknown Command Type (" << type << ")" << std::endl;
 	}
 
-	return command;
+	commandLookup[commandLookup.size() + 1] = command;
+
+
+	return commandLookup.size();
 }
 
 //iCommand* InitCommand(iCommand* command, std::vector<sPair> params)
@@ -149,32 +177,37 @@ iCommand* MakeCommand(std::string type, std::string name, std::string params)
 //	return command;
 //}
 
-iCommand* AddCommandsToGroup(std::vector<iCommand*> commands, iCommand* commandGroup)
+int AddCommandsToGroup(std::vector<int> commands, int commandGroup)
 {
 	if (commandGroup == 0)
 	{
-		for (iCommand* command : commands)
+		for (int command : commands)
 		{
-			g_ParentCommandGroup->AddCommand(command);
+			g_ParentCommandGroup->AddCommand(commandLookup[command]);
 		}
-		return g_ParentCommandGroup;
+		return 0;
 	}
 
 
-	for (iCommand* command : commands)
+	for (int command : commands)
 	{
-		commandGroup->AddCommand(command);
+		commandLookup[commandGroup]->AddCommand(commandLookup[command]);
 	}
 	return commandGroup;
 }
 
-iCommand* AddCommandToGroup(iCommand* command, iCommand* commandGroup)
+int AddCommandToGroup(int command, int commandGroup)
 {
 	if (commandGroup == 0)
 	{
-		g_ParentCommandGroup->AddCommand(command);
-		return g_ParentCommandGroup;
+		g_ParentCommandGroup->AddCommand(commandLookup[command]);
+		return 0;
 	}
-	commandGroup->AddCommand(command);
+	commandLookup[commandGroup]->AddCommand(commandLookup[command]);
 	return commandGroup;
+}
+
+iCommand* createParent(std::string name)
+{
+	return new ParallelCommandGroup(name);
 }

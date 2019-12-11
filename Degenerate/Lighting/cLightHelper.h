@@ -16,7 +16,7 @@ public:
 	// This is a helper function that returns a light "brightness" level
 	//	based on the attenuation functions. It's closely tied to the shader
 	//	so if the shader changes, you'd have to change this, too
-	// The idea is that you can approximate how far an object would have 
+	// The idea is that you can approximate how far an m_pGO would have 
 	//	to be from the light for a given lightLevel (from 0.0 to 1.0), 
 	//	within a certain accuracy. 
 	// Accuracy could be something like 1% or 0.01f.

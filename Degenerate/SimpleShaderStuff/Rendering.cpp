@@ -74,20 +74,20 @@ void DrawObject(glm::mat4 matModel, cGameObject* pCurrentObject, GLint shaderPro
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	// This block of code, where I generate the world matrix from the 
-	// position, scale, and rotation (orientation) of the object
+	// position, scale, and rotation (orientation) of the m_pGO
 	// has been placed into calculateWorldMatrix()
 
 
 	// ************ 
 	// Set the texture bindings and samplers
 
-	// See if this is a skybox object? 
+	// See if this is a skybox m_pGO? 
 
 	float isSkyBox = GL_FALSE;
 
 	if (pCurrentObject->friendlyName != "skybox")
 	{
-		// Is a regular 2D textured object
+		// Is a regular 2D textured m_pGO
 		SetUpTextureBindingsForObject(pCurrentObject, shaderProgID);
 		//glUniform1f(UniformManager::bIsSkyBox_UL, (float)GL_FALSE);
 		isSkyBox = GL_FALSE;
@@ -98,7 +98,7 @@ void DrawObject(glm::mat4 matModel, cGameObject* pCurrentObject, GLint shaderPro
 	else
 	{
 		// Draw the back facing triangles. 
-		// Because we are inside the object, so it will force a draw on the "back" of the sphere 
+		// Because we are inside the m_pGO, so it will force a draw on the "back" of the sphere 
 		glCullFace(GL_FRONT_AND_BACK);
 
 		//glUniform1f(UniformManager::bIsSkyBox_UL, (float)GL_TRUE);
@@ -158,7 +158,7 @@ void DrawObject(glm::mat4 matModel, cGameObject* pCurrentObject, GLint shaderPro
 				pCurrentObject->specularColour.r,	// R
 				pCurrentObject->specularColour.g,	// G
 				pCurrentObject->specularColour.b,	// B
-				pCurrentObject->specularColour.a);	// Specular "power" (how shinny the object is)
+				pCurrentObject->specularColour.a);	// Specular "power" (how shinny the m_pGO is)
 							// 1.0 to really big (10000.0f)
 	glUniform4f(UniformManager::debugColour_UL,
 				pCurrentObject->debugColour.r,
@@ -179,13 +179,13 @@ void DrawObject(glm::mat4 matModel, cGameObject* pCurrentObject, GLint shaderPro
 		doNotLight = GL_TRUE;
 	}
 	else if (pCurrentObject->doNotLight)
-	{	// Regular object (lit and not wireframe)
+	{	// Regular m_pGO (lit and not wireframe)
 		//glUniform1f(UniformManager::bDoNotLight_UL, (float)GL_TRUE);
 		doNotLight = GL_TRUE;
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);		// SOLID
 	}
 	else
-	{	// Regular object (lit and not wireframe)
+	{	// Regular m_pGO (lit and not wireframe)
 		//glUniform1f(UniformManager::bDoNotLight_UL, (float)GL_FALSE);
 		doNotLight = GL_FALSE;
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);		// SOLID
@@ -241,11 +241,11 @@ void DrawObject(glm::mat4 matModel, cGameObject* pCurrentObject, GLint shaderPro
 	for (std::vector<cGameObject*>::iterator itCGO = pCurrentObject->vec_pChildObjects.begin();
 		 itCGO != pCurrentObject->vec_pChildObjects.end(); itCGO++)
 	{
-		// I'm passing in the current game object matrix... 
+		// I'm passing in the current game m_pGO matrix... 
 		cGameObject* pChildGO = *itCGO;
 
-		// NOTE: Scale of the parent object will mess around 
-		//	with the translations (and later scaling) of the child object.
+		// NOTE: Scale of the parent m_pGO will mess around 
+		//	with the translations (and later scaling) of the child m_pGO.
 		float inverseScale = 1.0f / pCurrentObject->scale;
 		glm::mat4 matInverseScale = glm::scale(glm::mat4(1.0f),
 											   glm::vec3(inverseScale, inverseScale, inverseScale));

@@ -6,7 +6,7 @@
 LightManager* g_pLightManager = nullptr;
 
 
-LightManager::LightManager()
+LightManager::LightManager(): LastIndex(0), Ambient(0.1f)
 {
 }
 
@@ -32,6 +32,10 @@ bool LightManager::InitilizeLightUinformLocations(unsigned int shaderID, std::st
 	bool bError = false;
 	std::stringstream streamErrors;
 	this->vecUniformLocations.clear();
+
+
+	UL_Ambient.name = "Ambient";
+	bError = GetUniforHelper(shaderID, UL_Ambient, streamErrors);
 
 	for (unsigned int index = 0; index != numberOfLights; index++)
 	{
@@ -66,6 +70,8 @@ void LightManager::PassLightsToShader()
 	//fail if there are too many lights for the locations
 	if (vecLights.size() > vecUniformLocations.size())
 		return;
+
+	glUniform1f(UL_Ambient.location, Ambient); 
 
 	// pass all lights to shader
 	for (unsigned index = 0; index < vecLights.size(); index++)
@@ -224,4 +230,9 @@ void LightManager::DeleteLights()
 	this->vecLights.clear();
 
 	return;
+}
+
+void LightManager::SetAmbient(float a)
+{
+	Ambient = a;
 }

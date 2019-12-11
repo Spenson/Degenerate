@@ -5,7 +5,7 @@
 //#include <iostream>
 //
 //#include "GFLW_callbacks.h"
-//#include "globals.h"			// for find object
+//#include "globals.h"			// for find m_pGO
 //
 //#include "FileReaders.h"
 //#include "LightManager/LightManager.h"

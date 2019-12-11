@@ -61,7 +61,7 @@ class cVAOManager
 {
 public:
 
-	// Takes a cMesh object and copies it into the GPU (as a VOA)
+	// Takes a cMesh m_pGO and copies it into the GPU (as a VOA)
 	bool LoadModelIntoVAO(std::string fileName, 
 						  cMesh &theMesh,				// NEW
 						  sModelDrawInfo &drawInfo, 

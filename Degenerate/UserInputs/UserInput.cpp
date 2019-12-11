@@ -1,4 +1,4 @@
-#include "../globals.h"			// for find object
+#include "../globals.h"			// for find m_pGO
 
 #include "GFLW_callbacks.h"
 #include <stdio.h>		// for fprintf()
@@ -86,7 +86,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			if (key == GLFW_KEY_1)
 			{
 				//cGameObject* pCannon1 = pFindObjectByFriendlyName("C1");
-				// Can move the object relative to the "parent" object
+				// Can move the m_pGO relative to the "parent" m_pGO
 				//pCannon1->positionXYZ.z -= 1.0f;
 			}
 			if (key == GLFW_KEY_2)
@@ -516,7 +516,7 @@ void ShipControls(GLFWwindow* window)
 	if (areAllModifiersUp(window))
 	{
 
-		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+	/*	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 		{
 			inputRotation.x = 30.0f;
 		}
@@ -555,9 +555,9 @@ void ShipControls(GLFWwindow* window)
 		else
 		{
 			inputRotation.z = 0.0f;
-		}
+		}*/
 
-		pFindObjectByFriendlyName("Ship")->setAngularVelocity(inputRotation);
+		//pFindObjectByFriendlyName("Ship")->setAngularVelocity(inputRotation);
 
 
 		if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)

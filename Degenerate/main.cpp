@@ -22,7 +22,7 @@
 
 #include <sstream>
 
-
+#include "Commands/Commands.h"
 
 cFlyCamera* g_pFlyCamera = NULL;
 cBasicTextureManager* g_pTextureManager = NULL;
@@ -30,6 +30,8 @@ cBasicTextureManager* g_pTextureManager = NULL;
 bool lockToShip = true;
 
 bool bLightDebugSheresOn = false;
+
+iCommand* g_ParentCommandGroup;
 
 extern cGameObject* g_pDebugSphere;
 extern cGameObject* g_pDebugCube;
@@ -68,10 +70,6 @@ int main(void)
 	void ProcessAsyncMouse(GLFWwindow * window);
 	void ProcessAsyncKeys(GLFWwindow * window);
 	void ShipControls(GLFWwindow * window);
-
-
-
-
 
 
 
@@ -141,13 +139,10 @@ int main(void)
 	double lastTime = glfwGetTime();
 
 	cGameObject* collisionShpere = new cGameObject();
-	//collisionShpere->diffuseColour = glm::vec4(0.8f, 0.2f, 0.2f, 0.5f);
 	collisionShpere->debugColour = glm::vec4(0.8f, 0.2f, 0.2f, 1.0f);
 	collisionShpere->doNotLight = true;
-	//collisionShpere->specularColour = glm::vec4(0.0f);
 	collisionShpere->meshName = "sphere_lowres";
 	collisionShpere->friendlyName = "collision";
-	//collisionShpere->positionXYZ = closestPoint;
 	collisionShpere->scale = 0.5f;
 	collisionShpere->useDiffuse = true;
 
@@ -158,10 +153,56 @@ int main(void)
 	tpc.SetTargetRelitiveToObject(glm::vec3(0.0f, 10.0f, 0.0f));
 
 
-	for (cGameObject* object : ::g_vec_pGameObjects)
-	{
-		object->setDebugRenderer(pDebugRenderer);
-	}
+	g_ParentCommandGroup = MakeCommand("ParallelGroup", "Parent", "");
+
+	g_pFreeCamera->SetPosition(glm::vec3(100,1100,-30));
+	//iCommand* group = MakeCommand("SerialGroup", "GroupTest", "Ship 100.0 0.0 -30.0 20.0 15.0 15.0");
+
+	std::vector<iCommand*> commands;
+	//commands.push_back(MakeCommand("Move", "move1", "Ship 100.0 0.0 -30.0 20.0 0.0 0.0"));
+	//commands.push_back(MakeCommand("Rotate", "rotate1", "Ship 100.0 0.0 -30.0 20.0 0.0 0.0"));
+	commands.push_back(MakeCommand("FollowCurve", "curveTest", "Ship   100.0 1000.0 -30.0   200.0 1000.0 0.0   200.0 1000.0 -100.0   100.0 1000.0 -300.0   400.0 1000.0 -100.0   20.0 10.0 10.0"));
+	commands.push_back(MakeCommand("FollowObject", "followTest", "Ship Ship2   100.0 12.0 40.0 20.0"));
+	AddCommandsToGroup(commands);
+
+	/*MoveCommand* move = new MoveCommand("test");
+
+	sPair To;		To.numData = glm::vec4(100.0f, 0.0, -30.0, 1.0f);
+	sPair Speed;	Speed.numData = glm::vec4(20.0f, 15.0, 0.0, 0.0);
+
+	std::vector<sPair> vecParams;
+
+	vecParams.push_back(To);
+	vecParams.push_back(Speed);
+	move->SetGameObject(pFindObjectByFriendlyName("Ship"));
+	move->Init(vecParams);
+
+
+	MoveCommand* move2 = new MoveCommand("test2");
+
+	To.numData = glm::vec4(30.0f, 5.0, -60.0, 1.0f);
+	Speed.numData = glm::vec4(10.0f, 10.0, 10.0, 0.0);
+
+	vecParams.clear();
+
+	vecParams.push_back(To);
+	vecParams.push_back(Speed);
+	move2->SetGameObject(pFindObjectByFriendlyName("Ship"));
+	move2->Init(vecParams);
+
+
+	RotateCommand* rot = new RotateCommand("test3");
+
+	To.numData = glm::vec4(90.0f, 0.0, 0.0, 1.0f);
+	Speed.numData = glm::vec4(10.0f, 5.0, 5.0, 0.0);
+
+	vecParams.clear();
+
+	vecParams.push_back(To);
+	vecParams.push_back(Speed);
+	rot->SetGameObject(pFindObjectByFriendlyName("Ship"));
+	rot->Init(vecParams);*/
+
 
 	std::vector<glm::vec3> todraw;
 	while (!glfwWindowShouldClose(window))
@@ -171,7 +212,7 @@ int main(void)
 		//lights[0]->Rotation = glm::vec3(temp,0.0f,0.0f);
 		//temp += 1.0f;
 
-
+		
 		for (size_t index = 0; index != (::g_vec_pGameObjects.size() - 1); index++)
 		{
 			glm::vec3 ObjA = ::g_vec_pGameObjects[index]->positionXYZ;
@@ -200,9 +241,11 @@ int main(void)
 			deltaTime = SOME_HUGE_TIME;
 
 		avgDeltaTimeThingy.addValue(deltaTime);
-
-
-
+		
+		if (!g_ParentCommandGroup->IsDone())
+		{
+			g_ParentCommandGroup->Update(deltaTime);
+		}
 
 
 		//Frame Rate in title bar
@@ -210,7 +253,10 @@ int main(void)
 		ssTitle << "Degenerate | " << 1.0 / avgDeltaTimeThingy.getAverage() << " (" << 1.0 / deltaTime << " | " << deltaTime << ")"
 			<< " Pos: (" << pFindObjectByFriendlyName("Ship")->positionXYZ.x << ", "
 			<< pFindObjectByFriendlyName("Ship")->positionXYZ.y << ", "
-			<< pFindObjectByFriendlyName("Ship")->positionXYZ.z << ")";
+			<< pFindObjectByFriendlyName("Ship")->positionXYZ.z << ")"
+			<< " Rot: (" << glm::degrees(pFindObjectByFriendlyName("Ship")->getEulerAngle().x) << ", "
+			<< glm::degrees(pFindObjectByFriendlyName("Ship")->getEulerAngle().y) << ", "
+			<< glm::degrees(pFindObjectByFriendlyName("Ship")->getEulerAngle().z) << ")";
 		glfwSetWindowTitle(window, ssTitle.str().c_str());
 
 
@@ -289,9 +335,38 @@ int main(void)
 		//pFindObjectByFriendlyName("Ship")->positionXYZ.x += 0.51f;
 		cGameObject* pObject = pFindObjectByFriendlyName("Ship");
 
-
+		// 
 		pDebugRenderer->addLine(pObject->positionXYZ, pObject->positionXYZ + glm::vec3(0, 10, 0), glm::vec3(1));
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		//100.0 1000.0 -30.0 
+		//200.0 1000.0 0.0 
+		//200.0 1000.0 -100.0
+		pDebugRenderer->addLine(glm::vec3(100.0, 1000.0, -30.0), glm::vec3(200.0, 1000.0, 0.0), glm::vec3(1));
+		pDebugRenderer->addLine(glm::vec3(200, 1000.0, 0.0), glm::vec3(200.0, 1000.0, -100.0), glm::vec3(1));
+		pDebugRenderer->addLine(glm::vec3(200.0, 1000.0, -100.0), glm::vec3(100.0, 1000.0, -300.0), glm::vec3(1));
+		pDebugRenderer->addLine(glm::vec3(100.0, 1000.0, -300.0), glm::vec3(400.0, 1000.0, -100.0), glm::vec3(1));
+		
 
 		std::vector<glm::vec3> points = pObject->vecPhysTestPoints;
 		glm::mat4 shipMat = calculateWorldMatrix(pObject, glm::mat4(1.0));
@@ -333,7 +408,7 @@ int main(void)
 		// TODO: Update to include Angular Velocity
 		pPhsyics->IntegrationStep(::g_vec_pGameObjects, deltaTime);//(float)averageDeltaTime);
 
-		pPhsyics->TestForCollisions(::g_vec_pGameObjects, todraw);
+		//pPhsyics->TestForCollisions(::g_vec_pGameObjects, todraw);
 
 
 		g_pLightManager->GetLight(0)->matrix = calculateWorldMatrix(pFindObjectByFriendlyName("Ship"), glm::mat4(1.0));

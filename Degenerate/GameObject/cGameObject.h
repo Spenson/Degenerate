@@ -74,7 +74,7 @@ public:
 	bool disableDepthBufferWrite;
 
 
-	// Add child object to the this mesh
+	// Add child m_pGO to the this mesh
 	std::vector<cGameObject*> vec_pChildObjects;
 
 private:

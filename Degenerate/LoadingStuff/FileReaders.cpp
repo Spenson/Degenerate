@@ -154,44 +154,44 @@ void LoadTexturesFromFile(std::string File, cBasicTextureManager* TextureManager
 // separated to use recursively for child nodes
 cGameObject* LoadGameObjectNode(tinyxml2::XMLElement* objectElement)
 {
-	cGameObject* object = new cGameObject();
+	cGameObject* m_pGO = new cGameObject();
 	std::cout << objectElement->FirstChildElement("MeshName")->GetText() << std::endl;
 	if (objectElement->FirstChildElement("MeshName"))
-		object->meshName = objectElement->FirstChildElement("MeshName")->GetText();
+		m_pGO->meshName = objectElement->FirstChildElement("MeshName")->GetText();
 
 	if (objectElement->FirstChildElement("FriendlyName"))
-		object->friendlyName = objectElement->FirstChildElement("FriendlyName")->GetText();
+		m_pGO->friendlyName = objectElement->FirstChildElement("FriendlyName")->GetText();
 
 	if (objectElement->FirstChildElement("Position"))
-		object->positionXYZ = GetXYZ(objectElement->FirstChildElement("Position"));
+		m_pGO->positionXYZ = GetXYZ(objectElement->FirstChildElement("Position"));
 
 	if (objectElement->FirstChildElement("Velocity"))
-		object->velocity = GetXYZ(objectElement->FirstChildElement("Velocity"));
+		m_pGO->velocity = GetXYZ(objectElement->FirstChildElement("Velocity"));
 
 	if (objectElement->FirstChildElement("Acceleration"))
-		object->accel = GetXYZ(objectElement->FirstChildElement("Acceleration"));
+		m_pGO->accel = GetXYZ(objectElement->FirstChildElement("Acceleration"));
 
 
 	if (objectElement->FirstChildElement("Scale"))
-		object->scale = objectElement->FirstChildElement("Scale")->FindAttribute("f")->FloatValue(); //GetXYZ(objectElement->FirstChildElement("Scale"));
+		m_pGO->scale = objectElement->FirstChildElement("Scale")->FindAttribute("f")->FloatValue(); //GetXYZ(objectElement->FirstChildElement("Scale"));
 
 
 	if (objectElement->FirstChildElement("InverseMass"))
-		object->inverseMass = objectElement->FirstChildElement("InverseMass")->FindAttribute("f")->FloatValue();
+		m_pGO->inverseMass = objectElement->FirstChildElement("InverseMass")->FindAttribute("f")->FloatValue();
 
 	if (objectElement->FirstChildElement("PhysicsShapeType"))
-		object->physicsShapeType = (eShapeTypes)objectElement->FirstChildElement("PhysicsShapeType")->FindAttribute("type")->IntValue();
+		m_pGO->physicsShapeType = (eShapeTypes)objectElement->FirstChildElement("PhysicsShapeType")->FindAttribute("type")->IntValue();
 
 
 
 	if (objectElement->FirstChildElement("AABB"))
 	{
-		object->AABB_min = GetXYZ(objectElement->FirstChildElement("AABB")->FirstChildElement("max"));
-		object->AABB_max = GetXYZ(objectElement->FirstChildElement("AABB")->FirstChildElement("min"));
+		m_pGO->AABB_min = GetXYZ(objectElement->FirstChildElement("AABB")->FirstChildElement("max"));
+		m_pGO->AABB_max = GetXYZ(objectElement->FirstChildElement("AABB")->FirstChildElement("min"));
 	}
 
 	if (objectElement->FirstChildElement("Radius"))
-		object->PhysicsSphere = objectElement->FirstChildElement("Radius")->FindAttribute("f")->FloatValue();
+		m_pGO->PhysicsSphere = objectElement->FirstChildElement("Radius")->FindAttribute("f")->FloatValue();
 
 	if (objectElement->FirstChildElement("TestPoints"))
 	{
@@ -199,7 +199,7 @@ cGameObject* LoadGameObjectNode(tinyxml2::XMLElement* objectElement)
 
 		for (;;)
 		{
-			object->vecPhysTestPoints.push_back(GetXYZ(pointsElement));
+			m_pGO->vecPhysTestPoints.push_back(GetXYZ(pointsElement));
 
 
 			if (pointsElement == objectElement->FirstChildElement("TestPoints")->LastChildElement())
@@ -209,16 +209,16 @@ cGameObject* LoadGameObjectNode(tinyxml2::XMLElement* objectElement)
 	}
 
 	if (objectElement->FirstChildElement("ObjectColour"))
-		object->objectColourRGBA = GetRGBA(objectElement->FirstChildElement("ObjectColour"));
+		m_pGO->objectColourRGBA = GetRGBA(objectElement->FirstChildElement("ObjectColour"));
 
 	if (objectElement->FirstChildElement("DiffuseColour"))
-		object->diffuseColour = GetRGBA(objectElement->FirstChildElement("DiffuseColour"));
+		m_pGO->diffuseColour = GetRGBA(objectElement->FirstChildElement("DiffuseColour"));
 
 	if (objectElement->FirstChildElement("SpecularColour"))
-		object->specularColour = GetRGBA(objectElement->FirstChildElement("SpecularColour"));
+		m_pGO->specularColour = GetRGBA(objectElement->FirstChildElement("SpecularColour"));
 
 	if (objectElement->FirstChildElement("DebugColour"))
-		object->debugColour = GetRGBA(objectElement->FirstChildElement("DebugColour"));
+		m_pGO->debugColour = GetRGBA(objectElement->FirstChildElement("DebugColour"));
 
 
 
@@ -228,8 +228,8 @@ cGameObject* LoadGameObjectNode(tinyxml2::XMLElement* objectElement)
 
 		for (;;)
 		{
-			object->textures[textureElement->FindAttribute("index")->IntValue()] = textureElement->FindAttribute("name")->Value();
-			object->textureRatio[textureElement->FindAttribute("index")->IntValue()] = textureElement->FindAttribute("ratio")->FloatValue();
+			m_pGO->textures[textureElement->FindAttribute("index")->IntValue()] = textureElement->FindAttribute("name")->Value();
+			m_pGO->textureRatio[textureElement->FindAttribute("index")->IntValue()] = textureElement->FindAttribute("ratio")->FloatValue();
 
 
 			if (textureElement == objectElement->FirstChildElement("Textures")->LastChildElement())
@@ -239,28 +239,28 @@ cGameObject* LoadGameObjectNode(tinyxml2::XMLElement* objectElement)
 	}
 
 	if (objectElement->FirstChildElement("DoNotLight"))
-		object->doNotLight = objectElement->FirstChildElement("DoNotLight")->FindAttribute("b")->BoolValue();
+		m_pGO->doNotLight = objectElement->FirstChildElement("DoNotLight")->FindAttribute("b")->BoolValue();
 
 	if (objectElement->FirstChildElement("IsImposter"))
-		object->isImposter = objectElement->FirstChildElement("IsImposter")->FindAttribute("b")->BoolValue();
+		m_pGO->isImposter = objectElement->FirstChildElement("IsImposter")->FindAttribute("b")->BoolValue();
 
 	if (objectElement->FirstChildElement("UseDiffuse"))
-		object->useDiffuse = objectElement->FirstChildElement("UseDiffuse")->FindAttribute("b")->BoolValue();
+		m_pGO->useDiffuse = objectElement->FirstChildElement("UseDiffuse")->FindAttribute("b")->BoolValue();
 
 	if (objectElement->FirstChildElement("Wireframe"))
-		object->isWireframe = objectElement->FirstChildElement("Wireframe")->FindAttribute("b")->BoolValue();
+		m_pGO->isWireframe = objectElement->FirstChildElement("Wireframe")->FindAttribute("b")->BoolValue();
 
 	if (objectElement->FirstChildElement("Visible"))
-		object->isVisible = objectElement->FirstChildElement("Visible")->FindAttribute("b")->BoolValue();
+		m_pGO->isVisible = objectElement->FirstChildElement("Visible")->FindAttribute("b")->BoolValue();
 
 	if (objectElement->FirstChildElement("DisableDepthTest"))
-		object->disableDepthBufferTest = objectElement->FirstChildElement("DisableDepthTest")->FindAttribute("b")->BoolValue();
+		m_pGO->disableDepthBufferTest = objectElement->FirstChildElement("DisableDepthTest")->FindAttribute("b")->BoolValue();
 
 	if (objectElement->FirstChildElement("DisableDepthWrite"))
-		object->disableDepthBufferWrite = objectElement->FirstChildElement("DisableDepthWrite")->FindAttribute("b")->BoolValue();
+		m_pGO->disableDepthBufferWrite = objectElement->FirstChildElement("DisableDepthWrite")->FindAttribute("b")->BoolValue();
 
 	if (objectElement->FirstChildElement("Rotation"))
-		object->setOrientation(GetXYZ(objectElement->FirstChildElement("Rotation")));
+		m_pGO->setOrientation(GetXYZ(objectElement->FirstChildElement("Rotation")));
 
 
 	if (objectElement->FirstChildElement("ChildObjects"))
@@ -268,7 +268,7 @@ cGameObject* LoadGameObjectNode(tinyxml2::XMLElement* objectElement)
 		tinyxml2::XMLElement* childObjectElement = objectElement->FirstChildElement("ChildObjects")->FirstChildElement();
 		for (;;)
 		{
-			object->vec_pChildObjects.push_back(LoadGameObjectNode(childObjectElement));
+			m_pGO->vec_pChildObjects.push_back(LoadGameObjectNode(childObjectElement));
 
 			if (childObjectElement == objectElement->FirstChildElement("ChildObjects")->LastChildElement())
 				break;
@@ -277,7 +277,7 @@ cGameObject* LoadGameObjectNode(tinyxml2::XMLElement* objectElement)
 	}
 
 
-	return object;
+	return m_pGO;
 }
 
 void LoadGameObjectsFromXMLFile(std::string File, std::vector<cGameObject*>& vecGameObjects, bool clearExistingObjects)
@@ -290,7 +290,7 @@ void LoadGameObjectsFromXMLFile(std::string File, std::vector<cGameObject*>& vec
 		vecGameObjects.clear();
 	}
 
-	//cGameObject* object;
+	//cGameObject* m_pGO;
 	tinyxml2::XMLDocument xml_doc;
 	tinyxml2::XMLError eResult = xml_doc.LoadFile(File.c_str());
 	tinyxml2::XMLNode* root = xml_doc.FirstChildElement("GAMEOBJECTS");
@@ -311,78 +311,78 @@ void LoadGameObjectsFromXMLFile(std::string File, std::vector<cGameObject*>& vec
 
 
 // separated to use recursively for child nodes
-tinyxml2::XMLElement* SaveGameObjectNode(cGameObject* object, tinyxml2::XMLDocument& doc) // XMLDocument must be by ref (&)
+tinyxml2::XMLElement* SaveGameObjectNode(cGameObject* m_pGO, tinyxml2::XMLDocument& doc) // XMLDocument must be by ref (&)
 {
 	tinyxml2::XMLElement* newObjectElement = doc.NewElement("GameObject");
 
-	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("MeshName")))->SetText(object->meshName.c_str());
-	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("FriendlyName")))->SetText(object->friendlyName.c_str());
+	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("MeshName")))->SetText(m_pGO->meshName.c_str());
+	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("FriendlyName")))->SetText(m_pGO->friendlyName.c_str());
 
-	SetXYZ(newObjectElement->InsertEndChild(doc.NewElement("Position")), object->positionXYZ);
-	SetXYZ(newObjectElement->InsertEndChild(doc.NewElement("Velocity")), object->velocity);
-	SetXYZ(newObjectElement->InsertEndChild(doc.NewElement("Acceleration")), object->accel);
+	SetXYZ(newObjectElement->InsertEndChild(doc.NewElement("Position")), m_pGO->positionXYZ);
+	SetXYZ(newObjectElement->InsertEndChild(doc.NewElement("Velocity")), m_pGO->velocity);
+	SetXYZ(newObjectElement->InsertEndChild(doc.NewElement("Acceleration")), m_pGO->accel);
 
 
-	//SetXYZ(newObjectElement->InsertEndChild(doc.NewElement("Scale")), object->scale);
-	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("Scale")))->SetAttribute("f", object->scale);
+	//SetXYZ(newObjectElement->InsertEndChild(doc.NewElement("Scale")), m_pGO->scale);
+	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("Scale")))->SetAttribute("f", m_pGO->scale);
 
-	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("InverseMass")))->SetAttribute("f", object->inverseMass);
-	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("PhysicsShapeType")))->SetAttribute("type", object->physicsShapeType);
+	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("InverseMass")))->SetAttribute("f", m_pGO->inverseMass);
+	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("PhysicsShapeType")))->SetAttribute("type", m_pGO->physicsShapeType);
 	tinyxml2::XMLElement* AABBNode = (tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("AABB"));
-	SetXYZ(AABBNode->InsertEndChild(doc.NewElement("max")), object->AABB_max);
-	SetXYZ(AABBNode->InsertEndChild(doc.NewElement("min")), object->AABB_min);
-	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("Radius")))->SetAttribute("f", object->PhysicsSphere);
+	SetXYZ(AABBNode->InsertEndChild(doc.NewElement("max")), m_pGO->AABB_max);
+	SetXYZ(AABBNode->InsertEndChild(doc.NewElement("min")), m_pGO->AABB_min);
+	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("Radius")))->SetAttribute("f", m_pGO->PhysicsSphere);
 
 	//todo: as if statment vecPhysTestPoints;
-	if (!object->vecPhysTestPoints.empty())
+	if (!m_pGO->vecPhysTestPoints.empty())
 	{
 		tinyxml2::XMLElement* TestPointsNode = (tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("TestPoints"));
 
-		for (size_t i = 0; i < object->vecPhysTestPoints.size(); i++)
+		for (size_t i = 0; i < m_pGO->vecPhysTestPoints.size(); i++)
 		{
-			SetXYZ(TestPointsNode->InsertEndChild(doc.NewElement("point")), object->vecPhysTestPoints[i]);
+			SetXYZ(TestPointsNode->InsertEndChild(doc.NewElement("point")), m_pGO->vecPhysTestPoints[i]);
 		}
 	}
 
 
 
-	SetRGBA(newObjectElement->InsertEndChild(doc.NewElement("ObjectColour")), object->objectColourRGBA);
-	SetRGBA(newObjectElement->InsertEndChild(doc.NewElement("DiffuseColour")), object->diffuseColour);
-	SetRGBA(newObjectElement->InsertEndChild(doc.NewElement("SpecularColour")), object->specularColour);
-	SetRGBA(newObjectElement->InsertEndChild(doc.NewElement("DebugColour")), object->debugColour);
+	SetRGBA(newObjectElement->InsertEndChild(doc.NewElement("ObjectColour")), m_pGO->objectColourRGBA);
+	SetRGBA(newObjectElement->InsertEndChild(doc.NewElement("DiffuseColour")), m_pGO->diffuseColour);
+	SetRGBA(newObjectElement->InsertEndChild(doc.NewElement("SpecularColour")), m_pGO->specularColour);
+	SetRGBA(newObjectElement->InsertEndChild(doc.NewElement("DebugColour")), m_pGO->debugColour);
 
 
 	//todo: textures textureRatio
 	tinyxml2::XMLElement* TexturesNode = (tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("Textures"));
 	tinyxml2::XMLElement* tempTextureNode;
-	for (size_t i = 0; i < object->NUMBEROFTEXTURES; i++)
+	for (size_t i = 0; i < m_pGO->NUMBEROFTEXTURES; i++)
 	{
 		tempTextureNode = (tinyxml2::XMLElement*)TexturesNode->InsertEndChild(doc.NewElement("texture"));
 		((tinyxml2::XMLElement*)tempTextureNode)->SetAttribute("index", i);
-		((tinyxml2::XMLElement*)tempTextureNode)->SetAttribute("name", object->textures[i].c_str());
-		((tinyxml2::XMLElement*)tempTextureNode)->SetAttribute("ratio", object->textureRatio[i]);
+		((tinyxml2::XMLElement*)tempTextureNode)->SetAttribute("name", m_pGO->textures[i].c_str());
+		((tinyxml2::XMLElement*)tempTextureNode)->SetAttribute("ratio", m_pGO->textureRatio[i]);
 	}
 
-	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("DoNotLight")))->SetAttribute("b", object->doNotLight);
-	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("IsImposter")))->SetAttribute("b", object->isImposter);
-	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("UseDiffuse")))->SetAttribute("b", object->useDiffuse);
-	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("Wireframe")))->SetAttribute("b", object->isWireframe);
-	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("Visible")))->SetAttribute("b", object->isVisible);
-	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("DisableDepthTest")))->SetAttribute("b", object->disableDepthBufferTest);
-	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("DisableDepthWrite")))->SetAttribute("b", object->disableDepthBufferWrite);
+	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("DoNotLight")))->SetAttribute("b", m_pGO->doNotLight);
+	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("IsImposter")))->SetAttribute("b", m_pGO->isImposter);
+	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("UseDiffuse")))->SetAttribute("b", m_pGO->useDiffuse);
+	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("Wireframe")))->SetAttribute("b", m_pGO->isWireframe);
+	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("Visible")))->SetAttribute("b", m_pGO->isVisible);
+	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("DisableDepthTest")))->SetAttribute("b", m_pGO->disableDepthBufferTest);
+	((tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("DisableDepthWrite")))->SetAttribute("b", m_pGO->disableDepthBufferWrite);
 
-	SetXYZ(newObjectElement->InsertEndChild(doc.NewElement("Rotation")), object->getEulerAngle());
+	SetXYZ(newObjectElement->InsertEndChild(doc.NewElement("Rotation")), m_pGO->getEulerAngle());
 
 
 
 	//todo: recursive chile objects
-	if (!object->vec_pChildObjects.empty())
+	if (!m_pGO->vec_pChildObjects.empty())
 	{
 		tinyxml2::XMLElement* childObjectNode = (tinyxml2::XMLElement*)newObjectElement->InsertEndChild(doc.NewElement("ChildObjects"));
 
-		for (size_t i = 0; i < object->vec_pChildObjects.size(); i++)
+		for (size_t i = 0; i < m_pGO->vec_pChildObjects.size(); i++)
 		{
-			childObjectNode->InsertEndChild(SaveGameObjectNode(object->vec_pChildObjects[i], doc));
+			childObjectNode->InsertEndChild(SaveGameObjectNode(m_pGO->vec_pChildObjects[i], doc));
 		}
 	}
 
@@ -392,15 +392,15 @@ tinyxml2::XMLElement* SaveGameObjectNode(cGameObject* object, tinyxml2::XMLDocum
 
 void SaveGameObjectsToXMLFile(std::string File, std::vector<cGameObject*> vecGameObjects)
 {
-	cGameObject* object;
+	cGameObject* m_pGO;
 	tinyxml2::XMLDocument new_xml_doc;
 	tinyxml2::XMLNode* newRoot = new_xml_doc.InsertFirstChild(new_xml_doc.NewElement("GAMEOBJECTS"));
 
 	for (unsigned index = 0; index < vecGameObjects.size(); index++)
 	{
-		object = vecGameObjects[index];
+		m_pGO = vecGameObjects[index];
 
-		(tinyxml2::XMLElement*)newRoot->InsertEndChild(SaveGameObjectNode(object, new_xml_doc));
+		(tinyxml2::XMLElement*)newRoot->InsertEndChild(SaveGameObjectNode(m_pGO, new_xml_doc));
 	}
 	new_xml_doc.SaveFile(File.c_str());
 }

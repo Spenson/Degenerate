@@ -196,7 +196,7 @@ private:
 	bool m_InitBuffer(sVAOInfoDebug &VAOInfo);
 
 	// Copies the debug objects from the vectors to the vertex buffer to render
-	// Will delete any "non persistent" object
+	// Will delete any "non persistent" m_pGO
 	void m_copyTrianglesIntoRenderBuffer(double deltaTime);
 	void m_copyLinesIntoRenderBuffer(double deltaTime);
 	void m_copyPointsIntoRenderBuffer(double deltaTime);

@@ -8,7 +8,7 @@
       <Scale f="1" x="1" y="1" z="1"/>
 
       <ObjectColour r="1" g="1" b=".45" a="0.5"/>
-      <DiffuseColour r=".4" g=".4" b=".4" a="0.8"/>
+      <DiffuseColour r=".6" g=".6" b=".6" a="0.95"/>
       <SpecularColour r="0" g="1" b="1" a="1000"/>
       <DebugColour r="1" g="1" b="1" a="1"/>
 
@@ -28,7 +28,6 @@
       <FriendlyName>Ship</FriendlyName>
 
       <Position x="50" y="0" z="0"/>
-      <Rotation x="0" y="0" z="0"/>
       <Scale f="1" x="1" y="1" z="1"/>
 
       <ObjectColour r="1" g="1" b=".45" a="0.5"/>
@@ -70,7 +69,40 @@
       <DisableDepthTest b="0"/>
       <DisableDepthWrite b="0"/>
     </GameObject>
-    
 
+  <GameObject>
+    <MeshName>Ship</MeshName>
+    <FriendlyName>Ship2</FriendlyName>
+
+    <Position x="50" y="0" z="0"/>
+    <Scale f="1" x="1" y="1" z="1"/>
+
+    <ObjectColour r="0.5" g="0.5" b=".5" a="0.5"/>
+    <DiffuseColour r="0.5" g="0.5" b=".5" a="1"/>
+    <SpecularColour r="1" g="1" b="1" a="1000"/>
+    <DebugColour r="1" g="1" b="1" a="1"/>
+
+    <Velocity x="0" y="0" z="0"/>
+    <Acceleration x="0" y="0" z="0"/>
+    <InverseMass f="1.0f"/>
+
+    <PhysicsShapeType type="0"/>
+
+    <Textures>
+      <texture index="0" name="Untitled.bmp" ratio="1"/>
+    </Textures>
+
+    <UseDiffuse b="1"/>
+
+    <TestPoints>
+      <point x="1.6" y="-0.6" z="10"/>
+    </TestPoints>
+
+
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
 
 </GAMEOBJECTS>

@@ -11,7 +11,7 @@ class ThirdPersonCamera
 
 public:
 	ThirdPersonCamera();
-	void SetPlayerObject(cGameObject* object);
+	void SetPlayerObject(cGameObject* m_pGO);
 	void SetPositionRelitiveToObject(glm::vec3 pos);
 	void SetTargetRelitiveToObject(glm::vec3 tar);
 	void SetUpVector(glm::vec3 up);

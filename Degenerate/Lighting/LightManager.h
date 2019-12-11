@@ -41,10 +41,13 @@ public:
 	Light* GetLastLight();
 	size_t GetLightCount();
 	void DeleteLights();
+	void SetAmbient(float a);
 
 private:
 	std::vector<Light*> vecLights;
 	std::vector<ShaderLightUniformLocations> vecUniformLocations;
-	unsigned LastIndex = 0;
+	ShaderLightUniformLocations::NameLocationPair UL_Ambient;
+	unsigned LastIndex;
+	float Ambient;
 };
 

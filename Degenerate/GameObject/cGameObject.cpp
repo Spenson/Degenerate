@@ -103,7 +103,7 @@ void cGameObject::setDebugRenderer(iDebugRenderer* pDebugRenderer)
 
 
 // this variable is static, so common to all objects.
-// When the object is created, the unique ID is set, and 
+// When the m_pGO is created, the unique ID is set, and 
 //	the next unique ID is incremented
 //static 
 unsigned int cGameObject::next_uniqueID = 1000;	// Starting at 1000, just because
@@ -191,7 +191,7 @@ glm::vec3 cGameObject::getEulerAngle(void)
 }
 
 
-// Move it based on the "Front" of the object. 
+// Move it based on the "Front" of the m_pGO. 
 // ASSUMPTION is the "FRONT" is +ve Z. 
 // LEFT is +ve Z
 // UP is +vs Y
@@ -215,7 +215,7 @@ void cGameObject::MoveInRelativeDirection(glm::vec3 relativeDirection)
 	glm::vec4 forwardInWorldSpace = matModel * forwardDirObject;
 
 
-	// Add this to the position of the object
+	// Add this to the position of the m_pGO
 	this->positionXYZ += glm::vec3(forwardInWorldSpace);
 
 	return;

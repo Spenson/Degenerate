@@ -2,26 +2,21 @@
 
 #include "iCommand.h"
 
-class MoveCommand : public iCommand
+
+class FollowCurveCommand : public iCommand
 {
-
 	std::string m_Name;
-	bool m_Done;
-	glm::vec3 m_End;
-	glm::vec3 m_Start;
+	std::vector<glm::vec3> m_ControlPoints;
+	float m_Time;
 	cGameObject* m_pGO;
-	float m_MaxSpeed;
-	float m_AccelDis;
-	float m_DecelDis;
+	bool m_Done;
 
-	bool m_HasUpdated;
+	float m_MaxSpeed;
+	//float m_AccelDis;
+	//float m_DecelDis;
 
 public:
-	MoveCommand(std::string name) : m_Name(name), m_Done(false), m_HasUpdated(false),
-		m_MaxSpeed(0), m_AccelDis(0), m_DecelDis(0),
-		m_End(glm::vec3(0.0f)), m_Start(glm::vec3(0.0f)),
-		m_pGO(nullptr)
-	{};
+	FollowCurveCommand(std::string name): m_Name(name), m_Time(0.0f), m_pGO(nullptr), m_Done(false) {}
 	// Inherited via iCommand
 	virtual void SetName(std::string name) override;
 	virtual bool IsDone() override;

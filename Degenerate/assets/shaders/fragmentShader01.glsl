@@ -7,10 +7,8 @@ in vec4 fUVx2;
 	
 uniform vec4 diffuseColour;				// use a for transparency		
 uniform vec4 specularColour;
-
 // Used to draw debug (or unlit) objects
 uniform vec4 debugColour;		
-
 uniform vec4 eyeLocation;
 
 // Texture samplers
@@ -60,6 +58,8 @@ struct sLight
 					// 2 = directional light
 	vec4 param2;	// x = 0 for off, 1 for on
 };
+
+uniform float Ambient;
 
 const int POINT_LIGHT_TYPE = 0;
 const int SPOT_LIGHT_TYPE = 1;
@@ -355,6 +355,10 @@ vec4 calcualteLightContrib( vec3 vertexMaterialColour, vec3 vertexNormal,
 
 	}//for(intindex=0...
 	
+	vec3 ambientObjectColour = ( Ambient * vertexMaterialColour.rgb );
+
+	finalObjectColour.rgb = max(ambientObjectColour, finalObjectColour.rgb);
+
 	finalObjectColour.a = 1.0f;
 	
 	return finalObjectColour;

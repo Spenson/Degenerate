@@ -167,10 +167,14 @@ void TestLoad(cVAOManager* pTheVAOManager, cModelLoader* pTheModelLoader, GLuint
 	WorldRegion::init("Babbage", &mapMeshes["Babbage"], 20.0f);
 
 
+	for (cGameObject* m_pGO : ::g_vec_pGameObjects)
+	{
+		m_pGO->setDebugRenderer(pDebugRenderer);
+	}
 
 
 	LoadLightsFromXMLFile("assets/config/Lights.xml", pLightManager);
-
+	pLightManager->SetAmbient(0.25f);
 
 
 	//pFindObjectByFriendlyName("Ship")->isImposter = true;
@@ -232,7 +236,7 @@ void TestLoad(cVAOManager* pTheVAOManager, cModelLoader* pTheModelLoader, GLuint
 //		pViper->textureRatio[0] = 1.0f;
 //		pViper->isWireframe = true;
 //		pViper->debugColour = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-//		// Add a debug renderer to this object
+//		// Add a debug renderer to this m_pGO
 //		pViper->setDebugRenderer(pDebugRenderer);
 //	}
 //
@@ -398,7 +402,7 @@ void TestLoad(cVAOManager* pTheVAOManager, cModelLoader* pTheModelLoader, GLuint
 //		pFlatTerrain->debugColour = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
 //		//pFlatTerrain->textures[0] = "IslandHeightMap.bmp";
 //		//pFlatTerrain->textureRatio[0] = 1.0f;
-//		// Add a debug renderer to this object
+//		// Add a debug renderer to this m_pGO
 //		pFlatTerrain->setDebugRenderer(pDebugRenderer);
 //
 //		vec_pGameObjects.push_back(pFlatTerrain);
@@ -417,7 +421,7 @@ void TestLoad(cVAOManager* pTheVAOManager, cModelLoader* pTheModelLoader, GLuint
 //	pPirate->inverseMass = 0.0f;
 //	//pPirate->HACK_AngleAroundYAxis = 0.0f;
 //	//pPirate->HACK_speed = 0.0f;
-//	// Add a debug renderer to this object
+//	// Add a debug renderer to this m_pGO
 //	pPirate->setDebugRenderer(pDebugRenderer);
 //
 //	//AddCannonsToPirateShip(pPirate, pDebugRenderer);

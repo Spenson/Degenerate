@@ -22,6 +22,22 @@ glm::vec3 cPhysics::getGravity(void)
 	return this->m_Gravity;
 }
 
+glm::vec3 cPhysics::RK6(glm::vec3 val, glm::vec3 change, float delta)
+{
+	glm::vec3 step = change / 6.0f;
+
+	glm::vec3 inc1 = val + ((step * 1.0f)* delta);
+	glm::vec3 inc2 = val + ((step * 2.0f)* delta);
+	glm::vec3 inc3 = val + ((step * 3.0f)* delta);
+	glm::vec3 inc4 = val + ((step * 4.0f)* delta);
+	glm::vec3 inc5 = val + ((step * 5.0f)* delta);
+	glm::vec3 inc6 = val + ((step * 6.0f)* delta);
+
+	return (((1.0f * inc1) + (2.0f * inc2) + (3.0f * inc3) +
+		(3.0f * inc4) + (2.0f * inc5) + (1.0f * inc6)
+			 ) / 12.0f);
+}
+
 
 void cPhysics::IntegrationStep(std::vector<cGameObject*>& vec_pGameObjects, float deltaTime)
 {
@@ -30,7 +46,7 @@ void cPhysics::IntegrationStep(std::vector<cGameObject*>& vec_pGameObjects, floa
 	for (unsigned int index = 0;
 		 index != vec_pGameObjects.size(); index++)
 	{
-		// Get a pointer to the current object (makes the code a little clearer)
+		// Get a pointer to the current m_pGO (makes the code a little clearer)
 		cGameObject* pCurObj = vec_pGameObjects[index];
 
 		if (pCurObj->inverseMass != 0.0f)
@@ -62,12 +78,12 @@ void cPhysics::IntegrationStep(std::vector<cGameObject*>& vec_pGameObjects, floa
 
 			/*rk4
 			// Velocity Adjust
-			glm::vec3 step = pCurObj->accel / 4.0f;
+			glm::vec3 change = pCurObj->accel / 4.0f;
 
-			glm::vec3 inc1 = pCurObj->accel + (step * 0.0f);
-			glm::vec3 inc2 = pCurObj->accel + (step * 1.0f);
-			glm::vec3 inc3 = pCurObj->accel + (step * 2.0f);
-			glm::vec3 inc4 = pCurObj->accel + (step * 3.0f);
+			glm::vec3 inc1 = pCurObj->accel + (change * 0.0f);
+			glm::vec3 inc2 = pCurObj->accel + (change * 1.0f);
+			glm::vec3 inc3 = pCurObj->accel + (change * 2.0f);
+			glm::vec3 inc4 = pCurObj->accel + (change * 3.0f);
 
 			pCurObj->velocity += ((1.0f * inc1) +
 								  (2.0f * inc2) +
@@ -76,12 +92,12 @@ void cPhysics::IntegrationStep(std::vector<cGameObject*>& vec_pGameObjects, floa
 
 
 			// Position Adjust
-			step = pCurObj->velocity / 4.0f;
+			change = pCurObj->velocity / 4.0f;
 
-			inc1 = pCurObj->velocity + (step * 0.0f);
-			inc2 = pCurObj->velocity + (step * 1.0f);
-			inc3 = pCurObj->velocity + (step * 2.0f);
-			inc4 = pCurObj->velocity + (step * 3.0f);
+			inc1 = pCurObj->velocity + (change * 0.0f);
+			inc2 = pCurObj->velocity + (change * 1.0f);
+			inc3 = pCurObj->velocity + (change * 2.0f);
+			inc4 = pCurObj->velocity + (change * 3.0f);
 
 			pCurObj->positionXYZ += ((1.0f * inc1) +
 									 (2.0f * inc2) +
@@ -93,50 +109,54 @@ void cPhysics::IntegrationStep(std::vector<cGameObject*>& vec_pGameObjects, floa
 
 			///*rk6
 			//Gravity
-			glm::vec3 step = this->m_Gravity / 6.0f;
 
-			glm::vec3 inc1 = this->m_Gravity + (step * 0.0f);
-			glm::vec3 inc2 = this->m_Gravity + (step * 1.0f);
-			glm::vec3 inc3 = this->m_Gravity + (step * 2.0f);
-			glm::vec3 inc4 = this->m_Gravity + (step * 3.0f);
-			glm::vec3 inc5 = this->m_Gravity + (step * 4.0f);
-			glm::vec3 inc6 = this->m_Gravity + (step * 5.0f);
+			//glm::vec3 change = this->m_Gravity / 6.0f;
 
-			pCurObj->velocity += (((1.0f * inc1) + (2.0f * inc2) + (3.0f * inc3) +
-				(3.0f * inc4) + (2.0f * inc5) + (1.0f * inc6)
-								   ) / 12.0f) * deltaTime;
+			//glm::vec3 inc1 = this->m_Gravity + (change * 0.0f);
+			//glm::vec3 inc2 = this->m_Gravity + (change * 1.0f);
+			//glm::vec3 inc3 = this->m_Gravity + (change * 2.0f);
+			//glm::vec3 inc4 = this->m_Gravity + (change * 3.0f);
+			//glm::vec3 inc5 = this->m_Gravity + (change * 4.0f);
+			//glm::vec3 inc6 = this->m_Gravity + (change * 5.0f);
 
+			//pCurObj->velocity += (((1.0f * inc1) + (2.0f * inc2) + (3.0f * inc3) +
+			//	(3.0f * inc4) + (2.0f * inc5) + (1.0f * inc6)
+			//					   ) / 12.0f) * deltaTime;
+			//pCurObj->velocity = RK6(pCurObj->velocity, this->m_Gravity, deltaTime);
 
 
 			// Velocity Adjust
-			step = pCurObj->accel / 6.0f;
+			//change = pCurObj->accel / 6.0f;
 
-			inc1 = pCurObj->accel + (step * 0.0f);
-			inc2 = pCurObj->accel + (step * 1.0f);
-			inc3 = pCurObj->accel + (step * 2.0f);
-			inc4 = pCurObj->accel + (step * 3.0f);
-			inc5 = pCurObj->accel + (step * 4.0f);
-			inc6 = pCurObj->accel + (step * 5.0f);
+			//inc1 = pCurObj->accel + (change * 0.0f);
+			//inc2 = pCurObj->accel + (change * 1.0f);
+			//inc3 = pCurObj->accel + (change * 2.0f);
+			//inc4 = pCurObj->accel + (change * 3.0f);
+			//inc5 = pCurObj->accel + (change * 4.0f);
+			//inc6 = pCurObj->accel + (change * 5.0f);
 
-			pCurObj->velocity += (((1.0f * inc1) + (2.0f * inc2) + (3.0f * inc3) +
-				(3.0f * inc4) + (2.0f * inc5) + (1.0f * inc6))
-								  / 12.0f) * deltaTime;
-
+			//pCurObj->velocity += (((1.0f * inc1) + (2.0f * inc2) + (3.0f * inc3) +
+			//	(3.0f * inc4) + (2.0f * inc5) + (1.0f * inc6))
+			//					  / 12.0f) * deltaTime;
+			//pCurObj->velocity += RK6(pCurObj->accel) * deltaTime;
+			pCurObj->velocity += (this->m_Gravity + pCurObj->accel) * deltaTime;
 
 			// Position Adjust
-			step = pCurObj->velocity / 6.0f;
+			//change = pCurObj->velocity / 6.0f;
 
-			inc1 = pCurObj->velocity + (step * 0.0f);
-			inc2 = pCurObj->velocity + (step * 1.0f);
-			inc3 = pCurObj->velocity + (step * 2.0f);
-			inc4 = pCurObj->velocity + (step * 3.0f);
-			inc5 = pCurObj->velocity + (step * 4.0f);
-			inc6 = pCurObj->velocity + (step * 5.0f);
+			//inc1 = pCurObj->velocity + (change * 0.0f);
+			//inc2 = pCurObj->velocity + (change * 1.0f);
+			//inc3 = pCurObj->velocity + (change * 2.0f);
+			//inc4 = pCurObj->velocity + (change * 3.0f);
+			//inc5 = pCurObj->velocity + (change * 4.0f);
+			//inc6 = pCurObj->velocity + (change * 5.0f);
 
-			pCurObj->positionXYZ += (((1.0f * inc1) + (2.0f * inc2) + (3.0f * inc3) +
-				(3.0f * inc4) + (2.0f * inc5) + (1.0f * inc6))
-									 / 12.0f) * deltaTime;
+			//pCurObj->positionXYZ += (((1.0f * inc1) + (2.0f * inc2) + (3.0f * inc3) +
+			//	(3.0f * inc4) + (2.0f * inc5) + (1.0f * inc6))
+			//						 / 12.0f) * deltaTime;
 
+			//pCurObj->positionXYZ += RK6(pCurObj->velocity) * deltaTime;
+			pCurObj->positionXYZ += pCurObj->velocity * deltaTime;
 			//*/
 
 
@@ -329,7 +349,7 @@ void cPhysics::GetClosestTrianglesToSphere(cGameObject& testSphere, float distan
 
 #include "../globals.h"
 
-// Test each object with every other object
+// Test each m_pGO with every other m_pGO
 void cPhysics::TestForCollisions(std::vector<cGameObject*>& vec_pGameObjects, std::vector<glm::vec3>& todraw)
 {
 	// This will store all the collisions in this frame
@@ -340,13 +360,13 @@ void cPhysics::TestForCollisions(std::vector<cGameObject*>& vec_pGameObjects, st
 	for (unsigned int outerLoopIndex = 0;
 		 outerLoopIndex != vec_pGameObjects.size(); outerLoopIndex++)
 	{
-		cGameObject* object = vec_pGameObjects[outerLoopIndex];
-		if (object->physicsShapeType == POINTSET)
+		cGameObject* m_pGO = vec_pGameObjects[outerLoopIndex];
+		if (m_pGO->physicsShapeType == POINTSET)
 		{
-			glm::mat4 objMat = calculateWorldMatrix(object, glm::mat4(1.0));
-			for (size_t pointIdx = 0; pointIdx < object->vecPhysTestPoints.size(); pointIdx++)
+			glm::mat4 objMat = calculateWorldMatrix(m_pGO, glm::mat4(1.0));
+			for (size_t pointIdx = 0; pointIdx < m_pGO->vecPhysTestPoints.size(); pointIdx++)
 			{
-				glm::vec3 testPoint = object->vecPhysTestPoints[pointIdx];
+				glm::vec3 testPoint = m_pGO->vecPhysTestPoints[pointIdx];
 				testPoint = objMat * glm::vec4(testPoint, 1.0f);
 
 				if (WorldRegion::mapRegions.find(WorldRegion::GenerateID(testPoint)) != WorldRegion::mapRegions.end())
@@ -357,19 +377,19 @@ void cPhysics::TestForCollisions(std::vector<cGameObject*>& vec_pGameObjects, st
 						UnraveiledTriangle* tri = WorldRegion::AllTriangles[*i];
 						glm::vec3 collisionPoint = glm::vec3(0.0f);
 						float barA = 0, barB = 0, barC = 0;
-						if (IntersectLineTriangle(object->positionXYZ, testPoint, tri->a, tri->b, tri->c,
+						if (IntersectLineTriangle(m_pGO->positionXYZ, testPoint, tri->a, tri->b, tri->c,
 												  barA, barB, barC, collisionPoint))
 						{
-							object->m_pDebugRenderer->addLine(testPoint, object->positionXYZ, glm::vec3(1.0f,0.0f,0.0f));
-							object->m_pDebugRenderer->addLine(object->positionXYZ, collisionPoint, glm::vec3(0.0f, 1.0f, 0.0f));
-							object->m_pDebugRenderer->addLine(testPoint, collisionPoint, glm::vec3(0.0f, 0.0f, 1.0f));
-							if(glm::length(collisionPoint - testPoint) !=0)
-								object->velocity = (glm::length(object->velocity)*0.5f) * glm::normalize(collisionPoint - testPoint);
-								//object->velocity *= glm::normalize(collisionPoint - testPoint);
-							//object->velocity *= 0.9f;
+							m_pGO->m_pDebugRenderer->addLine(testPoint, m_pGO->positionXYZ, glm::vec3(1.0f, 0.0f, 0.0f));
+							m_pGO->m_pDebugRenderer->addLine(m_pGO->positionXYZ, collisionPoint, glm::vec3(0.0f, 1.0f, 0.0f));
+							m_pGO->m_pDebugRenderer->addLine(testPoint, collisionPoint, glm::vec3(0.0f, 0.0f, 1.0f));
+							if (glm::length(collisionPoint - testPoint) != 0)
+								m_pGO->velocity = (glm::length(m_pGO->velocity) * 0.5f) * glm::normalize(collisionPoint - testPoint);
+							//m_pGO->velocity *= glm::normalize(collisionPoint - testPoint);
+						//m_pGO->velocity *= 0.9f;
 							todraw.push_back(collisionPoint);
 							todraw.push_back(testPoint);
-							object->positionXYZ += (collisionPoint - testPoint);
+							m_pGO->positionXYZ += (collisionPoint - testPoint);
 						}
 					}
 
@@ -421,15 +441,15 @@ void cPhysics::TestForCollisions(std::vector<cGameObject*>& vec_pGameObjects, st
 		//	// Note that if you don't respond to the 
 		//	// collision here, then you will get the same
 		//	// result twice (Object "A" with "B" and later, 
-		//	//   object "B" with "A" - but it's the same collison
+		//	//   m_pGO "B" with "A" - but it's the same collison
 
 		//	// Compare the two objects:
 		//	// Either a sphere-sphere or sphere-mesh
-		//	// An I testing the object with itself? 
+		//	// An I testing the m_pGO with itself? 
 		//	//if (pA == pB)
 		//	if (pA->getUniqueID() == pB->getUniqueID())
 		//	{
-		//		// It's the same object
+		//		// It's the same m_pGO
 		//		// Do nothing
 		//	}
 		//	else if (pA->physicsShapeType == SPHERE &&

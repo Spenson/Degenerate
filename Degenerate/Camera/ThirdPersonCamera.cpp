@@ -8,9 +8,9 @@ ThirdPersonCamera::ThirdPersonCamera()
 	m_UpVector = glm::vec3(0.0f, 1.0f, 0.0f);
 }
 
-void ThirdPersonCamera::SetPlayerObject(cGameObject* object)
+void ThirdPersonCamera::SetPlayerObject(cGameObject* m_pGO)
 {
-	m_pPlayerObject = object;
+	m_pPlayerObject = m_pGO;
 }
 
 void ThirdPersonCamera::SetPositionRelitiveToObject(glm::vec3 pos)

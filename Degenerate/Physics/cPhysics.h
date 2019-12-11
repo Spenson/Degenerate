@@ -79,7 +79,7 @@ public:
 							   float& u, float& v, float& w,
 							   Point& collisionPoint);
 
-
+	static glm::vec3 RK6(glm::vec3 val, glm::vec3 change, float delta);
 private:
 
 	// Does collision test and returns collision information

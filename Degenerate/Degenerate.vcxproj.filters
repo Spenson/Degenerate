@@ -101,6 +101,22 @@
     <ClCompile Include="Camera\ThirdPersonCamera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
+    <ClCompile Include="Commands\ParallelCommandGroup.cpp">
+      <Filter>Command\CommandGroup</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\Commands.cpp">
+      <Filter>Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\SerialCommandGroup.cpp">
+      <Filter>Command\CommandGroup</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\MoveCommand.cpp">
+      <Filter>Command\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\RotateCommand.cpp" />
+    <ClCompile Include="Commands\FollowCurveCommand.cpp" />
+    <ClCompile Include="Commands\FollowObjectCommand.cpp" />
+    <ClCompile Include="Commands\LocationTrigger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLCommon.h" />
@@ -189,8 +205,27 @@
     <ClInclude Include="Camera\ThirdPersonCamera.h">
       <Filter>Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Commands\MoveCommand.h" />
-    <ClInclude Include="Commands\iCommand.h" />
+    <ClInclude Include="Commands\iCommand.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\ParallelCommandGroup.h">
+      <Filter>Command\CommandGroup</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\Commands.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\SerialCommandGroup.h">
+      <Filter>Command\CommandGroup</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\MoveCommand.h">
+      <Filter>Command\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\RotateCommand.h">
+      <Filter>Command\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\FollowCurveCommand.h" />
+    <ClInclude Include="Commands\FollowObjectCommand.h" />
+    <ClInclude Include="Commands\LocationTrigger.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="DebugRenderer">
@@ -243,6 +278,15 @@
     </Filter>
     <Filter Include="Texture">
       <UniqueIdentifier>{b38f96fd-1892-4ba7-ba20-4c6a00c8f300}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Command">
+      <UniqueIdentifier>{ccc9254c-1feb-4e7b-a5e0-cd6d9aa023f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Command\CommandGroup">
+      <UniqueIdentifier>{19501096-1b42-435d-ba1f-efe133db0ace}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Command\Commands">
+      <UniqueIdentifier>{807857e6-c10e-475d-b64d-bbe858308057}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

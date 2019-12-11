@@ -4,7 +4,7 @@
 ////#include <glm/vec4.hpp>
 //
 //#include "GFLW_callbacks.h"
-//#include "globals.h"			// for find object
+//#include "globals.h"			// for find m_pGO
 //
 //#include "Camera/FreeCameraManager.h"
 //

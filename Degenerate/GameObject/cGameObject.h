@@ -62,6 +62,7 @@ public:
 	std::string textures[NUMBEROFTEXTURES];
 	float textureRatio[NUMBEROFTEXTURES];
 
+	std::string heightMap;
 
 
 	// Debug/testing

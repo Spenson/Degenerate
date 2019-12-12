@@ -24,6 +24,12 @@ GLint UniformManager::newColour_location = NULL;
 GLint UniformManager::diffuseColour_UL = NULL;
 GLint UniformManager::specularColour_UL = NULL;
 GLint UniformManager::debugColour_UL = NULL;
+
+GLint UniformManager::heightMap_UL = NULL;
+GLint UniformManager::isWater_UL = NULL;
+GLint UniformManager::isIsland_UL = NULL;
+GLint UniformManager::textOffset_UL = NULL;
+GLint UniformManager::offsetText1_UL = NULL;
 //GLint UniformManager::bDoNotLight_UL = NULL;
 
 
@@ -85,7 +91,11 @@ bool UniformManager::Init()
 	specularColour_UL = glGetUniformLocation(shaderProgID, "specularColour");
 	debugColour_UL = glGetUniformLocation(shaderProgID, "debugColour");
 
-
+	heightMap_UL = glGetUniformLocation(shaderProgID, "heightMap");
+	isWater_UL = glGetUniformLocation(shaderProgID, "isWater");
+	isIsland_UL = glGetUniformLocation(shaderProgID, "isIsland");
+	textOffset_UL = glGetUniformLocation(shaderProgID, "textOffset");
+	offsetText1_UL = glGetUniformLocation(shaderProgID, "offsetText1");
 
 
 	return true;

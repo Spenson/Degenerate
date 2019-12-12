@@ -1,10 +1,22 @@
 <MESHES>
   <Mesh>
-    <File>Entire_Babbage_Space_Station_xyz_n_uv(trivial).ply</File>
-    <Name>Babbage</Name>
+    <File>Island.ply</File>
+    <Name>Island</Name>
   </Mesh>
   <Mesh>
-    <File>Ship.ply</File>
-    <Name>Ship</Name>
+    <File>SeaFloor.ply</File>
+    <Name>SeaFloor</Name>
+  </Mesh>
+  <Mesh>
+    <File>Water.ply</File>
+    <Name>Water</Name>
+  </Mesh>
+  <Mesh>
+    <File>shark_xyz_n_uv.ply</File>
+    <Name>Shark</Name>
+  </Mesh>
+  <Mesh>
+    <File>fish_xyz_n_uv.ply</File>
+    <Name>Fish</Name>
   </Mesh>
 </MESHES>

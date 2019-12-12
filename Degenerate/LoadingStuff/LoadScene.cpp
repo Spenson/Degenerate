@@ -106,8 +106,6 @@ void TestLoad(cVAOManager* pTheVAOManager, cModelLoader* pTheModelLoader, GLuint
 
 
 
-	LoadTexturesFromFile("assets/config/Textures.xml", pTextureManager);
-
 	pTextureManager->SetBasePath("assets/textures/");
 	// Load default texture
 	if (!pTextureManager->Create2DTextureFromBMPFile("gridtexture.bmp", true))
@@ -118,6 +116,8 @@ void TestLoad(cVAOManager* pTheVAOManager, cModelLoader* pTheModelLoader, GLuint
 	{
 		std::cout << "Loaded texture: gridtexture.bmp" << std::endl;
 	}
+
+	LoadTexturesFromFile("assets/config/Textures.xml", pTextureManager);
 
 
 
@@ -164,7 +164,7 @@ void TestLoad(cVAOManager* pTheVAOManager, cModelLoader* pTheModelLoader, GLuint
 	vec_pGameObjects.push_back(pSkyBoxSphere);
 
 
-	WorldRegion::init("Babbage", &mapMeshes["Babbage"], 20.0f);
+	//WorldRegion::init("Babbage", &mapMeshes["Babbage"], 20.0f);
 
 
 	for (cGameObject* m_pGO : ::g_vec_pGameObjects)
@@ -178,6 +178,39 @@ void TestLoad(cVAOManager* pTheVAOManager, cModelLoader* pTheModelLoader, GLuint
 
 
 	//pFindObjectByFriendlyName("Ship")->isImposter = true;
+
+
+
+
+	pFindObjectByFriendlyName("Water")->heightMap = "Water.bmp";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

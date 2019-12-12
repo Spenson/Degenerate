@@ -1,108 +1,89 @@
 <GAMEOBJECTS>
-    <GameObject>
-      <MeshName>Babbage</MeshName>
-      <FriendlyName>Babbage</FriendlyName>
-
-      <Position x="0" y="0" z="0"/>
-      <Rotation x="0" y="0" z="0"/>
-      <Scale f="1" x="1" y="1" z="1"/>
-
-      <ObjectColour r="1" g="1" b=".45" a="0.5"/>
-      <DiffuseColour r=".6" g=".6" b=".6" a="0.95"/>
-      <SpecularColour r="0" g="1" b="1" a="1000"/>
-      <DebugColour r="1" g="1" b="1" a="1"/>
-
-      <Velocity x="0" y="0" z="0"/>
-      <Acceleration x="0" y="0" z="0"/>
-      <InverseMass f="0"/>
-
-      <PhysicsShapeType type="0"/>
-      <UseDiffuse b="1"/>
-      <Wireframe b="0"/>
-      <Visible b="1"/>
-      <DisableDepthTest b="0"/>
-      <DisableDepthWrite b="0"/>
-    </GameObject>
-    <GameObject>
-      <MeshName>Ship</MeshName>
-      <FriendlyName>Ship</FriendlyName>
-
-      <Position x="50" y="0" z="0"/>
-      <Scale f="1" x="1" y="1" z="1"/>
-
-      <ObjectColour r="1" g="1" b=".45" a="0.5"/>
-      <DiffuseColour r="1" g="1" b="1" a="1"/>
-      <SpecularColour r="1" g="1" b="1" a="1000"/>
-      <DebugColour r="1" g="1" b="1" a="1"/>
-
-      <Velocity x="0" y="0" z="0"/>
-      <Acceleration x="0" y="0" z="0"/>
-      <InverseMass f="1.0f"/>
-     
-      <PhysicsShapeType type="6"/>
-
-      <Textures>
-        <texture index="0" name="Untitled.bmp" ratio="1"/>
-      </Textures>
-      
-      <TestPoints>
-        <point x="1.6" y="-0.6" z="10"/>
-        <point x="-1.6" y="-0.6" z="10"/>
-        <point x="3.8" y="-0.25" z="6"/>
-        <point x="-3.8" y="-0.25" z="6"/>
-        <point x="5.75" y="0.17" z="-5"/>
-        <point x="-5.75" y="0.17" z="-5"/>
-        <point x="0.0" y="1.4" z="1.0"/>
-        <point x="0.0" y="0.0" z="4.6"/>
-        <point x="0.0" y="-1.0" z="3.3"/>
-        <point x="2.3" y="-1.3" z="3.3"/>
-        <point x="-2.3" y="-1.3" z="3.3"/>
-        <point x="-2.75" y="1.7" z="-10.0"/>
-        <point x="2.75" y="1.7" z="-10.0"/>
-        <point x="-2.2" y="-0.4" z="-10.0"/>
-        <point x="2.2" y="-0.4" z="-10.0"/>
-      </TestPoints>
-      
-      
-      <Wireframe b="0"/>
-      <Visible b="1"/>
-      <DisableDepthTest b="0"/>
-      <DisableDepthWrite b="0"/>
-    </GameObject>
-
   <GameObject>
-    <MeshName>Ship</MeshName>
-    <FriendlyName>Ship2</FriendlyName>
+    <MeshName>Island</MeshName>
+    <FriendlyName>Island</FriendlyName>
 
-    <Position x="50" y="0" z="0"/>
+    <Position x="0" y="0" z="0"/>
+    <Rotation x="0" y="0" z="0"/>
     <Scale f="1" x="1" y="1" z="1"/>
 
-    <ObjectColour r="0.5" g="0.5" b=".5" a="0.5"/>
-    <DiffuseColour r="0.5" g="0.5" b=".5" a="1"/>
+    <DiffuseColour r="0.8" g=".3" b=".2" a="1.0"/>
     <SpecularColour r="1" g="1" b="1" a="1000"/>
-    <DebugColour r="1" g="1" b="1" a="1"/>
+    <DebugColour r="1" g="0" b="0" a="1"/>
 
     <Velocity x="0" y="0" z="0"/>
     <Acceleration x="0" y="0" z="0"/>
-    <InverseMass f="1.0f"/>
-
-    <PhysicsShapeType type="0"/>
+    <InverseMass f="0"/>
 
     <Textures>
-      <texture index="0" name="Untitled.bmp" ratio="1"/>
+      <texture index="1" name="Grass.bmp" ratio="0.3"/>
+      <texture index="2" name="Rock.bmp" ratio="0.4"/>
+      <texture index="3" name="Sand.bmp" ratio="0.3"/>
     </Textures>
-
-    <UseDiffuse b="1"/>
-
-    <TestPoints>
-      <point x="1.6" y="-0.6" z="10"/>
-    </TestPoints>
-
-
+    
+    <PhysicsShapeType type="0"/>
+    <UseDiffuse b="0"/>
     <Wireframe b="0"/>
     <Visible b="1"/>
     <DisableDepthTest b="0"/>
     <DisableDepthWrite b="0"/>
   </GameObject>
+  <GameObject>
+    <MeshName>Water</MeshName>
+    <FriendlyName>Water</FriendlyName>
+
+    <Position x="0" y="40" z="0"/>
+    <Rotation x="0" y="0" z="0"/>
+    <Scale f="2" x="1" y="1" z="1"/>
+
+    <DiffuseColour r=".4" g=".4" b="1" a="0.7"/>
+    <SpecularColour r="1" g="1" b="1" a="1000"/>
+    <DebugColour r="1" g="0" b="0" a="1"/>
+
+    <Velocity x="0" y="0" z="0"/>
+    <Acceleration x="0" y="0" z="0"/>
+    <InverseMass f="0"/>
+
+    <Textures>
+      <texture index="0" name="Water.bmp" ratio="1.0"/>
+    </Textures>
+    
+    <PhysicsShapeType type="0"/>
+    <UseDiffuse b="0"/>
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>SeaFloor</MeshName>
+    <FriendlyName>SeaFloor</FriendlyName>
+
+    <Position x="0" y="0" z="0"/>
+    <Rotation x="0" y="0" z="0"/>
+    <Scale f="2" x="1" y="1" z="1"/>
+
+    <DiffuseColour r=".3" g=".3" b=".4" a="0.95"/>
+    <SpecularColour r="1" g="1" b="1" a="1000"/>
+    <DebugColour r="1" g="0" b="0" a="1"/>
+
+    <Velocity x="0" y="0" z="0"/>
+    <Acceleration x="0" y="0" z="0"/>
+    <InverseMass f="0"/>
+
+    <Textures>
+      <texture index="0" name="Water.bmp" ratio="0.4"/>
+      <texture index="1" name="Sand.bmp" ratio="0.6"/>
+    </Textures>
+    
+    
+    <PhysicsShapeType type="0"/>
+    <UseDiffuse b="0"/>
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+
 
 </GAMEOBJECTS>

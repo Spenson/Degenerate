@@ -120,8 +120,8 @@ void LoadTexturesFromFile(std::string File, cBasicTextureManager* TextureManager
 			else if (strcmp(node->Name(), "Cube") == 0)
 			{
 				if (::g_pTextureManager->CreateCubeTextureFromBMPFiles(node->FirstChildElement("Name")->GetText(),
-																	   node->FirstChildElement("Right")->GetText(), node->FirstChildElement("Left")->GetText(),
-																	   node->FirstChildElement("Up")->GetText(), node->FirstChildElement("Down")->GetText(),
+																	   node->FirstChildElement("Left")->GetText(), node->FirstChildElement("Right")->GetText(),
+																	   node->FirstChildElement("Down")->GetText(), node->FirstChildElement("Up")->GetText(), 
 																	   node->FirstChildElement("Front")->GetText(), node->FirstChildElement("Back")->GetText(),
 																	   true, errorString))
 				{

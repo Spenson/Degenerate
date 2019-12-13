@@ -24,6 +24,11 @@ name = "Fire 4"
 params = "Ball1   53.4 119.95 -180   53 127 -189   52.8 118 -197   2.5"
 command = CreateCommand(type,name,params)
 AddCommandToGroup(command, Cannon)
+type = "FollowCurveOverTime" 
+name = "Fire 8" 
+params = "Ball1   53.4 -119.95 -180   53 -129 -189   52.8 -121 -197   0"
+command = CreateCommand(type,name,params)
+AddCommandToGroup(command, Cannon)
 
 type = "Wait"
 name = ""

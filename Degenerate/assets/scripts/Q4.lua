@@ -66,7 +66,7 @@ ParallelGroup = CreateCommand(type,name,params)
 AddCommandToGroup(ParallelGroup, CameraSerial)
 
 type = "MoveOverTime"
-name = "Attacker Towards Defender"
+name = ""
 params = "Cam -90 125 -35   30 125 -208  25"
 command = CreateCommand(type,name,params)
 AddCommandToGroup(command, ParallelGroup)

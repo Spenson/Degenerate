@@ -16,16 +16,16 @@ bool FollowObjectCommand::Update(double deltaTime)
 	glm::vec3 velocity;
 	if (m_Time >= m_TimeToFollow)
 	{
-		m_pGOTarget->velocity = glm::vec3(0.0f);
+		m_pGO->velocity = glm::vec3(0.0f);
 		m_Done = true;
 		return false;
 
 	}
 	else
 	{
-		glm::vec3 dir = glm::normalize(m_pGO->positionXYZ - m_pGOTarget->positionXYZ);
+		glm::vec3 dir = glm::normalize(m_pGOTarget->positionXYZ - m_pGO->positionXYZ);
 		float dis = glm::distance(m_pGOTarget->positionXYZ, m_pGO->positionXYZ);
-		m_pGOTarget->velocity = dir * (glm::smoothstep(m_NearBound, m_FarBound, dis) * m_Speed);
+		m_pGO->velocity = dir * (glm::smoothstep(m_NearBound, m_FarBound, dis) * m_Speed);
 	}
 
 	return true;

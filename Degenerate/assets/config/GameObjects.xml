@@ -5,6 +5,7 @@
 
     <Position x="105" y="125" z="57"/>
     <Rotation x="12" y="-145" z="0"/>
+    <InverseMass f="1"/>
    
     <Visible b="0"/>
   </GameObject>
@@ -159,7 +160,7 @@
 
     <Velocity x="0" y="0" z="0"/>
     <Acceleration x="0" y="0" z="0"/>
-    <InverseMass f="0"/>
+    <InverseMass f="1"/>
 
 
     <PhysicsShapeType type="0"/>

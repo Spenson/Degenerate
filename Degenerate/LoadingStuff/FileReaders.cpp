@@ -263,6 +263,7 @@ cGameObject* LoadGameObjectNode(tinyxml2::XMLElement* objectElement)
 		m_pGO->setOrientation(GetXYZ(objectElement->FirstChildElement("Rotation")));
 
 
+
 	if (objectElement->FirstChildElement("ChildObjects"))
 	{
 		tinyxml2::XMLElement* childObjectElement = objectElement->FirstChildElement("ChildObjects")->FirstChildElement();

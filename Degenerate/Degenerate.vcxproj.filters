@@ -113,20 +113,32 @@
     <ClCompile Include="Commands\MoveCommand.cpp">
       <Filter>Command\Commands</Filter>
     </ClCompile>
-    <ClCompile Include="Commands\FollowCurveCommand.cpp">
-      <Filter>Command\Commands</Filter>
+    <ClCompile Include="Commands\cLuaBrain.cpp">
+      <Filter>Command</Filter>
     </ClCompile>
-    <ClCompile Include="Commands\FollowObjectCommand.cpp">
+    <ClCompile Include="Commands\LocationTrigger.cpp">
+      <Filter>Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\FollowCurveCommand.cpp">
       <Filter>Command\Commands</Filter>
     </ClCompile>
     <ClCompile Include="Commands\RotateCommand.cpp">
       <Filter>Command\Commands</Filter>
     </ClCompile>
-    <ClCompile Include="Commands\LocationTrigger.cpp">
-      <Filter>Command</Filter>
+    <ClCompile Include="Commands\FollowObjectCommand.cpp">
+      <Filter>Command\Commands</Filter>
     </ClCompile>
-    <ClCompile Include="Commands\cLuaBrain.cpp">
-      <Filter>Command</Filter>
+    <ClCompile Include="Commands\MoveOverTimeCommand.cpp">
+      <Filter>Command\OverTimeCommands</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\RotateOverTimeCommand.cpp">
+      <Filter>Command\OverTimeCommands</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\FollowCurveOverTimeCommand.cpp">
+      <Filter>Command\OverTimeCommands</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\WaitCommand.cpp">
+      <Filter>Command\OverTimeCommands</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -234,17 +246,29 @@
     <ClInclude Include="Commands\RotateCommand.h">
       <Filter>Command\Commands</Filter>
     </ClInclude>
+    <ClInclude Include="Commands\cLuaBrain.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\LocationTrigger.h">
+      <Filter>Command</Filter>
+    </ClInclude>
     <ClInclude Include="Commands\FollowCurveCommand.h">
       <Filter>Command\Commands</Filter>
     </ClInclude>
     <ClInclude Include="Commands\FollowObjectCommand.h">
       <Filter>Command\Commands</Filter>
     </ClInclude>
-    <ClInclude Include="Commands\LocationTrigger.h">
-      <Filter>Command</Filter>
+    <ClInclude Include="Commands\MoveOverTimeCommand.h">
+      <Filter>Command\OverTimeCommands</Filter>
     </ClInclude>
-    <ClInclude Include="Commands\cLuaBrain.h">
-      <Filter>Command</Filter>
+    <ClInclude Include="Commands\RotateOverTimeCommand.h">
+      <Filter>Command\OverTimeCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\FollowCurveOverTimeCommand.h">
+      <Filter>Command\OverTimeCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\WaitCommand.h">
+      <Filter>Command\OverTimeCommands</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -307,6 +331,9 @@
     </Filter>
     <Filter Include="Command\Commands">
       <UniqueIdentifier>{807857e6-c10e-475d-b64d-bbe858308057}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Command\OverTimeCommands">
+      <UniqueIdentifier>{d9888c7f-4436-48d7-a1aa-ad74f8647413}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -19,4 +19,12 @@
     <File>fish_xyz_n_uv.ply</File>
     <Name>Fish</Name>
   </Mesh>
+  <Mesh>
+    <File>Small_Factory_3d_model_xyz_n.ply</File>
+    <Name>SmallFactory</Name>
+  </Mesh>
+  <Mesh>
+    <File>Sky_Pirate_Decimated_Cannons_Combined_xyz_n.ply</File>
+    <Name>Pirate</Name>
+  </Mesh>
 </MESHES>

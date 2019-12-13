@@ -142,6 +142,7 @@ void DrawObject(glm::mat4 matModel, cGameObject* pCurrentObject, GLint shaderPro
 	else
 	{
 		glUniform1f(UniformManager::isWater_UL, (float)GL_FALSE);
+		glUniform1f(UniformManager::offsetText1_UL, (float)GL_FALSE);
 	}
 	// ************
 

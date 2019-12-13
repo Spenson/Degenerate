@@ -37,6 +37,7 @@ iCommand* g_ParentCommandGroup;
 extern cGameObject* g_pDebugSphere;
 extern cGameObject* g_pDebugCube;
 
+cLuaBrain* g_pLuaScripts;
 
 extern glm::vec2 textOffest;
 
@@ -143,22 +144,22 @@ int main(void)
 
 	double lastTime = glfwGetTime();
 
-	cGameObject* collisionShpere = new cGameObject();
+	/*cGameObject* collisionShpere = new cGameObject();
 	collisionShpere->debugColour = glm::vec4(0.8f, 0.2f, 0.2f, 1.0f);
 	collisionShpere->doNotLight = true;
 	collisionShpere->meshName = "sphere_lowres";
 	collisionShpere->friendlyName = "collision";
 	collisionShpere->scale = 0.5f;
-	collisionShpere->useDiffuse = true;
+	collisionShpere->useDiffuse = true;*/
 
 
-	/*ThirdPersonCamera tpc;
-	tpc.SetPlayerObject(pFindObjectByFriendlyName("Ship"));
-	tpc.SetPositionRelitiveToObject(glm::vec3(0.0f, 10.0f, -50.0f));
-	tpc.SetTargetRelitiveToObject(glm::vec3(0.0f, 10.0f, 0.0f));*/
+	ThirdPersonCamera tpc;
+	tpc.SetPlayerObject(pFindObjectByFriendlyName("Cam"));
+	tpc.SetPositionRelitiveToObject(glm::vec3(0.0f, 0.0f, 0.0f));
+	tpc.SetTargetRelitiveToObject(glm::vec3(0.0f, 0.0f, 1.0f));
 
 
-	//g_ParentCommandGroup = createParent("Parent");
+	g_ParentCommandGroup = createParent("Parent");
 
 	//g_pFreeCamera->SetPosition(glm::vec3(100,1100,-30));
 	//iCommand* group = MakeCommand("SerialGroup", "GroupTest", "Ship 100.0 0.0 -30.0 20.0 15.0 15.0");
@@ -172,13 +173,22 @@ int main(void)
 
 
 
-	/*cLuaBrain* p_LuaScripts = new cLuaBrain();
+	g_pLuaScripts = new cLuaBrain();
 
 
-	std::ifstream t("assets/script.lua");
-	std::string luaScript = std::string((std::istreambuf_iterator<char>(t)),
-						 std::istreambuf_iterator<char>());
-	t.close();*/
+	//std::ifstream t("assets/script.lua");
+	//std::string luaScript = std::string((std::istreambuf_iterator<char>(t)),
+	//					 std::istreambuf_iterator<char>());
+	//t.close();
+
+	//g_pLuaScripts->RunThis(luaScript);
+
+
+
+
+
+
+
 
 
 	/*std::string luaScript = "a = \"FollowCurve\" \
@@ -186,7 +196,7 @@ int main(void)
 							c = \"Ship   100.0 1000.0 -30.0   200.0 1000.0 0.0   200.0 1000.0 -100.0   100.0 1000.0 -300.0   400.0 1000.0 -100.0   20.0 10.0 10.0\"\
 							d = CreateCommand(a,b,c)\
 							AddCommandToGroup(d, 0)";*/
-	//p_LuaScripts->RunThis(luaScript);
+	//
 	/*MoveCommand* move = new MoveCommand("test");
 
 	sPair To;		To.numData = glm::vec4(100.0f, 0.0, -30.0, 1.0f);
@@ -227,10 +237,9 @@ int main(void)
 
 
 	//std::vector<glm::vec3> todraw;
-
-	::g_pFreeCamera->SetPosition(glm::vec3(-250,150,250));
-	::g_pFreeCamera->Pitch(20 * -18);
-	::g_pFreeCamera->Yaw(20 * -140);
+	::g_pFreeCamera->SetPosition(glm::vec3(47, 115, -180));
+	//::g_pFreeCamera->Pitch(20 * -18);
+	::g_pFreeCamera->Yaw(20 * -180);
 	std::cout << ::g_pFreeCamera->Yaw() << std::endl;
 
 	while (!glfwWindowShouldClose(window))
@@ -249,16 +258,16 @@ int main(void)
 			glm::vec3 ObjB = ::g_vec_pGameObjects[index + 1]->positionXYZ;
 
 			//if (glm::distance(ObjA, ::g_pFlyCamera->eye) < glm::distance(ObjB, ::g_pFlyCamera->eye))
-			/*if (lockToShip)
+			if (lockToShip)
 			{
-				if (glm::distance(ObjA, tpc.Position()) < glm::distance(ObjB, tpc.Position()) && ::g_vec_pGameObjects[index]->friendlyName != "Ship")
+				if (glm::distance(ObjA, tpc.Position()) < glm::distance(ObjB, tpc.Position()))
 					std::swap(::g_vec_pGameObjects[index], ::g_vec_pGameObjects[index + 1]);
 			}
 			else
-			{*/
+			{
 				if (glm::distance(ObjA, ::g_pFreeCamera->GetPosition()) < glm::distance(ObjB, ::g_pFreeCamera->GetPosition()))
 					std::swap(::g_vec_pGameObjects[index], ::g_vec_pGameObjects[index + 1]);
-			//}
+			}
 		}// for (unsigned int index
 
 
@@ -279,16 +288,26 @@ int main(void)
 
 		//Frame Rate in title bar
 		std::stringstream ssTitle;
-		ssTitle << "Degenerate | " << 1.0 / avgDeltaTimeThingy.getAverage() << " (" << 1.0 / deltaTime << " | " << deltaTime << ")"
+		//ssTitle << "Degenerate | " << 1.0 / avgDeltaTimeThingy.getAverage() << " (" << 1.0 / deltaTime << " | " << deltaTime << ")"
 			/*<< " Pos: (" << pFindObjectByFriendlyName("Ship")->positionXYZ.x << ", "
 			<< pFindObjectByFriendlyName("Ship")->positionXYZ.y << ", "
 			<< pFindObjectByFriendlyName("Ship")->positionXYZ.z << ")"
 			<< " Rot: (" << glm::degrees(pFindObjectByFriendlyName("Ship")->getEulerAngle().x) << ", "
 			<< glm::degrees(pFindObjectByFriendlyName("Ship")->getEulerAngle().y) << ", "
 			<< glm::degrees(pFindObjectByFriendlyName("Ship")->getEulerAngle().z) << ")"*/;
+
+		ssTitle << "Degenerate | "
+			<< " Pos: (" << g_pLightManager->GetLight(0)->Position.x << ", "
+			<< g_pLightManager->GetLight(0)->Position.y << ", "
+			<< g_pLightManager->GetLight(0)->Position.z << ")"
+			<< " Cam: (" << ::g_pFreeCamera->GetPosition().x << ", "
+			<< ::g_pFreeCamera->GetPosition().y << ", "
+			<< ::g_pFreeCamera->GetPosition().z << ") <" << ::g_pFreeCamera->Pitch() << ", " << ::g_pFreeCamera->Yaw() << ">"
+			/*<< " Rot: (" << glm::degrees(pFindObjectByFriendlyName("Ship")->getEulerAngle().x) << ", "
+			<< glm::degrees(pFindObjectByFriendlyName("Ship")->getEulerAngle().y) << ", "
+			<< glm::degrees(pFindObjectByFriendlyName("Ship")->getEulerAngle().z) << ")"*/;
+
 		glfwSetWindowTitle(window, ssTitle.str().c_str());
-
-
 
 
 
@@ -316,9 +335,9 @@ int main(void)
 		p = glm::perspective(0.6f, ratio, 0.5f, 10000.0f);
 		v = glm::mat4(1.0f);
 		//v = glm::lookAt(::g_pFlyCamera->eye, ::g_pFlyCamera->getAtInWorldSpace(), ::g_pFlyCamera->getUpVector());
-		/*if (lockToShip)
+		if (lockToShip)
 			v = glm::lookAt(tpc.Position(), tpc.Target(), tpc.UpVector());
-		else*/
+		else
 			v = glm::lookAt(::g_pFreeCamera->GetPosition(), ::g_pFreeCamera->GetTarget(), ::g_pFreeCamera->GetUpVector());
 
 		glViewport(0, 0, width, height);
@@ -327,9 +346,9 @@ int main(void)
 
 
 		g_pLightManager->PassLightsToShader();
-		/*if (lockToShip)
+		if (lockToShip)
 			glUniform4f(UniformManager::eyeLocation_UL, tpc.Position().x, tpc.Position().y, tpc.Position().z, 1.0f);
-		else*/
+		else
 			glUniform4f(UniformManager::eyeLocation_UL, ::g_pFreeCamera->GetPosition().x, ::g_pFreeCamera->GetPosition().y, ::g_pFreeCamera->GetPosition().z, 1.0f);
 
 
@@ -339,9 +358,9 @@ int main(void)
 
 
 		cGameObject* pSkyBox = pFindObjectByFriendlyName("skybox");
-		/*if (lockToShip)
+		if (lockToShip)
 			pSkyBox->positionXYZ = tpc.Position();
-		else*/
+		else
 			pSkyBox->positionXYZ = ::g_pFreeCamera->GetPosition();// ::g_pFlyCamera->eye;
 
 		DrawObject(glm::mat4(1.0f), pSkyBox, UniformManager::shaderProgID, pTheVAOManager);
@@ -376,7 +395,7 @@ int main(void)
 
 		//if (!g_ParentCommandGroup->IsDone())
 		//{
-		//	g_ParentCommandGroup->Update(deltaTime);
+			g_ParentCommandGroup->Update(deltaTime);
 		//}
 
 

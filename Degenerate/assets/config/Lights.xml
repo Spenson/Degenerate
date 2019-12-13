@@ -1,5 +1,5 @@
 <LIGHTS>
-  <Light>
+  <!--<Light>
     <Position x="-2.75" y="0.5" z="-10.0"/>
     <Diffuse r="1" g="0" b="0"/>
     <Specular r="0.5" g="0.5" b="0.5" a="1"/>
@@ -49,6 +49,19 @@
     <SpotInnerAngle f="7.5"/>
     <SpotOuterAngle f="12.5"/>
     <IsLightOn b="true"/>
+  </Light>-->
+  <Light>
+    <Position x="0" y="0" z="0"/>
+    <Rotation x="4" y="5" z="6"/>
+    <Diffuse r="1" g="1" b="1"/>
+    <ConstAtten f="0.1"/>
+    <LinearAtten f="0.1"/>
+    <QuadraticAtten f="3.1"/>
+    <CutOffDistance f="3.402823466e+38"/>
+    <LightType type="0"/>
+    <SpotInnerAngle f="10"/>
+    <SpotOuterAngle f="15"/>
+    <IsLightOn b="0"/>
   </Light>
   
   
@@ -63,20 +76,7 @@
     <SpotOuterAngle f="15"/>
     <IsLightOn b="1"/>
   </Light>
-  <!--<Light>
-    <Position x="500" y="100" z="300"/>
-    <Rotation x="4" y="5" z="6"/>
-    <Diffuse r="1" g="1" b="1"/>
-    <ConstAtten f="0.01"/>
-    <LinearAtten f="0.001"/>
-    <QuadraticAtten f="0.00000000000000001"/>
-    <CutOffDistance f="3.402823466e+38"/>
-    <LightType type="0"/>
-    <SpotInnerAngle f="10"/>
-    <SpotOuterAngle f="15"/>
-    <IsLightOn b="1"/>
-  </Light>
-  <Light>
+<!--  <Light>
     <Position x="500" y="100" z="-300"/>
     <Rotation x="4" y="5" z="6"/>
     <Diffuse r="1" g="1" b="1"/>

@@ -1,5 +1,16 @@
 <GAMEOBJECTS>
   <GameObject>
+    <MeshName>null</MeshName>
+    <FriendlyName>Cam</FriendlyName>
+
+    <Position x="105" y="125" z="57"/>
+    <Rotation x="12" y="-145" z="0"/>
+   
+    <Visible b="0"/>
+  </GameObject>
+  
+  
+  <GameObject>
     <MeshName>Island</MeshName>
     <FriendlyName>Island</FriendlyName>
 
@@ -84,6 +95,179 @@
     <DisableDepthTest b="0"/>
     <DisableDepthWrite b="0"/>
   </GameObject>
+  <GameObject>
+    <MeshName>SmallFactory</MeshName>
+    <FriendlyName>SmallFactory</FriendlyName>
+    
+    <Position x="49" y="115" z="-197"/>
+    <Rotation x="0" y="0" z="0"/>
+    <Scale f="4" x="1" y="1" z="1"/>
 
+    <DiffuseColour r=".3" g=".3" b=".4" a="0.95"/>
+    <SpecularColour r="1" g="1" b="1" a="1000"/>
+    <DebugColour r="1" g="0" b="0" a="1"/>
+
+    <Velocity x="0" y="0" z="0"/>
+    <Acceleration x="0" y="0" z="0"/>
+    <InverseMass f="0"/>
+
+
+    <PhysicsShapeType type="0"/>
+    <UseDiffuse b="1"/>
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  
+  <GameObject>
+    <MeshName>Pirate</MeshName>
+    <FriendlyName>Defender</FriendlyName>
+
+    <Position x="53" y="117" z="-197"/>
+    <Rotation x="0" y="-90" z="0"/>
+    <Scale f="0.2" x="1" y="1" z="1"/>
+
+    <DiffuseColour r=".3" g=".7" b=".3" a="0.95"/>
+    <SpecularColour r="1" g="1" b="1" a="1000"/>
+    <DebugColour r="1" g="0" b="0" a="1"/>
+
+    <Velocity x="0" y="0" z="0"/>
+    <Acceleration x="0" y="0" z="0"/>
+    <InverseMass f="0"/>
+
+
+    <PhysicsShapeType type="0"/>
+    <UseDiffuse b="1"/>
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+
+  <GameObject>
+    <MeshName>Pirate</MeshName>
+    <FriendlyName>Attacker</FriendlyName>
+
+    <Position x="-80" y="117" z="-50"/>
+    <Rotation x="0" y="180" z="0"/>
+    <Scale f="0.2" x="1" y="1" z="1"/>
+
+    <DiffuseColour r=".7" g=".7" b=".1" a="0.95"/>
+    <SpecularColour r="1" g="1" b="1" a="1000"/>
+    <DebugColour r="1" g="0" b="0" a="1"/>
+
+    <Velocity x="0" y="0" z="0"/>
+    <Acceleration x="0" y="0" z="0"/>
+    <InverseMass f="0"/>
+
+
+    <PhysicsShapeType type="0"/>
+    <UseDiffuse b="1"/>
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+
+  
+  
+  
+  
+  
+  
+
+  <GameObject>
+    <MeshName>sphere_lowres</MeshName>
+    <FriendlyName>Ball1</FriendlyName>
+
+    <Position x="120" y="-100" z="45"/>
+    <Rotation x="0" y="180" z="0"/>
+    <Scale f="0.05" x="1" y="1" z="1"/>
+
+    <DiffuseColour r=".2" g=".2" b=".2" a="0.95"/>
+    <SpecularColour r="1" g="1" b="1" a="1000"/>
+    <DebugColour r="1" g="0" b="0" a="1"/>
+
+    <Velocity x="0" y="0" z="0"/>
+    <Acceleration x="0" y="0" z="0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="0"/>
+    <UseDiffuse b="1"/>
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>sphere_lowres</MeshName>
+    <FriendlyName>Ball2</FriendlyName>
+
+    <Position x="120" y="-100" z="45"/>
+    <Rotation x="0" y="180" z="0"/>
+    <Scale f="0.05" x="1" y="1" z="1"/>
+
+    <DiffuseColour r=".2" g=".2" b=".2" a="0.95"/>
+    <SpecularColour r="1" g="1" b="1" a="1000"/>
+    <DebugColour r="1" g="0" b="0" a="1"/>
+
+    <Velocity x="0" y="0" z="0"/>
+    <Acceleration x="0" y="0" z="0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="0"/>
+    <UseDiffuse b="1"/>
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>sphere_lowres</MeshName>
+    <FriendlyName>Ball3</FriendlyName>
+
+    <Position x="120" y="-100" z="45"/>
+    <Rotation x="0" y="180" z="0"/>
+    <Scale f="0.05" x="1" y="1" z="1"/>
+
+    <DiffuseColour r=".2" g=".2" b=".2" a="0.95"/>
+    <SpecularColour r="1" g="1" b="1" a="1000"/>
+    <DebugColour r="1" g="0" b="0" a="1"/>
+
+    <Velocity x="0" y="0" z="0"/>
+    <Acceleration x="0" y="0" z="0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="0"/>
+    <UseDiffuse b="1"/>
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
+  <GameObject>
+    <MeshName>sphere_lowres</MeshName>
+    <FriendlyName>Ball4</FriendlyName>
+
+    <Position x="120" y="-100" z="45"/>
+    <Rotation x="0" y="180" z="0"/>
+    <Scale f="0.05" x="1" y="1" z="1"/>
+
+    <DiffuseColour r=".2" g=".2" b=".2" a="0.95"/>
+    <SpecularColour r="1" g="1" b="1" a="1000"/>
+    <DebugColour r="1" g="0" b="0" a="1"/>
+
+    <Velocity x="0" y="0" z="0"/>
+    <Acceleration x="0" y="0" z="0"/>
+    <InverseMass f="0"/>
+
+    <PhysicsShapeType type="0"/>
+    <UseDiffuse b="1"/>
+    <Wireframe b="0"/>
+    <Visible b="1"/>
+    <DisableDepthTest b="0"/>
+    <DisableDepthWrite b="0"/>
+  </GameObject>
 
 </GAMEOBJECTS>

@@ -8,6 +8,10 @@
 #include "FollowCurveCommand.h"
 #include "FollowObjectCommand.h"
 #include "LocationTrigger.h"
+#include "MoveOverTimeCommand.h"
+#include "RotateOverTimeCommand.h"
+#include "FollowCurveOverTimeCommand.h"
+#include "WaitCommand.h"
 
 
 #include <iostream>
@@ -47,6 +51,17 @@ int MakeCommand(std::string type, std::string name, std::string params)
 	{
 		command = new ParallelCommandGroup(name);
 	}
+	else if ("Wait" == type)
+	{
+		command = new WaitCommand(name);
+
+		std::stringstream ss(params);
+
+		std::vector<sPair> vecParams(1);
+		ss >> vecParams[0].numData.x;
+
+		command->Init(vecParams);
+	}
 	else if ("Move" == type)
 	{
 		command = new MoveCommand(name);
@@ -65,6 +80,30 @@ int MakeCommand(std::string type, std::string name, std::string params)
 		ss >> vecParams[1].numData.x;
 		ss >> vecParams[1].numData.y;
 		ss >> vecParams[1].numData.z;
+
+		command->SetGameObject(pFindObjectByFriendlyName(objectName));
+		command->Init(vecParams);
+	}
+	else if ("MoveOverTime" == type)
+	{
+		command = new MoveOverTimeCommand(name);
+
+		std::stringstream ss(params);
+
+		std::string objectName;
+		ss >> objectName;
+
+		std::vector<sPair> vecParams(3);
+
+		ss >> vecParams[0].numData.x;
+		ss >> vecParams[0].numData.y;
+		ss >> vecParams[0].numData.z;
+
+		ss >> vecParams[1].numData.x;
+		ss >> vecParams[1].numData.y;
+		ss >> vecParams[1].numData.z;
+
+		ss >> vecParams[2].numData.x;
 
 		command->SetGameObject(pFindObjectByFriendlyName(objectName));
 		command->Init(vecParams);
@@ -91,6 +130,30 @@ int MakeCommand(std::string type, std::string name, std::string params)
 		command->SetGameObject(pFindObjectByFriendlyName(objectName));
 		command->Init(vecParams);
 	}
+	else if ("RotateOverTime" == type)
+	{
+		command = new RotateOverTimeCommand(name);
+
+		std::stringstream ss(params);
+
+		std::string objectName;
+		ss >> objectName;
+
+		std::vector<sPair> vecParams(3);
+
+		ss >> vecParams[0].numData.x;
+		ss >> vecParams[0].numData.y;
+		ss >> vecParams[0].numData.z;
+
+		ss >> vecParams[1].numData.x;
+		ss >> vecParams[1].numData.y;
+		ss >> vecParams[1].numData.z;
+
+		ss >> vecParams[2].numData.x;
+
+		command->SetGameObject(pFindObjectByFriendlyName(objectName));
+		command->Init(vecParams);
+	}
 	else if ("FollowCurve" == type)
 	{
 		command = new FollowCurveCommand(name);
@@ -112,13 +175,29 @@ int MakeCommand(std::string type, std::string name, std::string params)
 		}
 
 
-		//ss >> vecParams[0].numData.x;
-		//ss >> vecParams[0].numData.y;
-		//ss >> vecParams[0].numData.z;
+		command->SetGameObject(pFindObjectByFriendlyName(objectName));
+		command->Init(vecParams);
+	}
+	else if ("FollowCurveOverTime" == type)
+	{
+		command = new FollowCurveOverTimeCommand(name);
 
-		//ss >> vecParams[1].numData.x;
-		//ss >> vecParams[1].numData.y;
-		//ss >> vecParams[1].numData.z;
+		std::stringstream ss(params);
+
+		std::string objectName;
+		ss >> objectName;
+
+		std::vector<sPair> vecParams;
+
+		sPair temp;
+		while (!ss.eof())
+		{
+			ss >> temp.numData.x;
+			ss >> temp.numData.y;
+			ss >> temp.numData.z;
+			vecParams.push_back(temp);
+		}
+
 
 		command->SetGameObject(pFindObjectByFriendlyName(objectName));
 		command->Init(vecParams);

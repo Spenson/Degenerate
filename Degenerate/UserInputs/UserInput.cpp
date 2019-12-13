@@ -25,6 +25,11 @@ const float CAMERASPEED = 0.5f;
 unsigned SelecetedLight = 0;
 extern bool bLightDebugSheresOn;
 
+
+#include "../Commands/Commands.h"
+#include "../Commands/cLuaBrain.h"
+extern iCommand* g_ParentCommandGroup;
+extern cLuaBrain* g_pLuaScripts;
 // Declared in theMain
 //extern cFlyCamera* g_pFlyCamera;
 
@@ -55,7 +60,51 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		{
 			lockToShip = !lockToShip;
 		}
+		if (key == GLFW_KEY_3 && action == GLFW_RELEASE)
+		{
+			std::ifstream t("assets/scripts/Q3.lua");
+			std::string luaScript = std::string((std::istreambuf_iterator<char>(t)),
+												std::istreambuf_iterator<char>());
+			t.close();
 
+			g_pLuaScripts->RunThis(luaScript);
+		}
+		if (key == GLFW_KEY_4 && action == GLFW_RELEASE)
+		{
+			std::ifstream t("assets/scripts/Q4.lua");
+			std::string luaScript = std::string((std::istreambuf_iterator<char>(t)),
+												std::istreambuf_iterator<char>());
+			t.close();
+
+			g_pLuaScripts->RunThis(luaScript);
+		}
+		if (key == GLFW_KEY_5 && action == GLFW_RELEASE)
+		{
+			std::ifstream t("assets/scripts/Q5.lua");
+			std::string luaScript = std::string((std::istreambuf_iterator<char>(t)),
+												std::istreambuf_iterator<char>());
+			t.close();
+
+			g_pLuaScripts->RunThis(luaScript);
+		}
+		if (key == GLFW_KEY_6 && action == GLFW_RELEASE)
+		{
+			std::ifstream t("assets/scripts/Q6.lua");
+			std::string luaScript = std::string((std::istreambuf_iterator<char>(t)),
+												std::istreambuf_iterator<char>());
+			t.close();
+
+			g_pLuaScripts->RunThis(luaScript);
+		}
+		if (key == GLFW_KEY_7 && action == GLFW_RELEASE)
+		{
+			std::ifstream t("assets/scripts/Q7.lua");
+			std::string luaScript = std::string((std::istreambuf_iterator<char>(t)),
+												std::istreambuf_iterator<char>());
+			t.close();
+
+			g_pLuaScripts->RunThis(luaScript);
+		}
 		/*	if (key == GLFW_KEY_B)
 			{
 				// Shoot a bullet from the pirate ship
@@ -114,7 +163,17 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	}
 	if (isOnlyShiftKeyDown(mods))
 	{
+		if (key == GLFW_KEY_3 && action == GLFW_RELEASE)
+		{
+			pFindObjectByFriendlyName("Cam")->setOrientation(glm::vec3(12, -145, 0));
 
+			std::ifstream t("assets/scripts/Q3Shift.lua");
+			std::string luaScript = std::string((std::istreambuf_iterator<char>(t)),
+												std::istreambuf_iterator<char>());
+			t.close();
+
+			g_pLuaScripts->RunThis(luaScript);
+		}
 
 		if (key == GLFW_KEY_A)
 		{
@@ -234,6 +293,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		if (key == GLFW_KEY_L && action == GLFW_PRESS)
 		{
 			LoadLightsFromXMLFile("assets/config/Lights.xml", g_pLightManager);
+			LoadGameObjectsFromXMLFile("assets/config/GameObjects.xml", ::g_vec_pGameObjects, false);
 		}
 		if (key == GLFW_KEY_O && action == GLFW_PRESS)
 		{
@@ -242,7 +302,23 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 	}//if (isShiftKeyDownByAlone(mods))
 
+	if (isOnlyCtrlKeyDown(mods))
+	{
+		if (key == GLFW_KEY_ENTER && action == GLFW_PRESS)
+		{
+			g_ParentCommandGroup = createParent("Parent");
 
+			cLuaBrain* g_pLuaScripts = new cLuaBrain();
+
+
+			std::ifstream t("assets/script.lua");
+			std::string luaScript = std::string((std::istreambuf_iterator<char>(t)),
+												std::istreambuf_iterator<char>());
+			t.close();
+
+			g_pLuaScripts->RunThis(luaScript);
+		}
+	}
 	// Moving the pirate ship in a certain direction
 	/*if (isOnlyCtrlKeyDown(mods))
 	{

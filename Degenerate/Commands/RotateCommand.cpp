@@ -22,7 +22,7 @@ bool RotateCommand::Update(double deltaTime)
 			std::cout << "Move Command: GameObject must be set before Update is called." << std::endl;
 			return false;
 		}
-		m_Start = this->m_pGO->getEulerAngle();
+		m_Start = glm::degrees(this->m_pGO->getEulerAngle());
 		m_StartQ = m_pGO->getQOrientation();
 
 		m_HasUpdated = true;
@@ -45,7 +45,7 @@ bool RotateCommand::Update(double deltaTime)
 
 	m_pGO->setOrientation(glm::slerp(m_StartQ, m_EndQ, glm::radians(m_MaxSpeed) * (float)timePassed));
 
-	if (glm::distance(glm::degrees(m_pGO->getEulerAngle()), m_End) < 0.1f || glm::distance(glm::degrees(m_pGO->getEulerAngle()), m_Start) > glm::distance(m_Start, m_End))
+	if (glm::distance(glm::degrees(m_pGO->getEulerAngle()), m_End) < 0.5f || glm::distance(glm::degrees(m_pGO->getEulerAngle()), m_Start) > glm::distance(m_Start, m_End))
 	{
 		m_pGO->setOrientation(m_EndQ);
 

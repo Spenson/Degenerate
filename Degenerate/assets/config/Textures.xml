@@ -28,5 +28,14 @@
       <Front>SpaceBox_front5_posZ.bmp</Front>
       <Back>SpaceBox_back6_negZ.bmp</Back>
     </Cube>
+    <Cube>
+      <Name>orbit</Name>
+      <Back>orbital-element_bk.bmp</Back>
+      <Down>orbital-element_dn.bmp</Down>
+      <Front>orbital-element_ft.bmp</Front>
+      <Left>orbital-element_lf.bmp</Left>
+      <Right>orbital-element_rt.bmp</Right>
+      <Up>orbital-element_up.bmp</Up>
+    </Cube>
   </TextureGroup>
 </TEXTURES>

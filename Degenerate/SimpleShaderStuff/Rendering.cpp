@@ -110,7 +110,7 @@ void DrawObject(glm::mat4 matModel, cGameObject* pCurrentObject, GLint shaderPro
 		//glUniform1f(UniformManager::bIsSkyBox_UL, (float)GL_TRUE);
 		isSkyBox = GL_TRUE;
 
-		GLuint skyBoxTextureID = ::g_pTextureManager->getTextureIDFromName("sunny");
+		GLuint skyBoxTextureID = ::g_pTextureManager->getTextureIDFromName("orbit");
 		glActiveTexture(GL_TEXTURE26);				// Texture Unit 26
 		glBindTexture(GL_TEXTURE_CUBE_MAP, skyBoxTextureID);	// Texture now assoc with texture unit 0
 

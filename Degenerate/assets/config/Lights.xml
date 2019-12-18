@@ -1,17 +1,17 @@
 <LIGHTS>
-  <!--<Light>
-    <Position x="-2.75" y="0.5" z="-10.0"/>
-    <Diffuse r="1" g="0" b="0"/>
+  <Light>
+    <Position x="0.0" y="0.0" z="0.0"/>
+    <Diffuse r="1" g="0" b="1"/>
     <Specular r="0.5" g="0.5" b="0.5" a="1"/>
     <ConstAtten f="2.1e-10"/>
-    <LinearAtten f="0.08"/>
-    <QuadraticAtten f="0.3"/>
+    <LinearAtten f="0.005S"/>
+    <QuadraticAtten f="0.85"/>
     <LightType type="0"/>
     <SpotInnerAngle f="10"/>
     <SpotOuterAngle f="15"/>
     <IsLightOn b="true"/>
   </Light>
-  <Light>
+<!--  <Light>
     <Position x="2.75" y="0.5" z="-10.0"/>
     <Diffuse r="1" g="0" b="0"/>
     <Specular r="0.5" g="0.5" b="0.5" a="1"/>

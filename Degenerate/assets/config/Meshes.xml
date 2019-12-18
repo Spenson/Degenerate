@@ -1,30 +1,14 @@
 <MESHES>
   <Mesh>
-    <File>Island.ply</File>
-    <Name>Island</Name>
+    <File>Stardestroyer_CompleteModel_LayersJoined_xyz_n_uv.ply</File>
+    <Name>StarDestroyer</Name>
   </Mesh>
   <Mesh>
-    <File>SeaFloor.ply</File>
-    <Name>SeaFloor</Name>
+    <File>X-Wing_Attack_xyz_n_uv.ply</File>
+    <Name>XWing</Name>
   </Mesh>
   <Mesh>
-    <File>Water.ply</File>
-    <Name>Water</Name>
-  </Mesh>
-  <Mesh>
-    <File>shark_xyz_n_uv.ply</File>
-    <Name>Shark</Name>
-  </Mesh>
-  <Mesh>
-    <File>fish_xyz_n_uv.ply</File>
-    <Name>Fish</Name>
-  </Mesh>
-  <Mesh>
-    <File>Small_Factory_3d_model_xyz_n.ply</File>
-    <Name>SmallFactory</Name>
-  </Mesh>
-  <Mesh>
-    <File>Sky_Pirate_Decimated_Cannons_Combined_xyz_n.ply</File>
-    <Name>Pirate</Name>
+    <File>TearDropBulletInvert.ply</File>
+    <Name>Bullet</Name>
   </Mesh>
 </MESHES>

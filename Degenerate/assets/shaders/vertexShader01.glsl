@@ -18,23 +18,26 @@ out vec4 fVertWorldLocation;
 out vec4 fNormal;
 out vec4 fUVx2;
 
-uniform sampler2D heightMap;
-uniform bool isWater;
-uniform vec2 textOffset;
+//uniform sampler2D heightMap;
+//uniform bool isWater;
+//uniform vec2 textOffset;
+
+uniform bool useOffset;
+uniform float offset;
 
 void main()
 {
     vec4 vertPosition = vPosition;
 	
 
-	if ( isWater )
+	if ( useOffset )
 	{
 		// Move the y value by some amount from texture	
 		// Since it's black and white, I only sample 1 colour.
 		
-		vec2 texUV1 = vUVx2.st + textOffset.xy;
-		float texValue1 = texture( heightMap, texUV1.st ).r;
-		float texValue2 = texture( heightMap, texUV1.st ).g;
+//		vec2 texUV1 = vUVx2.st + textOffset.xy;
+//		float texValue1 = texture( heightMap, texUV1.st ).r;
+//		float texValue2 = texture( heightMap, texUV1.st ).g;
 		//float ratio1 = 1.0;
 		
 		
@@ -46,7 +49,7 @@ void main()
 		
 		
 		//vertPosition.y += (texValue1*ratio1) + (texValue2 * ratio2);
-		vertPosition.y += (texValue1 + texValue2) * 1.5;
+		vertPosition += vNormal * offset;
 	}
 
 

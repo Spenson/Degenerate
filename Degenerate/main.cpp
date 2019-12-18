@@ -28,7 +28,7 @@
 cFlyCamera* g_pFlyCamera = NULL;
 cBasicTextureManager* g_pTextureManager = NULL;
 
-bool lockToShip = true;
+bool lockToShip = false;
 
 bool bLightDebugSheresOn = false;
 
@@ -39,7 +39,16 @@ extern cGameObject* g_pDebugCube;
 
 cLuaBrain* g_pLuaScripts;
 
-extern glm::vec2 textOffest;
+float offset = 0.f;
+int HealthRight = 100, HealthLeft = 100;
+
+
+std::vector<glm::vec3> PathPoints;
+bool doingRun;
+glm::vec3 g_EndPoint, g_StartPoint;
+
+
+ThirdPersonCamera* tpc;
 
 
 int main(void)
@@ -76,9 +85,6 @@ int main(void)
 	void ProcessAsyncMouse(GLFWwindow * window);
 	void ProcessAsyncKeys(GLFWwindow * window);
 	void ShipControls(GLFWwindow * window);
-
-
-
 
 
 
@@ -144,19 +150,31 @@ int main(void)
 
 	double lastTime = glfwGetTime();
 
-	/*cGameObject* collisionShpere = new cGameObject();
+	cGameObject* collisionShpere = new cGameObject();
 	collisionShpere->debugColour = glm::vec4(0.8f, 0.2f, 0.2f, 1.0f);
 	collisionShpere->doNotLight = true;
 	collisionShpere->meshName = "sphere_lowres";
 	collisionShpere->friendlyName = "collision";
-	collisionShpere->scale = 0.5f;
-	collisionShpere->useDiffuse = true;*/
+	collisionShpere->scale = 1.f;
+	collisionShpere->useDiffuse = true;
 
 
-	ThirdPersonCamera tpc;
-	tpc.SetPlayerObject(pFindObjectByFriendlyName("Cam"));
-	tpc.SetPositionRelitiveToObject(glm::vec3(0.0f, 0.0f, 0.0f));
-	tpc.SetTargetRelitiveToObject(glm::vec3(0.0f, 0.0f, 1.0f));
+
+	cGameObject* PathSphere = new cGameObject();
+	PathSphere->debugColour = glm::vec4(0.2f, 0.8f, 0.2f, 1.0f);
+	PathSphere->doNotLight = true;
+	PathSphere->meshName = "sphere_lowres";
+	PathSphere->friendlyName = "path";
+	PathSphere->scale = 1.f;
+	PathSphere->useDiffuse = true;
+
+	g_pFreeCamera->SetPosition(glm::vec3(300.f, 300.f, -1200.f));
+	g_pFreeCamera->Target(glm::vec3(0.f));
+
+	tpc = new ThirdPersonCamera();
+	tpc->SetPlayerObject(pFindObjectByFriendlyName("XWing"));
+	tpc->SetPositionRelitiveToObject(glm::vec3(0.0f, 10.0f, 8.0f * 15.0f));
+	tpc->SetTargetRelitiveToObject(glm::vec3(0.0f, 0.0f, 0.0f));
 
 
 	g_ParentCommandGroup = createParent("Parent");
@@ -184,63 +202,9 @@ int main(void)
 	//g_pLuaScripts->RunThis(luaScript);
 
 
+	std::vector<glm::vec3> todraw;
 
 
-
-
-
-
-
-	/*std::string luaScript = "a = \"FollowCurve\" \
-							b = \"curveTest\" \
-							c = \"Ship   100.0 1000.0 -30.0   200.0 1000.0 0.0   200.0 1000.0 -100.0   100.0 1000.0 -300.0   400.0 1000.0 -100.0   20.0 10.0 10.0\"\
-							d = CreateCommand(a,b,c)\
-							AddCommandToGroup(d, 0)";*/
-	//
-	/*MoveCommand* move = new MoveCommand("test");
-
-	sPair To;		To.numData = glm::vec4(100.0f, 0.0, -30.0, 1.0f);
-	sPair Speed;	Speed.numData = glm::vec4(20.0f, 15.0, 0.0, 0.0);
-
-	std::vector<sPair> vecParams;
-
-	vecParams.push_back(To);
-	vecParams.push_back(Speed);
-	move->SetGameObject(pFindObjectByFriendlyName("Ship"));
-	move->Init(vecParams);
-
-
-	MoveCommand* move2 = new MoveCommand("test2");
-
-	To.numData = glm::vec4(30.0f, 5.0, -60.0, 1.0f);
-	Speed.numData = glm::vec4(10.0f, 10.0, 10.0, 0.0);
-
-	vecParams.clear();
-
-	vecParams.push_back(To);
-	vecParams.push_back(Speed);
-	move2->SetGameObject(pFindObjectByFriendlyName("Ship"));
-	move2->Init(vecParams);
-
-
-	RotateCommand* rot = new RotateCommand("test3");
-
-	To.numData = glm::vec4(90.0f, 0.0, 0.0, 1.0f);
-	Speed.numData = glm::vec4(10.0f, 5.0, 5.0, 0.0);
-
-	vecParams.clear();
-
-	vecParams.push_back(To);
-	vecParams.push_back(Speed);
-	rot->SetGameObject(pFindObjectByFriendlyName("Ship"));
-	rot->Init(vecParams);*/
-
-
-	//std::vector<glm::vec3> todraw;
-	::g_pFreeCamera->SetPosition(glm::vec3(47, 115, -180));
-	//::g_pFreeCamera->Pitch(20 * -18);
-	::g_pFreeCamera->Yaw(20 * -180);
-	std::cout << ::g_pFreeCamera->Yaw() << std::endl;
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -249,7 +213,8 @@ int main(void)
 		//lights[0]->Rotation = glm::vec3(temp,0.0f,0.0f);
 		//temp += 1.0f;
 
-
+		//pDebugRenderer->addLine(glm::vec3(103.04, 246.98, 555.32), glm::vec3(glm::vec3(103.04, 246.98 - 25.0f, 555.32)), glm::vec3(1.0f));
+		//pDebugRenderer->addLine(glm::vec3(-103.04, 246.98, 555.32), glm::vec3(glm::vec3(-103.04, 246.98 + 25.0f, 555.32)), glm::vec3(1.0f));
 
 
 		for (size_t index = 0; index != (::g_vec_pGameObjects.size() - 1); index++)
@@ -260,7 +225,7 @@ int main(void)
 			//if (glm::distance(ObjA, ::g_pFlyCamera->eye) < glm::distance(ObjB, ::g_pFlyCamera->eye))
 			if (lockToShip)
 			{
-				if (glm::distance(ObjA, tpc.Position()) < glm::distance(ObjB, tpc.Position()))
+				if (glm::distance(ObjA, tpc->Position()) < glm::distance(ObjB, tpc->Position()))
 					std::swap(::g_vec_pGameObjects[index], ::g_vec_pGameObjects[index + 1]);
 			}
 			else
@@ -280,32 +245,32 @@ int main(void)
 			deltaTime = SOME_HUGE_TIME;
 
 		avgDeltaTimeThingy.addValue(deltaTime);
-		
-
-		textOffest.x += 0.1f * deltaTime;
-		textOffest.y += 0.017f * deltaTime;
 
 
-		//Frame Rate in title bar
+
 		std::stringstream ssTitle;
-		//ssTitle << "Degenerate | " << 1.0 / avgDeltaTimeThingy.getAverage() << " (" << 1.0 / deltaTime << " | " << deltaTime << ")"
-			/*<< " Pos: (" << pFindObjectByFriendlyName("Ship")->positionXYZ.x << ", "
-			<< pFindObjectByFriendlyName("Ship")->positionXYZ.y << ", "
-			<< pFindObjectByFriendlyName("Ship")->positionXYZ.z << ")"
-			<< " Rot: (" << glm::degrees(pFindObjectByFriendlyName("Ship")->getEulerAngle().x) << ", "
-			<< glm::degrees(pFindObjectByFriendlyName("Ship")->getEulerAngle().y) << ", "
-			<< glm::degrees(pFindObjectByFriendlyName("Ship")->getEulerAngle().z) << ")"*/;
 
-		ssTitle << "Degenerate | "
-			<< " Pos: (" << g_pLightManager->GetLight(0)->Position.x << ", "
-			<< g_pLightManager->GetLight(0)->Position.y << ", "
-			<< g_pLightManager->GetLight(0)->Position.z << ")"
-			<< " Cam: (" << ::g_pFreeCamera->GetPosition().x << ", "
-			<< ::g_pFreeCamera->GetPosition().y << ", "
-			<< ::g_pFreeCamera->GetPosition().z << ") <" << ::g_pFreeCamera->Pitch() << ", " << ::g_pFreeCamera->Yaw() << ">"
-			/*<< " Rot: (" << glm::degrees(pFindObjectByFriendlyName("Ship")->getEulerAngle().x) << ", "
-			<< glm::degrees(pFindObjectByFriendlyName("Ship")->getEulerAngle().y) << ", "
-			<< glm::degrees(pFindObjectByFriendlyName("Ship")->getEulerAngle().z) << ")"*/;
+
+
+
+		if (HealthLeft <= 0 && HealthRight <= 0)
+		{
+			if (offset == 0.f)
+			{
+				g_pFreeCamera->SetPosition(glm::vec3(500.f, 500.f, -5000.f));
+				g_pFreeCamera->Target(glm::vec3(0.f, 0.f, 0.f));
+				lockToShip = false;
+			}
+			offset += 500.f * deltaTime;
+
+			ssTitle << "You've Destryed the Star Destroyer!";
+		}
+		else
+		{
+			ssTitle << "Star Destroyer Left Sheild Generator Health: " << HealthLeft << "% Right Sheild Generator Health: " << HealthRight << "%";
+		}
+
+
 
 		glfwSetWindowTitle(window, ssTitle.str().c_str());
 
@@ -314,15 +279,15 @@ int main(void)
 
 
 
-		/*if (lockToShip)
+		if (lockToShip)
 		{
-			ShipControls(window);
+			//ShipControls(window);
 		}
 		else
-		{*/
+		{
 			ProcessAsyncKeys(window);
 			ProcessAsyncMouse(window);
-		//}
+		}
 		glUseProgram(UniformManager::shaderProgID);
 
 		float ratio;
@@ -332,11 +297,11 @@ int main(void)
 		glfwGetFramebufferSize(window, &width, &height);
 		ratio = width / (float)height;
 
-		p = glm::perspective(0.6f, ratio, 0.5f, 10000.0f);
+		p = glm::perspective(0.6f, ratio, 0.5f, 100000.0f);
 		v = glm::mat4(1.0f);
 		//v = glm::lookAt(::g_pFlyCamera->eye, ::g_pFlyCamera->getAtInWorldSpace(), ::g_pFlyCamera->getUpVector());
 		if (lockToShip)
-			v = glm::lookAt(tpc.Position(), tpc.Target(), tpc.UpVector());
+			v = glm::lookAt(tpc->Position(), tpc->Target(), tpc->UpVector());
 		else
 			v = glm::lookAt(::g_pFreeCamera->GetPosition(), ::g_pFreeCamera->GetTarget(), ::g_pFreeCamera->GetUpVector());
 
@@ -344,10 +309,10 @@ int main(void)
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
+		g_pLightManager->GetLight(0)->Position = pFindObjectByFriendlyName("Bullet")->positionXYZ;
 		g_pLightManager->PassLightsToShader();
 		if (lockToShip)
-			glUniform4f(UniformManager::eyeLocation_UL, tpc.Position().x, tpc.Position().y, tpc.Position().z, 1.0f);
+			glUniform4f(UniformManager::eyeLocation_UL, tpc->Position().x, tpc->Position().y, tpc->Position().z, 1.0f);
 		else
 			glUniform4f(UniformManager::eyeLocation_UL, ::g_pFreeCamera->GetPosition().x, ::g_pFreeCamera->GetPosition().y, ::g_pFreeCamera->GetPosition().z, 1.0f);
 
@@ -359,7 +324,7 @@ int main(void)
 
 		cGameObject* pSkyBox = pFindObjectByFriendlyName("skybox");
 		if (lockToShip)
-			pSkyBox->positionXYZ = tpc.Position();
+			pSkyBox->positionXYZ = tpc->Position();
 		else
 			pSkyBox->positionXYZ = ::g_pFreeCamera->GetPosition();// ::g_pFlyCamera->eye;
 
@@ -379,7 +344,6 @@ int main(void)
 
 
 
-
 		//pFindObjectByFriendlyName("Ship")->positionXYZ.x += 0.51f;
 		//cGameObject* pObject = pFindObjectByFriendlyName("Ship");
 
@@ -395,7 +359,7 @@ int main(void)
 
 		//if (!g_ParentCommandGroup->IsDone())
 		//{
-			g_ParentCommandGroup->Update(deltaTime);
+		g_ParentCommandGroup->Update(deltaTime);
 		//}
 
 
@@ -417,7 +381,7 @@ int main(void)
 		pDebugRenderer->addLine(glm::vec3(200, 1000.0, 0.0), glm::vec3(200.0, 1000.0, -100.0), glm::vec3(1));
 		pDebugRenderer->addLine(glm::vec3(200.0, 1000.0, -100.0), glm::vec3(100.0, 1000.0, -300.0), glm::vec3(1));
 		pDebugRenderer->addLine(glm::vec3(100.0, 1000.0, -300.0), glm::vec3(400.0, 1000.0, -100.0), glm::vec3(1));*/
-		
+
 
 		//std::vector<glm::vec3> points = pObject->vecPhysTestPoints;
 		//glm::mat4 shipMat = calculateWorldMatrix(pObject, glm::mat4(1.0));
@@ -459,7 +423,7 @@ int main(void)
 		// TODO: Update to include Angular Velocity
 		pPhsyics->IntegrationStep(::g_vec_pGameObjects, deltaTime);//(float)averageDeltaTime);
 
-		//pPhsyics->TestForCollisions(::g_vec_pGameObjects, todraw);
+		pPhsyics->TestForCollisions(::g_vec_pGameObjects, todraw);
 
 
 		//g_pLightManager->GetLight(0)->matrix = calculateWorldMatrix(pFindObjectByFriendlyName("Ship"), glm::mat4(1.0));
@@ -468,12 +432,52 @@ int main(void)
 		//g_pLightManager->GetLight(3)->matrix = calculateWorldMatrix(pFindObjectByFriendlyName("Ship"), glm::mat4(1.0));
 
 
-		/*for (size_t i = 0; i < todraw.size(); i++)
+		for (size_t i = 0; i < todraw.size(); i++)
 		{
 			collisionShpere->positionXYZ = todraw[i];
 			DrawObject(glm::mat4(1.0f), collisionShpere, UniformManager::shaderProgID, pTheVAOManager);
-		}*/
+		}
 
+
+		if (glm::distance(pFindObjectByFriendlyName("XWing")->positionXYZ, g_EndPoint + (glm::normalize(g_EndPoint - g_StartPoint) * 50.f)) < 49.f)
+		{
+			pFindObjectByFriendlyName("XWing")->positionXYZ = glm::vec3(0.f);
+			pFindObjectByFriendlyName("XWing")->velocity = glm::vec3(0.f);
+			pFindObjectByFriendlyName("XWing")->isVisible = false;
+			lockToShip = false;
+			g_EndPoint = glm::vec3(0.f);
+		}
+		if (glm::distance(pFindObjectByFriendlyName("XWing")->positionXYZ, g_StartPoint + (glm::normalize(g_StartPoint - g_EndPoint) * 50.f)) < 49.f)
+		{
+			pFindObjectByFriendlyName("XWing")->positionXYZ = glm::vec3(0.f);
+			pFindObjectByFriendlyName("XWing")->velocity = glm::vec3(0.f);
+			pFindObjectByFriendlyName("XWing")->isVisible = false;
+			lockToShip = false;
+			g_EndPoint = glm::vec3(0.f);
+		}
+
+
+		if (g_EndPoint != glm::vec3(0.0f))
+		{
+
+			for (size_t i = 0; i < PathPoints.size(); i++)
+			{
+				PathSphere->positionXYZ = PathPoints[i];
+				DrawObject(glm::mat4(1.0f), PathSphere, UniformManager::shaderProgID, pTheVAOManager);
+			}
+
+
+			PathSphere->positionXYZ = g_EndPoint;
+			PathSphere->scale = 3.f;
+			PathSphere->debugColour = glm::vec4(0.2f, 0.2f, 0.8f, 1.f);
+			DrawObject(glm::mat4(1.0f), PathSphere, UniformManager::shaderProgID, pTheVAOManager);
+
+			PathSphere->positionXYZ = g_StartPoint;
+			DrawObject(glm::mat4(1.0f), PathSphere, UniformManager::shaderProgID, pTheVAOManager);
+
+			PathSphere->scale = 0.5f;
+			PathSphere->debugColour = glm::vec4(0.2f, 0.8f, 0.2f, 1.f);
+		}
 
 		// TODO: Add Back in (Possibly in separate methond)
 

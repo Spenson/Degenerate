@@ -2,8 +2,10 @@
 #include "UniformManager.h"
 #include <glm/gtc/type_ptr.hpp>
 
+extern float offset;
 
-glm::vec2 textOffest = glm::vec2(0.0f);
+
+//glm::vec2 textOffest = glm::vec2(0.0f);
 
 void SetUpTextureBindingsForObject(cGameObject* pCurrentObject, GLint shaderProgID)
 {
@@ -50,11 +52,11 @@ void SetUpTextureBindingsForObject(cGameObject* pCurrentObject, GLint shaderProg
 		//glUniform1i(UniformManager::textureWhatTheWhat_UL, 13);	// Texture unit 13
 	}
 
-	GLuint heightSamp_UL = ::g_pTextureManager->getTextureIDFromName(pCurrentObject->heightMap);
-	glActiveTexture(GL_TEXTURE13);				// Texture Unit 3
-	glBindTexture(GL_TEXTURE_2D, heightSamp_UL);	// Texture now assoc with texture unit 0
+	//GLuint heightSamp_UL = ::g_pTextureManager->getTextureIDFromName(pCurrentObject->heightMap);
+	//glActiveTexture(GL_TEXTURE13);				// Texture Unit 3
+	//glBindTexture(GL_TEXTURE_2D, heightSamp_UL);	// Texture now assoc with texture unit 0
 
-	glUniform1i(UniformManager::heightMap_UL, 13);	// Texture unit 3
+	//glUniform1i(UniformManager::heightMap_UL, 13);	// Texture unit 3
 
 	return;
 }
@@ -118,32 +120,33 @@ void DrawObject(glm::mat4 matModel, cGameObject* pCurrentObject, GLint shaderPro
 		glUniform1i(UniformManager::skyBoxSampler_UL, 26);	// Texture unit 26
 	}
 	
-	if (pCurrentObject->friendlyName == "Island")
+	if (pCurrentObject->friendlyName == "StarDestroyer")
 	{
-		glUniform1f(UniformManager::isIsland_UL, (float)GL_TRUE);
+		glUniform1f(UniformManager::UseOffset_UL, (float)GL_TRUE);
+		glUniform1f(UniformManager::Offset_UL, offset);
 	}
 	else
 	{
-		glUniform1f(UniformManager::isIsland_UL, (float)GL_FALSE);
+		glUniform1f(UniformManager::UseOffset_UL, (float)GL_FALSE);
 	}
 
-	if (pCurrentObject->friendlyName == "Water")
-	{
-		glUniform2f(UniformManager::textOffset_UL, textOffest.x, textOffest.y);
-		glUniform1f(UniformManager::isWater_UL, (float)GL_TRUE);
-		glUniform1f(UniformManager::offsetText1_UL, (float)GL_TRUE);
-	}
-	else if (pCurrentObject->friendlyName == "SeaFloor")
-	{
-		glUniform2f(UniformManager::textOffset_UL, textOffest.x, textOffest.y);
-		glUniform1f(UniformManager::isWater_UL, (float)GL_FALSE);
-		glUniform1f(UniformManager::offsetText1_UL, (float)GL_TRUE);
-	}
-	else
-	{
-		glUniform1f(UniformManager::isWater_UL, (float)GL_FALSE);
-		glUniform1f(UniformManager::offsetText1_UL, (float)GL_FALSE);
-	}
+	//if (pCurrentObject->friendlyName == "Water")
+	//{
+	//	glUniform2f(UniformManager::textOffset_UL, textOffest.x, textOffest.y);
+	//	glUniform1f(UniformManager::isWater_UL, (float)GL_TRUE);
+	//	glUniform1f(UniformManager::offsetText1_UL, (float)GL_TRUE);
+	//}
+	//else if (pCurrentObject->friendlyName == "SeaFloor")
+	//{
+	//	glUniform2f(UniformManager::textOffset_UL, textOffest.x, textOffest.y);
+	//	glUniform1f(UniformManager::isWater_UL, (float)GL_FALSE);
+	//	glUniform1f(UniformManager::offsetText1_UL, (float)GL_TRUE);
+	//}
+	//else
+	//{
+	//	glUniform1f(UniformManager::isWater_UL, (float)GL_FALSE);
+	//	glUniform1f(UniformManager::offsetText1_UL, (float)GL_FALSE);
+	//}
 	// ************
 
 

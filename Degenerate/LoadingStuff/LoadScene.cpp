@@ -164,7 +164,7 @@ void TestLoad(cVAOManager* pTheVAOManager, cModelLoader* pTheModelLoader, GLuint
 	vec_pGameObjects.push_back(pSkyBoxSphere);
 
 
-	//WorldRegion::init("Babbage", &mapMeshes["Babbage"], 20.0f);
+	WorldRegion::init("StarDestroyer", &mapMeshes["StarDestroyer"], 20.0f);
 
 
 	for (cGameObject* m_pGO : ::g_vec_pGameObjects)
@@ -182,7 +182,7 @@ void TestLoad(cVAOManager* pTheVAOManager, cModelLoader* pTheModelLoader, GLuint
 
 
 
-	pFindObjectByFriendlyName("Water")->heightMap = "Water.bmp";
+	//pFindObjectByFriendlyName("Water")->heightMap = "Water.bmp";
 
 
 

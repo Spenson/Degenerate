@@ -7,6 +7,9 @@
 #include "../Camera/cFlyCamera.h"
 #include "../LoadingStuff/FileReaders.h"
 
+#include "../Camera/ThirdPersonCamera.h"
+
+
 bool isOnlyShiftKeyDown(int mods);
 bool isOnlyCtrlKeyDown(int mods);
 bool isOnlyAltKeyDown(int mods);
@@ -25,13 +28,25 @@ const float CAMERASPEED = 0.5f;
 unsigned SelecetedLight = 0;
 extern bool bLightDebugSheresOn;
 
+extern int HealthRight, HealthLeft;
+extern float offset;
 
 #include "../Commands/Commands.h"
 #include "../Commands/cLuaBrain.h"
 extern iCommand* g_ParentCommandGroup;
 extern cLuaBrain* g_pLuaScripts;
+
+extern ThirdPersonCamera* tpc;
 // Declared in theMain
 //extern cFlyCamera* g_pFlyCamera;
+
+
+
+extern std::vector<glm::vec3> PathPoints;
+//extern bool g_DoingRun;
+extern glm::vec3 g_EndPoint, g_StartPoint;
+
+
 
 void cursor_enter_callback(GLFWwindow* window, int entered)
 {
@@ -60,99 +75,232 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		{
 			lockToShip = !lockToShip;
 		}
-		if (key == GLFW_KEY_3 && action == GLFW_RELEASE)
-		{
-			std::ifstream t("assets/scripts/Q3.lua");
-			std::string luaScript = std::string((std::istreambuf_iterator<char>(t)),
-												std::istreambuf_iterator<char>());
-			t.close();
-
-			g_pLuaScripts->RunThis(luaScript);
-		}
-		if (key == GLFW_KEY_4 && action == GLFW_RELEASE)
-		{
-			std::ifstream t("assets/scripts/Q4.lua");
-			std::string luaScript = std::string((std::istreambuf_iterator<char>(t)),
-												std::istreambuf_iterator<char>());
-			t.close();
-
-			g_pLuaScripts->RunThis(luaScript);
-		}
-		if (key == GLFW_KEY_5 && action == GLFW_RELEASE)
-		{
-			std::ifstream t("assets/scripts/Q5.lua");
-			std::string luaScript = std::string((std::istreambuf_iterator<char>(t)),
-												std::istreambuf_iterator<char>());
-			t.close();
-
-			g_pLuaScripts->RunThis(luaScript);
-		}
-		if (key == GLFW_KEY_6 && action == GLFW_RELEASE)
-		{
-			std::ifstream t("assets/scripts/Q6.lua");
-			std::string luaScript = std::string((std::istreambuf_iterator<char>(t)),
-												std::istreambuf_iterator<char>());
-			t.close();
-
-			g_pLuaScripts->RunThis(luaScript);
-		}
-		if (key == GLFW_KEY_7 && action == GLFW_RELEASE)
-		{
-			std::ifstream t("assets/scripts/Q7.lua");
-			std::string luaScript = std::string((std::istreambuf_iterator<char>(t)),
-												std::istreambuf_iterator<char>());
-			t.close();
-
-			g_pLuaScripts->RunThis(luaScript);
-		}
-		/*	if (key == GLFW_KEY_B)
-			{
-				// Shoot a bullet from the pirate ship
-				// Find the pirate ship...
-				// returns NULL (0) if we didn't find it.
-	//			cGameObject* pShip = pFindObjectByFriendlyName("PirateShip");
-				//cGameObject* pShip = pFindObjectByFriendlyNameMap("PirateShip");
-				// Maybe check to see if it returned something...
-
-				// Find the sphere#2
-	//			cGameObject* pBall = pFindObjectByFriendlyName("Sphere#2");
-				//cGameObject* pBall = pFindObjectByFriendlyNameMap("Sphere#2");
-
-				// Set the location velocity for sphere#2
-				//pBall->positionXYZ = pShip->positionXYZ;
-				//pBall->inverseMass = 1.0f;		// So it's updated
-				// 20.0 units "to the right"
-				// 30.0 units "up"
-				//pBall->velocity = glm::vec3( 15.0f, 20.0f, 0.0f );
-				//pBall->accel = glm::vec3(0.0f,0.0f,0.0f);
-				//pBall->diffuseColour = glm::vec4(1.0f, 0.0f, 0.0f, 0.0f);
-			}//if ( key == GLFW_KEY_B )
-
-		}
-		*/
-		/*if (isOnlyCtrlKeyDown(mods))
-		{
-			if (key == GLFW_KEY_1)
-			{
-				//cGameObject* pCannon1 = pFindObjectByFriendlyName("C1");
-				// Can move the m_pGO relative to the "parent" m_pGO
-				//pCannon1->positionXYZ.z -= 1.0f;
-			}
-			if (key == GLFW_KEY_2)
-			{
-				//cGameObject* pCannon2 = pFindObjectByFriendlyName("C2");
-				//pCannon2->positionXYZ.z -= 1.0f;
-			}
-		}
-		*/
 		if (key == GLFW_KEY_1 && action == GLFW_PRESS)
+		{
+
+		}
+		if (key == GLFW_KEY_2 && action == GLFW_PRESS)
+		{
+
+			glm::vec3 start((rand() % 3000) - 1500.f, (rand() % 3000) - 1500.f, (rand() % 3000) - 1500.f);
+
+			while ((fabs(start.x) < 530.0f) && (fabs(start.y) < 227.0f) && (fabs(start.z) < 805.0f))
+			{
+				printf("Start point (%f,%f,%f) inside StarDestroyer picking another point\n", start.x, start.y, start.z);
+				start = glm::vec3((rand() % 3000) - 1500.f, (rand() % 3000) - 1500.f, (rand() % 3000) - 1500.f);
+			}
+
+			if (glm::length(start) < 2500.f) { start = glm::normalize(start) * 3000.f; }
+
+
+
+			glm::vec3 end((rand() % 1500), (rand() % 1500), (rand() % 1500));
+
+
+			while (true)
+			{
+				if ((end.x < 530.0f) && (end.y < 227.0f) && (end.z < 805.0f))
+				{
+					printf("End point (%f,%f,%f) inside StarDestroyer picking another point\n", end.x, end.y, end.z);
+					end = glm::vec3((rand() % 1500), (rand() % 1500), (rand() % 1500));
+
+					continue;
+
+				}
+
+				break;
+			}
+
+			if (start.x > 0.0f) end.x *= -1.0f;
+			if (start.y > 0.0f) end.y *= -1.0f;
+			if (start.z > 0.0f) end.z *= -1.0f;
+
+			if (glm::length(end) < 2500.f) { end = glm::normalize(end) * 3000.f; }
+
+			printf("Start: (%f,%f,%f) End: (%f,%f,%f)\n", start.x, start.y, start.z, end.x, end.y, end.z);
+
+
+			PathPoints.clear();
+
+			glm::vec3 point = start;
+			while (true)
+			{
+				point += (glm::normalize(end - start) * 100.f);
+				if (glm::distance(point, end) <= 100.f)
+					break;
+				PathPoints.push_back(point);
+			}
+
+
+			g_EndPoint = end;
+			g_StartPoint = start;
+			pFindObjectByFriendlyName("XWing")->positionXYZ = start;
+			pFindObjectByFriendlyName("XWing")->velocity = glm::normalize(end - start) * 100.f;
+			pFindObjectByFriendlyName("XWing")->isVisible = true;
+
+			pFindObjectByFriendlyName("XWing")->setOrientation(glm::quatLookAtRH(normalize(end - start), glm::vec3(0.f, 1.f, 0.f)));
+
+
+			tpc->SetPlayerObject(pFindObjectByFriendlyName("XWing"));
+			tpc->SetPositionRelitiveToObject(glm::vec3(0.0f, 10.0f, 8.0f * 15.0f));
+			lockToShip = true;
+
+			//pFindObjectByFriendlyName("XWing")->m_pDebugRenderer->addLine(start, end, glm::vec3(1.0f), 3.0f);
+
+		}
+		if (key == GLFW_KEY_4 && action == GLFW_PRESS)
+		{
+			glm::vec3 start(0.f);
+			glm::vec3 end(0.f);
+
+
+			if (HealthLeft > 0)
+			{
+				start = glm::vec3(103.04, 246.98, 1255.32);
+				end = glm::vec3(103.04, 246.98, -155.32);
+			}
+			else if (HealthRight > 0)
+			{
+				start = glm::vec3(-103.04, 246.98, 1255.32);
+				end = glm::vec3(-103.04, 246.98, -155.32);
+			}
+			else { return; }
+
+			printf("Start: (%f,%f,%f) End: (%f,%f,%f)\n", start.x, start.y, start.z, end.x, end.y, end.z);
+
+
+			PathPoints.clear();
+
+			glm::vec3 point = start;
+			while (true)
+			{
+				point += (glm::normalize(end - start) * 100.f);
+				if (glm::distance(point, end) <= 100.f)
+					break;
+				PathPoints.push_back(point);
+			}
+
+
+			g_EndPoint = end;
+			g_StartPoint = start;
+			pFindObjectByFriendlyName("XWing")->positionXYZ = start;
+			pFindObjectByFriendlyName("XWing")->velocity = glm::normalize(end - start) * 100.f;
+			pFindObjectByFriendlyName("XWing")->isVisible = true;
+
+			pFindObjectByFriendlyName("XWing")->setOrientation(glm::quatLookAtRH(normalize(end - start), glm::vec3(0.f, 1.f, 0.f)));
+
+
+			tpc->SetPlayerObject(pFindObjectByFriendlyName("XWing"));
+			tpc->SetPositionRelitiveToObject(glm::vec3(0.0f, 10.0f, 8.0f * 15.0f));
+			lockToShip = true;
+
+			//pFindObjectByFriendlyName("XWing")->m_pDebugRenderer->addLine(start, end, glm::vec3(1.0f), 3.0f);
+		}
+		if (key == GLFW_KEY_5 && action == GLFW_PRESS)
+		{
+
+			HealthRight = 0;
+			HealthLeft = 0;
+		}
+		if (key == GLFW_KEY_6 && action == GLFW_PRESS)
+		{
+			HealthRight = 100;
+			HealthLeft = 100;
+			offset = 0.f;
+		}
+		/*	if (key == GLFW_KEY_3 && action == GLFW_RELEASE)
+			{
+				std::ifstream t("assets/scripts/Q3.lua");
+				std::string luaScript = std::string((std::istreambuf_iterator<char>(t)),
+													std::istreambuf_iterator<char>());
+				t.close();
+
+				g_pLuaScripts->RunThis(luaScript);
+			}
+			if (key == GLFW_KEY_4 && action == GLFW_RELEASE)
+			{
+				std::ifstream t("assets/scripts/Q4.lua");
+				std::string luaScript = std::string((std::istreambuf_iterator<char>(t)),
+													std::istreambuf_iterator<char>());
+				t.close();
+
+				g_pLuaScripts->RunThis(luaScript);
+			}
+			if (key == GLFW_KEY_5 && action == GLFW_RELEASE)
+			{
+				std::ifstream t("assets/scripts/Q5.lua");
+				std::string luaScript = std::string((std::istreambuf_iterator<char>(t)),
+													std::istreambuf_iterator<char>());
+				t.close();
+
+				g_pLuaScripts->RunThis(luaScript);
+			}
+			if (key == GLFW_KEY_6 && action == GLFW_RELEASE)
+			{
+				std::ifstream t("assets/scripts/Q6.lua");
+				std::string luaScript = std::string((std::istreambuf_iterator<char>(t)),
+													std::istreambuf_iterator<char>());
+				t.close();
+
+				g_pLuaScripts->RunThis(luaScript);
+			}
+			if (key == GLFW_KEY_7 && action == GLFW_RELEASE)
+			{
+				std::ifstream t("assets/scripts/Q7.lua");
+				std::string luaScript = std::string((std::istreambuf_iterator<char>(t)),
+													std::istreambuf_iterator<char>());
+				t.close();
+
+				g_pLuaScripts->RunThis(luaScript);
+			}*/
+			/*	if (key == GLFW_KEY_B)
+				{
+					// Shoot a bullet from the pirate ship
+					// Find the pirate ship...
+					// returns NULL (0) if we didn't find it.
+		//			cGameObject* pShip = pFindObjectByFriendlyName("PirateShip");
+					//cGameObject* pShip = pFindObjectByFriendlyNameMap("PirateShip");
+					// Maybe check to see if it returned something...
+
+					// Find the sphere#2
+		//			cGameObject* pBall = pFindObjectByFriendlyName("Sphere#2");
+					//cGameObject* pBall = pFindObjectByFriendlyNameMap("Sphere#2");
+
+					// Set the location velocity for sphere#2
+					//pBall->positionXYZ = pShip->positionXYZ;
+					//pBall->inverseMass = 1.0f;		// So it's updated
+					// 20.0 units "to the right"
+					// 30.0 units "up"
+					//pBall->velocity = glm::vec3( 15.0f, 20.0f, 0.0f );
+					//pBall->accel = glm::vec3(0.0f,0.0f,0.0f);
+					//pBall->diffuseColour = glm::vec4(1.0f, 0.0f, 0.0f, 0.0f);
+				}//if ( key == GLFW_KEY_B )
+
+			}
+			*/
+			/*if (isOnlyCtrlKeyDown(mods))
+			{
+				if (key == GLFW_KEY_1)
+				{
+					//cGameObject* pCannon1 = pFindObjectByFriendlyName("C1");
+					// Can move the m_pGO relative to the "parent" m_pGO
+					//pCannon1->positionXYZ.z -= 1.0f;
+				}
+				if (key == GLFW_KEY_2)
+				{
+					//cGameObject* pCannon2 = pFindObjectByFriendlyName("C2");
+					//pCannon2->positionXYZ.z -= 1.0f;
+				}
+			}
+			*/
+		if (key == GLFW_KEY_COMMA && action == GLFW_PRESS)
 		{
 			for (std::vector<cGameObject*>::iterator it = ::g_vec_pGameObjects.begin(); it != g_vec_pGameObjects.end(); it++)
 			{
 				(*it)->isWireframe = false;
 			}
 		}
-		if (key == GLFW_KEY_2 && action == GLFW_PRESS)
+		if (key == GLFW_KEY_PERIOD && action == GLFW_PRESS)
 		{
 			for (std::vector<cGameObject*>::iterator it = ::g_vec_pGameObjects.begin(); it != g_vec_pGameObjects.end(); it++)
 			{
@@ -163,7 +311,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	}
 	if (isOnlyShiftKeyDown(mods))
 	{
-		if (key == GLFW_KEY_3 && action == GLFW_RELEASE)
+		/*if (key == GLFW_KEY_3 && action == GLFW_RELEASE)
 		{
 			pFindObjectByFriendlyName("Cam")->setOrientation(glm::vec3(12, -145, 0));
 
@@ -173,7 +321,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			t.close();
 
 			g_pLuaScripts->RunThis(luaScript);
-		}
+		}*/
 
 		if (key == GLFW_KEY_A)
 		{
@@ -304,7 +452,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 	if (isOnlyCtrlKeyDown(mods))
 	{
-		if (key == GLFW_KEY_ENTER && action == GLFW_PRESS)
+		/*if (key == GLFW_KEY_ENTER && action == GLFW_PRESS)
 		{
 			g_ParentCommandGroup = createParent("Parent");
 
@@ -317,7 +465,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			t.close();
 
 			g_pLuaScripts->RunThis(luaScript);
-		}
+		}*/
 	}
 	// Moving the pirate ship in a certain direction
 	/*if (isOnlyCtrlKeyDown(mods))
@@ -592,7 +740,7 @@ void ShipControls(GLFWwindow* window)
 	if (areAllModifiersUp(window))
 	{
 
-	/*	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 		{
 			inputRotation.x = 30.0f;
 		}
@@ -631,21 +779,21 @@ void ShipControls(GLFWwindow* window)
 		else
 		{
 			inputRotation.z = 0.0f;
-		}*/
+		}
 
-		//pFindObjectByFriendlyName("Ship")->setAngularVelocity(inputRotation);
+		pFindObjectByFriendlyName("XWing")->setAngularVelocity(inputRotation);
 
 
 		if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 		{
-			glm::vec4 accel = glm::vec4(0.0f, 0.0f, speed, 1.0f);
-			accel = glm::mat4(pFindObjectByFriendlyName("Ship")->getQOrientation()) * accel;
+			glm::vec4 accel = glm::vec4(0.0f, 0.0f, -speed, 1.0f);
+			accel = glm::mat4(pFindObjectByFriendlyName("XWing")->getQOrientation()) * accel;
 
-			pFindObjectByFriendlyName("Ship")->accel = accel;
+			pFindObjectByFriendlyName("XWing")->accel = accel;
 		}
 		else
 		{
-			pFindObjectByFriendlyName("Ship")->accel = glm::vec3(0.0f);
+			pFindObjectByFriendlyName("XWing")->accel = glm::vec3(0.0f);
 		}
 
 		if (glfwGetKey(window, GLFW_KEY_KP_SUBTRACT) == GLFW_PRESS)
@@ -667,14 +815,14 @@ void ShipControls(GLFWwindow* window)
 	{
 		if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)	// "down"
 		{
-			glm::vec4 accel = glm::vec4(0.0f, 0.0f, -speed, 1.0f);
-			accel = glm::mat4(pFindObjectByFriendlyName("Ship")->getQOrientation()) * accel;
+			glm::vec4 accel = glm::vec4(0.0f, 0.0f, speed, 1.0f);
+			accel = glm::mat4(pFindObjectByFriendlyName("XWing")->getQOrientation()) * accel;
 
-			pFindObjectByFriendlyName("Ship")->accel = accel;
+			pFindObjectByFriendlyName("XWing")->accel = accel;
 		}
 		else
 		{
-			pFindObjectByFriendlyName("Ship")->accel = glm::vec3(0.0f);
+			pFindObjectByFriendlyName("XWing")->accel = glm::vec3(0.0f);
 		}
 
 	}//IsShiftDown(window)

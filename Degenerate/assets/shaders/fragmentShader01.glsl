@@ -30,11 +30,11 @@ uniform vec4 boolModifiers;
 	// useDiffuse	
 	//uniform bool bIsImposter;
 
-uniform sampler2D heightMap;
-uniform vec2 textOffset;
-uniform bool isWater;
-uniform bool offsetText1;
-uniform bool isIsland;
+//uniform sampler2D heightMap;
+//uniform vec2 textOffset;
+//uniform bool isWater;
+//uniform bool offsetText1;
+//uniform bool isIsland;
 
 //uniform sampler2D textureWhatTheWhat;
 //uniform sampler2D heightMap;
@@ -164,68 +164,70 @@ void main()
 	vec4 outColour;
 	// vec4 materialColour = vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	// vec4 specColour = vec4(0.0f,0.0f,0.0f,1.0f);// materialColour;
-	if(isIsland)
-	{
-		if(fVertWorldLocation.y < 3.0f)
-		{
-			discard;
-		}
+//	if(isIsland)
+//	{
+//		if(fVertWorldLocation.y < 3.0f)
+//		{
+//			discard;
+//		}
+//
+//		else if(fVertWorldLocation.y < 45.0f)
+//		{
+//			vec3 tex0_RGB = texture( textSamp03, fUVx2.st ).rgb;
+//			outColour = calcualteLightContrib( tex0_RGB.rgb, fNormal.xyz, 
+//	                                            fVertWorldLocation.xyz, specularColour );
+//												
+//		}
+//		else if(fVertWorldLocation.y < 65.0f)
+//		{
+//			vec3 tex0_RGB = texture( textSamp03, fUVx2.st ).rgb;
+//			vec3 tex1_RGB = texture( textSamp01, fUVx2.st ).rgb;
+//			vec3 texRGB = mix(tex0_RGB, tex1_RGB, (fVertWorldLocation.y-45.0f)/20.0f);
+//
+//			outColour = calcualteLightContrib( texRGB.rgb, fNormal.xyz, 
+//	                                            fVertWorldLocation.xyz, specularColour );
+//		}
+//		else if (fVertWorldLocation.y < 85.0f)
+//		{
+//			vec3 tex0_RGB = texture( textSamp01, fUVx2.st ).rgb;
+//			outColour = calcualteLightContrib( tex0_RGB.rgb, fNormal.xyz, 
+//	                                            fVertWorldLocation.xyz, specularColour );
+//		}
+//		else if(fVertWorldLocation.y < 105.0f)
+//		{
+//			vec3 tex0_RGB = texture( textSamp01, fUVx2.st ).rgb;
+//			vec3 tex1_RGB = texture( textSamp02, fUVx2.st ).rgb;
+//			vec3 texRGB = mix(tex0_RGB, tex1_RGB, (fVertWorldLocation.y-85.0f)/20.0f);
+//
+//			outColour = calcualteLightContrib( texRGB.rgb, fNormal.xyz, 
+//	                                            fVertWorldLocation.xyz, specularColour );
+//		}
+//		else
+//		{
+//			vec3 tex0_RGB = texture( textSamp02, fUVx2.st ).rgb;
+//			outColour = calcualteLightContrib( tex0_RGB.rgb, fNormal.xyz, 
+//	                                            fVertWorldLocation.xyz, specularColour );
+//		}
+//
+//	}
+//	else if(offsetText1)
+//	{
+//		vec3 tex0_RGB = texture( textSamp00, fUVx2.st + textOffset.xy).rgb;
+//		vec3 tex1_RGB = texture( textSamp01, fUVx2.st ).rgb;
+//		vec3 tex2_RGB = texture( textSamp02, fUVx2.st ).rgb;
+//		vec3 tex3_RGB = texture( textSamp03, fUVx2.st ).rgb;
+//		
+//		vec3 texRGB =   ( tex_0_3_ratio.x * tex0_RGB ) 
+//					  + ( tex_0_3_ratio.y * tex1_RGB )
+//					  + ( tex_0_3_ratio.z * tex2_RGB )
+//					  + ( tex_0_3_ratio.w * tex3_RGB );
+//	
+//		outColour = calcualteLightContrib( texRGB.rgb, fNormal.xyz, 
+//	                                            fVertWorldLocation.xyz, specularColour );
+//	}
+//	else 
 
-		else if(fVertWorldLocation.y < 45.0f)
-		{
-			vec3 tex0_RGB = texture( textSamp03, fUVx2.st ).rgb;
-			outColour = calcualteLightContrib( tex0_RGB.rgb, fNormal.xyz, 
-	                                            fVertWorldLocation.xyz, specularColour );
-												
-		}
-		else if(fVertWorldLocation.y < 65.0f)
-		{
-			vec3 tex0_RGB = texture( textSamp03, fUVx2.st ).rgb;
-			vec3 tex1_RGB = texture( textSamp01, fUVx2.st ).rgb;
-			vec3 texRGB = mix(tex0_RGB, tex1_RGB, (fVertWorldLocation.y-45.0f)/20.0f);
-
-			outColour = calcualteLightContrib( texRGB.rgb, fNormal.xyz, 
-	                                            fVertWorldLocation.xyz, specularColour );
-		}
-		else if (fVertWorldLocation.y < 85.0f)
-		{
-			vec3 tex0_RGB = texture( textSamp01, fUVx2.st ).rgb;
-			outColour = calcualteLightContrib( tex0_RGB.rgb, fNormal.xyz, 
-	                                            fVertWorldLocation.xyz, specularColour );
-		}
-		else if(fVertWorldLocation.y < 105.0f)
-		{
-			vec3 tex0_RGB = texture( textSamp01, fUVx2.st ).rgb;
-			vec3 tex1_RGB = texture( textSamp02, fUVx2.st ).rgb;
-			vec3 texRGB = mix(tex0_RGB, tex1_RGB, (fVertWorldLocation.y-85.0f)/20.0f);
-
-			outColour = calcualteLightContrib( texRGB.rgb, fNormal.xyz, 
-	                                            fVertWorldLocation.xyz, specularColour );
-		}
-		else
-		{
-			vec3 tex0_RGB = texture( textSamp02, fUVx2.st ).rgb;
-			outColour = calcualteLightContrib( tex0_RGB.rgb, fNormal.xyz, 
-	                                            fVertWorldLocation.xyz, specularColour );
-		}
-
-	}
-	else if(offsetText1)
-	{
-		vec3 tex0_RGB = texture( textSamp00, fUVx2.st + textOffset.xy).rgb;
-		vec3 tex1_RGB = texture( textSamp01, fUVx2.st ).rgb;
-		vec3 tex2_RGB = texture( textSamp02, fUVx2.st ).rgb;
-		vec3 tex3_RGB = texture( textSamp03, fUVx2.st ).rgb;
-		
-		vec3 texRGB =   ( tex_0_3_ratio.x * tex0_RGB ) 
-					  + ( tex_0_3_ratio.y * tex1_RGB )
-					  + ( tex_0_3_ratio.z * tex2_RGB )
-					  + ( tex_0_3_ratio.w * tex3_RGB );
-	
-		outColour = calcualteLightContrib( texRGB.rgb, fNormal.xyz, 
-	                                            fVertWorldLocation.xyz, specularColour );
-	}
-	else if(boolModifiers.z == 0.0f){
+	if(boolModifiers.z == 0.0f){
 		vec3 tex0_RGB = texture( textSamp00, fUVx2.st ).rgb;
 		vec3 tex1_RGB = texture( textSamp01, fUVx2.st ).rgb;
 		vec3 tex2_RGB = texture( textSamp02, fUVx2.st ).rgb;

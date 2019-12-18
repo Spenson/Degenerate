@@ -32,11 +32,15 @@ public:
 	static GLint specularColour_UL;
 	static GLint debugColour_UL;
 
-	static GLint heightMap_UL;
-	static GLint isWater_UL;
-	static GLint isIsland_UL;
-	static GLint offsetText1_UL;
-	static GLint textOffset_UL;
+	static GLint Offset_UL;
+	static GLint UseOffset_UL;
+
+
+	//static GLint heightMap_UL;
+	//static GLint isWater_UL;
+	//static GLint isIsland_UL;
+	//static GLint offsetText1_UL;
+	//static GLint textOffset_UL;
 	//static GLint bDoNotLight_UL;
 
 	static GLint boolModifiers_UL; // doNotLight, isSkyBox, useDiffuse, isImposter

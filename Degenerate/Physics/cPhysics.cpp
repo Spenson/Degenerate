@@ -1,5 +1,9 @@
 #include "cPhysics.h"
 #include "SubdivideWorld.h"
+#include "../Camera/ThirdPersonCamera.h"
+
+extern int HealthRight, HealthLeft;
+extern ThirdPersonCamera* tpc;
 
 cPhysics::cPhysics()
 {
@@ -26,12 +30,12 @@ glm::vec3 cPhysics::RK6(glm::vec3 val, glm::vec3 change, float delta)
 {
 	glm::vec3 step = change / 6.0f;
 
-	glm::vec3 inc1 = val + ((step * 1.0f)* delta);
-	glm::vec3 inc2 = val + ((step * 2.0f)* delta);
-	glm::vec3 inc3 = val + ((step * 3.0f)* delta);
-	glm::vec3 inc4 = val + ((step * 4.0f)* delta);
-	glm::vec3 inc5 = val + ((step * 5.0f)* delta);
-	glm::vec3 inc6 = val + ((step * 6.0f)* delta);
+	glm::vec3 inc1 = val + ((step * 1.0f) * delta);
+	glm::vec3 inc2 = val + ((step * 2.0f) * delta);
+	glm::vec3 inc3 = val + ((step * 3.0f) * delta);
+	glm::vec3 inc4 = val + ((step * 4.0f) * delta);
+	glm::vec3 inc5 = val + ((step * 5.0f) * delta);
+	glm::vec3 inc6 = val + ((step * 6.0f) * delta);
 
 	return (((1.0f * inc1) + (2.0f * inc2) + (3.0f * inc3) +
 		(3.0f * inc4) + (2.0f * inc5) + (1.0f * inc6)
@@ -46,7 +50,7 @@ void cPhysics::IntegrationStep(std::vector<cGameObject*>& vec_pGameObjects, floa
 	for (unsigned int index = 0;
 		 index != vec_pGameObjects.size(); index++)
 	{
-		// Get a pointer to the current m_pGO (makes the code a little clearer)
+		// Get a pointer to the current pGO (makes the code a little clearer)
 		cGameObject* pCurObj = vec_pGameObjects[index];
 
 		if (pCurObj->inverseMass != 0.0f)
@@ -349,7 +353,7 @@ void cPhysics::GetClosestTrianglesToSphere(cGameObject& testSphere, float distan
 
 #include "../globals.h"
 
-// Test each m_pGO with every other m_pGO
+// Test each pGO with every other pGO
 void cPhysics::TestForCollisions(std::vector<cGameObject*>& vec_pGameObjects, std::vector<glm::vec3>& todraw)
 {
 	// This will store all the collisions in this frame
@@ -357,17 +361,22 @@ void cPhysics::TestForCollisions(std::vector<cGameObject*>& vec_pGameObjects, st
 
 	sCollisionInfo collisionInfo;
 
-	for (unsigned int outerLoopIndex = 0;
-		 outerLoopIndex != vec_pGameObjects.size(); outerLoopIndex++)
+	for (unsigned int outerLoopIndex = 0; outerLoopIndex != vec_pGameObjects.size(); outerLoopIndex++)
 	{
-		cGameObject* m_pGO = vec_pGameObjects[outerLoopIndex];
-		if (m_pGO->physicsShapeType == POINTSET)
+		cGameObject* pGO = vec_pGameObjects[outerLoopIndex];
+		if (pGO->physicsShapeType == POINTSET)
 		{
-			glm::mat4 objMat = calculateWorldMatrix(m_pGO, glm::mat4(1.0));
-			for (size_t pointIdx = 0; pointIdx < m_pGO->vecPhysTestPoints.size(); pointIdx++)
+			glm::vec3 vel(pGO->velocity);
+			glm::mat4 objMat = calculateWorldMatrix(pGO, glm::mat4(1.0));
+
+			for (size_t pointIdx = 0; pointIdx < pGO->vecPhysTestPoints.size(); pointIdx++)
 			{
-				glm::vec3 testPoint = m_pGO->vecPhysTestPoints[pointIdx];
+				glm::vec3 testPoint = pGO->vecPhysTestPoints[pointIdx];
 				testPoint = objMat * glm::vec4(testPoint, 1.0f);
+				if (pGO->friendlyName == "XWing")
+				{
+					testPoint += pGO->velocity * 3.f;
+				}
 
 				if (WorldRegion::mapRegions.find(WorldRegion::GenerateID(testPoint)) != WorldRegion::mapRegions.end())
 				{
@@ -377,19 +386,44 @@ void cPhysics::TestForCollisions(std::vector<cGameObject*>& vec_pGameObjects, st
 						UnraveiledTriangle* tri = WorldRegion::AllTriangles[*i];
 						glm::vec3 collisionPoint = glm::vec3(0.0f);
 						float barA = 0, barB = 0, barC = 0;
-						if (IntersectLineTriangle(m_pGO->positionXYZ, testPoint, tri->a, tri->b, tri->c,
-												  barA, barB, barC, collisionPoint))
+						if (IntersectLineTriangle(pGO->positionXYZ, testPoint, tri->a, tri->b, tri->c, barA, barB, barC, collisionPoint))
 						{
-							m_pGO->m_pDebugRenderer->addLine(testPoint, m_pGO->positionXYZ, glm::vec3(1.0f, 0.0f, 0.0f));
-							m_pGO->m_pDebugRenderer->addLine(m_pGO->positionXYZ, collisionPoint, glm::vec3(0.0f, 1.0f, 0.0f));
-							m_pGO->m_pDebugRenderer->addLine(testPoint, collisionPoint, glm::vec3(0.0f, 0.0f, 1.0f));
-							if (glm::length(collisionPoint - testPoint) != 0)
-								m_pGO->velocity = (glm::length(m_pGO->velocity) * 0.5f) * glm::normalize(collisionPoint - testPoint);
-							//m_pGO->velocity *= glm::normalize(collisionPoint - testPoint);
-						//m_pGO->velocity *= 0.9f;
-							todraw.push_back(collisionPoint);
-							todraw.push_back(testPoint);
-							m_pGO->positionXYZ += (collisionPoint - testPoint);
+							if (pGO->friendlyName == "XWing")
+							{
+								pFindObjectByFriendlyName("Bullet")->positionXYZ = pGO->positionXYZ + (glm::normalize(vel)*3.f);
+								pFindObjectByFriendlyName("Bullet")->velocity = vel;
+								pFindObjectByFriendlyName("Bullet")->setOrientation(glm::quatLookAtRH(glm::normalize(-vel), glm::vec3(0.f, 1.f, 0.f)));
+								pFindObjectByFriendlyName("Bullet")->isVisible = true;
+								
+								tpc->SetPlayerObject(pFindObjectByFriendlyName("Bullet"));
+								tpc->SetPositionRelitiveToObject(glm::vec3(0.0f, 10.0f, -8.0f * 15.0f));
+								//tpc->SetPositionRelitiveToObject(glm::vec3(0.f,50.f,0.f));
+
+								pGO->velocity = -vel;
+								pGO->setOrientation(glm::quatLookAtRH(glm::normalize(pGO->velocity), glm::vec3(0.f, 1.f, 0.f)));
+
+							}
+							if (pGO->friendlyName == "Bullet")
+							{
+								pGO->velocity = glm::vec3(0.f);
+								pGO->positionXYZ = glm::vec3(0.f);
+
+								if (glm::distance(glm::vec3(103.04, 246.98, 555.32), collisionPoint) <= 25.f)
+								{
+									if (HealthLeft > 0)
+										HealthLeft -= 25;
+
+								}
+								if (glm::distance(glm::vec3(-103.04, 246.98, 555.32), collisionPoint) <= 25.f)
+								{
+									if(HealthRight > 0)
+										HealthRight -= 25;
+								}
+
+								lockToShip = false;
+								pGO->isVisible = false;
+								todraw.push_back(collisionPoint);
+							}
 						}
 					}
 
@@ -441,15 +475,15 @@ void cPhysics::TestForCollisions(std::vector<cGameObject*>& vec_pGameObjects, st
 		//	// Note that if you don't respond to the 
 		//	// collision here, then you will get the same
 		//	// result twice (Object "A" with "B" and later, 
-		//	//   m_pGO "B" with "A" - but it's the same collison
+		//	//   pGO "B" with "A" - but it's the same collison
 
 		//	// Compare the two objects:
 		//	// Either a sphere-sphere or sphere-mesh
-		//	// An I testing the m_pGO with itself? 
+		//	// An I testing the pGO with itself? 
 		//	//if (pA == pB)
 		//	if (pA->getUniqueID() == pB->getUniqueID())
 		//	{
-		//		// It's the same m_pGO
+		//		// It's the same pGO
 		//		// Do nothing
 		//	}
 		//	else if (pA->physicsShapeType == SPHERE &&

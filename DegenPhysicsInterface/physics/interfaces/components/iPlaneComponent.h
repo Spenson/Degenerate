@@ -1,6 +1,5 @@
 #pragma once
 
-#include "glmIncludes.hpp"
 #include "iPhysicsComponent.h"
 
 namespace DegenPhysics
@@ -16,7 +15,7 @@ namespace DegenPhysics
 		virtual ~iPlaneComponent() {}
 
 	protected:
-		iPlaneComponent() : iPhysicsComponent(eComponentType::plane) {}
+		iPlaneComponent(sPlaneDef def) : iPhysicsComponent(eComponentType::plane) {}
 	private:
 		iPlaneComponent() = delete;
 		iPlaneComponent(const iPlaneComponent& other) = delete;

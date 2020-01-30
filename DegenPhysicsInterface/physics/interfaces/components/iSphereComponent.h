@@ -17,7 +17,7 @@ namespace DegenPhysics
 		virtual ~iSphereComponent() {}
 
 	protected:
-		iSphereComponent() : iPhysicsComponent(eComponentType::sphere) {}
+		iSphereComponent(sSphereDef def) : iPhysicsComponent(eComponentType::sphere) {}
 	private:
 		iSphereComponent() = delete;
 		iSphereComponent(const iSphereComponent& other) = delete;

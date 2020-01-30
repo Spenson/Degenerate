@@ -1,7 +1,7 @@
 #pragma once
 
 #include "eComponentType.h"
-#include "glmIncludes.hpp"
+#include "glmCommon.h"
 
 
 namespace DegenPhysics
@@ -15,10 +15,8 @@ namespace DegenPhysics
 		virtual void GetTransform(glm::mat4& transformOut) = 0;
 
 	protected:
-		iPhysicsComponent(eComponentType componentType)
-			: mComponentType(componentType)
-		{
-		}
+		iPhysicsComponent(eComponentType componentType) : mComponentType(componentType) {}
+		
 	private:
 		eComponentType mComponentType;
 

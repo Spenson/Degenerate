@@ -24,13 +24,7 @@
     <ClInclude Include="physics\interfaces\eComponentType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="physics\interfaces\glmIncludes.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="physics\interfaces\iCollisionListener.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="physics\interfaces\iDebugRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="physics\interfaces\iPhysicsComponent.h">
@@ -40,6 +34,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="physics\interfaces\iPhysicsWorld.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="physics\interfaces\glmCommon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="physics\interfaces\iDebugRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

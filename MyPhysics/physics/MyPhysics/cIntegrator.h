@@ -9,11 +9,23 @@ namespace MyPhysics
 	private:
 		// TODO: Define any structs used internally for specific schemes.
 		//       Such as,
-		struct State;
-		struct Derivative;
+		struct State
+		{
+			glm::vec3 pos;
+			glm::vec3 vel;
+		};
+		struct Derivative
+		{
+			glm::vec3 dx;
+			glm::vec3 dv;
+		};
 		struct sRK4State;
 		// TODO: Define any methods used interally for specific schemes.
 
+
+		Derivative evaluate(const State& initial, double t, float dt, const Derivative& d);
+		glm::vec3 acceleration(const State& state, double t);
+		void integrate(State& state, double t, float dt);
 	public:
 		// Constructor
 		cIntegrator();
@@ -26,7 +38,7 @@ namespace MyPhysics
 
 
 		// FOURTH-ORDER RUNGE-KUTTA
-		void RK4(glm::vec3& pos, glm::vec3& vel, glm::vec3& acc, float dt);
-		void RK4(glm::vec3& pos, glm::vec3& vel, glm::vec3& acc, const glm::vec3& appliedAcc, float dt);
+		//void RK4(glm::vec3& pos, glm::vec3& vel, glm::vec3& acc, float dt);
+		//void RK4(glm::vec3& pos, glm::vec3& vel, glm::vec3& acc, const glm::vec3& appliedAcc, float dt);
 	};
 }

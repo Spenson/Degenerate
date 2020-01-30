@@ -3,8 +3,8 @@
 #include <vector>
 
 #include "cRigidBody.h"
-#include "cSphere.h"
-#include "cPlane.h"
+#include "Shapes/cSphere.h"
+#include "Shapes/cPlane.h"
 #include "cIntegrator.h"
 
 namespace MyPhysics

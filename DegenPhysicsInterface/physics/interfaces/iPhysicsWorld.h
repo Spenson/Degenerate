@@ -9,7 +9,7 @@ namespace DegenPhysics
 		virtual ~iPhysicsWorld(){}
 
 		virtual void Update(float dt) = 0;
-		virtual void AddObject(/*TODO: physics object*/) = 0;
-		virtual void RemoveObject(/*TODO: physics object*/) = 0;
+		virtual void AddObject(iPhysicsComponent* component) = 0;
+		virtual void RemoveObject(iPhysicsComponent* component) = 0;
 	};
 }

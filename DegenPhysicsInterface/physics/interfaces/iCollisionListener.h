@@ -2,6 +2,7 @@
 
 namespace DegenPhysics
 {
+	//Currently un-needed. To be completed at a later time.
 	class iCollisionListener
 	{
 	public:

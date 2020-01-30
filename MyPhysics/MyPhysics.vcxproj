@@ -149,7 +149,7 @@
     <ClInclude Include="physics\MyPhysics\eShapeType.h" />
     <ClInclude Include="physics\MyPhysics\glmCommon.h" />
     <ClInclude Include="physics\MyPhysics\iShape.h" />
-    <ClInclude Include="physics\MyPhysics\my_physics.h" />
+    <ClInclude Include="physics\my_physics.h" />
     <ClInclude Include="physics\MyPhysics\nCollide.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

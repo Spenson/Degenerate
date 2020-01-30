@@ -3,7 +3,7 @@
 #include "../globals.h"
 #include <vector>
 #include <set>
-#include "../ModelStuff/cMesh.h"
+#include "../Rendering/ModelStuff/cMesh.h"
 
 
 struct UnraveiledTriangle

@@ -1,8 +1,4 @@
 #include "cGameObject.h"
-#include <glm/gtx/quaternion.hpp>
-#include <glm/vec4.hpp> // glm::vec4
-#include <glm/mat4x4.hpp> // glm::mat4
-#include <glm/gtc/matrix_transform.hpp>
 
 std::vector<cGameObject*> g_vec_pGameObjects;
 
@@ -87,6 +83,93 @@ cGameObject::cGameObject()
 	this->m_pDebugRenderer = NULL;
 
 	return;
+}
+
+bool cGameObject::Visable()
+{
+	return isVisible;
+}
+
+bool cGameObject::Wireframe()
+{
+	return isWireframe;
+}
+
+bool cGameObject::IgnoreLighting()
+{
+	return doNotLight;
+}
+
+std::string cGameObject::Model()
+{
+	return meshName;
+}
+
+glm::mat4 cGameObject::Transform()
+{
+	glm::mat4 mat = glm::mat4(1.f);
+	mat *= glm::translate(glm::mat4(1.f), positionXYZ);
+	mat *= glm::mat4(this->getQOrientation());
+	
+	return mat;
+}
+
+glm::vec3 cGameObject::Scale()
+{
+	return glm::vec3(scale);
+}
+
+bool cGameObject::UseDiffuse()
+{
+	return useDiffuse;
+}
+
+glm::vec4 cGameObject::Diffuse()
+{
+	return diffuseColour;
+}
+
+glm::vec4 cGameObject::Specular()
+{
+	return specularColour;
+}
+
+bool cGameObject::DepthBufferTest()
+{
+	return !disableDepthBufferTest;
+}
+
+bool cGameObject::DepthBufferWrite()
+{
+	return !disableDepthBufferWrite;
+}
+
+std::pair<std::string, float>* cGameObject::Textures()
+{
+	pairedTextures[0].first = textures[0];
+	pairedTextures[0].second = textureRatio[0];
+
+	pairedTextures[1].first = textures[1];
+	pairedTextures[1].second = textureRatio[1];
+
+	pairedTextures[2].first = textures[2];
+	pairedTextures[2].second = textureRatio[2];
+
+	pairedTextures[3].first = textures[3];
+	pairedTextures[3].second = textureRatio[3];
+	
+	return pairedTextures;
+}
+
+std::vector<DegenRendering::iRigidModel*> cGameObject::Children()
+{
+	std::vector<DegenRendering::iRigidModel*> vec;//(vec_pChildObjects.begin(), vec_pChildObjects.end());
+	
+	return vec;
+}
+
+void cGameObject::SetTransform(const glm::mat4& transform)
+{
 }
 
 

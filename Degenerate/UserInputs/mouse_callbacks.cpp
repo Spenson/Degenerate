@@ -6,7 +6,7 @@
 //#include "GFLW_callbacks.h"
 //#include "globals.h"			// for find m_pGO
 //
-//#include "Camera/FreeCameraManager.h"
+//#include "Camera/FreeCamera.h"
 //
 ////#include <stdio.h>		// for fprintf()
 //
@@ -48,7 +48,7 @@
 //	xoffset *= sensitivity;
 //	yoffset *= sensitivity;
 //
-//	FreeCameraManager::GetCameraInstance()->Pitch(yoffset);
-//	FreeCameraManager::GetCameraInstance()->Yaw(xoffset);
+//	FreeCamera::GetCameraInstance()->Pitch(yoffset);
+//	FreeCamera::GetCameraInstance()->Yaw(xoffset);
 //
 //}

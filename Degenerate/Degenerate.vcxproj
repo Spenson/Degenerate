@@ -42,30 +42,25 @@
     <ClCompile Include="DebugRenderer\cGLRenderStateHelper.cpp" />
     <ClCompile Include="DebugRenderer\COpenGLError.cpp" />
     <ClCompile Include="GameObject\cGameObject.cpp" />
-    <ClCompile Include="Lighting\cLightHelper.cpp" />
-    <ClCompile Include="Lighting\Light.cpp" />
-    <ClCompile Include="Lighting\LightManager.cpp" />
-    <ClCompile Include="LoadingStuff\FileReaders.cpp" />
-    <ClCompile Include="LoadingStuff\LoadScene.cpp" />
+    <ClCompile Include="Rendering\Lighting\cLightHelper.cpp" />
+    <ClCompile Include="Rendering\Lighting\Light.cpp" />
+    <ClCompile Include="Rendering\Lighting\LightManager.cpp" />
     <ClCompile Include="LowPassFilter\cLowPassFilter.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ModelStuff\cModelLoader.cpp" />
-    <ClCompile Include="ParticalEffects\cParticleEmitter.cpp" />
-    <ClCompile Include="Physics\cPhysics.cpp" />
-    <ClCompile Include="Physics\cPhysics_Ericson.cpp" />
-    <ClCompile Include="Physics\SubdivideWorld.cpp" />
-    <ClCompile Include="ShaderManager\cShader.cpp" />
-    <ClCompile Include="ShaderManager\cShaderManager.cpp" />
-    <ClCompile Include="SimpleShaderStuff\Rendering.cpp" />
-    <ClCompile Include="SimpleShaderStuff\UniformManager.cpp" />
-    <ClCompile Include="Texture\C24BitBMPpixel.cpp" />
-    <ClCompile Include="Texture\cBasicTextureManager.cpp" />
-    <ClCompile Include="Texture\CTextureFromBMP.cpp" />
+    <ClCompile Include="Rendering\ModelStuff\cModelLoader.cpp" />
+    <ClCompile Include="Rendering\ParticalEffects\cParticleEmitter.cpp" />
+    <ClCompile Include="Rendering\Renderer.cpp" />
+    <ClCompile Include="Rendering\Shaders\cShader.cpp" />
+    <ClCompile Include="Rendering\Shaders\cShaderManager.cpp" />
+    <ClCompile Include="Rendering\cSimpleSkybox.cpp" />
+    <ClCompile Include="Rendering\Texture\C24BitBMPpixel.cpp" />
+    <ClCompile Include="Rendering\Texture\cBasicTextureManager.cpp" />
+    <ClCompile Include="Rendering\Texture\CTextureFromBMP.cpp" />
     <ClCompile Include="UserInputs\GFLW_callbacks.cpp" />
     <ClCompile Include="UserInputs\key_callbacks.cpp" />
     <ClCompile Include="UserInputs\mouse_callbacks.cpp" />
     <ClCompile Include="UserInputs\UserInput.cpp" />
-    <ClCompile Include="VAOManager\cVAOManager.cpp" />
+    <ClCompile Include="Rendering\VAOManager\cVAOManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera\CameraManager.h" />
@@ -93,25 +88,27 @@
     <ClInclude Include="GameObject\cGameObject.h" />
     <ClInclude Include="GLCommon.h" />
     <ClInclude Include="globals.h" />
-    <ClInclude Include="Lighting\cLightHelper.h" />
-    <ClInclude Include="Lighting\Light.h" />
-    <ClInclude Include="Lighting\LightManager.h" />
-    <ClInclude Include="LoadingStuff\FileReaders.h" />
-    <ClInclude Include="LoadingStuff\LoadScene.h" />
+    <ClInclude Include="Rendering\eType.h" />
+    <ClInclude Include="Rendering\iCamera.h" />
+    <ClInclude Include="Rendering\iLight.h" />
+    <ClInclude Include="Rendering\iRenderComponent.h" />
+    <ClInclude Include="Rendering\iRigidModel.h" />
+    <ClInclude Include="Rendering\iSkybox.h" />
+    <ClInclude Include="Rendering\Lighting\cLightHelper.h" />
+    <ClInclude Include="Rendering\Lighting\Light.h" />
+    <ClInclude Include="Rendering\Lighting\LightManager.h" />
     <ClInclude Include="LowPassFilter\cLowPassFilter.h" />
-    <ClInclude Include="ModelStuff\cMesh.h" />
-    <ClInclude Include="ModelStuff\cModelLoader.h" />
-    <ClInclude Include="ParticalEffects\cParticleEmitter.h" />
-    <ClInclude Include="Physics\cPhysics.h" />
-    <ClInclude Include="Physics\SubdivideWorld.h" />
-    <ClInclude Include="ShaderManager\cShaderManager.h" />
-    <ClInclude Include="SimpleShaderStuff\Rendering.h" />
-    <ClInclude Include="SimpleShaderStuff\UniformManager.h" />
-    <ClInclude Include="Texture\C24BitBMPpixel.h" />
-    <ClInclude Include="Texture\cBasicTextureManager.h" />
-    <ClInclude Include="Texture\CTextureFromBMP.h" />
+    <ClInclude Include="Rendering\ModelStuff\cMesh.h" />
+    <ClInclude Include="Rendering\ModelStuff\cModelLoader.h" />
+    <ClInclude Include="Rendering\ParticalEffects\cParticleEmitter.h" />
+    <ClInclude Include="Rendering\Renderer.h" />
+    <ClInclude Include="Rendering\Shaders\cShaderManager.h" />
+    <ClInclude Include="Rendering\cSimpleSkybox.h" />
+    <ClInclude Include="Rendering\Texture\C24BitBMPpixel.h" />
+    <ClInclude Include="Rendering\Texture\cBasicTextureManager.h" />
+    <ClInclude Include="Rendering\Texture\CTextureFromBMP.h" />
     <ClInclude Include="UserInputs\GFLW_callbacks.h" />
-    <ClInclude Include="VAOManager\cVAOManager.h" />
+    <ClInclude Include="Rendering\VAOManager\cVAOManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\fragmentShader01.glsl" />
@@ -202,7 +199,6 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
@@ -214,7 +210,6 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
@@ -226,11 +221,11 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -242,11 +237,11 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

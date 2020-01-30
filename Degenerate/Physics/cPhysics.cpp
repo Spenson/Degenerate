@@ -367,6 +367,7 @@ void cPhysics::TestForCollisions(std::vector<cGameObject*>& vec_pGameObjects, st
 		if (pGO->physicsShapeType == POINTSET)
 		{
 			glm::vec3 vel(pGO->velocity);
+			int templeft = HealthLeft, tempright = HealthRight;
 			glm::mat4 objMat = calculateWorldMatrix(pGO, glm::mat4(1.0));
 
 			for (size_t pointIdx = 0; pointIdx < pGO->vecPhysTestPoints.size(); pointIdx++)
@@ -401,6 +402,7 @@ void cPhysics::TestForCollisions(std::vector<cGameObject*>& vec_pGameObjects, st
 
 								pGO->velocity = -vel;
 								pGO->setOrientation(glm::quatLookAtRH(glm::normalize(pGO->velocity), glm::vec3(0.f, 1.f, 0.f)));
+								continue;
 
 							}
 							if (pGO->friendlyName == "Bullet")
@@ -411,18 +413,19 @@ void cPhysics::TestForCollisions(std::vector<cGameObject*>& vec_pGameObjects, st
 								if (glm::distance(glm::vec3(103.04, 246.98, 555.32), collisionPoint) <= 25.f)
 								{
 									if (HealthLeft > 0)
-										HealthLeft -= 25;
+										HealthLeft = templeft - 25;
 
 								}
 								if (glm::distance(glm::vec3(-103.04, 246.98, 555.32), collisionPoint) <= 25.f)
 								{
 									if(HealthRight > 0)
-										HealthRight -= 25;
+										HealthRight = tempright - 25;
 								}
 
 								lockToShip = false;
 								pGO->isVisible = false;
 								todraw.push_back(collisionPoint);
+								continue;
 							}
 						}
 					}

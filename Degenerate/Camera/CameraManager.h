@@ -1,16 +1,18 @@
 #pragma once
 #include <glm/glm.hpp>
+#include "../Rendering/iCamera.h"
 
 
 class FreeCameraManagerImpl;
 
-class FreeCameraManager{
+class FreeCamera: public DegenRendering::iCamera
+{
 	FreeCameraManagerImpl* impl;
-	//static FreeCameraManager* pManager;
+	//static FreeCamera* pManager;
 
 public:
-	FreeCameraManager();
-	//static FreeCameraManager* GetCameraInstance();
+	FreeCamera();
+	//static FreeCamera* GetCameraInstance();
 
 
 	double XChange(double newX);
@@ -28,7 +30,7 @@ public:
 
 	void Target(glm::vec3* target);
 	void Target(glm::vec3 target);
-	glm::vec3 Target();
+	glm::vec3 GetTarget();
 
 	bool LockTarget();
 	void LockTarget(bool isOnTarget);
@@ -39,7 +41,7 @@ public:
 
 	void SetPosition(glm::vec3 position);
 
-	glm::vec3 GetTarget();
-	glm::vec3 GetPosition();
-	glm::vec3 GetUpVector();
+	glm::vec3 Target();
+	glm::vec3 Position();
+	glm::vec3 UpVector();
 };

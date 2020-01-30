@@ -2,7 +2,7 @@
 #define _cPhysics_HG_
 
 #include "../GameObject/cGameObject.h"
-#include "../ModelStuff/cMesh.h"
+#include "../Rendering/ModelStuff/cMesh.h"
 #include <glm/glm.hpp>
 #include <glm/vec3.hpp>
 #include <vector>

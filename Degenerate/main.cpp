@@ -1,32 +1,25 @@
 #include "globals.h"
 
 #include <iostream>
+#include <sstream>
 
 #include "UserInputs/GFLW_callbacks.h"
 #include "Camera/cFlyCamera.h"
 #include "Camera/ThirdPersonCamera.h"
 #include "DebugRenderer/cDebugRenderer.h"
-#include "ModelStuff/cModelLoader.h"
-#include "VAOManager/cVAOManager.h"
-#include "SimpleShaderStuff/UniformManager.h"
-#include "ParticalEffects/cParticleEmitter.h"
-#include "Physics/cPhysics.h"
+#include "Rendering/SimpleShaderStuff/UniformManager.h"
+#include "Rendering/ParticalEffects/cParticleEmitter.h"
 #include "LowPassFilter/cLowPassFilter.h"
-#include "Lighting/cLightHelper.h"
-#include "SimpleShaderStuff/Rendering.h"
-
-#include "LoadingStuff/LoadScene.h"
-#include "Physics/SubdivideWorld.h"
-
-#include <glm/gtc/type_ptr.hpp>
-
-#include <sstream>
 
 #include "Commands/Commands.h"
 #include "Commands/cLuaBrain.h"
 
+#include "Rendering/Renderer.h"
+
+#include "Rendering/cSimpleSkybox.h"
+
 cFlyCamera* g_pFlyCamera = NULL;
-cBasicTextureManager* g_pTextureManager = NULL;
+//cBasicTextureManager* g_pTextureManager = NULL;
 
 bool lockToShip = false;
 
@@ -87,33 +80,11 @@ int main(void)
 	void ShipControls(GLFWwindow * window);
 
 
-
 	//TODO: Move if needed
 	cDebugRenderer* pDebugRenderer = new cDebugRenderer();
 	pDebugRenderer->initialize();
 
-
-	cModelLoader* pTheModelLoader = new cModelLoader();	// Heap
-
-	cVAOManager* pTheVAOManager = new cVAOManager();
-
-	UniformManager::Init();
-
-	// Texture stuff
-	::g_pTextureManager = new cBasicTextureManager();
-
-	cLightHelper* pLightHelper = new cLightHelper();
-
 	std::string lighterrors;
-	::g_pLightManager = new LightManager();
-	::g_pLightManager->InitilizeLightUinformLocations(UniformManager::shaderProgID, "theLights", 50, lighterrors);
-
-	//TODO: Rewrite Loading Model stuff
-	TestLoad(pTheVAOManager, pTheModelLoader, UniformManager::shaderProgID, pDebugRenderer, ::g_vec_pGameObjects, ::g_pLightManager, ::g_pTextureManager);
-
-
-
-
 
 
 	cParticleEmitter* pMyPartcles = new cParticleEmitter();
@@ -132,66 +103,14 @@ int main(void)
 
 
 
-	//: Switch to my camera
-
-	//::g_pFlyCamera = new cFlyCamera();
-	//::g_pFlyCamera->eye = glm::vec3(0.0f, 80.0, -80.0);
-
-
-	glEnable(GL_DEPTH);			// Write to the depth buffer
-	glEnable(GL_DEPTH_TEST);	// Test with buffer when drawing
-
-
-	cPhysics* pPhsyics = new cPhysics();
-	pPhsyics->setGravity(glm::vec3(0.0f));
-
-	cLowPassFilter avgDeltaTimeThingy;
-
-
-	double lastTime = glfwGetTime();
-
-	cGameObject* collisionShpere = new cGameObject();
-	collisionShpere->debugColour = glm::vec4(0.8f, 0.2f, 0.2f, 1.0f);
-	collisionShpere->doNotLight = true;
-	collisionShpere->meshName = "sphere_lowres";
-	collisionShpere->friendlyName = "collision";
-	collisionShpere->scale = 1.f;
-	collisionShpere->useDiffuse = true;
-
-
-
-	cGameObject* PathSphere = new cGameObject();
-	PathSphere->debugColour = glm::vec4(0.2f, 0.8f, 0.2f, 1.0f);
-	PathSphere->doNotLight = true;
-	PathSphere->meshName = "sphere_lowres";
-	PathSphere->friendlyName = "path";
-	PathSphere->scale = 1.f;
-	PathSphere->useDiffuse = true;
-
-	g_pFreeCamera->SetPosition(glm::vec3(300.f, 300.f, -1200.f));
+	g_pFreeCamera->SetPosition(glm::vec3(0.f, 0.f, -20.f));
 	g_pFreeCamera->Target(glm::vec3(0.f));
-
-	tpc = new ThirdPersonCamera();
-	tpc->SetPlayerObject(pFindObjectByFriendlyName("XWing"));
-	tpc->SetPositionRelitiveToObject(glm::vec3(0.0f, 10.0f, 8.0f * 15.0f));
-	tpc->SetTargetRelitiveToObject(glm::vec3(0.0f, 0.0f, 0.0f));
 
 
 	g_ParentCommandGroup = createParent("Parent");
 
-	//g_pFreeCamera->SetPosition(glm::vec3(100,1100,-30));
-	//iCommand* group = MakeCommand("SerialGroup", "GroupTest", "Ship 100.0 0.0 -30.0 20.0 15.0 15.0");
 
-	//std::vector<iCommand*> commands;
-	//commands.push_back(MakeCommand("Move", "move1", "Ship 100.0 0.0 -30.0 20.0 0.0 0.0"));
-	//commands.push_back(MakeCommand("Rotate", "rotate1", "Ship 100.0 0.0 -30.0 20.0 0.0 0.0"));
-	//commands.push_back(MakeCommand("FollowCurve", "curveTest", "Ship   100.0 1000.0 -30.0   200.0 1000.0 0.0   200.0 1000.0 -100.0   100.0 1000.0 -300.0   400.0 1000.0 -100.0   20.0 10.0 10.0"));
-	//commands.push_back(MakeCommand("FollowObject", "followTest", "Ship Ship2   100.0 12.0 40.0 20.0"));
-	//AddCommandsToGroup(commands);
-
-
-
-	g_pLuaScripts = new cLuaBrain();
+	//g_pLuaScripts = new cLuaBrain();
 
 
 	//std::ifstream t("assets/script.lua");
@@ -205,36 +124,42 @@ int main(void)
 	std::vector<glm::vec3> todraw;
 
 
+	DegenRendering::cRenderer renderer;
+	renderer.Initialize();
+	renderer.AddModel("cube.ply");
+	renderer.AddModel("sphere_hires.ply");
+	renderer.AddTexture("gridtexture.bmp");
+	renderer.AddCubeMap("orbit","orbital-element_up.bmp","orbital-element_dn.bmp",
+						"orbital-element_lf.bmp", "orbital-element_rt.bmp",
+						"orbital-element_bk.bmp","orbital-element_ft.bmp",
+						"assets/textures/cubemaps/");
+	
+	renderer.SetCamera(::g_pFreeCamera);
+	renderer.SetPerspectiveDetails(0.8f,0.5f,100.0f);
 
+	cSimpleSkybox* skybox = new cSimpleSkybox();
+	skybox->mModel = "sphere_hires.ply";
+	skybox->CubeMaps()[0].first = "orbit";
+
+	renderer.SetSkybox(skybox);
+	
+	
+	cGameObject go;
+	go.meshName = "sphere_hires.ply";
+	go.doNotLight = true;
+	go.scale = 3.f;
+	//go.debugColour = glm::vec4(1.f, 0.f, 0.f, 1.f);
+
+	go.diffuseColour = glm::vec4(1.f, 0.f, 0.f, 1.f);
+
+	renderer.AddRenderComponent(&go);
+
+
+	cLowPassFilter avgDeltaTimeThingy;
+	double lastTime = glfwGetTime();
+	
 	while (!glfwWindowShouldClose(window))
 	{
-
-		////spin light for testing new light rotation
-		//lights[0]->Rotation = glm::vec3(temp,0.0f,0.0f);
-		//temp += 1.0f;
-
-		//pDebugRenderer->addLine(glm::vec3(103.04, 246.98, 555.32), glm::vec3(glm::vec3(103.04, 246.98 - 25.0f, 555.32)), glm::vec3(1.0f));
-		//pDebugRenderer->addLine(glm::vec3(-103.04, 246.98, 555.32), glm::vec3(glm::vec3(-103.04, 246.98 + 25.0f, 555.32)), glm::vec3(1.0f));
-
-
-		for (size_t index = 0; index != (::g_vec_pGameObjects.size() - 1); index++)
-		{
-			glm::vec3 ObjA = ::g_vec_pGameObjects[index]->positionXYZ;
-			glm::vec3 ObjB = ::g_vec_pGameObjects[index + 1]->positionXYZ;
-
-			//if (glm::distance(ObjA, ::g_pFlyCamera->eye) < glm::distance(ObjB, ::g_pFlyCamera->eye))
-			if (lockToShip)
-			{
-				if (glm::distance(ObjA, tpc->Position()) < glm::distance(ObjB, tpc->Position()))
-					std::swap(::g_vec_pGameObjects[index], ::g_vec_pGameObjects[index + 1]);
-			}
-			else
-			{
-				if (glm::distance(ObjA, ::g_pFreeCamera->GetPosition()) < glm::distance(ObjB, ::g_pFreeCamera->GetPosition()))
-					std::swap(::g_vec_pGameObjects[index], ::g_vec_pGameObjects[index + 1]);
-			}
-		}// for (unsigned int index
-
 
 		//Frame Time
 		double currentTime = glfwGetTime();
@@ -247,36 +172,10 @@ int main(void)
 		avgDeltaTimeThingy.addValue(deltaTime);
 
 
-
 		std::stringstream ssTitle;
 
 
-
-
-		if (HealthLeft <= 0 && HealthRight <= 0)
-		{
-			if (offset == 0.f)
-			{
-				g_pFreeCamera->SetPosition(glm::vec3(500.f, 500.f, -5000.f));
-				g_pFreeCamera->Target(glm::vec3(0.f, 0.f, 0.f));
-				lockToShip = false;
-			}
-			offset += 500.f * deltaTime;
-
-			ssTitle << "You've Destryed the Star Destroyer!";
-		}
-		else
-		{
-			ssTitle << "Star Destroyer Left Sheild Generator Health: " << HealthLeft << "% Right Sheild Generator Health: " << HealthRight << "%";
-		}
-
-
-
 		glfwSetWindowTitle(window, ssTitle.str().c_str());
-
-
-
-
 
 
 		if (lockToShip)
@@ -288,322 +187,29 @@ int main(void)
 			ProcessAsyncKeys(window);
 			ProcessAsyncMouse(window);
 		}
-		glUseProgram(UniformManager::shaderProgID);
-
-		float ratio;
+		
 		int width, height;
-		glm::mat4 p, v;
 
 		glfwGetFramebufferSize(window, &width, &height);
-		ratio = width / (float)height;
+		//ratio = width / (float)height;
 
-		p = glm::perspective(0.6f, ratio, 0.5f, 100000.0f);
-		v = glm::mat4(1.0f);
+		//p = glm::perspective(0.6f, ratio, 0.5f, 100000.0f);
+		//v = glm::mat4(1.0f);
 		//v = glm::lookAt(::g_pFlyCamera->eye, ::g_pFlyCamera->getAtInWorldSpace(), ::g_pFlyCamera->getUpVector());
-		if (lockToShip)
-			v = glm::lookAt(tpc->Position(), tpc->Target(), tpc->UpVector());
-		else
-			v = glm::lookAt(::g_pFreeCamera->GetPosition(), ::g_pFreeCamera->GetTarget(), ::g_pFreeCamera->GetUpVector());
-
-		glViewport(0, 0, width, height);
-
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		g_pLightManager->GetLight(0)->Position = pFindObjectByFriendlyName("Bullet")->positionXYZ;
-		g_pLightManager->PassLightsToShader();
-		if (lockToShip)
-			glUniform4f(UniformManager::eyeLocation_UL, tpc->Position().x, tpc->Position().y, tpc->Position().z, 1.0f);
-		else
-			glUniform4f(UniformManager::eyeLocation_UL, ::g_pFreeCamera->GetPosition().x, ::g_pFreeCamera->GetPosition().y, ::g_pFreeCamera->GetPosition().z, 1.0f);
-
-
-		glUniformMatrix4fv(UniformManager::matView_UL, 1, GL_FALSE, glm::value_ptr(v));
-		glUniformMatrix4fv(UniformManager::matProj_UL, 1, GL_FALSE, glm::value_ptr(p));
-
-
-
-		cGameObject* pSkyBox = pFindObjectByFriendlyName("skybox");
-		if (lockToShip)
-			pSkyBox->positionXYZ = tpc->Position();
-		else
-			pSkyBox->positionXYZ = ::g_pFreeCamera->GetPosition();// ::g_pFlyCamera->eye;
-
-		DrawObject(glm::mat4(1.0f), pSkyBox, UniformManager::shaderProgID, pTheVAOManager);
-
-		for (int index = 0; index != ::g_vec_pGameObjects.size(); index++)
-		{
-			cGameObject* pCurrentObject = ::g_vec_pGameObjects[index];
-			if (pCurrentObject->friendlyName == "skybox")
-				continue;
-
-			glm::mat4 matModel = glm::mat4(1.0f);	// Identity matrix
-
-			DrawObject(matModel, pCurrentObject, UniformManager::shaderProgID, pTheVAOManager);
-
-		}//for (int index = 0; index != ::g_vec_pGameObjects.size(); index++)
-
-
-
-		//pFindObjectByFriendlyName("Ship")->positionXYZ.x += 0.51f;
-		//cGameObject* pObject = pFindObjectByFriendlyName("Ship");
-
-		// 
-		//pDebugRenderer->addLine(pObject->positionXYZ, pObject->positionXYZ + glm::vec3(0, 10, 0), glm::vec3(1));
+		//v = glm::lookAt(::g_pFreeCamera->GetPosition(), ::g_pFreeCamera->GetTarget(), ::g_pFreeCamera->GetUpVector());
 
 
 
 
+		renderer.RenderScene(width, height);
 
 
-
-
-		//if (!g_ParentCommandGroup->IsDone())
-		//{
 		g_ParentCommandGroup->Update(deltaTime);
-		//}
-
-
-
-
-
-
-
-
-
-
-
-
-
-		//100.0 1000.0 -30.0 
-		//200.0 1000.0 0.0 
-		//200.0 1000.0 -100.0
-		/*pDebugRenderer->addLine(glm::vec3(100.0, 1000.0, -30.0), glm::vec3(200.0, 1000.0, 0.0), glm::vec3(1));
-		pDebugRenderer->addLine(glm::vec3(200, 1000.0, 0.0), glm::vec3(200.0, 1000.0, -100.0), glm::vec3(1));
-		pDebugRenderer->addLine(glm::vec3(200.0, 1000.0, -100.0), glm::vec3(100.0, 1000.0, -300.0), glm::vec3(1));
-		pDebugRenderer->addLine(glm::vec3(100.0, 1000.0, -300.0), glm::vec3(400.0, 1000.0, -100.0), glm::vec3(1));*/
-
-
-		//std::vector<glm::vec3> points = pObject->vecPhysTestPoints;
-		//glm::mat4 shipMat = calculateWorldMatrix(pObject, glm::mat4(1.0));
-		//for (size_t i = 0; i < points.size(); i++)
-		//{
-		//	glm::vec3 point = glm::vec3(shipMat * glm::vec4(points[i], 1.0f));
-
-		//	/*	::g_pDebugSphere->scale = 0.5f;
-		//		::g_pDebugSphere->isWireframe = true;
-		//		::g_pDebugSphere->debugColour = glm::vec4(1.0f, 1.0f, 0.0f, 1.0f);
-		//		::g_pDebugSphere->positionXYZ = point;
-		//		DrawObject(glm::mat4(1.0f), ::g_pDebugSphere, UniformManager::shaderProgID, pTheVAOManager);*/
-
-
-
-		//	if (WorldRegion::mapRegions.find(WorldRegion::GenerateID(point)) != WorldRegion::mapRegions.end())
-		//	{
-		//		WorldRegion* wr = WorldRegion::mapRegions[WorldRegion::GenerateID(point)];
-
-		//		if (!wr->vecTriangles.empty())
-		//		{
-		//			//REGION HAS TRIANGLES DRAW CUBE
-		//			::g_pDebugCube->positionXYZ = wr->center;
-		//			::g_pDebugCube->scale = WorldRegion::HalfLength();
-		//			::g_pDebugCube->isWireframe = true;
-		//			::g_pDebugCube->isVisible = true;
-		//			glm::mat4 matModel = glm::mat4(1.0f);
-		//			DrawObject(matModel, ::g_pDebugCube, UniformManager::shaderProgID, pTheVAOManager);
-
-
-		//		} // if (!wr->vecTriangles.empty())
-		//	} // if (WorldRegion::mapRegions.find(WorldRegion::GenerateID(point)) != WorldRegion::mapRegions.end())
-		//} // for (size_t i = 0; i < points.size(); i++)
-
 
 
 		double averageDeltaTime = avgDeltaTimeThingy.getAverage();
 
-		// TODO: Update to include Angular Velocity
-		pPhsyics->IntegrationStep(::g_vec_pGameObjects, deltaTime);//(float)averageDeltaTime);
-
-		pPhsyics->TestForCollisions(::g_vec_pGameObjects, todraw);
-
-
-		//g_pLightManager->GetLight(0)->matrix = calculateWorldMatrix(pFindObjectByFriendlyName("Ship"), glm::mat4(1.0));
-		//g_pLightManager->GetLight(1)->matrix = calculateWorldMatrix(pFindObjectByFriendlyName("Ship"), glm::mat4(1.0));
-		//g_pLightManager->GetLight(2)->matrix = calculateWorldMatrix(pFindObjectByFriendlyName("Ship"), glm::mat4(1.0));
-		//g_pLightManager->GetLight(3)->matrix = calculateWorldMatrix(pFindObjectByFriendlyName("Ship"), glm::mat4(1.0));
-
-
-		for (size_t i = 0; i < todraw.size(); i++)
-		{
-			collisionShpere->positionXYZ = todraw[i];
-			DrawObject(glm::mat4(1.0f), collisionShpere, UniformManager::shaderProgID, pTheVAOManager);
-		}
-
-
-		if (glm::distance(pFindObjectByFriendlyName("XWing")->positionXYZ, g_EndPoint + (glm::normalize(g_EndPoint - g_StartPoint) * 50.f)) < 49.f)
-		{
-			pFindObjectByFriendlyName("XWing")->positionXYZ = glm::vec3(0.f);
-			pFindObjectByFriendlyName("XWing")->velocity = glm::vec3(0.f);
-			pFindObjectByFriendlyName("XWing")->isVisible = false;
-			lockToShip = false;
-			g_EndPoint = glm::vec3(0.f);
-		}
-		if (glm::distance(pFindObjectByFriendlyName("XWing")->positionXYZ, g_StartPoint + (glm::normalize(g_StartPoint - g_EndPoint) * 50.f)) < 49.f)
-		{
-			pFindObjectByFriendlyName("XWing")->positionXYZ = glm::vec3(0.f);
-			pFindObjectByFriendlyName("XWing")->velocity = glm::vec3(0.f);
-			pFindObjectByFriendlyName("XWing")->isVisible = false;
-			lockToShip = false;
-			g_EndPoint = glm::vec3(0.f);
-		}
-
-
-		if (g_EndPoint != glm::vec3(0.0f))
-		{
-
-			for (size_t i = 0; i < PathPoints.size(); i++)
-			{
-				PathSphere->positionXYZ = PathPoints[i];
-				DrawObject(glm::mat4(1.0f), PathSphere, UniformManager::shaderProgID, pTheVAOManager);
-			}
-
-
-			PathSphere->positionXYZ = g_EndPoint;
-			PathSphere->scale = 3.f;
-			PathSphere->debugColour = glm::vec4(0.2f, 0.2f, 0.8f, 1.f);
-			DrawObject(glm::mat4(1.0f), PathSphere, UniformManager::shaderProgID, pTheVAOManager);
-
-			PathSphere->positionXYZ = g_StartPoint;
-			DrawObject(glm::mat4(1.0f), PathSphere, UniformManager::shaderProgID, pTheVAOManager);
-
-			PathSphere->scale = 0.5f;
-			PathSphere->debugColour = glm::vec4(0.2f, 0.8f, 0.2f, 1.f);
-		}
-
-		// TODO: Add Back in (Possibly in separate methond)
-
-		if (bLightDebugSheresOn)
-		{
-			{// Draw where the light is at
-				glm::mat4 matModel = glm::mat4(1.0f);
-				::g_pDebugSphere->positionXYZ = g_pLightManager->GetLastLight()->Position;
-				::g_pDebugSphere->scale = 0.5f;
-				::g_pDebugSphere->debugColour = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-				::g_pDebugSphere->isWireframe = true;
-				DrawObject(matModel, ::g_pDebugSphere,
-						   UniformManager::shaderProgID, pTheVAOManager);
-			}
-
-			// Draw spheres to represent the attenuation...
-			{   // Draw a sphere at 1% brightness
-				glm::mat4 matModel = glm::mat4(1.0f);
-				::g_pDebugSphere->positionXYZ = g_pLightManager->GetLastLight()->Position;
-				float sphereSize = pLightHelper->calcApproxDistFromAtten(
-					0.01f,		// 1% brightness (essentially black)
-					0.001f,		// Within 0.1%  
-					100000.0f,	// Will quit when it's at this distance
-					g_pLightManager->GetLastLight()->ConstAtten,
-					g_pLightManager->GetLastLight()->LinearAtten,
-					g_pLightManager->GetLastLight()->QuadraticAtten);
-				::g_pDebugSphere->scale = sphereSize;
-				::g_pDebugSphere->debugColour = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
-				::g_pDebugSphere->isWireframe = true;
-				DrawObject(matModel, ::g_pDebugSphere,
-						   UniformManager::shaderProgID, pTheVAOManager);
-			}
-			{   // Draw a sphere at 25% brightness
-				glm::mat4 matModel = glm::mat4(1.0f);
-				::g_pDebugSphere->positionXYZ = g_pLightManager->GetLastLight()->Position;
-				float sphereSize = pLightHelper->calcApproxDistFromAtten(
-					0.25f,		// 1% brightness (essentially black)
-					0.001f,		// Within 0.1%  
-					100000.0f,	// Will quit when it's at this distance
-					g_pLightManager->GetLastLight()->ConstAtten,
-					g_pLightManager->GetLastLight()->LinearAtten,
-					g_pLightManager->GetLastLight()->QuadraticAtten);
-				::g_pDebugSphere->scale = sphereSize;
-				::g_pDebugSphere->debugColour = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
-				::g_pDebugSphere->isWireframe = true;
-				DrawObject(matModel, ::g_pDebugSphere,
-						   UniformManager::shaderProgID, pTheVAOManager);
-			}
-			{   // Draw a sphere at 50% brightness
-				glm::mat4 matModel = glm::mat4(1.0f);
-				::g_pDebugSphere->positionXYZ = g_pLightManager->GetLastLight()->Position;
-				float sphereSize = pLightHelper->calcApproxDistFromAtten(
-					0.50f,		// 1% brightness (essentially black)
-					0.001f,		// Within 0.1%  
-					100000.0f,	// Will quit when it's at this distance
-					g_pLightManager->GetLastLight()->ConstAtten,
-					g_pLightManager->GetLastLight()->LinearAtten,
-					g_pLightManager->GetLastLight()->QuadraticAtten);
-				::g_pDebugSphere->scale = sphereSize;
-				::g_pDebugSphere->debugColour = glm::vec4(0.0f, 1.0f, 1.0f, 1.0f);
-				::g_pDebugSphere->isWireframe = true;
-				DrawObject(matModel, ::g_pDebugSphere,
-						   UniformManager::shaderProgID, pTheVAOManager);
-			}
-			{   // Draw a sphere at 75% brightness
-				glm::mat4 matModel = glm::mat4(1.0f);
-				::g_pDebugSphere->positionXYZ = g_pLightManager->GetLastLight()->Position;
-				float sphereSize = pLightHelper->calcApproxDistFromAtten(
-					0.75f,		// 1% brightness (essentially black)
-					0.001f,		// Within 0.1%  
-					100000.0f,	// Will quit when it's at this distance
-					g_pLightManager->GetLastLight()->ConstAtten,
-					g_pLightManager->GetLastLight()->LinearAtten,
-					g_pLightManager->GetLastLight()->QuadraticAtten);
-				::g_pDebugSphere->scale = sphereSize;
-				::g_pDebugSphere->debugColour = glm::vec4(1.0f, 1.0f, 0.0f, 1.0f);
-				::g_pDebugSphere->isWireframe = true;
-				DrawObject(matModel, ::g_pDebugSphere,
-						   UniformManager::shaderProgID, pTheVAOManager);
-			}
-			{   // Draw a sphere at 95% brightness
-				glm::mat4 matModel = glm::mat4(1.0f);
-				::g_pDebugSphere->positionXYZ = g_pLightManager->GetLastLight()->Position;
-				float sphereSize = pLightHelper->calcApproxDistFromAtten(
-					0.95f,		// 1% brightness (essentially black)
-					0.001f,		// Within 0.1%  
-					100000.0f,	// Will quit when it's at this distance
-					g_pLightManager->GetLastLight()->ConstAtten,
-					g_pLightManager->GetLastLight()->LinearAtten,
-					g_pLightManager->GetLastLight()->QuadraticAtten);
-				::g_pDebugSphere->scale = sphereSize;
-				::g_pDebugSphere->debugColour = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
-				::g_pDebugSphere->isWireframe = true;
-				DrawObject(matModel, ::g_pDebugSphere,
-						   UniformManager::shaderProgID, pTheVAOManager);
-			}
-		}// if (bLightDebugSheresOn) 
-
-		//pMyPartcles->location = glm::vec3(0.0f);
-
-		//pMyPartcles->Step(static_cast<float>(deltaTime));
-
-
-
-		// TODO:Partical Effect
-		//std::vector<cParticle*> vecParticles;
-		//pMyPartcles->getParticles(vecParticles);
-		//for (std::vector<cParticle*>::iterator itPart = vecParticles.begin();
-		//	 itPart != vecParticles.end(); itPart++)
-		//{
-		//	// This is a little odd, because of the iterator syntax
-		//	//pDebugSphere->positionXYZ = (*itPart)->location;
-		//	//DrawObject(matModel, pDebugSphere,
-		//	//		   shaderProgID, pTheVAOManager);
-
-		//	glm::mat4 matModel = glm::mat4(1.0f);
-
-		//	pBunny->positionXYZ = (*itPart)->location;
-		//	DrawObject(matModel, pBunny,
-		//			   shaderProgID, pTheVAOManager);
-		//}
-
-
-		pDebugRenderer->RenderDebugObjects(v, p, 0.01f);
-
-
+		//pDebugRenderer->RenderDebugObjects(v, p, 0.01f);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
@@ -613,47 +219,9 @@ int main(void)
 	glfwDestroyWindow(window);
 	glfwTerminate();
 
-	delete pTheModelLoader;
+	//delete pTheModelLoader;
 	delete ::g_pFlyCamera;
 
 
 	exit(EXIT_SUCCESS);
-}
-
-
-
-// Here because didn't know where else to put it and needed for the draw call
-glm::mat4 calculateWorldMatrix(cGameObject* pCurrentObject, glm::mat4 matWorld)
-{
-	// ******* TRANSLATION TRANSFORM *********
-	glm::mat4 matTrans
-		= glm::translate(glm::mat4(1.0f),
-						 glm::vec3(pCurrentObject->positionXYZ.x,
-								   pCurrentObject->positionXYZ.y,
-								   pCurrentObject->positionXYZ.z));
-	matWorld = matWorld * matTrans;
-	// ******* TRANSLATION TRANSFORM *********
-
-
-
-
-	//// ******* ROTATION TRANSFORM *********
-	glm::mat4 matRotation = glm::mat4(pCurrentObject->getQOrientation());
-	matWorld = matWorld * matRotation;
-	// ******* ROTATION TRANSFORM *********
-
-
-
-
-	// ******* SCALE TRANSFORM *********
-	// TODO: change to vec3 scale
-	glm::mat4 scale = glm::scale(glm::mat4(1.0f),
-								 glm::vec3(pCurrentObject->scale,
-										   pCurrentObject->scale,
-										   pCurrentObject->scale));
-	matWorld = matWorld * scale;
-	// ******* SCALE TRANSFORM *********
-
-
-	return matWorld;
 }

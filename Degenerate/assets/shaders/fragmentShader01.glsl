@@ -8,27 +8,36 @@ in vec4 fUVx2;
 uniform vec4 diffuseColour;				// use a for transparency		
 uniform vec4 specularColour;
 // Used to draw debug (or unlit) objects
-uniform vec4 debugColour;		
+//uniform vec4 debugColour;		
 uniform vec4 eyeLocation;
 
 // Texture samplers
-uniform sampler2D textSamp00;
-uniform sampler2D textSamp01;
-uniform sampler2D textSamp02;
-uniform sampler2D textSamp03;
-//uniform sampler2D textSamp04;
-//uniform sampler2D textSamp05;
-//uniform sampler2D textSamp06;
-//uniform sampler2D textSamp07;
+uniform sampler2D texture00;
+uniform sampler2D texture01;
+uniform sampler2D texture02;
+uniform sampler2D texture03;
 
-uniform samplerCube skyBox;
+uniform vec4 texture_ratios;
+
+
+uniform samplerCube skybox00;
+uniform samplerCube skybox01;	// TODO: blend using skybox ratios
+uniform samplerCube skybox02;	//	for day night cycle (day,evening,night,morning...)
+uniform samplerCube skybox03;
+
+uniform vec4 skybox_ratios;
 
 //group because less space
 uniform vec4 boolModifiers;
-	//uniform bool bDoNotLight;	
-	//uniform bool bIsSkyBox;	
+
+	// RenderMode	TODO: convert to type "enum" like light types	
+	// bDoNotLight				
 	// useDiffuse	
-	//uniform bool bIsImposter;
+	// 
+	const int OBJECT_RENDER_MODE = 0;
+	const int IMPOSTER_RENDER_MODE = 1;
+	const int SKYBOX_RENDER_MODE = 2;
+
 
 //uniform sampler2D heightMap;
 //uniform vec2 textOffset;
@@ -38,8 +47,7 @@ uniform vec4 boolModifiers;
 
 //uniform sampler2D textureWhatTheWhat;
 //uniform sampler2D heightMap;
-
-uniform vec4 tex_0_3_ratio;		// x = 0, y = 1, z = 2, w = 3
+	// x = 0, y = 1, z = 2, w = 3
 //uniform vec4 tex_4_7_ratio;
 
 // Apparently, you can now load samplers into arrays, 
@@ -91,33 +99,33 @@ void main()
 	
 
 
-	// Shader Type #1  	Do Not Light
-	if ( boolModifiers.x == 1.0f)
-	{
-		pixelColour.rgb = debugColour.rgb;
-		pixelColour.a = 1.0f;				// NOT transparent
-		return;
-	}
+//	// Shader Type #1  	Do Not Light
+//	if ( boolModifiers.y == 1.0f)
+//	{
+//		pixelColour.rgb = diffuseColour.rgb;
+//		pixelColour.a = 1.0f;				// NOT transparent
+//		return;
+//	}
 	
 	// Shader Type #2 Imposters
-	if ( boolModifiers.w == 1.0f )
+	if ( int(boolModifiers.x) == IMPOSTER_RENDER_MODE )
 	{
 		// If true, then:
 		// - don't light
 		// - texture map
 		// - Use colour to compare to black and change alpha 
 		// - Use colour to compare the black for discard
-		//vec3 texRGB = texture( textSamp00, fUVx2.st ).rgb;
+		//vec3 texRGB = texture( texture00, fUVx2.st ).rgb;
 		
-		vec3 tex0_RGB = texture( textSamp00, fUVx2.st ).rgb;
-		vec3 tex1_RGB = texture( textSamp01, fUVx2.st ).rgb;
-		vec3 tex2_RGB = texture( textSamp02, fUVx2.st ).rgb;
-		vec3 tex3_RGB = texture( textSamp03, fUVx2.st ).rgb;
+		vec3 tex0_RGB = texture( texture00, fUVx2.st ).rgb;
+		vec3 tex1_RGB = texture( texture01, fUVx2.st ).rgb;
+		vec3 tex2_RGB = texture( texture02, fUVx2.st ).rgb;
+		vec3 tex3_RGB = texture( texture03, fUVx2.st ).rgb;
 		
-		vec3 texRGB =   ( tex_0_3_ratio.x * tex0_RGB ) 
-					  + ( tex_0_3_ratio.y * tex1_RGB )
-					  + ( tex_0_3_ratio.z * tex2_RGB )
-					  + ( tex_0_3_ratio.w * tex3_RGB );
+		vec3 texRGB =   ( texture_ratios.x * tex0_RGB ) 
+					  + ( texture_ratios.y * tex1_RGB )
+					  + ( texture_ratios.z * tex2_RGB )
+					  + ( texture_ratios.w * tex3_RGB );
 
 		// Note that your eye doesn't see this, 
 		// Use this equation instead: 0.21 R + 0.72 G + 0.07 B
@@ -142,16 +150,18 @@ void main()
 
 
 	// Shader Type #3 skyBox
-	if ( boolModifiers.y == 1.0f )
+	if ( int(boolModifiers.x) == SKYBOX_RENDER_MODE )
 	{
 		// I sample the skybox using the normal from the surface
-		vec3 skyColour = texture( skyBox, -fNormal.xyz ).rgb;
+		vec3 skyColour = texture( skybox00, -fNormal.xyz ).rgb;
 		pixelColour.rgb = skyColour.rgb;
 		pixelColour.a = 1.0f;				
 		//pixelColour.rgb *= 1.5f;		// Make it a little brighter
 		return;
 	}
 	
+
+
 		
 	if ( diffuseColour.a <= 0.01f )		// Basically "invisable"
 	{
@@ -160,122 +170,42 @@ void main()
 	
 	// Shader Type #4/4.5 Diffuse and texture
 	vec4 materialColour = diffuseColour;
-
-	vec4 outColour;
 	// vec4 materialColour = vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	// vec4 specColour = vec4(0.0f,0.0f,0.0f,1.0f);// materialColour;
-//	if(isIsland)
-//	{
-//		if(fVertWorldLocation.y < 3.0f)
-//		{
-//			discard;
-//		}
-//
-//		else if(fVertWorldLocation.y < 45.0f)
-//		{
-//			vec3 tex0_RGB = texture( textSamp03, fUVx2.st ).rgb;
-//			outColour = calcualteLightContrib( tex0_RGB.rgb, fNormal.xyz, 
-//	                                            fVertWorldLocation.xyz, specularColour );
-//												
-//		}
-//		else if(fVertWorldLocation.y < 65.0f)
-//		{
-//			vec3 tex0_RGB = texture( textSamp03, fUVx2.st ).rgb;
-//			vec3 tex1_RGB = texture( textSamp01, fUVx2.st ).rgb;
-//			vec3 texRGB = mix(tex0_RGB, tex1_RGB, (fVertWorldLocation.y-45.0f)/20.0f);
-//
-//			outColour = calcualteLightContrib( texRGB.rgb, fNormal.xyz, 
-//	                                            fVertWorldLocation.xyz, specularColour );
-//		}
-//		else if (fVertWorldLocation.y < 85.0f)
-//		{
-//			vec3 tex0_RGB = texture( textSamp01, fUVx2.st ).rgb;
-//			outColour = calcualteLightContrib( tex0_RGB.rgb, fNormal.xyz, 
-//	                                            fVertWorldLocation.xyz, specularColour );
-//		}
-//		else if(fVertWorldLocation.y < 105.0f)
-//		{
-//			vec3 tex0_RGB = texture( textSamp01, fUVx2.st ).rgb;
-//			vec3 tex1_RGB = texture( textSamp02, fUVx2.st ).rgb;
-//			vec3 texRGB = mix(tex0_RGB, tex1_RGB, (fVertWorldLocation.y-85.0f)/20.0f);
-//
-//			outColour = calcualteLightContrib( texRGB.rgb, fNormal.xyz, 
-//	                                            fVertWorldLocation.xyz, specularColour );
-//		}
-//		else
-//		{
-//			vec3 tex0_RGB = texture( textSamp02, fUVx2.st ).rgb;
-//			outColour = calcualteLightContrib( tex0_RGB.rgb, fNormal.xyz, 
-//	                                            fVertWorldLocation.xyz, specularColour );
-//		}
-//
-//	}
-//	else if(offsetText1)
-//	{
-//		vec3 tex0_RGB = texture( textSamp00, fUVx2.st + textOffset.xy).rgb;
-//		vec3 tex1_RGB = texture( textSamp01, fUVx2.st ).rgb;
-//		vec3 tex2_RGB = texture( textSamp02, fUVx2.st ).rgb;
-//		vec3 tex3_RGB = texture( textSamp03, fUVx2.st ).rgb;
-//		
-//		vec3 texRGB =   ( tex_0_3_ratio.x * tex0_RGB ) 
-//					  + ( tex_0_3_ratio.y * tex1_RGB )
-//					  + ( tex_0_3_ratio.z * tex2_RGB )
-//					  + ( tex_0_3_ratio.w * tex3_RGB );
-//	
-//		outColour = calcualteLightContrib( texRGB.rgb, fNormal.xyz, 
-//	                                            fVertWorldLocation.xyz, specularColour );
-//	}
-//	else 
 
-	if(boolModifiers.z == 0.0f){
-		vec3 tex0_RGB = texture( textSamp00, fUVx2.st ).rgb;
-		vec3 tex1_RGB = texture( textSamp01, fUVx2.st ).rgb;
-		vec3 tex2_RGB = texture( textSamp02, fUVx2.st ).rgb;
-		vec3 tex3_RGB = texture( textSamp03, fUVx2.st ).rgb;
+
+	if(boolModifiers.z == 0.0f)
+	{
+		vec3 tex0_RGB = texture( texture00, fUVx2.st ).rgb;
+		vec3 tex1_RGB = texture( texture01, fUVx2.st ).rgb;
+		vec3 tex2_RGB = texture( texture02, fUVx2.st ).rgb;
+		vec3 tex3_RGB = texture( texture03, fUVx2.st ).rgb;
 		
-		vec3 texRGB =   ( tex_0_3_ratio.x * tex0_RGB ) 
-					  + ( tex_0_3_ratio.y * tex1_RGB )
-					  + ( tex_0_3_ratio.z * tex2_RGB )
-					  + ( tex_0_3_ratio.w * tex3_RGB );
+		vec3 texRGB =   ( texture_ratios.x * tex0_RGB ) 
+					  + ( texture_ratios.y * tex1_RGB )
+					  + ( texture_ratios.z * tex2_RGB )
+					  + ( texture_ratios.w * tex3_RGB );
+		materialColour.rgb = texRGB;
+	}
+				  	  
+			
+	vec4 outColour;
 	
-		outColour = calcualteLightContrib( texRGB.rgb, fNormal.xyz, 
-	                                            fVertWorldLocation.xyz, specularColour );
+	if ( boolModifiers.y == 0.0f)
+	{
+		outColour = calcualteLightContrib( materialColour.rgb, fNormal.xyz, fVertWorldLocation.xyz, specularColour );
 	}
 	else
 	{
-		outColour = calcualteLightContrib( materialColour.rgb, fNormal.xyz, 
-	                                            fVertWorldLocation.xyz, specularColour );
+		outColour = materialColour;
 	}
-				  	  
-				  
-//	vec3 ChromeColour = texture( skyBox, refract(fNormal.xyz ).rgb;
-//	texRGB.rgb *= 0.001f;
-//	texRGB.rgb = ChromeColour.rgb;
-	
 	
 
 											
 	pixelColour = outColour;
 	
-	
-	
-	// Use the height map as a discard
-	//float hValue = texture(heightMap, fUVx2.st ).r;
-	//if ( hValue >= 0.5f )
-	//{
-		// Doesn't draw the pixel
-	//	discard;
-	//}
-	
-	
-	// Set the "a" of diffuse to set the transparency
-//	pixelColour.a = diffuseColour.a; 		// "a" for alpha, same as "w"
-	
-	// Control the alpha channel from the texture	  
-	//pixelColour.a = 1.0f;
+
 	pixelColour.a = diffuseColour.a;
-	// Projector is too dim
-	//pixelColour.rgb *= 1.5f;
 
 }	
 

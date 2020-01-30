@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../globals.h"
-#include "../ModelStuff/cModelLoader.h"
+#include "../Rendering/ModelStuff/cModelLoader.h"
 
 //#include "../GameObject/cGameObject.h"
 //#include "../Lighting/LightManager.h"
@@ -17,5 +17,5 @@ void SaveGameObjectsToXMLFile(std::string File, std::vector<cGameObject*> vecGam
 void LoadLightsFromXMLFile(std::string File, LightManager *g_pLightManager, bool clearExistingLights = 1);
 void SaveLightsToXMLFile(std::string File, LightManager *g_pLightManager);
 
-void LoadCamera(std::string File, FreeCameraManager* Camera);
-void SaveCamera(std::string File, FreeCameraManager* Camera);
+void LoadCamera(std::string File, FreeCamera* Camera);
+void SaveCamera(std::string File, FreeCamera* Camera);

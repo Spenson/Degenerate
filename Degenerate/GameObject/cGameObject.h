@@ -1,32 +1,65 @@
 #pragma once
 
-#include <glm/glm.hpp>
-#include <glm/vec3.hpp>
-#include <glm/gtx/quaternion.hpp>		// The quaternion class
+#include "../GLCommon.h"
+
 #include <string>
 
 // NOTE: We are including the INTERFACE, not the actual renderer
 #include "../DebugRenderer/iDebugRenderer.h"
 
+#include "../Rendering/iRigidModel.h"
 
 enum eShapeTypes
 {
 	UNKNOWN,
-	AABB,	
-	SPHERE,		
+	AABB,
+	SPHERE,
 	CAPSULE,
 	PLANE,
-	MESH,	
+	MESH,
 	POINTSET
 };
 
-class cGameObject
+class cGameObject : public DegenRendering::iRigidModel
 {
 public:
 	cGameObject();
 
+
+
+	virtual bool Visable() override;
+	virtual bool Wireframe() override;
+	virtual bool IgnoreLighting() override;
+
+	virtual std::string Model() override;
+
+	virtual glm::mat4 Transform() override;
+	virtual glm::vec3 Scale() override;
+
+	virtual bool UseDiffuse() override;
+	virtual glm::vec4 Diffuse() override;
+	virtual glm::vec4 Specular() override;
+
+	virtual bool DepthBufferTest() override;
+	virtual bool DepthBufferWrite() override;
+
+	virtual std::pair<std::string, float>* Textures() override;
+
+	virtual std::vector<iRigidModel*> Children() override;
+
+	virtual void SetTransform(const glm::mat4& transform) override;
+
+
+	std::pair<std::string, float> pairedTextures[4];
+
+
+
+
+
+
+
 	//points to draw
-	std::string meshName;	
+	std::string meshName;
 
 
 	unsigned int friendlyIDNumber;
@@ -39,7 +72,7 @@ public:
 	void MoveInRelativeDirection(glm::vec3 relativeDirection);
 
 	float scale;
-	
+
 	// Collision
 	float inverseMass;
 	eShapeTypes physicsShapeType;
@@ -55,9 +88,9 @@ public:
 	glm::vec4 debugColour;			// Wireframe Colour
 
 	// Likely want this now:
-	glm::vec4 diffuseColour;		
+	glm::vec4 diffuseColour;
 	glm::vec4 specularColour;		// Highlight Colour (added to light? TODO: Check that)
-	
+
 	static const int NUMBEROFTEXTURES = 4;
 	std::string textures[NUMBEROFTEXTURES];
 	float textureRatio[NUMBEROFTEXTURES];

@@ -17,32 +17,11 @@
     <ClCompile Include="DebugRenderer\COpenGLError.cpp">
       <Filter>DebugRenderer</Filter>
     </ClCompile>
-    <ClCompile Include="Texture\C24BitBMPpixel.cpp">
-      <Filter>Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture\cBasicTextureManager.cpp">
-      <Filter>Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture\CTextureFromBMP.cpp">
-      <Filter>Texture</Filter>
-    </ClCompile>
     <ClCompile Include="..\dependencies\src\glad.c">
       <Filter>glad</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderManager\cShader.cpp">
-      <Filter>ShaderManager</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderManager\cShaderManager.cpp">
-      <Filter>ShaderManager</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject\cGameObject.cpp">
       <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="VAOManager\cVAOManager.cpp">
-      <Filter>VAOManager</Filter>
-    </ClCompile>
-    <ClCompile Include="SimpleShaderStuff\UniformManager.cpp">
-      <Filter>SimpleShader</Filter>
     </ClCompile>
     <ClCompile Include="UserInputs\GFLW_callbacks.cpp">
       <Filter>UserInput</Filter>
@@ -62,41 +41,8 @@
     <ClCompile Include="Camera\cFlyCamera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
-    <ClCompile Include="ModelStuff\cModelLoader.cpp">
-      <Filter>ModelStuff</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticalEffects\cParticleEmitter.cpp">
-      <Filter>ParticalEffects</Filter>
-    </ClCompile>
-    <ClCompile Include="SimpleShaderStuff\Rendering.cpp">
-      <Filter>SimpleShader</Filter>
-    </ClCompile>
-    <ClCompile Include="Physics\cPhysics.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="Physics\SubdivideWorld.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
     <ClCompile Include="LowPassFilter\cLowPassFilter.cpp">
       <Filter>LowPassFilter</Filter>
-    </ClCompile>
-    <ClCompile Include="Physics\cPhysics_Ericson.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="LoadingStuff\LoadScene.cpp">
-      <Filter>LoadingStuff</Filter>
-    </ClCompile>
-    <ClCompile Include="LoadingStuff\FileReaders.cpp">
-      <Filter>LoadingStuff</Filter>
-    </ClCompile>
-    <ClCompile Include="Lighting\cLightHelper.cpp">
-      <Filter>Lighting</Filter>
-    </ClCompile>
-    <ClCompile Include="Lighting\Light.cpp">
-      <Filter>Lighting</Filter>
-    </ClCompile>
-    <ClCompile Include="Lighting\LightManager.cpp">
-      <Filter>Lighting</Filter>
     </ClCompile>
     <ClCompile Include="Camera\ThirdPersonCamera.cpp">
       <Filter>Camera</Filter>
@@ -140,6 +86,37 @@
     <ClCompile Include="Commands\WaitCommand.cpp">
       <Filter>Command\OverTimeCommands</Filter>
     </ClCompile>
+    <ClCompile Include="Rendering\Lighting\cLightHelper.cpp">
+      <Filter>Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Lighting\Light.cpp">
+      <Filter>Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Lighting\LightManager.cpp">
+      <Filter>Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\ModelStuff\cModelLoader.cpp">
+      <Filter>ModelStuff</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\ParticalEffects\cParticleEmitter.cpp">
+      <Filter>ParticalEffects</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Texture\C24BitBMPpixel.cpp">
+      <Filter>Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Texture\cBasicTextureManager.cpp">
+      <Filter>Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Texture\CTextureFromBMP.cpp">
+      <Filter>Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\VAOManager\cVAOManager.cpp">
+      <Filter>VAOManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Shaders\cShader.cpp" />
+    <ClCompile Include="Rendering\Shaders\cShaderManager.cpp" />
+    <ClCompile Include="Rendering\Renderer.cpp" />
+    <ClCompile Include="Rendering\cSimpleSkybox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLCommon.h" />
@@ -159,26 +136,8 @@
     <ClInclude Include="DebugRenderer\iDebugRenderer.h">
       <Filter>DebugRenderer</Filter>
     </ClInclude>
-    <ClInclude Include="Texture\C24BitBMPpixel.h">
-      <Filter>Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture\cBasicTextureManager.h">
-      <Filter>Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture\CTextureFromBMP.h">
-      <Filter>Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderManager\cShaderManager.h">
-      <Filter>ShaderManager</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject\cGameObject.h">
       <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="VAOManager\cVAOManager.h">
-      <Filter>VAOManager</Filter>
-    </ClInclude>
-    <ClInclude Include="SimpleShaderStuff\UniformManager.h">
-      <Filter>SimpleShader</Filter>
     </ClInclude>
     <ClInclude Include="UserInputs\GFLW_callbacks.h">
       <Filter>UserInput</Filter>
@@ -189,41 +148,8 @@
     <ClInclude Include="Camera\cFlyCamera.h">
       <Filter>Camera</Filter>
     </ClInclude>
-    <ClInclude Include="ModelStuff\cModelLoader.h">
-      <Filter>ModelStuff</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelStuff\cMesh.h">
-      <Filter>ModelStuff</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticalEffects\cParticleEmitter.h">
-      <Filter>ParticalEffects</Filter>
-    </ClInclude>
-    <ClInclude Include="SimpleShaderStuff\Rendering.h">
-      <Filter>SimpleShader</Filter>
-    </ClInclude>
-    <ClInclude Include="Physics\cPhysics.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="Physics\SubdivideWorld.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
     <ClInclude Include="LowPassFilter\cLowPassFilter.h">
       <Filter>LowPassFilter</Filter>
-    </ClInclude>
-    <ClInclude Include="LoadingStuff\LoadScene.h">
-      <Filter>LoadingStuff</Filter>
-    </ClInclude>
-    <ClInclude Include="LoadingStuff\FileReaders.h">
-      <Filter>LoadingStuff</Filter>
-    </ClInclude>
-    <ClInclude Include="Lighting\cLightHelper.h">
-      <Filter>Lighting</Filter>
-    </ClInclude>
-    <ClInclude Include="Lighting\Light.h">
-      <Filter>Lighting</Filter>
-    </ClInclude>
-    <ClInclude Include="Lighting\LightManager.h">
-      <Filter>Lighting</Filter>
     </ClInclude>
     <ClInclude Include="Camera\ThirdPersonCamera.h">
       <Filter>Camera</Filter>
@@ -270,6 +196,45 @@
     <ClInclude Include="Commands\WaitCommand.h">
       <Filter>Command\OverTimeCommands</Filter>
     </ClInclude>
+    <ClInclude Include="Rendering\Lighting\cLightHelper.h">
+      <Filter>Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Lighting\Light.h">
+      <Filter>Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Lighting\LightManager.h">
+      <Filter>Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\ModelStuff\cMesh.h">
+      <Filter>ModelStuff</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\ModelStuff\cModelLoader.h">
+      <Filter>ModelStuff</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\ParticalEffects\cParticleEmitter.h">
+      <Filter>ParticalEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Texture\C24BitBMPpixel.h">
+      <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Texture\cBasicTextureManager.h">
+      <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Texture\CTextureFromBMP.h">
+      <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\VAOManager\cVAOManager.h">
+      <Filter>VAOManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\eType.h" />
+    <ClInclude Include="Rendering\iRenderComponent.h" />
+    <ClInclude Include="Rendering\iRigidModel.h" />
+    <ClInclude Include="Rendering\iLight.h" />
+    <ClInclude Include="Rendering\iCamera.h" />
+    <ClInclude Include="Rendering\Renderer.h" />
+    <ClInclude Include="Rendering\Shaders\cShaderManager.h" />
+    <ClInclude Include="Rendering\iSkybox.h" />
+    <ClInclude Include="Rendering\cSimpleSkybox.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="DebugRenderer">
@@ -277,9 +242,6 @@
     </Filter>
     <Filter Include="glad">
       <UniqueIdentifier>{7d1418fb-bc87-464d-92d6-547958264f82}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ShaderManager">
-      <UniqueIdentifier>{09e56bc5-c02d-42ea-83eb-002dd6069e70}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameObject">
       <UniqueIdentifier>{477fc76d-15ca-40e3-9c11-c253f3991cc9}</UniqueIdentifier>

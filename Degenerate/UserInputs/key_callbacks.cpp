@@ -9,7 +9,7 @@
 //
 //#include "FileReaders.h"
 //#include "LightManager/LightManager.h"
-//#include "Camera/FreeCameraManager.h"
+//#include "Camera/FreeCamera.h"
 //
 //#include <stdio.h>		// for fprintf()
 //#include <vector>
@@ -38,7 +38,7 @@
 //		if (key == GLFW_KEY_UP)
 //		{
 //
-//			glm::vec3 balldir = FreeCameraManager::GetCameraInstance()->GetTarget() - FreeCameraManager::GetCameraInstance()->GetPosition();
+//			glm::vec3 balldir = FreeCamera::GetCameraInstance()->Target() - FreeCamera::GetCameraInstance()->GetPosition();
 //			balldir.y = 0;
 //			balldir = glm::normalize(balldir);
 //			//pFindObjectByFriendlyName("sphere1")->velocity = glm::vec3(0.0f, pFindObjectByFriendlyName("sphere1")->velocity.y, 0.0f);
@@ -50,7 +50,7 @@
 //		}
 //		if (key == GLFW_KEY_DOWN)
 //		{
-//				glm::vec3 balldir = FreeCameraManager::GetCameraInstance()->GetTarget() - FreeCameraManager::GetCameraInstance()->GetPosition();
+//				glm::vec3 balldir = FreeCamera::GetCameraInstance()->Target() - FreeCamera::GetCameraInstance()->GetPosition();
 //				balldir.y = 0;
 //				balldir = glm::normalize(balldir);
 //				//pFindObjectByFriendlyName("sphere1")->velocity = glm::vec3(0.0f, pFindObjectByFriendlyName("sphere1")->velocity.y, 0.0f);
@@ -62,7 +62,7 @@
 //		}
 //		if (key == GLFW_KEY_LEFT)
 //		{
-//				glm::vec3 balldir = FreeCameraManager::GetCameraInstance()->GetTarget() - FreeCameraManager::GetCameraInstance()->GetPosition();
+//				glm::vec3 balldir = FreeCamera::GetCameraInstance()->Target() - FreeCamera::GetCameraInstance()->GetPosition();
 //				balldir.y = 0;
 //				balldir = glm::normalize(glm::cross(balldir, glm::vec3(0.0f, 1.0f, 0.0f)));
 //				//pFindObjectByFriendlyName("sphere1")->velocity = glm::vec3(0.0f, pFindObjectByFriendlyName("sphere1")->velocity.y, 0.0f);
@@ -74,7 +74,7 @@
 //		}
 //		if (key == GLFW_KEY_RIGHT)
 //		{
-//				glm::vec3 balldir = FreeCameraManager::GetCameraInstance()->GetTarget() - FreeCameraManager::GetCameraInstance()->GetPosition();
+//				glm::vec3 balldir = FreeCamera::GetCameraInstance()->Target() - FreeCamera::GetCameraInstance()->GetPosition();
 //				balldir.y = 0;
 //				balldir = glm::normalize(glm::cross(balldir, glm::vec3(0.0f, 1.0f, 0.0f)));
 //				//pFindObjectByFriendlyName("sphere1")->velocity = glm::vec3(0.0f, pFindObjectByFriendlyName("sphere1")->velocity.y, 0.0f);
@@ -91,37 +91,37 @@
 //		if (key == GLFW_KEY_A)
 //		{
 //			//cameraEye.x -= CAMERASPEED;		// Move the camera -0.01f units
-//			FreeCameraManager::GetCameraInstance()->MoveRight(-CAMERASPEED);
+//			FreeCamera::GetCameraInstance()->MoveRight(-CAMERASPEED);
 //		}
 //		if (key == GLFW_KEY_D)
 //		{
 //			//cameraEye.x += CAMERASPEED;		// Move the camera +0.01f units
-//			FreeCameraManager::GetCameraInstance()->MoveRight(CAMERASPEED);
+//			FreeCamera::GetCameraInstance()->MoveRight(CAMERASPEED);
 //		}
 //
 //		// Move the camera (Q & E for up and down, along the y axis)
 //		if (key == GLFW_KEY_Q)
 //		{
 //			//cameraEye.y -= CAMERASPEED;		// Move the camera -0.01f units
-//			FreeCameraManager::GetCameraInstance()->MoveUp(CAMERASPEED);
+//			FreeCamera::GetCameraInstance()->MoveUp(CAMERASPEED);
 //		}
 //		if (key == GLFW_KEY_E)
 //		{
 //			//cameraEye.y += CAMERASPEED;		// Move the camera +0.01f units
-//			FreeCameraManager::GetCameraInstance()->MoveUp(-CAMERASPEED);
+//			FreeCamera::GetCameraInstance()->MoveUp(-CAMERASPEED);
 //		}
 //
 //		// Move the camera (W & S for towards and away, along the z axis)
 //		if (key == GLFW_KEY_W)
 //		{
 //			//cameraEye.z -= CAMERASPEED;		// Move the camera -0.01f units
-//			FreeCameraManager::GetCameraInstance()->MoveForward(CAMERASPEED);
+//			FreeCamera::GetCameraInstance()->MoveForward(CAMERASPEED);
 //		}
 //		if (key == GLFW_KEY_S)
 //		{
 //			//cameraEye.z += CAMERASPEED;		// Move the camera +0.01f units
 //
-//			FreeCameraManager::GetCameraInstance()->MoveForward(-CAMERASPEED);
+//			FreeCamera::GetCameraInstance()->MoveForward(-CAMERASPEED);
 //		}
 //
 //		if (key == GLFW_KEY_1)

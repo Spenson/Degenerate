@@ -31,13 +31,13 @@ bool MoveCommand::Update(double deltaTime)
 	if (glm::distance(m_pGO->positionXYZ, m_Start) < m_AccelDis)
 	{
 		float step = glm::smoothstep(0.0f, m_AccelDis, glm::distance(m_pGO->positionXYZ, m_Start));
-		if(step < 0.05) step = 0.05;
+		if(step < 0.05) step = 0.05f;
 		m_pGO->velocity = dir * (m_MaxSpeed * step);
 	}
 	else if (glm::distance(m_pGO->positionXYZ, m_End) < m_DecelDis)
 	{
 		float step = glm::smoothstep(0.0f, m_DecelDis, glm::distance(m_pGO->positionXYZ, m_End));
-		if (step < 0.05) step = 0.05;
+		if (step < 0.05) step = 0.05f;
 		m_pGO->velocity = dir * (m_MaxSpeed * step);
 	}
 	else

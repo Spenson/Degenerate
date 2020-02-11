@@ -17,9 +17,6 @@
     <ClCompile Include="DebugRenderer\COpenGLError.cpp">
       <Filter>DebugRenderer</Filter>
     </ClCompile>
-    <ClCompile Include="..\dependencies\src\glad.c">
-      <Filter>glad</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject\cGameObject.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
@@ -117,6 +114,21 @@
     <ClCompile Include="Rendering\Shaders\cShaderManager.cpp" />
     <ClCompile Include="Rendering\Renderer.cpp" />
     <ClCompile Include="Rendering\cSimpleSkybox.cpp" />
+    <ClCompile Include="GameObject\cShip.cpp" />
+    <ClCompile Include="AI\BehaviourManager.cpp" />
+    <ClCompile Include="AI\Behaviours\cSeek.cpp" />
+    <ClCompile Include="AI\Behaviours\cSeekAndFlee.cpp" />
+    <ClCompile Include="AI\Behaviours\cEvade.cpp" />
+    <ClCompile Include="GameObject\cBullet.cpp" />
+    <ClCompile Include="AI\Behaviours\cFireFromDistance.cpp" />
+    <ClCompile Include="AI\Behaviours\cPursueAndEvade.cpp" />
+    <ClCompile Include="AI\Behaviours\cWanderAndIdle.cpp" />
+    <ClCompile Include="GameObject\cPhysicsGameObject.cpp" />
+    <ClCompile Include="Physics\Physics.cpp" />
+    <ClCompile Include="LoadingStuff\Load.cpp" />
+    <ClCompile Include="Camera\c3rdPersonCamera.cpp" />
+    <ClCompile Include="UserInputs\NewUserInput.cpp" />
+    <ClCompile Include="..\dependencies\src\glad.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLCommon.h" />
@@ -235,6 +247,23 @@
     <ClInclude Include="Rendering\Shaders\cShaderManager.h" />
     <ClInclude Include="Rendering\iSkybox.h" />
     <ClInclude Include="Rendering\cSimpleSkybox.h" />
+    <ClInclude Include="GameObject\cShip.h" />
+    <ClInclude Include="AI\BehaviourManager.h" />
+    <ClInclude Include="AI\iBehaviour.h" />
+    <ClInclude Include="AI\iEntity.h" />
+    <ClInclude Include="AI\Behaviours\cSeek.h" />
+    <ClInclude Include="AI\Behaviours\cSeekAndFlee.h" />
+    <ClInclude Include="AI\Behaviours\cEvade.h" />
+    <ClInclude Include="GameObject\cBullet.h" />
+    <ClInclude Include="AI\Behaviours\cFireFromDistance.h" />
+    <ClInclude Include="AI\Behaviours\cPursueAndEvade.h" />
+    <ClInclude Include="AI\Behaviours\cWanderAndIdle.h" />
+    <ClInclude Include="LoadingStuff\cJSONUtility.h" />
+    <ClInclude Include="LoadingStuff\iSerializable.h" />
+    <ClInclude Include="GameObject\cPhysicsGameObject.h" />
+    <ClInclude Include="Physics\Physics.h" />
+    <ClInclude Include="LoadingStuff\Load.h" />
+    <ClInclude Include="Camera\c3rdPersonCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="DebugRenderer">
@@ -322,5 +351,8 @@
     <Xml Include="assets\config\Textures.xml">
       <Filter>LoadingStuff\Configs</Filter>
     </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="assets\config\Config.json" />
   </ItemGroup>
 </Project>

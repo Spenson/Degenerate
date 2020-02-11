@@ -4,12 +4,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Degenerate", "Degenerate\Degenerate.vcxproj", "{88B5A12D-5940-4A53-9257-8EB3ACE79BAD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{24514549-8EFA-4EA1-A062-2FBD8BC04634} = {24514549-8EFA-4EA1-A062-2FBD8BC04634}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DegenPhysicsInterface", "DegenPhysicsInterface\DegenPhysicsInterface.vcxproj", "{9909D374-646B-485E-8EA3-AA61F5BE3512}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyPhysics", "MyPhysics\MyPhysics.vcxproj", "{34C821E4-AAFF-4B16-9DFA-3584183A4049}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DegenMyPhysics", "DegenMyPhysics\DegenMyPhysics.vcxproj", "{24514549-8EFA-4EA1-A062-2FBD8BC04634}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DegenMyPhysicsWrapper", "DegenMyPhysicsWrapper\DegenMyPhysicsWrapper.vcxproj", "{24514549-8EFA-4EA1-A062-2FBD8BC04634}"
+	ProjectSection(ProjectDependencies) = postProject
+		{34C821E4-AAFF-4B16-9DFA-3584183A4049} = {34C821E4-AAFF-4B16-9DFA-3584183A4049}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

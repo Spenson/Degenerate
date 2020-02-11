@@ -32,7 +32,7 @@ glm::vec3 FollowCurveOverTimeCommand::getCurvePoint(std::vector<glm::vec3> const
 
 bool FollowCurveOverTimeCommand::Update(double deltaTime)
 {
-	m_TimeElapsed += deltaTime;
+	m_TimeElapsed += (float)deltaTime;
 
 	float step = m_TimeElapsed / m_Time;
 

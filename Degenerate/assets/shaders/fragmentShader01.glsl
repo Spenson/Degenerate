@@ -204,8 +204,9 @@ void main()
 											
 	pixelColour = outColour;
 	
-
 	pixelColour.a = diffuseColour.a;
+	pixelColour *= 0.0001;
+	pixelColour += vec4(1.0,1.0,1.0,1.0);
 
 }	
 

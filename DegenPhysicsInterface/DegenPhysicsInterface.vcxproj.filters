@@ -15,12 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="physics\interfaces\components\iPlaneComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="physics\interfaces\components\iSphereComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="physics\interfaces\eComponentType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -40,6 +34,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="physics\interfaces\iDebugRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="physics\interfaces\iSphereComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="physics\interfaces\iPlaneComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

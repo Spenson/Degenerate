@@ -17,7 +17,7 @@
 #include <iostream>
 #include <sstream>
 
-extern iCommand* g_ParentCommandGroup;
+iCommand* g_ParentCommandGroup;
 
 //void splitString(std::vector<std::string>& out, std::string s, std::string delim)
 //{
@@ -243,7 +243,7 @@ int MakeCommand(std::string type, std::string name, std::string params)
 		std::cout << "Error: Unknown Command Type (" << type << ")" << std::endl;
 	}
 
-	commandLookup[commandLookup.size() + 1] = command;
+	commandLookup[(int)commandLookup.size() + 1] = command;
 
 
 	return commandLookup.size();

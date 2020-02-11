@@ -115,14 +115,15 @@ void cShaderManager::cShaderProgram::LoadActiveUniforms(void)
 						   uniformName);
 
 		uniformlocation = glGetUniformLocation(this->ID, uniformName);
-		
+
+#ifdef _DEBUG
 		std::cout << "Uniform # " << index << "\t" << uniformlocation << "\t" << uniformName << std::endl;
 		//std::cout << "\t" << getNameStringFromType(uniformType) << std::endl;
 		//std::cout << "\t" << sizeOfVariable << std::endl;
-		
+#endif
 		this->map_UniformNameToLocID[uniformName] = uniformlocation;
 
-		
+
 
 	}//for (int index = 0
 
@@ -176,7 +177,7 @@ int cShaderManager::cShaderProgram::getUniformLocID(std::string uniformname)
 	{
 		return itUniform->second;
 	}
-
+	
 	// Didn't find it.
 	return -1;
 }

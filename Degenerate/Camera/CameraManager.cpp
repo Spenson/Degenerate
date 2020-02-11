@@ -18,6 +18,7 @@ public:
 	glm::vec3 cameraPos;
 	glm::vec3 cameraFront;
 	glm::vec3 target;
+	glm::vec3 up;
 	FreeCameraManagerImpl()
 	{
 		this->yaw = 90.0f;
@@ -62,9 +63,9 @@ double FreeCamera::XChange(double newX)
 {
 	float diffX = 0.0f;
 	if (impl->LastX != 0.0f)
-		diffX = newX - impl->LastX;
+		diffX = (float)newX - impl->LastX;
 
-	impl->LastX = newX;
+	impl->LastX = (float)newX;
 	return diffX;
 }
 
@@ -72,9 +73,9 @@ double FreeCamera::YChange(double newY)
 {
 	float diffY = 0.0f;
 	if (impl->LastY != 0.0f)
-		diffY = newY - impl->LastY;
+		diffY = (float)newY - impl->LastY;
 
-	impl->LastY = newY;
+	impl->LastY = (float)newY;
 	return diffY;
 }
 
@@ -150,6 +151,11 @@ glm::vec3 FreeCamera::GetTarget()
 	return impl->target;
 }
 
+void FreeCamera::UpVector(const glm::vec3& up)
+{
+	impl->up = up;
+}
+
 bool FreeCamera::LockTarget()
 {
 	return impl->LockTarget;
@@ -198,6 +204,6 @@ glm::vec3 FreeCamera::Position()
 
 glm::vec3 FreeCamera::UpVector()
 {
-	return glm::vec3(0.0f, 1.0f, 0.0f);
+	return impl->up;
 }
 

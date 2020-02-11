@@ -12,8 +12,8 @@ bool FollowObjectCommand::IsDone()
 
 bool FollowObjectCommand::Update(double deltaTime)
 {
-	m_Time += deltaTime;
-	glm::vec3 velocity;
+	m_Time += (float)deltaTime;
+	//glm::vec3 velocity;
 	if (m_Time >= m_TimeToFollow)
 	{
 		m_pGO->velocity = glm::vec3(0.0f);

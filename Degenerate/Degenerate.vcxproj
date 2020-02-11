@@ -20,6 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\dependencies\src\glad.c" />
+    <ClCompile Include="AI\BehaviourManager.cpp" />
+    <ClCompile Include="AI\Behaviours\cFireFromDistance.cpp" />
+    <ClCompile Include="AI\Behaviours\cEvade.cpp" />
+    <ClCompile Include="AI\Behaviours\cPursueAndEvade.cpp" />
+    <ClCompile Include="AI\Behaviours\cSeek.cpp" />
+    <ClCompile Include="AI\Behaviours\cSeekAndFlee.cpp" />
+    <ClCompile Include="AI\Behaviours\cWanderAndIdle.cpp" />
+    <ClCompile Include="Camera\c3rdPersonCamera.cpp" />
     <ClCompile Include="Camera\CameraManager.cpp" />
     <ClCompile Include="Camera\cFlyCamera.cpp" />
     <ClCompile Include="Camera\ThirdPersonCamera.cpp" />
@@ -41,7 +49,12 @@
     <ClCompile Include="DebugRenderer\CErrorLog.cpp" />
     <ClCompile Include="DebugRenderer\cGLRenderStateHelper.cpp" />
     <ClCompile Include="DebugRenderer\COpenGLError.cpp" />
+    <ClCompile Include="GameObject\cBullet.cpp" />
     <ClCompile Include="GameObject\cGameObject.cpp" />
+    <ClCompile Include="GameObject\cPhysicsGameObject.cpp" />
+    <ClCompile Include="GameObject\cShip.cpp" />
+    <ClCompile Include="LoadingStuff\Load.cpp" />
+    <ClCompile Include="Physics\Physics.cpp" />
     <ClCompile Include="Rendering\Lighting\cLightHelper.cpp" />
     <ClCompile Include="Rendering\Lighting\Light.cpp" />
     <ClCompile Include="Rendering\Lighting\LightManager.cpp" />
@@ -59,10 +72,21 @@
     <ClCompile Include="UserInputs\GFLW_callbacks.cpp" />
     <ClCompile Include="UserInputs\key_callbacks.cpp" />
     <ClCompile Include="UserInputs\mouse_callbacks.cpp" />
+    <ClCompile Include="UserInputs\NewUserInput.cpp" />
     <ClCompile Include="UserInputs\UserInput.cpp" />
     <ClCompile Include="Rendering\VAOManager\cVAOManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AI\BehaviourManager.h" />
+    <ClInclude Include="AI\Behaviours\cFireFromDistance.h" />
+    <ClInclude Include="AI\Behaviours\cEvade.h" />
+    <ClInclude Include="AI\Behaviours\cPursueAndEvade.h" />
+    <ClInclude Include="AI\Behaviours\cSeek.h" />
+    <ClInclude Include="AI\Behaviours\cSeekAndFlee.h" />
+    <ClInclude Include="AI\Behaviours\cWanderAndIdle.h" />
+    <ClInclude Include="AI\iEntity.h" />
+    <ClInclude Include="AI\iBehaviour.h" />
+    <ClInclude Include="Camera\c3rdPersonCamera.h" />
     <ClInclude Include="Camera\CameraManager.h" />
     <ClInclude Include="Camera\cFlyCamera.h" />
     <ClInclude Include="Camera\ThirdPersonCamera.h" />
@@ -85,9 +109,16 @@
     <ClInclude Include="DebugRenderer\cGLRenderStateHelper.h" />
     <ClInclude Include="DebugRenderer\COpenGLError.h" />
     <ClInclude Include="DebugRenderer\iDebugRenderer.h" />
+    <ClInclude Include="GameObject\cBullet.h" />
     <ClInclude Include="GameObject\cGameObject.h" />
+    <ClInclude Include="GameObject\cPhysicsGameObject.h" />
+    <ClInclude Include="GameObject\cShip.h" />
     <ClInclude Include="GLCommon.h" />
     <ClInclude Include="globals.h" />
+    <ClInclude Include="LoadingStuff\cJSONUtility.h" />
+    <ClInclude Include="LoadingStuff\iSerializable.h" />
+    <ClInclude Include="LoadingStuff\Load.h" />
+    <ClInclude Include="Physics\Physics.h" />
     <ClInclude Include="Rendering\eType.h" />
     <ClInclude Include="Rendering\iCamera.h" />
     <ClInclude Include="Rendering\iLight.h" />
@@ -120,6 +151,9 @@
     <Xml Include="assets\config\Lights.xml" />
     <Xml Include="assets\config\Meshes.xml" />
     <Xml Include="assets\config\Textures.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="assets\config\Config.json" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -175,23 +209,23 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)$(PlatformShortName)\$(Configuration)\</OutDir>
     <IntDir>$(PlatformShortName)\$(Configuration)\</IntDir>
-    <IncludePath>$(SolutionDir)Dependencies\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)DegenPhysicsInterface;$(SolutionDir)dependencies\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\lib\$(PlatformShortName)\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(PlatformShortName)\$(Configuration)\</OutDir>
     <IntDir>$(PlatformShortName)\$(Configuration)\</IntDir>
-    <IncludePath>$(SolutionDir)Dependencies\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)DegenPhysicsInterface;$(SolutionDir)dependencies\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\lib\$(PlatformShortName)\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)Dependencies\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)DegenPhysicsInterface;$(SolutionDir)dependencies\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\lib\$(PlatformShortName)\$(Configuration)\;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)$(PlatformShortName)\$(Configuration)\</OutDir>
     <IntDir>$(PlatformShortName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)Dependencies\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)DegenPhysicsInterface;$(SolutionDir)dependencies\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\lib\$(PlatformShortName)\$(Configuration)\;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)$(PlatformShortName)\$(Configuration)\</OutDir>
     <IntDir>$(PlatformShortName)\$(Configuration)\</IntDir>
@@ -204,7 +238,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>lua5.3.5-static.lib;tinyxml2.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>lua5.3.5-static.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -215,7 +249,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>lua5.3.5-static.lib;tinyxml2.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>lua5.3.5-static.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -231,7 +265,7 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>lua5.3.5-static.lib;tinyxml2.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>lua5.3.5-static.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -247,7 +281,7 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>lua5.3.5-static.lib;tinyxml2.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>lua5.3.5-static.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

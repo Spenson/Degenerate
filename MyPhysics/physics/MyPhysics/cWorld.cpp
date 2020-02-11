@@ -4,7 +4,7 @@
 
 namespace MyPhysics
 {
-	cWorld::~cWorld()
+	cWorld::cWorld() : mDt(0.f), mIntegrator(), mGravity(glm::vec3(0.f, -5.f, 0.f))
 	{
 	}
 
@@ -22,7 +22,10 @@ namespace MyPhysics
 	{
 		if (body->IsStatic()) return;
 		body->mPreviousPosition = body->mPosition;
-		cIntegrator::RK4(body->mPosition, body->mVelocity, body->mAcceleration, mGravity, dt);
+		body->mPreviousVelocity = body->mVelocity;
+		mIntegrator.RK4(body->mPosition, body->mVelocity, body->mAcceleration, mGravity, dt);
+		body->mAcceleration = glm::vec3(0.f);
+		body->mVelocity *= pow(0.95f, dt);
 	}
 
 
@@ -39,7 +42,7 @@ namespace MyPhysics
 		// Step 1: Integrate
 		for (size_t c = 0; c < numBodies; c++)
 		{
-			// Integrate(mBodies[c], mDt); // TODO: MAKE THIS!
+			IntegrateRigidBody(mBodies[c], mDt); 
 		}
 		// Step 2: Handle Collisions!
 		for (size_t idxA = 0; idxA < numBodies - 1; idxA++)
@@ -103,8 +106,8 @@ namespace MyPhysics
 			}
 			if (shapeTypeB == eShapeType::sphere)
 			{
-				/*return CollideSphereSphere(bodyA, dynamic_cast<const cSphere*>(bodyA->GetShape()),
-										   bodyB, dynamic_cast<const cSphere*>(bodyB->GetShape()));*/
+				return CollideSphereSphere(bodyA, dynamic_cast<cSphere*>(bodyA->GetShape()),
+										   bodyB, dynamic_cast<cSphere*>(bodyB->GetShape()));
 			}
 		}
 
@@ -113,10 +116,11 @@ namespace MyPhysics
 
 	bool cWorld::CollideSpherePlane(cRigidBody* sphereBody, cSphere* sphereShape, cRigidBody* planeBody, cPlane* planeShape)
 	{
-		// TODO: TAKE LOOK AT CHAPTER 5.5 IntersectionMovingShperePlane
+		// CHAPTER 5.5 IntersectionMovingShperePlane
 
-		//float collisionValue = 0.3;//IntersectionMovingShperePlane
+		// IntersectionMovingShperePlane
 
+		
 		glm::vec3 c = sphereBody->mPreviousPosition;
 		float r = sphereShape->GetRadius();
 		glm::vec3 v = sphereBody->mPosition - sphereBody->mPreviousPosition;
@@ -125,6 +129,7 @@ namespace MyPhysics
 		float t(0.f);
 		glm::vec3 q(0.f);
 
+		//test collision
 		int result = nCollide::intersect_moving_sphere_plane(c, r, v, n, d, t, q);
 		if (0 == result)
 		{
@@ -142,6 +147,7 @@ namespace MyPhysics
 			glm::vec3 impulse = n * (targetDistance - distance) / mDt;
 			// reset sphere and apply impulse
 			sphereBody->mPosition = sphereBody->mPreviousPosition;
+			sphereBody->mVelocity = sphereBody->mPreviousVelocity;
 			sphereBody->mVelocity += impulse;
 			// reintegrate
 			IntegrateRigidBody(sphereBody, mDt);
@@ -149,6 +155,7 @@ namespace MyPhysics
 			return true;
 		}
 
+		// reset to collision point
 		sphereBody->mVelocity = glm::reflect(sphereBody->mVelocity, planeShape->GetNormal());
 
 		glm::vec3 nComponent = glm::proj(sphereBody->mVelocity, planeShape->GetNormal());
@@ -156,10 +163,11 @@ namespace MyPhysics
 
 		sphereBody->mPosition = (c + v * t);
 
+		// reintegrate
 		IntegrateRigidBody(sphereBody, mDt * (1.f - t));
 
 
-		return false;
+		return true;
 	}
 
 	bool cWorld::CollideSphereSphere(cRigidBody* bodyA, cSphere* shapeA, cRigidBody* bodyB, cSphere* shapeB)
@@ -171,6 +179,7 @@ namespace MyPhysics
 		float rA = shapeA->GetRadius();
 		float rB = shapeB->GetRadius();
 		float t(0.f);
+		// test for collision
 		int result = nCollide::intersect_moving_sphere_sphere(cA, rA, vA, cB, rB, vB, t);
 
 		if (0 == result)
@@ -178,51 +187,57 @@ namespace MyPhysics
 			// no collision
 			return false;
 		}
-
+		// object mass for weighted response
 		float ma = bodyA->mMass;
 		float mb = bodyB->mMass;
 		float mt = ma + mb;
 
 		if (-1 == result)
 		{
-
+			// get adjust dist
 			float initDist = glm::distance(bodyA->mPreviousPosition, bodyB->mPreviousPosition);
 			float targDist = rA + rB;
 
+			// get direction spheres will move
 			glm::vec3 impulseToA = glm::normalize(bodyA->mPreviousPosition - bodyB->mPreviousPosition);
 			impulseToA *= targDist - initDist;
 
-
+			// reset position and velocity
 			bodyA->mPosition = bodyA->mPreviousPosition;
 			bodyB->mPosition = bodyB->mPreviousPosition;
+			bodyA->mVelocity = bodyA->mPreviousVelocity;
+			bodyB->mVelocity = bodyB->mPreviousVelocity;
 
-
+			// adjust velocity
 			bodyA->mVelocity += impulseToA * (mb / mt);
 			bodyB->mVelocity -= impulseToA * (ma / mt);
 
+			// reintegrate
 			IntegrateRigidBody(bodyA, mDt);
 			IntegrateRigidBody(bodyB, mDt);
 
 			return true;
 		}
 
+		//set to point of collision
 		bodyA->mPosition = bodyA->mPreviousPosition + vA * t;
 		bodyB->mPosition = bodyB->mPreviousPosition + vB * t;
 
+		// get velocities for response calc
 		vA = bodyA->mVelocity;
 		vB = bodyB->mVelocity;
 
-
+		// calculate responses
 		float c = 0.2f;
 		bodyA->mVelocity = (c * mb * (vB - vA) + ma * vA + mb * vB) / mt;
 		bodyB->mVelocity = (c * ma * (vA - vB) + ma * vA + mb * vB) / mt;
 
-
+		// reintegrate
 		IntegrateRigidBody(bodyA, mDt * (1.f - t));
 		IntegrateRigidBody(bodyB, mDt * (1.f - t));
 
 
-		return false;
+		return true;
 	}
 
 }

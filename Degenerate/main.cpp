@@ -5,43 +5,24 @@
 
 #include "UserInputs/GFLW_callbacks.h"
 #include "Camera/cFlyCamera.h"
-#include "Camera/ThirdPersonCamera.h"
 #include "DebugRenderer/cDebugRenderer.h"
-#include "Rendering/SimpleShaderStuff/UniformManager.h"
-#include "Rendering/ParticalEffects/cParticleEmitter.h"
 #include "LowPassFilter/cLowPassFilter.h"
 
-#include "Commands/Commands.h"
 #include "Commands/cLuaBrain.h"
 
 #include "Rendering/Renderer.h"
 
 #include "Rendering/cSimpleSkybox.h"
+#include "LoadingStuff/Load.h"
+#include "GameObject/cPhysicsGameObject.h"
+#include "Camera/c3rdPersonCamera.h"
 
-cFlyCamera* g_pFlyCamera = NULL;
-//cBasicTextureManager* g_pTextureManager = NULL;
-
+cFlyCamera* g_pFlyCamera = nullptr;
 bool lockToShip = false;
 
-bool bLightDebugSheresOn = false;
+DegenRendering::cRenderer g_Renderer;
+DegenPhysics::iPhysicsWorld* g_World;
 
-iCommand* g_ParentCommandGroup;
-
-extern cGameObject* g_pDebugSphere;
-extern cGameObject* g_pDebugCube;
-
-cLuaBrain* g_pLuaScripts;
-
-float offset = 0.f;
-int HealthRight = 100, HealthLeft = 100;
-
-
-std::vector<glm::vec3> PathPoints;
-bool doingRun;
-glm::vec3 g_EndPoint, g_StartPoint;
-
-
-ThirdPersonCamera* tpc;
 
 
 int main(void)
@@ -75,89 +56,62 @@ int main(void)
 	glfwSetScrollCallback(window, scroll_callback);
 	glfwSetMouseButtonCallback(window, mouse_button_callback);
 
-	void ProcessAsyncMouse(GLFWwindow * window);
-	void ProcessAsyncKeys(GLFWwindow * window);
-	void ShipControls(GLFWwindow * window);
+	//void ProcessAsyncMouse(GLFWwindow * window);
+	//void ProcessAsyncKeys(GLFWwindow * window);
+	//void ShipControls(GLFWwindow * window, cShip * player);
 
+	void ProcessAsyncMouse(GLFWwindow * window, c3rdPersonCamera * camera);
+	void ProcessAsyncKeys(GLFWwindow * window, std::vector<cPhysicsGameObject*>& object, size_t& selected, c3rdPersonCamera * camera);
+
+	GLint major, minor;
+	glGetIntegerv(GL_MAJOR_VERSION, &major);
+	glGetIntegerv(GL_MINOR_VERSION, &minor);
+	std::cout << "OpenGL version: " << major << "." << minor << std::endl;
 
 	//TODO: Move if needed
 	cDebugRenderer* pDebugRenderer = new cDebugRenderer();
 	pDebugRenderer->initialize();
 
-	std::string lighterrors;
 
 
-	cParticleEmitter* pMyPartcles = new cParticleEmitter();
-	pMyPartcles->location = glm::vec3(0.0f, 3.0f, 0.0f);
-	// TODO:
-	pMyPartcles->acceleration = glm::vec3(5.0f, 0.0f, 0.0f);
-
-	pMyPartcles->Initialize(glm::vec3(-10.0f, -10.0f, -10.0f),	// Min Vel
-							glm::vec3(10.0f, 10.0f, 10.0f),		// Max Vel
-							glm::vec3(0.0f, 0.0f, 0.0f),		// Min Delta Position
-							glm::vec3(0.0f, 0.0f, 0.0f),		// Max delta Position
-							5.0f,	// Min life
-							10.0f,	// Max life
-							10,		// Min # of particles per frame
-							60);	// Max # of particles per frame
-
-
-
-	g_pFreeCamera->SetPosition(glm::vec3(0.f, 0.f, -20.f));
+	g_pFreeCamera->UpVector(glm::vec3(0.f, 1.f, 0.f));
+	g_pFreeCamera->SetPosition(glm::vec3(0.f, 20.f, -30.f));
 	g_pFreeCamera->Target(glm::vec3(0.f));
 
 
-	g_ParentCommandGroup = createParent("Parent");
+	g_Renderer.Initialize();
+	g_Renderer.AddModel("sphere_hires.ply");
+	g_Renderer.AddModel("flat.ply");
+	g_Renderer.AddTexture("gridtexture.bmp");
+	g_Renderer.AddCubeMap("orbit", "orbital-element_up.bmp", "orbital-element_dn.bmp",
+						  "orbital-element_lf.bmp", "orbital-element_rt.bmp",
+						  "orbital-element_bk.bmp", "orbital-element_ft.bmp",
+						  "assets/textures/cubemaps/");
 
 
-	//g_pLuaScripts = new cLuaBrain();
-
-
-	//std::ifstream t("assets/script.lua");
-	//std::string luaScript = std::string((std::istreambuf_iterator<char>(t)),
-	//					 std::istreambuf_iterator<char>());
-	//t.close();
-
-	//g_pLuaScripts->RunThis(luaScript);
-
-
-	std::vector<glm::vec3> todraw;
-
-
-	DegenRendering::cRenderer renderer;
-	renderer.Initialize();
-	renderer.AddModel("cube.ply");
-	renderer.AddModel("sphere_hires.ply");
-	renderer.AddTexture("gridtexture.bmp");
-	renderer.AddCubeMap("orbit","orbital-element_up.bmp","orbital-element_dn.bmp",
-						"orbital-element_lf.bmp", "orbital-element_rt.bmp",
-						"orbital-element_bk.bmp","orbital-element_ft.bmp",
-						"assets/textures/cubemaps/");
-	
-	renderer.SetCamera(::g_pFreeCamera);
-	renderer.SetPerspectiveDetails(0.8f,0.5f,100.0f);
+	g_Renderer.SetCamera(::g_pFreeCamera);
+	g_Renderer.SetPerspectiveDetails(0.8f, 0.5f, 1000.0f);
 
 	cSimpleSkybox* skybox = new cSimpleSkybox();
 	skybox->mModel = "sphere_hires.ply";
 	skybox->CubeMaps()[0].first = "orbit";
 
-	renderer.SetSkybox(skybox);
+	g_Renderer.SetSkybox(skybox);
+
+
 	
-	
-	cGameObject go;
-	go.meshName = "sphere_hires.ply";
-	go.doNotLight = true;
-	go.scale = 3.f;
-	//go.debugColour = glm::vec4(1.f, 0.f, 0.f, 1.f);
+	std::vector<cPhysicsGameObject*> objects;
 
-	go.diffuseColour = glm::vec4(1.f, 0.f, 0.f, 1.f);
+	::LoadScene("assets/config/Config.json", g_Renderer, g_World, objects);
 
-	renderer.AddRenderComponent(&go);
-
+	size_t selectedObjectIndex = 0;
+	c3rdPersonCamera* cam = new c3rdPersonCamera();
+	cam->Update(objects[selectedObjectIndex]->Transform());
+	g_Renderer.SetCamera(cam);
 
 	cLowPassFilter avgDeltaTimeThingy;
 	double lastTime = glfwGetTime();
-	
+
 	while (!glfwWindowShouldClose(window))
 	{
 
@@ -171,45 +125,18 @@ int main(void)
 
 		avgDeltaTimeThingy.addValue(deltaTime);
 
+		ProcessAsyncMouse(window, cam);
+		ProcessAsyncKeys(window, objects, selectedObjectIndex, cam);
 
-		std::stringstream ssTitle;
-
-
-		glfwSetWindowTitle(window, ssTitle.str().c_str());
-
-
-		if (lockToShip)
-		{
-			//ShipControls(window);
-		}
-		else
-		{
-			ProcessAsyncKeys(window);
-			ProcessAsyncMouse(window);
-		}
-		
 		int width, height;
 
 		glfwGetFramebufferSize(window, &width, &height);
-		//ratio = width / (float)height;
 
-		//p = glm::perspective(0.6f, ratio, 0.5f, 100000.0f);
-		//v = glm::mat4(1.0f);
-		//v = glm::lookAt(::g_pFlyCamera->eye, ::g_pFlyCamera->getAtInWorldSpace(), ::g_pFlyCamera->getUpVector());
-		//v = glm::lookAt(::g_pFreeCamera->GetPosition(), ::g_pFreeCamera->GetTarget(), ::g_pFreeCamera->GetUpVector());
+		cam->Update(objects[selectedObjectIndex]->Transform());
+		g_Renderer.RenderScene(width, height);
 
+		g_World->Update(deltaTime);
 
-
-
-		renderer.RenderScene(width, height);
-
-
-		g_ParentCommandGroup->Update(deltaTime);
-
-
-		double averageDeltaTime = avgDeltaTimeThingy.getAverage();
-
-		//pDebugRenderer->RenderDebugObjects(v, p, 0.01f);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

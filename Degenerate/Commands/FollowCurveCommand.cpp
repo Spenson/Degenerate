@@ -31,7 +31,7 @@ glm::vec3 getCurvePoint(std::vector<glm::vec3> const& points, float const& step)
 
 bool FollowCurveCommand::Update(double deltaTime)
 {
-	m_Time += deltaTime;
+	m_Time += (float)deltaTime;
 
 	float step =  m_MaxSpeed/ glm::distance(m_ControlPoints[0], m_ControlPoints[m_ControlPoints.size()-1]) * m_Time;
 

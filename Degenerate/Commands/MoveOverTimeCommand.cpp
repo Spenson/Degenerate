@@ -19,7 +19,7 @@ bool MoveOverTimeCommand::Update(double deltaTime)
 		m_pGO->positionXYZ = m_Start;
 		m_HasUpdated = true;
 	}
-	m_TimeElapsed += deltaTime;
+	m_TimeElapsed += (float)deltaTime;
 
 	m_pGO->positionXYZ = m_Start +  ((m_End-m_Start)*(m_TimeElapsed/m_Time));
 

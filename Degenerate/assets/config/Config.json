@@ -1,0 +1,594 @@
+{
+	"Objects": [
+		{
+			"Model": "sphere_hires.ply",
+			"Scale": 1.0,
+			"UseDiffuse": false,
+			"Diffuse": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Specular": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Visable": true,
+			"Wireframe": false,
+			"IgnoreLighting": true,
+			"DepthBufferTest": true,
+			"DepthBufferWrite": true,
+			"Textures": [
+				[ "gridtexture.bmp", 1.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ]
+			],
+			"PhysicsComponent": {
+				"Type": "sphere",
+				"Position": [ 10.0, 3.0, 5.0 ],
+				"Velocity": [ 8.0, 1.0, -3.0 ],
+				"Acceleration": [ 0.0, 0.0, 0.0 ],
+				"Radius": 1.0,
+				"Mass": 1.0
+			}
+		},
+		{
+			"Model": "sphere_hires.ply",
+			"Scale": 1.0,
+			"UseDiffuse": false,
+			"Diffuse": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Specular": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Visable": true,
+			"Wireframe": false,
+			"IgnoreLighting": true,
+			"DepthBufferTest": true,
+			"DepthBufferWrite": true,
+			"Textures": [
+				[ "gridtexture.bmp", 1.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ]
+			],
+			"PhysicsComponent": {
+				"Type": "sphere",
+				"Position": [ 1.0, 4.0, 7.0 ],
+				"Velocity": [ -3.0, 1.0, 5.0 ],
+				"Acceleration": [ 0.0, 0.0, 0.0 ],
+				"Radius": 1.0,
+				"Mass": 1.0
+			}
+		},
+		{
+			"Model": "sphere_hires.ply",
+			"Scale": 1.0,
+			"UseDiffuse": false,
+			"Diffuse": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Specular": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Visable": true,
+			"Wireframe": false,
+			"IgnoreLighting": true,
+			"DepthBufferTest": true,
+			"DepthBufferWrite": true,
+			"Textures": [
+				[ "gridtexture.bmp", 1.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ]
+			],
+			"PhysicsComponent": {
+				"Type": "sphere",
+				"Position": [ 9.0, 5.0, 1.0 ],
+				"Velocity": [ 5.0, 1.0, -3.0 ],
+				"Acceleration": [ 0.0, 0.0, 0.0 ],
+				"Radius": 1.0,
+				"Mass": 1.0
+			}
+		},
+		{
+			"Model": "sphere_hires.ply",
+			"Scale": 1.0,
+			"UseDiffuse": false,
+			"Diffuse": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Specular": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Visable": true,
+			"Wireframe": false,
+			"IgnoreLighting": true,
+			"DepthBufferTest": true,
+			"DepthBufferWrite": true,
+			"Textures": [
+				[ "gridtexture.bmp", 1.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ]
+			],
+			"PhysicsComponent": {
+				"Type": "sphere",
+				"Position": [ 1.0, 6.0, 1.0 ],
+				"Velocity": [ 15.0, 1.0, 1.0 ],
+				"Acceleration": [ 0.0, 0.0, 0.0 ],
+				"Radius": 1.0,
+				"Mass": 1.0
+			}
+		},
+
+
+
+		{
+			"Model": "sphere_hires.ply",
+			"Scale": 2.0,
+			"UseDiffuse": false,
+			"Diffuse": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Specular": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Visable": true,
+			"Wireframe": false,
+			"IgnoreLighting": true,
+			"DepthBufferTest": true,
+			"DepthBufferWrite": true,
+			"Textures": [
+				[ "gridtexture.bmp", 1.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ]
+			],
+			"PhysicsComponent": {
+				"Type": "sphere",
+				"Position": [ 15.0, 7.0, 3.0 ],
+				"Velocity": [ -11.0, 1.0, 5.0 ],
+				"Acceleration": [ 0.0, 0.0, 0.0 ],
+				"Radius": 2.0,
+				"Mass": 2.0
+			}
+		},
+		{
+			"Model": "sphere_hires.ply",
+			"Scale": 2.0,
+			"UseDiffuse": false,
+			"Diffuse": [ 1.0, 1.0, 3.0, 1.0 ],
+			"Specular": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Visable": true,
+			"Wireframe": false,
+			"IgnoreLighting": true,
+			"DepthBufferTest": true,
+			"DepthBufferWrite": true,
+			"Textures": [
+				[ "gridtexture.bmp", 1.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ]
+			],
+			"PhysicsComponent": {
+				"Type": "sphere",
+				"Position": [ 4.0, 4.0, -2.0 ],
+				"Velocity": [ 5.0, 1.0, 39.0 ],
+				"Acceleration": [ 0.0, 0.0, 0.0 ],
+				"Radius": 2.0,
+				"Mass": 2.0
+			}
+		},
+		{
+			"Model": "sphere_hires.ply",
+			"Scale": 0.5,
+			"UseDiffuse": false,
+			"Diffuse": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Specular": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Visable": true,
+			"Wireframe": false,
+			"IgnoreLighting": true,
+			"DepthBufferTest": true,
+			"DepthBufferWrite": true,
+			"Textures": [
+				[ "gridtexture.bmp", 1.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ]
+			],
+			"PhysicsComponent": {
+				"Type": "sphere",
+				"Position": [ -4.0, 5.0, -4.0 ],
+				"Velocity": [ -3.0, 1.0, -1.0 ],
+				"Acceleration": [ 0.0, 0.0, 0.0 ],
+				"Radius": 0.5,
+				"Mass": 0.5
+			}
+		},
+		{
+			"Model": "sphere_hires.ply",
+			"Scale": 1.5,
+			"UseDiffuse": false,
+			"Diffuse": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Specular": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Visable": true,
+			"Wireframe": false,
+			"IgnoreLighting": true,
+			"DepthBufferTest": true,
+			"DepthBufferWrite": true,
+			"Textures": [
+				[ "gridtexture.bmp", 1.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ]
+			],
+			"PhysicsComponent": {
+				"Type": "sphere",
+				"Position": [ -8.0, 6.0, -10.0 ],
+				"Velocity": [ -2.0, 1.0, -1.0 ],
+				"Acceleration": [ 0.0, 0.0, 0.0 ],
+				"Radius": 1.5,
+				"Mass": 1.5
+			}
+		},
+		{
+			"Model": "sphere_hires.ply",
+			"Scale": 4.0,
+			"UseDiffuse": false,
+			"Diffuse": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Specular": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Visable": true,
+			"Wireframe": false,
+			"IgnoreLighting": true,
+			"DepthBufferTest": true,
+			"DepthBufferWrite": true,
+			"Textures": [
+				[ "gridtexture.bmp", 1.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ]
+			],
+			"PhysicsComponent": {
+				"Type": "sphere",
+				"Position": [ -12.0, 7.0, 10.0 ],
+				"Velocity": [ -1.0, 1.0, -1.0 ],
+				"Acceleration": [ 0.0, 0.0, 0.0 ],
+				"Radius": 4.0,
+				"Mass": 4.0
+			}
+		},
+		{
+			"Model": "sphere_hires.ply",
+			"Scale": 3.0,
+			"UseDiffuse": false,
+			"Diffuse": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Specular": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Visable": true,
+			"Wireframe": false,
+			"IgnoreLighting": true,
+			"DepthBufferTest": true,
+			"DepthBufferWrite": true,
+			"Textures": [
+				[ "gridtexture.bmp", 1.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ]
+			],
+			"PhysicsComponent": {
+				"Type": "sphere",
+				"Position": [ 5.0, 3.0, -10.0 ],
+				"Velocity": [ 5.0, 1.0, -1.0 ],
+				"Acceleration": [ 0.0, 0.0, 0.0 ],
+				"Radius": 3.0,
+				"Mass": 3.0
+			}
+		},
+		{
+			"Model": "sphere_hires.ply",
+			"Scale": 1.0,
+			"UseDiffuse": false,
+			"Diffuse": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Specular": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Visable": true,
+			"Wireframe": false,
+			"IgnoreLighting": true,
+			"DepthBufferTest": true,
+			"DepthBufferWrite": true,
+			"Textures": [
+				[ "gridtexture.bmp", 1.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ]
+			],
+			"PhysicsComponent": {
+				"Type": "sphere",
+				"Position": [ 10.0, 4.0, -10.0 ],
+				"Velocity": [ 4.0, 1.0, -1.0 ],
+				"Acceleration": [ 0.0, 0.0, 0.0 ],
+				"Radius": 1.0,
+				"Mass": 1.0
+			}
+		},
+		{
+			"Model": "sphere_hires.ply",
+			"Scale": 1.0,
+			"UseDiffuse": false,
+			"Diffuse": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Specular": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Visable": true,
+			"Wireframe": false,
+			"IgnoreLighting": true,
+			"DepthBufferTest": true,
+			"DepthBufferWrite": true,
+			"Textures": [
+				[ "gridtexture.bmp", 1.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ]
+			],
+			"PhysicsComponent": {
+				"Type": "sphere",
+				"Position": [ -3.0, 5.0, 6.0 ],
+				"Velocity": [ 3.0, 1.0, -1.0 ],
+				"Acceleration": [ 0.0, 0.0, 0.0 ],
+				"Radius": 1.0,
+				"Mass": 1.0
+			}
+		},
+		{
+			"Model": "sphere_hires.ply",
+			"Scale": 1.0,
+			"UseDiffuse": false,
+			"Diffuse": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Specular": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Visable": true,
+			"Wireframe": false,
+			"IgnoreLighting": true,
+			"DepthBufferTest": true,
+			"DepthBufferWrite": true,
+			"Textures": [
+				[ "gridtexture.bmp", 1.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ]
+			],
+			"PhysicsComponent": {
+				"Type": "sphere",
+				"Position": [ 4.0, 6.0, -3.0 ],
+				"Velocity": [ 2.0, 1.0, -1.0 ],
+				"Acceleration": [ 0.0, 0.0, 0.0 ],
+				"Radius": 1.0,
+				"Mass": 1.0
+			}
+		},
+		{
+			"Model": "sphere_hires.ply",
+			"Scale": 1.0,
+			"UseDiffuse": false,
+			"Diffuse": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Specular": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Visable": true,
+			"Wireframe": false,
+			"IgnoreLighting": true,
+			"DepthBufferTest": true,
+			"DepthBufferWrite": true,
+			"Textures": [
+				[ "gridtexture.bmp", 1.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ]
+			],
+			"PhysicsComponent": {
+				"Type": "sphere",
+				"Position": [ 1.0, 7.0, -20.0 ],
+				"Velocity": [ 1.0, 1.0, -1.0 ],
+				"Acceleration": [ 0.0, 0.0, 0.0 ],
+				"Radius": 1.0,
+				"Mass": 1.0
+			}
+		},
+		{
+			"Model": "sphere_hires.ply",
+			"Scale": 0.5,
+			"UseDiffuse": false,
+			"Diffuse": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Specular": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Visable": true,
+			"Wireframe": false,
+			"IgnoreLighting": true,
+			"DepthBufferTest": true,
+			"DepthBufferWrite": true,
+			"Textures": [
+				[ "gridtexture.bmp", 1.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ]
+			],
+			"PhysicsComponent": {
+				"Type": "sphere",
+				"Position": [ -5.0, 3.0, -20.0 ],
+				"Velocity": [ 1.0, 1.0, -5.0 ],
+				"Acceleration": [ 0.0, 0.0, 0.0 ],
+				"Radius": 0.5,
+				"Mass": 0.5
+			}
+		},
+		{
+			"Model": "sphere_hires.ply",
+			"Scale": 0.5,
+			"UseDiffuse": false,
+			"Diffuse": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Specular": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Visable": true,
+			"Wireframe": false,
+			"IgnoreLighting": true,
+			"DepthBufferTest": true,
+			"DepthBufferWrite": true,
+			"Textures": [
+				[ "gridtexture.bmp", 1.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ]
+			],
+			"PhysicsComponent": {
+				"Type": "sphere",
+				"Position": [ 10.0, 4.0, -20.0 ],
+				"Velocity": [ 1.0, 1.0, -4.0 ],
+				"Acceleration": [ 0.0, 0.0, 0.0 ],
+				"Radius": 0.5,
+				"Mass": 0.5
+			}
+		},
+		{
+			"Model": "sphere_hires.ply",
+			"Scale": 0.5,
+			"UseDiffuse": false,
+			"Diffuse": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Specular": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Visable": true,
+			"Wireframe": false,
+			"IgnoreLighting": true,
+			"DepthBufferTest": true,
+			"DepthBufferWrite": true,
+			"Textures": [
+				[ "gridtexture.bmp", 1.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ]
+			],
+			"PhysicsComponent": {
+				"Type": "sphere",
+				"Position": [ -10.0, 5.0, -20.0 ],
+				"Velocity": [ 1.0, 1.0, -3.0 ],
+				"Acceleration": [ 0.0, 0.0, 0.0 ],
+				"Radius": 0.5,
+				"Mass": 0.5
+			}
+		},
+		{
+			"Model": "sphere_hires.ply",
+			"Scale": 0.5,
+			"UseDiffuse": false,
+			"Diffuse": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Specular": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Visable": true,
+			"Wireframe": false,
+			"IgnoreLighting": true,
+			"DepthBufferTest": true,
+			"DepthBufferWrite": true,
+			"Textures": [
+				[ "gridtexture.bmp", 1.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ]
+			],
+			"PhysicsComponent": {
+				"Type": "sphere",
+				"Position": [ 15.0, 6.0, -20.0 ],
+				"Velocity": [ 1.0, 1.0, -2.0 ],
+				"Acceleration": [ 0.0, 0.0, 0.0 ],
+				"Radius": 0.5,
+				"Mass": 0.5
+			}
+		},
+
+
+
+
+		{
+			"Model": "flat.ply",
+			"Scale": 25.0,
+			"UseDiffuse": false,
+			"Diffuse": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Specular": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Visable": true,
+			"Wireframe": false,
+			"IgnoreLighting": true,
+			"DepthBufferTest": true,
+			"DepthBufferWrite": true,
+			"Textures": [
+				[ "gridtexture.bmp", 1.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ]
+			],
+			"PhysicsComponent": {
+				"Type": "plane",
+				"Normal": [ 0.0, 1.0, 0.0 ],
+				"Constant": -2.0
+			}
+		},
+		{
+			"Model": "flat.ply",
+			"Scale": 25.0,
+			"UseDiffuse": false,
+			"Diffuse": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Specular": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Visable": false,
+			"Wireframe": false,
+			"IgnoreLighting": true,
+			"DepthBufferTest": true,
+			"DepthBufferWrite": true,
+			"Textures": [
+				[ "gridtexture.bmp", 1.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ]
+			],
+			"PhysicsComponent": {
+				"Type": "plane",
+				"Normal": [ 1.0, 0.0, 0.0 ],
+				"Constant": -25.0
+			}
+		},
+		{
+			"Model": "flat.ply",
+			"Scale": 25.0,
+			"UseDiffuse": false,
+			"Diffuse": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Specular": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Visable": false,
+			"Wireframe": false,
+			"IgnoreLighting": true,
+			"DepthBufferTest": true,
+			"DepthBufferWrite": true,
+			"Textures": [
+				[ "gridtexture.bmp", 1.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ]
+			],
+			"PhysicsComponent": {
+				"Type": "plane",
+				"Normal": [ -1.0, 0.0, 0.0 ],
+				"Constant": -25.0
+			}
+		},
+		{
+			"Model": "flat.ply",
+			"Scale": 25.0,
+			"UseDiffuse": false,
+			"Diffuse": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Specular": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Visable": false,
+			"Wireframe": false,
+			"IgnoreLighting": true,
+			"DepthBufferTest": true,
+			"DepthBufferWrite": true,
+			"Textures": [
+				[ "gridtexture.bmp", 1.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ]
+			],
+			"PhysicsComponent": {
+				"Type": "plane",
+				"Normal": [ 0.0, 0.0, 1.0 ],
+				"Constant": -25.0
+			}
+		},
+		{
+			"Model": "flat.ply",
+			"Scale": 25.0,
+			"UseDiffuse": false,
+			"Diffuse": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Specular": [ 1.0, 1.0, 1.0, 1.0 ],
+			"Visable": false,
+			"Wireframe": false,
+			"IgnoreLighting": true,
+			"DepthBufferTest": true,
+			"DepthBufferWrite": true,
+			"Textures": [
+				[ "gridtexture.bmp", 1.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ],
+				[ "", 0.0 ]
+			],
+			"PhysicsComponent": {
+				"Type": "plane",
+				"Normal": [ 0.0, 0.0, -1.0 ],
+				"Constant": -25.0
+			}
+		}
+	]
+}

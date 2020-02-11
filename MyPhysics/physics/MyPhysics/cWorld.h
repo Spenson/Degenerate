@@ -13,7 +13,7 @@ namespace MyPhysics
 	{
 	public:
 		cWorld();
-		~cWorld();
+		virtual ~cWorld() = default;
 		
 		void GetGravity(glm::vec3& gravityOut);
 		void SetGravity(const glm::vec3& newGravity);

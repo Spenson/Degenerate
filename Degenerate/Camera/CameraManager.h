@@ -32,6 +32,8 @@ public:
 	void Target(glm::vec3 target);
 	glm::vec3 GetTarget();
 
+	void UpVector(const glm::vec3& up);
+
 	bool LockTarget();
 	void LockTarget(bool isOnTarget);
 
@@ -41,7 +43,7 @@ public:
 
 	void SetPosition(glm::vec3 position);
 
-	glm::vec3 Target();
-	glm::vec3 Position();
-	glm::vec3 UpVector();
+	glm::vec3 Target() override;
+	glm::vec3 Position() override;
+	glm::vec3 UpVector() override;
 };

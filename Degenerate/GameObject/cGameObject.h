@@ -4,7 +4,7 @@
 
 #include <string>
 
-// NOTE: We are including the INTERFACE, not the actual renderer
+// NOTE: We are including the INTERFACE, not the actual g_Renderer
 #include "../DebugRenderer/iDebugRenderer.h"
 
 #include "../Rendering/iRigidModel.h"

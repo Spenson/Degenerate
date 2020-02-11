@@ -2,53 +2,53 @@
 
 ThirdPersonCamera::ThirdPersonCamera()
 {
-	m_pPlayerObject = g_vec_pGameObjects[0];
-	m_ReletivePosition = glm::vec3(0.0f, 2.0f, -10.0f);
-	m_ReletiveTarget = glm::vec3(0.0f, 1.0f, 0.0f);
-	m_UpVector = glm::vec3(0.0f, 1.0f, 0.0f);
+	mPlayerObject = g_vec_pGameObjects[0];
+	mReletivePosition = glm::vec3(0.0f, 2.0f, -10.0f);
+	mReletiveTarget = glm::vec3(0.0f, 1.0f, 0.0f);
+	mUpVector = glm::vec3(0.0f, 1.0f, 0.0f);
 }
 
 void ThirdPersonCamera::SetPlayerObject(cGameObject* m_pGO)
 {
-	m_pPlayerObject = m_pGO;
+	mPlayerObject = m_pGO;
 }
 
 void ThirdPersonCamera::SetPositionRelitiveToObject(glm::vec3 pos)
 {
-	m_ReletivePosition = pos;
+	mReletivePosition = pos;
 }
 
 void ThirdPersonCamera::SetTargetRelitiveToObject(glm::vec3 tar)
 {
-	m_ReletiveTarget = tar;
+	mReletiveTarget = tar;
 }
 
 void ThirdPersonCamera::SetUpVector(glm::vec3 up)
 {
-	m_UpVector = up;
+	mUpVector = up;
 }
 
 glm::vec3 ThirdPersonCamera::Position()
 {
-	glm::vec3 pos = glm::mat4(m_pPlayerObject->getQOrientation()) * glm::vec4(m_ReletivePosition, 1.0f);
+	glm::vec3 pos = glm::mat4(mPlayerObject->getQOrientation()) * glm::vec4(mReletivePosition, 1.0f);
 
-	pos += m_pPlayerObject->positionXYZ;
+	pos += mPlayerObject->positionXYZ;
 
 	return pos;
 }
 
 glm::vec3 ThirdPersonCamera::Target()
 {
-	glm::vec3 tar = glm::mat4(m_pPlayerObject->getQOrientation()) * glm::vec4(m_ReletiveTarget, 1.0f);
+	glm::vec3 tar = glm::mat4(mPlayerObject->getQOrientation()) * glm::vec4(mReletiveTarget, 1.0f);
 
-	tar += m_pPlayerObject->positionXYZ;
+	tar += mPlayerObject->positionXYZ;
 
 	return tar;
 }
 
 glm::vec3 ThirdPersonCamera::UpVector()
 {
-	glm::vec3 up = glm::mat4(m_pPlayerObject->getQOrientation()) * glm::vec4(m_UpVector, 1.0f);
+	glm::vec3 up = glm::mat4(mPlayerObject->getQOrientation()) * glm::vec4(mUpVector, 1.0f);
 
 	return up;
 }

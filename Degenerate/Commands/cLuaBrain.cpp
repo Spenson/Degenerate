@@ -286,8 +286,8 @@ int cLuaBrain::CreateCommand(lua_State* L)
 
 int cLuaBrain::AddCommandToGroup(lua_State* L)
 {
-	int command = lua_tointeger(L, 1);
-	int group = lua_tointeger(L, 2);
+	size_t command = lua_tointeger(L, 1);
+	size_t group = lua_tointeger(L, 2);
 
 	int response = ::AddCommandToGroup(command, group);
 

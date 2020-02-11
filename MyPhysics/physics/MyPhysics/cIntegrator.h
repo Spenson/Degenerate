@@ -1,44 +1,86 @@
 #pragma once
-
+/**
+ * \file	cIntegrator.h
+ * \path	D:\GDP\Degenerate\MyPhysics\physics\MyPhysics
+ * \brief	Class Header File
+ *
+ * \desc	contains the description of cIntegrator
+ */
 #include "glmCommon.h"
 
 namespace MyPhysics
 {
+	/**
+	 * \class	cIntegrator
+	 * \brief	integrates motion of objects
+	 */
 	class cIntegrator
 	{
 	private:
-		// TODO: Define any structs used internally for specific schemes.
-		//       Such as,
 		struct State
 		{
-			glm::vec3 pos;
-			glm::vec3 vel;
+			glm::vec3 x;      // position
+			glm::vec3 v;      // velocity
 		};
 		struct Derivative
 		{
-			glm::vec3 dx;
-			glm::vec3 dv;
+			glm::vec3 dx;      // dx/dt = velocity
+			glm::vec3 dv;      // dv/dt = acceleration
 		};
-		struct sRK4State;
-		// TODO: Define any methods used interally for specific schemes.
 
-
-		Derivative evaluate(const State& initial, double t, float dt, const Derivative& d);
-		glm::vec3 acceleration(const State& state, double t);
-		void integrate(State& state, double t, float dt);
+		Derivative evaluate(const State& initial, glm::vec3 t, float dt, const Derivative& d);
+		void integrate(State& state, glm::vec3 t, float dt);
 	public:
-		// Constructor
-		cIntegrator();
+		/**
+		 * \method		cIntegrator
+		 * \fullname	MyPhysics::cIntegrator::cIntegrator
+		 * \brief		default ctor
+		 *
+		 * \access		public 	
+		 */
+		cIntegrator() = default;
+		/**
+		 * \method		~cIntegrator
+		 * \fullname	MyPhysics::cIntegrator::~cIntegrator
+		 * \brief		default dtor
+		 *
+		 * \access		virtual public 
+		 */
+		virtual ~cIntegrator() = default;
 
-		// TODO: Do you really want all these options? Do you want others?
-		//       You really only need RK4 (or Velocity Verlet) for Project 2.
+		/**
+		 * \method		Euler
+		 * \fullname	MyPhysics::cIntegrator::Euler
+		 * \brief		Euler integration calculation
+		 *
+		 * \access		public 
+		 * \param		glm::vec3 & pos
+		 * \param		glm::vec3 & vel
+		 * \param		glm::vec3 & acc
+		 * \param		const glm::vec3 & appliedAcc
+		 * \param		float dt
+		 * 
+		 * \return		glm::vec3 & pos
+		 * \return		glm::vec3 & vel
+		 */
+		void Euler(glm::vec3& pos, glm::vec3& vel, glm::vec3& acc, const glm::vec3& appliedAcc, float dt);
 
-		// TODO: Fully comment the inputs/outputs of any
-		//       integration method you do end up including.
 
-
-		// FOURTH-ORDER RUNGE-KUTTA
-		//void RK4(glm::vec3& pos, glm::vec3& vel, glm::vec3& acc, float dt);
-		//void RK4(glm::vec3& pos, glm::vec3& vel, glm::vec3& acc, const glm::vec3& appliedAcc, float dt);
+		/**
+		 * \method		RK4
+		 * \fullname	MyPhysics::cIntegrator::RK4
+		 * \brief		FOURTH-ORDER RUNGE-KUTTA integration calculation
+		 *
+		 * \access		public 
+		 * \param		glm::vec3 & pos
+		 * \param		glm::vec3 & vel
+		 * \param		glm::vec3 & acc
+		 * \param		const glm::vec3 & gravity
+		 * \param		float dt
+		 * 
+		 * \return		glm::vec3 & pos
+		 * \return		glm::vec3 & vel
+		 */
+		void RK4(glm::vec3& pos, glm::vec3& vel, glm::vec3& acc, const glm::vec3& gravity, float dt);
 	};
 }

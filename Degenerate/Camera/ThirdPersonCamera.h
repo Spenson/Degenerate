@@ -4,10 +4,10 @@
 
 class ThirdPersonCamera
 {
-	cGameObject* m_pPlayerObject;
-	glm::vec3 m_ReletivePosition;
-	glm::vec3 m_ReletiveTarget;
-	glm::vec3 m_UpVector;
+	cGameObject* mPlayerObject;
+	glm::vec3 mReletivePosition;
+	glm::vec3 mReletiveTarget;
+	glm::vec3 mUpVector;
 
 public:
 	ThirdPersonCamera();
@@ -18,7 +18,5 @@ public:
 
 	glm::vec3 Position();
 	glm::vec3 Target();
-
-	
 	glm::vec3 UpVector();
 };

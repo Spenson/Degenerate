@@ -104,9 +104,6 @@
 				"Mass": 1.0
 			}
 		},
-
-
-
 		{
 			"Model": "sphere_hires.ply",
 			"Scale": 2.0,

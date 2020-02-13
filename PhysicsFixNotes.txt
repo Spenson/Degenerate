@@ -1,0 +1,21 @@
+Interface
+	listener
+	debugger
+	
+
+	iWorld (own section because lots)
+		add listener
+		add debugger
+		get/set gravity
+		change add/remove comp to bool
+
+
+
+My phys
+	listener
+	debugger
+	get transform from wrapper to myphys on plane
+
+Bullet
+	Collision listener
+	move restitution to def

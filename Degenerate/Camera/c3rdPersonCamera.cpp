@@ -14,7 +14,9 @@ void c3rdPersonCamera::Update(glm::mat4 transformIn)
 	// eye position calculation based off pitch, yaw and distance
 	glm::vec4 offset(mOffset, 0.f);
 
-	glm::mat4 transform(glm::rotate(transformIn, glm::radians(mYaw), up));
+	//Changed to ignore rotation
+	//glm::mat4 transform(glm::rotate(transformIn, glm::radians(mYaw), up));
+	glm::mat4 transform(glm::rotate(glm::mat4(1.f), glm::radians(mYaw), up));
 	transform = glm::rotate(transform, glm::radians(mPitch), right);
 
 	offset = transform * offset;

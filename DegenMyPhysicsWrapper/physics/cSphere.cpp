@@ -42,7 +42,7 @@ namespace DegenMyPhysicsWrapper
 		rigiddef.Acceleration = def.Acceleration;
 		rigiddef.Mass = def.Radius;
 		rigiddef.Velocity = def.Velocity;
-		
+
 		mShape = new MyPhysics::cSphere(def.Radius);
 		mBody = new MyPhysics::cRigidBody(rigiddef, mShape);
 	}

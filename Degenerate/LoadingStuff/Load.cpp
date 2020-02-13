@@ -6,7 +6,7 @@ void LoadScene(std::string file, DegenRendering::cRenderer& renderer, DegenPhysi
 {
 	if (DegenPhysics::PhysicsFactory == nullptr)
 	{
-		DegenPhysics::LoadPhysicsFactory("DegenMyPhysicsWrapper.dll");
+		DegenPhysics::LoadPhysicsFactory("DegenBulletWrapper.dll");
 	}
 
 	rapidjson::Document document = DegenSerialize::cJSONUtility::open_document(file);

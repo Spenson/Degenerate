@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Degenerate", "Degenerate\Degenerate.vcxproj", "{88B5A12D-5940-4A53-9257-8EB3ACE79BAD}"
 	ProjectSection(ProjectDependencies) = postProject
 		{24514549-8EFA-4EA1-A062-2FBD8BC04634} = {24514549-8EFA-4EA1-A062-2FBD8BC04634}
+		{B4ABE250-E9A6-4168-9003-5305A48E1BD6} = {B4ABE250-E9A6-4168-9003-5305A48E1BD6}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DegenPhysicsInterface", "DegenPhysicsInterface\DegenPhysicsInterface.vcxproj", "{9909D374-646B-485E-8EA3-AA61F5BE3512}"
@@ -15,6 +16,13 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DegenMyPhysicsWrapper", "DegenMyPhysicsWrapper\DegenMyPhysicsWrapper.vcxproj", "{24514549-8EFA-4EA1-A062-2FBD8BC04634}"
 	ProjectSection(ProjectDependencies) = postProject
 		{34C821E4-AAFF-4B16-9DFA-3584183A4049} = {34C821E4-AAFF-4B16-9DFA-3584183A4049}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DegenBulletWrapper", "DegenBulletWrapper\DegenBulletWrapper.vcxproj", "{B4ABE250-E9A6-4168-9003-5305A48E1BD6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{ADD9E52B-70E2-41D5-8B31-71F3DD985B4E}"
+	ProjectSection(SolutionItems) = preProject
+		dependencies\include\glmCommon.hpp = dependencies\include\glmCommon.hpp
 	EndProjectSection
 EndProject
 Global
@@ -57,6 +65,14 @@ Global
 		{24514549-8EFA-4EA1-A062-2FBD8BC04634}.Release|x64.Build.0 = Release|x64
 		{24514549-8EFA-4EA1-A062-2FBD8BC04634}.Release|x86.ActiveCfg = Release|Win32
 		{24514549-8EFA-4EA1-A062-2FBD8BC04634}.Release|x86.Build.0 = Release|Win32
+		{B4ABE250-E9A6-4168-9003-5305A48E1BD6}.Debug|x64.ActiveCfg = Debug|x64
+		{B4ABE250-E9A6-4168-9003-5305A48E1BD6}.Debug|x64.Build.0 = Debug|x64
+		{B4ABE250-E9A6-4168-9003-5305A48E1BD6}.Debug|x86.ActiveCfg = Debug|Win32
+		{B4ABE250-E9A6-4168-9003-5305A48E1BD6}.Debug|x86.Build.0 = Debug|Win32
+		{B4ABE250-E9A6-4168-9003-5305A48E1BD6}.Release|x64.ActiveCfg = Release|x64
+		{B4ABE250-E9A6-4168-9003-5305A48E1BD6}.Release|x64.Build.0 = Release|x64
+		{B4ABE250-E9A6-4168-9003-5305A48E1BD6}.Release|x86.ActiveCfg = Release|Win32
+		{B4ABE250-E9A6-4168-9003-5305A48E1BD6}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

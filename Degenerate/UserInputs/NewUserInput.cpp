@@ -45,12 +45,12 @@ void ProcessAsyncKeys(GLFWwindow* window, std::vector<cPhysicsGameObject*>& obje
 
 	if (glfwGetKey(window, GLFW_KEY_A))
 	{
-		glm::vec3 force = glm::normalize(glm::cross(camera->Target() - camera->Position(), glm::vec3(0.0f, 1.0f, 0.0f))) * 5.f;
+		glm::vec3 force = glm::normalize(glm::cross(camera->Target() - camera->Position(),camera->UpVector())) * 5.f;
 		object[selected]->mPhysicsComponent->ApplyForce(-force);
 	}
 	else if (glfwGetKey(window, GLFW_KEY_D))
 	{
-		glm::vec3 force = glm::normalize(glm::cross(camera->Target() - camera->Position(), glm::vec3(0.0f, 1.0f, 0.0f))) * 5.f;
+		glm::vec3 force = glm::normalize(glm::cross(camera->Target() - camera->Position(), camera->UpVector())) * 5.f;
 		object[selected]->mPhysicsComponent->ApplyForce(force);
 	}
 

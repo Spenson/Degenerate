@@ -36,16 +36,16 @@ namespace DegenMyPhysicsWrapper
 	 */
 	cPlane::cPlane(DegenPhysics::sPlaneDef def)
 	{
-		mShape = new MyPhysics::cPlane(def.Normal,def.Constant);
-		
+		mShape = new MyPhysics::cPlane(def.Normal, def.Constant);
+
 		MyPhysics::sRigidBodyDef rigiddef;
 		rigiddef.Position = glm::vec3(0.f);
 		rigiddef.Acceleration = glm::vec3(0.f);
 		rigiddef.Mass = 0.f;
 		rigiddef.Velocity = glm::vec3(0.f);
-		
+
 		mBody = new MyPhysics::cRigidBody(rigiddef, mShape);
-		
+
 	}
 
 	/**
@@ -61,12 +61,11 @@ namespace DegenMyPhysicsWrapper
 	void cPlane::GetTransform(glm::mat4& transformOut)
 	{
 		//calculate matrix off of plane shape info
-		transformOut = glm::mat4(1.f);
-		transformOut = glm::translate(transformOut, mShape->GetNormal() * mShape->GetConstant());
-		if(mShape->GetNormal() == glm::vec3(0.f,1.f,0.f))
+		transformOut = glm::translate(glm::mat4(1.f), mShape->GetNormal() * mShape->GetConstant());
+		if (mShape->GetNormal() == glm::vec3(0.f, 1.f, 0.f))
 			transformOut *= glm::mat4(glm::quatLookAt(mShape->GetNormal(), glm::vec3(0.f, 0.f, 1.f)));
 		else
-		transformOut *= glm::mat4(glm::quatLookAt(mShape->GetNormal(), glm::vec3(0.f, 1.f, 0.f)));
+			transformOut *= glm::mat4(glm::quatLookAt(mShape->GetNormal(), glm::vec3(0.f, 1.f, 0.f)));
 		//mBody->GetTransform(transformOut);
 	}
 

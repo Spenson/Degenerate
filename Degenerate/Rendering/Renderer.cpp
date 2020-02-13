@@ -116,6 +116,25 @@ namespace DegenRendering
 		mSkybox = skybox;
 
 
+		const std::pair<std::string, float>* cubemaps = skybox->CubeMaps();
+
+		// Tie the texture to the texture unit
+		GLuint skybox0_UL = mTextureManager->getTextureIDFromName(cubemaps[0].first);
+		glActiveTexture(GL_TEXTURE4);				// Texture Unit 0
+		glBindTexture(GL_TEXTURE_CUBE_MAP, skybox0_UL);	// Texture now assoc with texture unit 0
+
+		GLuint skybox1_UL = mTextureManager->getTextureIDFromName(cubemaps[1].first);
+		glActiveTexture(GL_TEXTURE5);				// Texture Unit 1
+		glBindTexture(GL_TEXTURE_CUBE_MAP, skybox1_UL);	// Texture now assoc with texture unit 0
+
+		GLuint skybox2_UL = mTextureManager->getTextureIDFromName(cubemaps[2].first);
+		glActiveTexture(GL_TEXTURE6);				// Texture Unit 2
+		glBindTexture(GL_TEXTURE_CUBE_MAP, skybox2_UL);	// Texture now assoc with texture unit 0
+
+		GLuint skybox3_UL = mTextureManager->getTextureIDFromName(cubemaps[3].first);
+		glActiveTexture(GL_TEXTURE7);				// Texture Unit 3
+		glBindTexture(GL_TEXTURE_CUBE_MAP, skybox3_UL);	// Texture now assoc with texture unit 0
+
 	}
 
 	bool cRenderer::AddRenderComponent(iRenderComponent* comp)
@@ -131,9 +150,9 @@ namespace DegenRendering
 	bool cRenderer::RemoveRenderComponent(iRenderComponent* comp)
 	{
 		auto compiter = std::find(mObjects.begin(), mObjects.end(), comp);
-		if(compiter == mObjects.end())
+		if (compiter == mObjects.end())
 			return false;
-		
+
 		mObjects.erase(compiter);
 		return true;
 	}
@@ -148,7 +167,7 @@ namespace DegenRendering
 		return false;
 	}
 
-	/*void cRenderer::RenderScene(glm::mat4 view, glm::mat4 perspective, int width, int height)
+/*	void cRenderer::RenderScene(glm::mat4 view, glm::mat4 perspective, int width, int height)
 	{
 		cShaderManager::cShaderProgram* shaderProgram = mShaderManager->pGetShaderProgramFromFriendlyName("UberShader");
 
@@ -173,8 +192,8 @@ namespace DegenRendering
 			}
 		}
 
-	}*/
-
+	}
+*/
 	void cRenderer::RenderScene(const int& width, const int& height)
 	{
 		cShaderManager::cShaderProgram* shaderProgram = mShaderManager->pGetShaderProgramFromFriendlyName("UberShader");
@@ -195,7 +214,6 @@ namespace DegenRendering
 
 		glUniformMatrix4fv(shaderProgram->getUniformLocID("matView"), 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(shaderProgram->getUniformLocID("matProj"), 1, GL_FALSE, glm::value_ptr(perspective));
-
 		SetUpTextureBindingsForSkybox(shaderProgram);
 		DrawSkybox(shaderProgram);
 
@@ -269,11 +287,10 @@ namespace DegenRendering
 		SetUpTextureBindingsForObject(pCurrentObject, shaderProg);
 
 		// Don't draw back facing triangles (default)
-		//glEnable(GL_CULL_FACE);
-		glCullFace(GL_FRONT_AND_BACK);
+		glCullFace(GL_BACK);
 
 		glUniform1f(shaderProg->getUniformLocID("useOffset"), (float)GL_FALSE);
-		glUniform1f(shaderProg->getUniformLocID("offset"), GL_FALSE);
+		glUniform1f(shaderProg->getUniformLocID("offset"), 0.f);
 
 		glm::mat4 matWorldCurrentGO = pCurrentObject->Transform() * glm::scale(glm::mat4(1.f), pCurrentObject->Scale());
 
@@ -329,7 +346,7 @@ namespace DegenRendering
 		//float isImposter = GL_FALSE;
 
 		glUniform4f(shaderProg->getUniformLocID("boolModifiers"),
-					(float)ShaderMode::Object,
+			(float)ShaderMode::Object,
 					doNotLight,
 					useDiffuse,
 					0);
@@ -403,26 +420,10 @@ namespace DegenRendering
 
 	void cRenderer::SetUpTextureBindingsForSkybox(cShaderManager::cShaderProgram* shaderProg)
 	{
-		std::pair<std::string, float>* cubemaps = mSkybox->CubeMaps();
-		
-		// Tie the texture to the texture unit
-		GLuint skybox0_UL = mTextureManager->getTextureIDFromName(cubemaps[0].first);
-		glActiveTexture(GL_TEXTURE4);				// Texture Unit 0
-		glBindTexture(GL_TEXTURE_2D, skybox0_UL);	// Texture now assoc with texture unit 0
-
-		GLuint skybox1_UL = mTextureManager->getTextureIDFromName(cubemaps[1].first);
-		glActiveTexture(GL_TEXTURE5);				// Texture Unit 1
-		glBindTexture(GL_TEXTURE_2D, skybox1_UL);	// Texture now assoc with texture unit 0
-
-		GLuint skybox2_UL = mTextureManager->getTextureIDFromName(cubemaps[2].first);
-		glActiveTexture(GL_TEXTURE6);				// Texture Unit 2
-		glBindTexture(GL_TEXTURE_2D, skybox2_UL);	// Texture now assoc with texture unit 0
-
-		GLuint skybox3_UL = mTextureManager->getTextureIDFromName(cubemaps[3].first);
-		glActiveTexture(GL_TEXTURE7);				// Texture Unit 3
-		glBindTexture(GL_TEXTURE_2D, skybox3_UL);	// Texture now assoc with texture unit 0
+		const std::pair<std::string, float>* cubemaps = mSkybox->CubeMaps();
 
 		// Tie the texture units to the samplers in the shader
+
 		glUniform1i(mShaderManager->pGetShaderProgramFromFriendlyName("UberShader")->getUniformLocID("skybox00"), 4);	// Texture unit 0
 
 		glUniform1i(mShaderManager->pGetShaderProgramFromFriendlyName("UberShader")->getUniformLocID("skybox01"), 5);	// Texture unit 1
@@ -441,8 +442,7 @@ namespace DegenRendering
 		{
 			return;
 		}
-		
-		//glEnable(GL_CULL_FACE);
+
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -466,7 +466,7 @@ namespace DegenRendering
 		glUniformMatrix4fv(shaderProg->getUniformLocID("matModelInverseTranspose"), 1, GL_FALSE, glm::value_ptr(matModelInverseTranspose));
 
 		glUniform4f(shaderProg->getUniformLocID("boolModifiers"),
-					(float)ShaderMode::Skybox, 0, 0, 0);
+			(float)ShaderMode::Skybox, 0, 0, 0);
 
 		glDisable(GL_DEPTH_TEST);
 		glDisable(GL_DEPTH);

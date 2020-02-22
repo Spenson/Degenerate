@@ -34,6 +34,8 @@ extern float offset;
 
 #include "../Commands/Commands.h"
 #include "../Commands/cLuaBrain.h"
+
+#include "../Camera/c3rdPersonCamera.h"
 extern iCommand* g_ParentCommandGroup;
 extern cLuaBrain* g_pLuaScripts;
 
@@ -47,7 +49,82 @@ extern std::vector<glm::vec3> PathPoints;
 //extern bool g_DoingRun;
 extern glm::vec3 g_EndPoint, g_StartPoint;
 
+float change = 0;
 
+void ProcessAsyncKeys(GLFWwindow* window, std::vector<cGameObject*>& object, size_t& selected, c3rdPersonCamera* camera)
+{
+	if (glfwGetKey(window, GLFW_KEY_SPACE) && glfwGetKey(window, GLFW_KEY_LEFT_SHIFT))
+	{
+		if (object[selected]->CurrentAnimation() != "RunningJump")
+			object[selected]->CurrentAnimation("RunningJump", true);
+	}
+	else if (glfwGetKey(window, GLFW_KEY_W) && glfwGetKey(window, GLFW_KEY_LEFT_SHIFT))
+	{
+		if (object[selected]->CurrentAnimation() != "Run")
+		{
+			object[selected]->setOrientation(glm::vec3(0.f, 0.f, 0.f));
+			object[selected]->CurrentAnimation("Run");
+		}
+	}
+	else if (glfwGetKey(window, GLFW_KEY_S) && glfwGetKey(window, GLFW_KEY_LEFT_SHIFT))
+	{
+		if (object[selected]->CurrentAnimation() != "Run")
+		{
+			object[selected]->setOrientation(glm::vec3(0.f, 180.f, 0.f));
+			object[selected]->CurrentAnimation("Run");
+		}
+	}
+	else if (glfwGetKey(window, GLFW_KEY_SPACE))
+	{
+		if (object[selected]->CurrentAnimation() != "Jumping")
+			object[selected]->CurrentAnimation("Jumping", true);
+	}
+	else if (glfwGetKey(window, GLFW_KEY_W))
+	{
+		if (object[selected]->CurrentAnimation() != "Walk")
+		{
+			object[selected]->setOrientation(glm::vec3(0.f, 0.f, 0.f));
+			object[selected]->CurrentAnimation("Walk");
+		}
+	}
+	else if (glfwGetKey(window, GLFW_KEY_S))
+	{
+		if (object[selected]->CurrentAnimation() != "Walk")
+		{
+			object[selected]->setOrientation(glm::vec3(0.f, 180.f, 0.f));
+			object[selected]->CurrentAnimation("Walk");
+		}
+	}
+	else if (glfwGetKey(window, GLFW_KEY_A))
+	{
+		if (object[selected]->CurrentAnimation() != "Left Strafe")
+			object[selected]->CurrentAnimation("Left Strafe");
+	}
+	else if (glfwGetKey(window, GLFW_KEY_D))
+	{
+		if (object[selected]->CurrentAnimation() != "Right Strafe")
+			object[selected]->CurrentAnimation("Right Strafe");
+	}
+	else
+	{
+		if (object[selected]->CurrentAnimation() != "Idle")
+			object[selected]->CurrentAnimation("Idle");
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_TAB))
+	{
+		if (glfwGetTime() - change > 0.5f)
+		{
+			if (object[selected]->CurrentAnimation() != "Idle")
+				object[selected]->CurrentAnimation("Idle");
+			
+			selected++;
+			if (selected == object.size())
+				selected = 0;
+			change = glfwGetTime();
+		}
+	}
+}
 
 void cursor_enter_callback(GLFWwindow* window, int entered)
 {

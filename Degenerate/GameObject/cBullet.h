@@ -1,8 +1,8 @@
 //#pragma once
-//#include "../Rendering/iRigidModel.h"
+//#include "../Rendering/iGeneralModel.h"
 //#include "../AI/iEntity.h"
 //
-//class cBullet: public DegenRendering::iRigidModel, public DegenBehaviours::iEntity
+//class cBullet: public DegenRendering::iGeneralModel, public DegenBehaviours::iEntity
 //{
 //public:
 //	cBullet();
@@ -21,7 +21,7 @@
 //	bool DepthBufferTest() override;
 //	bool DepthBufferWrite() override;
 //	std::pair<std::string, float>* Textures() override;
-//	std::vector<iRigidModel*> Children() override;
+//	std::vector<iGeneralModel*> Children() override;
 //
 //	
 //	glm::vec3 Position() override;
@@ -60,6 +60,6 @@
 //
 //	std::pair<std::string, float> mTextures[DegenRendering::RIGID_MODEL_TEXTURES];
 //
-//	std::vector<iRigidModel*> mChildren;
+//	std::vector<iGeneralModel*> mChildren;
 //	
 //};

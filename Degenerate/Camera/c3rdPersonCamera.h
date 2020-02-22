@@ -25,6 +25,8 @@ public:
 	//void SetTargetTransform(glm::mat4& transform);
 	void Update(glm::mat4 transform);
 
+	void SetOffset(glm::vec3 offset);
+
 	void AddYaw(float degrees);
 	void AddPitch(float degrees);
 	void SetYaw(float degrees);

@@ -35,6 +35,11 @@ cPhysicsGameObject::cPhysicsGameObject()
 
 }
 
+cPhysicsGameObject::~cPhysicsGameObject()
+{
+	delete mPhysicsComponent;
+}
+
 void cPhysicsGameObject::SetTransform(const glm::mat4& transform)
 {
 
@@ -101,7 +106,7 @@ std::pair<std::string, float>* cPhysicsGameObject::Textures()
 	return this->mTextures;
 }
 
-std::vector<DegenRendering::iRigidModel*> cPhysicsGameObject::Children()
+std::vector<DegenRendering::iGeneralModel*> cPhysicsGameObject::Children()
 {
 	return this->mChildren;
 }
@@ -206,4 +211,33 @@ bool cPhysicsGameObject::deserialize(rapidjson::Document* document)
 		
 	}
 	return true;
+}
+
+bool cPhysicsGameObject::IsSkinnedMesh()
+{
+	return false;
+}
+
+cSkinnedMesh* cPhysicsGameObject::Mesh()
+{
+	return nullptr;
+}
+
+std::string cPhysicsGameObject::CurrentAnimation()
+{
+	return "";
+}
+
+void cPhysicsGameObject::CurrentAnimation(std::string name, bool lock)
+{
+	
+}
+
+void cPhysicsGameObject::AnimationTimeStep(float dt)
+{
+}
+
+float cPhysicsGameObject::CurrentAnimationTime()
+{
+	return 0.0f;
 }

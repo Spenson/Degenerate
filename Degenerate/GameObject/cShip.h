@@ -1,12 +1,12 @@
 //#pragma once
 //
-//#include "../Rendering/iRigidModel.h"
+//#include "../Rendering/iGeneralModel.h"
 //#include "../AI/iEntity.h"
 //#include "cBullet.h"
 //
 //extern cBullet* Shoot(glm::quat rot, glm::vec3 pos, float& lastShot);
 //
-//class cShip : public DegenRendering::iRigidModel, public DegenBehaviours::iEntity
+//class cShip : public DegenRendering::iGeneralModel, public DegenBehaviours::iEntity
 //{
 //public:
 //	cShip();
@@ -24,7 +24,7 @@
 //	bool DepthBufferTest() override;
 //	bool DepthBufferWrite() override;
 //	std::pair<std::string, float>* Textures() override;
-//	std::vector<iRigidModel*> Children() override;
+//	std::vector<iGeneralModel*> Children() override;
 //
 //	glm::vec3 Position() override;
 //
@@ -63,7 +63,7 @@
 //
 //	std::pair<std::string, float> mTextures[DegenRendering::RIGID_MODEL_TEXTURES];
 //
-//	std::vector<iRigidModel*> mChildren;
+//	std::vector<iGeneralModel*> mChildren;
 //};
 //
 //

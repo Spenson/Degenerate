@@ -16,7 +16,7 @@
       <Acceleration x="0" y="0" z="0"/>
       <InverseMass f="0"/>
 
-      <PhysicsShapeType type="0"/>
+      <PhysicsShapeRendType type="0"/>
 
       <Wireframe b="0"/>
       <Visible b="1"/>
@@ -40,7 +40,7 @@
       <Acceleration x="0" y="0" z="0"/>
       <InverseMass f="1.0f"/>
      
-      <PhysicsShapeType type="6"/>
+      <PhysicsShapeRendType type="6"/>
 
       <Textures>
         <texture index="0" name="X-Wing-Texture.bmp" ratio="1"/>
@@ -76,7 +76,7 @@
     <Acceleration x="0" y="0" z="0"/>
     <InverseMass f="1.0f"/>
 
-    <PhysicsShapeType type="6"/>
+    <PhysicsShapeRendType type="6"/>
 
     <Textures>
       <texture index="0" name="X-Wing-Texture.bmp" ratio="1"/>

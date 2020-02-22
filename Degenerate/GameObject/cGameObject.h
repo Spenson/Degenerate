@@ -7,7 +7,7 @@
 // NOTE: We are including the INTERFACE, not the actual g_Renderer
 #include "../DebugRenderer/iDebugRenderer.h"
 
-#include "../Rendering/iRigidModel.h"
+#include "../Rendering/iGeneralModel.h"
 
 enum eShapeTypes
 {
@@ -20,7 +20,7 @@ enum eShapeTypes
 	POINTSET
 };
 
-class cGameObject : public DegenRendering::iRigidModel
+class cGameObject : public DegenRendering::iGeneralModel
 {
 public:
 	cGameObject();
@@ -45,17 +45,28 @@ public:
 
 	virtual std::pair<std::string, float>* Textures() override;
 
-	virtual std::vector<iRigidModel*> Children() override;
+	virtual std::vector<iGeneralModel*> Children() override;
 
 	virtual void SetTransform(const glm::mat4& transform) override;
 
 
 	std::pair<std::string, float> pairedTextures[4];
 
+	bool IsSkinnedMesh() override;
+	cSkinnedMesh* Mesh() override;
+	std::string CurrentAnimation() override;
+	void CurrentAnimation(std::string name, bool lock = false) override;
+	void AnimationTimeStep(float dt) override;
+	float CurrentAnimationTime() override;
+	void AnimationTimeSet(float time);
+	void AnimationSet(std::string name);
 
 
-
-
+	bool mIsSkinnedMesh;
+	cSkinnedMesh* mSkinnedMesh;
+	float mAnimationTime;
+	std::string mAnimation;
+	bool mLocked;
 
 
 	//points to draw
@@ -132,6 +143,7 @@ public:
 
 	void setDebugRenderer(iDebugRenderer* pDebugRenderer);
 
+	
 	iDebugRenderer* m_pDebugRenderer;
 private:
 	static unsigned int next_uniqueID;

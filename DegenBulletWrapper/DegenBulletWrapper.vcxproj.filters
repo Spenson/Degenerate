@@ -471,19 +471,19 @@
     <ClCompile Include="physics\bullet\LinearMath\btVector3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="physics\bullet\cPhysicsFactory.cpp">
+    <ClCompile Include="physics\cPhysicsFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="physics\bullet\cPhysicsWorld.cpp">
+    <ClCompile Include="physics\cPhysicsWorld.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="physics\bullet\cPlane.cpp">
+    <ClCompile Include="physics\cPlane.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="physics\bullet\CreatePhysicsFactory.cpp">
+    <ClCompile Include="physics\CreatePhysicsFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="physics\bullet\cSphere.cpp">
+    <ClCompile Include="physics\cSphere.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1181,25 +1181,25 @@
     <ClInclude Include="physics\bullet\BulletCollision\CollisionDispatch\SphereTriangleDetector.h">
       <Filter>Header Files\bullet</Filter>
     </ClInclude>
-    <ClInclude Include="physics\bullet\cCollisionListener.h">
+    <ClInclude Include="physics\cCollisionListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="physics\bullet\cPhysicsFactory.h">
+    <ClInclude Include="physics\cPhysicsFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="physics\bullet\cPhysicsWorld.h">
+    <ClInclude Include="physics\cPhysicsWorld.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="physics\bullet\cPlane.h">
+    <ClInclude Include="physics\cPlane.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="physics\bullet\CreatePhysicsFactory.h">
+    <ClInclude Include="physics\CreatePhysicsFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="physics\bullet\cSphere.h">
+    <ClInclude Include="physics\cSphere.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="physics\bullet\nConvert.h">
+    <ClInclude Include="physics\nConvert.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

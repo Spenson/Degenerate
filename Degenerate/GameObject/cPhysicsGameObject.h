@@ -1,13 +1,15 @@
 #pragma once
-#include "../Rendering/iRigidModel.h"
+#include "../Rendering/iGeneralModel.h"
 #include "physics/interfaces/iPhysicsFactory.h"
 #include "../LoadingStuff/iSerializable.h"
+#include "../Rendering/VAOManager/SkinnedMesh/cSimpleSkinnedMesh.h"
 
 
-class cPhysicsGameObject : public DegenRendering::iRigidModel, public DegenSerialize::iSerializable
+class cPhysicsGameObject : public DegenRendering::iGeneralModel, public DegenSerialize::iSerializable
 {
 public:
 	cPhysicsGameObject();
+	virtual ~cPhysicsGameObject();
 	
 	void SetTransform(const glm::mat4& transform) override;
 	bool Visable() override;
@@ -22,10 +24,17 @@ public:
 	bool DepthBufferTest() override;
 	bool DepthBufferWrite() override;
 	std::pair<std::string, float>* Textures() override;
-	std::vector<iRigidModel*> Children() override;
+	std::vector<iGeneralModel*> Children() override;
 
 	bool deserialize(rapidjson::Document* document) override;
 
+
+	bool IsSkinnedMesh() override;
+	cSkinnedMesh* Mesh() override;
+	std::string CurrentAnimation() override;
+	void CurrentAnimation(std::string name, bool lock) override;
+	void AnimationTimeStep(float dt) override;
+	float CurrentAnimationTime() override;
 	
 	DegenPhysics::iPhysicsComponent* mPhysicsComponent;
 
@@ -47,6 +56,7 @@ public:
 
 	std::pair<std::string, float> mTextures[DegenRendering::RIGID_MODEL_TEXTURES];
 
-	std::vector<iRigidModel*> mChildren;
-	
+	std::vector<iGeneralModel*> mChildren;
+
+
 };

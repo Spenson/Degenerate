@@ -1,6 +1,6 @@
 #pragma once
 #include "../GLCommon.h"
-#include "eType.h"
+#include "eRendType.h"
 
 
 namespace DegenRendering
@@ -14,17 +14,17 @@ namespace DegenRendering
 		iRenderComponent(const iRenderComponent& other) = delete;
 		iRenderComponent& operator=(const iRenderComponent& other) = delete;
 		
-		inline const eType& GetComponentType() { return mComponentType; }
+		inline const eRendType& GetComponentType() { return mComponentType; }
 
 		virtual void SetTransform(const glm::mat4& transform) = 0;
 
 	protected:
-		iRenderComponent(eType componentType)
+		iRenderComponent(eRendType componentType)
 			: mComponentType(componentType)
 		{
 		}
 	private:
-		eType mComponentType;
+		eRendType mComponentType;
 
 	};
 };

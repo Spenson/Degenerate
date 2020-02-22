@@ -293,11 +293,11 @@
     <ClCompile Include="physics\bullet\LinearMath\TaskScheduler\btTaskScheduler.cpp" />
     <ClCompile Include="physics\bullet\LinearMath\TaskScheduler\btThreadSupportPosix.cpp" />
     <ClCompile Include="physics\bullet\LinearMath\TaskScheduler\btThreadSupportWin32.cpp" />
-    <ClCompile Include="physics\bullet\cPhysicsFactory.cpp" />
-    <ClCompile Include="physics\bullet\cPhysicsWorld.cpp" />
-    <ClCompile Include="physics\bullet\cPlane.cpp" />
-    <ClCompile Include="physics\bullet\CreatePhysicsFactory.cpp" />
-    <ClCompile Include="physics\bullet\cSphere.cpp" />
+    <ClCompile Include="physics\cPhysicsFactory.cpp" />
+    <ClCompile Include="physics\cPhysicsWorld.cpp" />
+    <ClCompile Include="physics\cPlane.cpp" />
+    <ClCompile Include="physics\CreatePhysicsFactory.cpp" />
+    <ClCompile Include="physics\cSphere.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="physics\bullet\btBulletCollisionCommon.h" />
@@ -531,13 +531,13 @@
     <ClInclude Include="physics\bullet\LinearMath\btTransformUtil.h" />
     <ClInclude Include="physics\bullet\LinearMath\btVector3.h" />
     <ClInclude Include="physics\bullet\LinearMath\TaskScheduler\btThreadSupportInterface.h" />
-    <ClInclude Include="physics\bullet\cCollisionListener.h" />
-    <ClInclude Include="physics\bullet\cPhysicsFactory.h" />
-    <ClInclude Include="physics\bullet\cPhysicsWorld.h" />
-    <ClInclude Include="physics\bullet\cPlane.h" />
-    <ClInclude Include="physics\bullet\CreatePhysicsFactory.h" />
-    <ClInclude Include="physics\bullet\cSphere.h" />
-    <ClInclude Include="physics\bullet\nConvert.h" />
+    <ClInclude Include="physics\cCollisionListener.h" />
+    <ClInclude Include="physics\cPhysicsFactory.h" />
+    <ClInclude Include="physics\cPhysicsWorld.h" />
+    <ClInclude Include="physics\cPlane.h" />
+    <ClInclude Include="physics\CreatePhysicsFactory.h" />
+    <ClInclude Include="physics\cSphere.h" />
+    <ClInclude Include="physics\nConvert.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

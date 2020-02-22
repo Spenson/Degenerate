@@ -78,6 +78,11 @@ namespace DegenRendering
 			std::cout << "Error loading Mesh into VAO: " << model << std::endl;
 	}
 
+	void cRenderer::AddModel(cSkinnedMesh* mesh)
+	{
+		mVAOManager->LoadModelDrawInfoIntoVAO(*mesh->CreateModelDrawInfoObjectFromCurrentModel(), mShaderManager->getIDFromFriendlyName("UberShader"));
+	}
+
 	void cRenderer::AddTexture(const std::string& texture, std::string path)
 	{
 		if (!path.empty())
@@ -167,33 +172,6 @@ namespace DegenRendering
 		return false;
 	}
 
-/*	void cRenderer::RenderScene(glm::mat4 view, glm::mat4 perspective, int width, int height)
-	{
-		cShaderManager::cShaderProgram* shaderProgram = mShaderManager->pGetShaderProgramFromFriendlyName("UberShader");
-
-		glEnable(GL_DEPTH);			// Write to the depth buffer
-		glEnable(GL_DEPTH_TEST);	// Test with buffer when drawing
-
-		glUseProgram(shaderProgram->ID);
-		glViewport(0, 0, width, height);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		glUniformMatrix4fv(shaderProgram->getUniformLocID("matView"), 1, GL_FALSE, glm::value_ptr(view));
-		glUniformMatrix4fv(shaderProgram->getUniformLocID("matProj"), 1, GL_FALSE, glm::value_ptr(perspective));
-
-
-
-		for (size_t c = 0; c < mObjects.size(); c++)
-		{
-			if (mObjects[c]->GetComponentType() == eType::RigidModel)
-			{
-				auto* pCurrentObject = dynamic_cast<iRigidModel*>(mObjects[c]);
-				DrawObject(glm::mat4(1.f), pCurrentObject, shaderProgram);
-			}
-		}
-
-	}
-*/
 	void cRenderer::RenderScene(const int& width, const int& height)
 	{
 		cShaderManager::cShaderProgram* shaderProgram = mShaderManager->pGetShaderProgramFromFriendlyName("UberShader");
@@ -219,15 +197,15 @@ namespace DegenRendering
 
 		for (size_t c = 0; c < mObjects.size(); c++)
 		{
-			if (mObjects[c]->GetComponentType() == eType::RigidModel)
+			if (mObjects[c]->GetComponentType() == eRendType::Model)
 			{
-				auto* pCurrentObject = dynamic_cast<iRigidModel*>(mObjects[c]);
+				auto* pCurrentObject = dynamic_cast<iGeneralModel*>(mObjects[c]);
 				DrawObject(glm::mat4(1.f), pCurrentObject, shaderProgram);
 			}
 		}
 	}
 
-	void cRenderer::SetUpTextureBindingsForObject(iRigidModel* pCurrentObject, cShaderManager::cShaderProgram* shaderProg)
+	void cRenderer::SetUpTextureBindingsForObject(iGeneralModel* pCurrentObject, cShaderManager::cShaderProgram* shaderProg)
 	{
 		const std::pair<std::string, float>* textures = pCurrentObject->Textures();
 
@@ -266,7 +244,7 @@ namespace DegenRendering
 		return;
 	}
 
-	void cRenderer::DrawObject(glm::mat4 matModel, iRigidModel* pCurrentObject, cShaderManager::cShaderProgram* shaderProg)
+	void cRenderer::DrawObject(glm::mat4 matModel, iGeneralModel* pCurrentObject, cShaderManager::cShaderProgram* shaderProg)
 	{
 
 		if (pCurrentObject->Visable() == false)
@@ -292,7 +270,7 @@ namespace DegenRendering
 		glUniform1f(shaderProg->getUniformLocID("useOffset"), (float)GL_FALSE);
 		glUniform1f(shaderProg->getUniformLocID("offset"), 0.f);
 
-		glm::mat4 matWorldCurrentGO = pCurrentObject->Transform() * glm::scale(glm::mat4(1.f), pCurrentObject->Scale());
+		glm::mat4 matWorldCurrentGO = matModel * (pCurrentObject->Transform() * glm::scale(glm::mat4(1.f), pCurrentObject->Scale()));
 
 		glUniformMatrix4fv(shaderProg->getUniformLocID("matModel"), 1, GL_FALSE, glm::value_ptr(matWorldCurrentGO));
 
@@ -374,6 +352,106 @@ namespace DegenRendering
 		//		glDrawArrays(GL_TRIANGLES, 0, 2844);
 		//		glDrawArrays(GL_TRIANGLES, 0, numberOfVertsOnGPU);
 
+
+
+
+
+
+
+
+
+
+
+		if (pCurrentObject->IsSkinnedMesh())
+		{
+			glUniform1f(shaderProg->getUniformLocID("isSkinnedMesh"), (float)GL_TRUE);
+
+			// Set to all identity
+			const int NUMBEROFBONES = 100;
+			//glm::mat4 matBones[NUMBEROFBONES];
+
+			//for (int index = 0; index != NUMBEROFBONES; index++)
+			//{
+			//	matBones[index] = glm::mat4(1.0f);	// Identity
+			//}
+
+			// Taken from "Skinned Mesh 2 - todo.docx"
+			std::vector< glm::mat4x4 > vecFinalTransformation;
+			std::vector< glm::mat4x4 > vecOffsets;
+			std::vector< glm::mat4x4 > vecObjectBoneTransformation;
+
+			// This loads the bone transforms from the animation model
+			pCurrentObject->Mesh()->BoneTransform(pCurrentObject->CurrentAnimationTime(),	// 0.0f // Frame time
+												  pCurrentObject->CurrentAnimation(),
+												  vecFinalTransformation,
+												  vecObjectBoneTransformation,
+												  vecOffsets);
+
+			// Wait until all threads are done updating.
+
+			//HACK_FrameTime += 0.01f;
+
+			//{// Forward kinematic stuff
+
+			//	// "Bone" location is at the origin
+			//	glm::vec4 boneLocation = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+
+			//	// bone #22 is "B_R_Hand" in this model
+			//	glm::mat4 matSpecificBone = vecFinalTransformation[22];
+
+			//	// Transformed into "model" space where that bone is.
+			//	::g_HACK_vec3_BoneLocationFK = matSpecificBone * boneLocation;
+
+			//	//			// If it's in world space
+			//	//			::g_HACK_vec3_BoneLocationFK = matModel * ::g_HACK_vec3_BoneLocationFK;
+
+
+			//}// Forward kinematic 
+
+
+				// Copy all 100 bones to the shader
+		//	GLint matBonesArray_UniLoc = glGetUniformLocation(shaderProgID, "matBonesArray");
+			// The "100" is to pass 100 values, starting at the pointer location of matBones[0];
+			//glUniformMatrix4fv(matBonesArray_UniLoc, 100, GL_FALSE, glm::value_ptr(matBones[0]));
+
+			GLint numBonesUsed = (GLint)vecFinalTransformation.size();
+
+			glUniformMatrix4fv(shaderProg->getUniformLocID("matBonesArray[0]"), numBonesUsed,
+							   GL_FALSE,
+							   glm::value_ptr(vecFinalTransformation[0]));
+
+		}
+		else
+		{
+			glUniform1f(shaderProg->getUniformLocID("isSkinnedMesh"), (float)GL_FALSE);
+		}
+		// ************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		sModelDrawInfo drawInfo;
 		//if (pTheVAOManager->FindDrawInfoByModelName("bunny", drawInfo))
 		if (mVAOManager->FindDrawInfoByModelName(pCurrentObject->Model(), drawInfo))
@@ -388,12 +466,13 @@ namespace DegenRendering
 
 
 		// Draw any child objects...
-		if (pCurrentObject->Children().size() > 0)
-			for (std::vector<iRigidModel*>::iterator itCGO = pCurrentObject->Children().begin();
-				 itCGO != pCurrentObject->Children().end(); itCGO++)
+		std::vector<iGeneralModel*> hack = pCurrentObject->Children();
+		if (hack.size() > 0)
+			for (std::vector<iGeneralModel*>::iterator itCGO = hack.begin();
+				 itCGO != hack.end(); itCGO++)
 		{
 			// I'm passing in the current game m_pGO matrix... 
-			iRigidModel* pChildGO = *itCGO;
+			iGeneralModel* pChildGO = *itCGO;
 
 			// NOTE: Scale of the parent m_pGO will mess around 
 			//	with the translations (and later scaling) of the child m_pGO.
@@ -449,7 +528,7 @@ namespace DegenRendering
 		glCullFace(GL_FRONT_AND_BACK);
 
 		glUniform1f(shaderProg->getUniformLocID("useOffset"), (float)GL_FALSE);
-
+		glUniform1f(shaderProg->getUniformLocID("isSkinnedMesh"), (float)GL_FALSE);
 		//if texture binding needs to be moved do here
 
 		sModelDrawInfo drawInfo;
@@ -467,7 +546,8 @@ namespace DegenRendering
 
 		glUniform4f(shaderProg->getUniformLocID("boolModifiers"),
 			(float)ShaderMode::Skybox, 0, 0, 0);
-
+		
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glDisable(GL_DEPTH_TEST);
 		glDisable(GL_DEPTH);
 

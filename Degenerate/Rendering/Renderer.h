@@ -5,7 +5,7 @@
 #include "iRenderComponent.h"
 #include "iCamera.h"
 #include "iLight.h"
-#include "iRigidModel.h"
+#include "iGeneralModel.h"
 #include "iSkybox.h"
 
 
@@ -42,6 +42,7 @@ namespace DegenRendering
 
 
 		void AddModel(const std::string& model, std::string path = "");
+		void AddModel(cSkinnedMesh* mesh);
 		void AddTexture(const std::string& texture, std::string path = "");
 		void AddCubeMap(const std::string& name, const std::string& up, const std::string& down,
 		                    const std::string& left, const std::string& right, const std::string& back,
@@ -57,8 +58,8 @@ namespace DegenRendering
 		//void RenderScene(glm::mat4 view, glm::mat4 perspective, int width, int height);
 		void RenderScene(const int& width, const int& height);
 	protected:
-		void SetUpTextureBindingsForObject(iRigidModel* pCurrentObject, cShaderManager::cShaderProgram* shaderProg);
-		void DrawObject(glm::mat4 matModel, iRigidModel* pCurrentObject, cShaderManager::cShaderProgram* shaderProg);
+		void SetUpTextureBindingsForObject(iGeneralModel* pCurrentObject, cShaderManager::cShaderProgram* shaderProg);
+		void DrawObject(glm::mat4 matModel, iGeneralModel* pCurrentObject, cShaderManager::cShaderProgram* shaderProg);
 		void SetUpTextureBindingsForSkybox(cShaderManager::cShaderProgram* shaderProg);
 		void DrawSkybox(cShaderManager::cShaderProgram* shaderProg);
 	private:

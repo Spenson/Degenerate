@@ -82,6 +82,8 @@ cGameObject::cGameObject()
 
 	this->m_pDebugRenderer = NULL;
 
+	this->mSkinnedMesh = nullptr;
+
 	return;
 }
 
@@ -110,7 +112,7 @@ glm::mat4 cGameObject::Transform()
 	glm::mat4 mat = glm::mat4(1.f);
 	mat *= glm::translate(glm::mat4(1.f), positionXYZ);
 	mat *= glm::mat4(this->getQOrientation());
-	
+
 	return mat;
 }
 
@@ -157,14 +159,14 @@ std::pair<std::string, float>* cGameObject::Textures()
 
 	pairedTextures[3].first = textures[3];
 	pairedTextures[3].second = textureRatio[3];
-	
+
 	return pairedTextures;
 }
 
-std::vector<DegenRendering::iRigidModel*> cGameObject::Children()
+std::vector<DegenRendering::iGeneralModel*> cGameObject::Children()
 {
-	std::vector<DegenRendering::iRigidModel*> vec;//(vec_pChildObjects.begin(), vec_pChildObjects.end());
-	
+	std::vector<DegenRendering::iGeneralModel*> vec(vec_pChildObjects.begin(), vec_pChildObjects.end());
+
 	return vec;
 }
 
@@ -210,7 +212,7 @@ void cGameObject::setOrientation(glm::vec3 EulerAngleDegreesXYZ)
 	//EulerAngleRadians.x = glm::radians(EulerAngleDegreesXYZ.x);
 	//EulerAngleRadians.y = glm::radians(EulerAngleDegreesXYZ.y);
 	//EulerAngleRadians.z = glm::radians(EulerAngleDegreesXYZ.z); 
-	
+
 	EulerAngleRadians = glm::radians(EulerAngleDegreesXYZ);
 
 	this->m_qRotation = glm::quat(EulerAngleRadians);
@@ -232,7 +234,7 @@ void cGameObject::setAngularVelocity(glm::vec3 EulerAngleDegreesXYZ)
 	//EulerAngleRadians.x = glm::radians(EulerAngleDegreesXYZ.x);
 	//EulerAngleRadians.y = glm::radians(EulerAngleDegreesXYZ.y);
 	//EulerAngleRadians.z = glm::radians(EulerAngleDegreesXYZ.z);
-	
+
 	EulerAngleRadians = glm::radians(EulerAngleDegreesXYZ);
 
 	this->m_qAngularVelocity = glm::quat(EulerAngleRadians);
@@ -302,4 +304,88 @@ void cGameObject::MoveInRelativeDirection(glm::vec3 relativeDirection)
 	this->positionXYZ += glm::vec3(forwardInWorldSpace);
 
 	return;
+}
+
+
+bool cGameObject::IsSkinnedMesh()
+{
+	return mIsSkinnedMesh;
+}
+
+cSkinnedMesh* cGameObject::Mesh()
+{
+	return mSkinnedMesh;
+}
+
+std::string cGameObject::CurrentAnimation()
+{
+	return mAnimation;
+}
+
+void cGameObject::CurrentAnimation(std::string name, bool lock)
+{
+	if(mLocked) return;
+	mLocked = lock;
+	if (mAnimation != "Idle" && mAnimation != "")
+	{
+		glm::mat4 temp = mSkinnedMesh->mBoneInfo[mSkinnedMesh->m_mapBoneNameToBoneIndex["Hips"]].FinalTransformation;
+		this->positionXYZ += (glm::vec3(temp[3].x, 0.f, temp[3].z) * scale)*m_qRotation;
+	}
+	mAnimation = name;
+	mAnimationTime = 0.f;
+	for (auto child : vec_pChildObjects)
+	{
+		child->AnimationSet(name);
+	}
+}
+
+
+
+void cGameObject::AnimationTimeStep(float dt)
+{
+	mAnimationTime += dt;
+	for (auto child : vec_pChildObjects)
+	{
+		child->AnimationTimeSet(mAnimationTime);
+	}
+	if (mAnimationTime > mSkinnedMesh->mapAnimationFriendlyNameTo_pScene[mAnimation].animationTime)
+	{
+		if(mLocked)
+		{
+			mLocked = false;
+			CurrentAnimation("Idle");
+			return;
+		}
+		if (mAnimation != "Idle" && mAnimation != "")
+		{
+			glm::mat4 temp = mSkinnedMesh->mBoneInfo[mSkinnedMesh->m_mapBoneNameToBoneIndex["RightFoot"]].FinalTransformation;
+			this->positionXYZ += (glm::vec3(temp[3].x, 0.f, temp[3].z) * scale) * m_qRotation;
+			mAnimationTime -= mSkinnedMesh->mapAnimationFriendlyNameTo_pScene[mAnimation].animationTime;
+		}
+	}
+}
+
+float cGameObject::CurrentAnimationTime()
+{
+	return mAnimationTime;
+}
+
+void cGameObject::AnimationTimeSet(float time)
+{
+	mAnimationTime = time;
+	for (auto child : vec_pChildObjects)
+	{
+		child->AnimationTimeSet(time);
+		child->positionXYZ = glm::vec3(0.f);
+	}
+}
+
+void cGameObject::AnimationSet(std::string name)
+{
+	mAnimation = name;
+	mAnimationTime = 0.f;
+	for (auto child : vec_pChildObjects)
+	{
+		child->AnimationSet(name);
+	}
 }

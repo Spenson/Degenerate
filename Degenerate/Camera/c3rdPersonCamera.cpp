@@ -9,7 +9,7 @@ void c3rdPersonCamera::Update(glm::mat4 transformIn)
 	glm::vec3 right(1.f, 0.f, 0.f);
 
 	// pos of object
-	mTarget = glm::vec3(transformIn[3].x, 0.f, transformIn[3].z);
+	mTarget = glm::vec3(transformIn[3].x, transformIn[3].y, transformIn[3].z);
 
 	// eye position calculation based off pitch, yaw and distance
 	glm::vec4 offset(mOffset, 0.f);
@@ -28,6 +28,11 @@ void c3rdPersonCamera::Update(glm::mat4 transformIn)
 
 }
 
+void c3rdPersonCamera::SetOffset(glm::vec3 offset)
+{
+	mOffset = offset;
+}
+
 void c3rdPersonCamera::AddYaw(float degrees)
 {
 	mYaw += degrees;
@@ -38,7 +43,7 @@ void c3rdPersonCamera::AddYaw(float degrees)
 void c3rdPersonCamera::AddPitch(float degrees)
 {
 	mPitch += degrees;
-	if (mPitch < -20.0) mPitch = -20.0;
+	if (mPitch < -89.9) mPitch = -89.9;
 	if (mPitch > 89.9) mPitch = 89.9;
 }
 
@@ -61,7 +66,7 @@ void c3rdPersonCamera::AddZoom(float dist)
 {
 	mDistance += dist;
 	if (mDistance < 5.f) mDistance = 5.f;
-	if (mDistance > 50.f) mDistance = 50.f;
+	if (mDistance > 100.f) mDistance = 100.f;
 
 }
 

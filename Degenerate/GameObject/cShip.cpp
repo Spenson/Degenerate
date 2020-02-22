@@ -66,7 +66,7 @@
 //bool cShip::DepthBufferTest()	{ return this->mDepthBufferTest; }
 //bool cShip::DepthBufferWrite()	{ return this->mDepthBufferWrite; }
 //std::pair<std::string, float>* cShip::Textures() { return this->mTextures; }
-//std::vector<DegenRendering::iRigidModel*> cShip::Children() { return this->mChildren; }
+//std::vector<DegenRendering::iGeneralModel*> cShip::Children() { return this->mChildren; }
 //
 //glm::vec3 cShip::Position()	{ return mPos; }
 //glm::vec3 cShip::Velocity()	{ return mVel; }

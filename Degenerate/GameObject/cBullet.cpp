@@ -45,7 +45,7 @@
 //bool cBullet::DepthBufferTest() { return this->mDepthBufferTest; }
 //bool cBullet::DepthBufferWrite() { return this->mDepthBufferWrite; }
 //std::pair<std::string, float>* cBullet::Textures() { return this->mTextures; }
-//std::vector<DegenRendering::iRigidModel*> cBullet::Children() { return this->mChildren; }
+//std::vector<DegenRendering::iGeneralModel*> cBullet::Children() { return this->mChildren; }
 //
 //glm::vec3 cBullet::Position() { return mPos; }
 //glm::vec3 cBullet::Velocity() { return mVel; }

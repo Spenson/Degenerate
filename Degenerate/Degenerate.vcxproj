@@ -69,6 +69,10 @@
     <ClCompile Include="Rendering\Texture\C24BitBMPpixel.cpp" />
     <ClCompile Include="Rendering\Texture\cBasicTextureManager.cpp" />
     <ClCompile Include="Rendering\Texture\CTextureFromBMP.cpp" />
+    <ClCompile Include="Rendering\VAOManager\sComplexVertex.cpp" />
+    <ClCompile Include="Rendering\VAOManager\SkinnedMesh\cSimpleSkinnedMesh.cpp" />
+    <ClCompile Include="Rendering\VAOManager\SkinnedMesh\cSkinnedMesh.cpp" />
+    <ClCompile Include="Rendering\VAOManager\sModelDrawInfo.cpp" />
     <ClCompile Include="UserInputs\GFLW_callbacks.cpp" />
     <ClCompile Include="UserInputs\key_callbacks.cpp" />
     <ClCompile Include="UserInputs\mouse_callbacks.cpp" />
@@ -119,11 +123,11 @@
     <ClInclude Include="LoadingStuff\iSerializable.h" />
     <ClInclude Include="LoadingStuff\Load.h" />
     <ClInclude Include="Physics\Physics.h" />
-    <ClInclude Include="Rendering\eType.h" />
+    <ClInclude Include="Rendering\eRendType.h" />
     <ClInclude Include="Rendering\iCamera.h" />
     <ClInclude Include="Rendering\iLight.h" />
     <ClInclude Include="Rendering\iRenderComponent.h" />
-    <ClInclude Include="Rendering\iRigidModel.h" />
+    <ClInclude Include="Rendering\iGeneralModel.h" />
     <ClInclude Include="Rendering\iSkybox.h" />
     <ClInclude Include="Rendering\Lighting\cLightHelper.h" />
     <ClInclude Include="Rendering\Lighting\Light.h" />
@@ -135,9 +139,13 @@
     <ClInclude Include="Rendering\Renderer.h" />
     <ClInclude Include="Rendering\Shaders\cShaderManager.h" />
     <ClInclude Include="Rendering\cSimpleSkybox.h" />
+    <ClInclude Include="Rendering\VAOManager\SkinnedMesh\cSimpleSkinnedMesh.h" />
     <ClInclude Include="Rendering\Texture\C24BitBMPpixel.h" />
     <ClInclude Include="Rendering\Texture\cBasicTextureManager.h" />
     <ClInclude Include="Rendering\Texture\CTextureFromBMP.h" />
+    <ClInclude Include="Rendering\VAOManager\sComplexVertex.h" />
+    <ClInclude Include="Rendering\VAOManager\SkinnedMesh\cSkinnedMesh.h" />
+    <ClInclude Include="Rendering\VAOManager\sModelDrawInfo.h" />
     <ClInclude Include="UserInputs\GFLW_callbacks.h" />
     <ClInclude Include="Rendering\VAOManager\cVAOManager.h" />
   </ItemGroup>
@@ -238,8 +246,11 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>lua5.3.5-static.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc140-mt.lib;lua5.3.5-static.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y "$(SolutionDir)Dependencies\lib\$(PlatformShortName)\$(Configuration)\*.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -249,8 +260,11 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>lua5.3.5-static.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc140-mt.lib;lua5.3.5-static.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y "$(SolutionDir)Dependencies\lib\$(PlatformShortName)\$(Configuration)\*.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -265,8 +279,11 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>lua5.3.5-static.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc140-mt.lib;lua5.3.5-static.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y "$(SolutionDir)Dependencies\lib\$(PlatformShortName)\$(Configuration)\*.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -281,8 +298,11 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>lua5.3.5-static.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc140-mt.lib;lua5.3.5-static.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y "$(SolutionDir)Dependencies\lib\$(PlatformShortName)\$(Configuration)\*.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -56,8 +56,8 @@ int main(void)
 	glfwSetScrollCallback(window, scroll_callback);
 	glfwSetMouseButtonCallback(window, mouse_button_callback);
 
-	//void ProcessAsyncMouse(GLFWwindow * window);
-	//void ProcessAsyncKeys(GLFWwindow * window);
+	void ProcessAsyncMouse(GLFWwindow * window);
+	void ProcessAsyncKeys(GLFWwindow * window);
 	//void ShipControls(GLFWwindow * window, cShip * player);
 
 	void ProcessAsyncMouse(GLFWwindow * window, c3rdPersonCamera * camera);
@@ -269,6 +269,7 @@ int main(void)
 		g_Renderer.AddModel(parent->mSkinnedMesh);
 		g_Renderer.AddRenderComponent(parent);
 	}
+
 	{
 		parent = new cGameObject();
 		parent->mSkinnedMesh = new cSkinnedMesh();
@@ -314,7 +315,7 @@ int main(void)
 	cam->AddPitch(20.f);
 	cam->AddZoom(40.f);
 	cam->Update(parent->Transform());
-	g_Renderer.SetCamera(cam);
+	//g_Renderer.SetCamera(cam);
 	g_Renderer.AddRenderComponent(parent);
 	cLowPassFilter avgDeltaTimeThingy;
 	double lastTime = glfwGetTime();
@@ -336,6 +337,8 @@ int main(void)
 		ProcessAsyncMouse(window, cam);
 		//ProcessAsyncKeys(window, objects, selectedObjectIndex, cam);
 		ProcessAsyncKeys(window, stuff, selectedObjectIndex, cam);
+		ProcessAsyncMouse(window);
+		ProcessAsyncKeys(window);
 
 		int width, height;
 
@@ -348,7 +351,7 @@ int main(void)
 		//			  glm::vec3(stuff[selectedObjectIndex]->scale)));
 
 		//cam->Update(objects[selectedObjectIndex]->Transform());
-		g_Renderer.RenderScene(width, height);
+		g_Renderer.RenderContents(width, height);
 
 		stuff[0]->AnimationTimeStep(deltaTime);
 		stuff[1]->AnimationTimeStep(deltaTime);

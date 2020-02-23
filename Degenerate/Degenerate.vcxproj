@@ -55,6 +55,7 @@
     <ClCompile Include="GameObject\cShip.cpp" />
     <ClCompile Include="LoadingStuff\Load.cpp" />
     <ClCompile Include="Physics\Physics.cpp" />
+    <ClCompile Include="Rendering\FBO\cFBO.cpp" />
     <ClCompile Include="Rendering\Lighting\cLightHelper.cpp" />
     <ClCompile Include="Rendering\Lighting\Light.cpp" />
     <ClCompile Include="Rendering\Lighting\LightManager.cpp" />
@@ -66,6 +67,7 @@
     <ClCompile Include="Rendering\Shaders\cShader.cpp" />
     <ClCompile Include="Rendering\Shaders\cShaderManager.cpp" />
     <ClCompile Include="Rendering\cSimpleSkybox.cpp" />
+    <ClCompile Include="Rendering\sScene.cpp" />
     <ClCompile Include="Rendering\Texture\C24BitBMPpixel.cpp" />
     <ClCompile Include="Rendering\Texture\cBasicTextureManager.cpp" />
     <ClCompile Include="Rendering\Texture\CTextureFromBMP.cpp" />
@@ -123,7 +125,9 @@
     <ClInclude Include="LoadingStuff\iSerializable.h" />
     <ClInclude Include="LoadingStuff\Load.h" />
     <ClInclude Include="Physics\Physics.h" />
+    <ClInclude Include="Rendering\sScene.h" />
     <ClInclude Include="Rendering\eRendType.h" />
+    <ClInclude Include="Rendering\FBO\cFBO.h" />
     <ClInclude Include="Rendering\iCamera.h" />
     <ClInclude Include="Rendering\iLight.h" />
     <ClInclude Include="Rendering\iRenderComponent.h" />

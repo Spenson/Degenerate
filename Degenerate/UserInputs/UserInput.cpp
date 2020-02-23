@@ -105,6 +105,11 @@ void ProcessAsyncKeys(GLFWwindow* window, std::vector<cGameObject*>& object, siz
 		if (object[selected]->CurrentAnimation() != "Right Strafe")
 			object[selected]->CurrentAnimation("Right Strafe");
 	}
+	else if (glfwGetKey(window, GLFW_KEY_E))
+	{
+		if (object[selected]->CurrentAnimation() != "Action")
+			object[selected]->CurrentAnimation("Action", true);
+	}
 	else
 	{
 		if (object[selected]->CurrentAnimation() != "Idle")
@@ -323,11 +328,11 @@ void ProcessAsyncKeys(GLFWwindow* window)
 	// If no keys are down, move the camera
 	if (areAllModifiersUp(window))
 	{
-		if (glfwGetKey(window, GLFW_KEY_W))
+		if (glfwGetKey(window, GLFW_KEY_UP))
 		{
 			::g_pFreeCamera->MoveForward(1.0f);
 		}
-		else if (glfwGetKey(window, GLFW_KEY_S))
+		else if (glfwGetKey(window, GLFW_KEY_DOWN))
 		{
 			::g_pFreeCamera->MoveForward(-1.0f);
 		}
@@ -336,11 +341,11 @@ void ProcessAsyncKeys(GLFWwindow* window)
 		//	::g_pFreeCamera->MoveForward(0.0f);
 		//}
 
-		if (glfwGetKey(window, GLFW_KEY_A))
+		if (glfwGetKey(window, GLFW_KEY_LEFT))
 		{
 			::g_pFreeCamera->MoveRight(-1.0f);
 		}
-		else if (glfwGetKey(window, GLFW_KEY_D))
+		else if (glfwGetKey(window, GLFW_KEY_RIGHT))
 		{
 			::g_pFreeCamera->MoveRight(1.0f);
 		}
@@ -349,11 +354,11 @@ void ProcessAsyncKeys(GLFWwindow* window)
 		//	::g_pFreeCamera->MoveRight(0.0f);
 		//}
 
-		if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+		if (glfwGetKey(window, GLFW_KEY_KP_0) == GLFW_PRESS)
 		{
 			::g_pFreeCamera->MoveUp(-1.0f);
 		}
-		else if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+		else if (glfwGetKey(window, GLFW_KEY_KP_DECIMAL) == GLFW_PRESS)
 		{
 			::g_pFreeCamera->MoveUp(1.0f);
 		}

@@ -326,7 +326,7 @@ void cGameObject::CurrentAnimation(std::string name, bool lock)
 {
 	if(mLocked) return;
 	mLocked = lock;
-	if (mAnimation != "Idle" && mAnimation != "")
+	if (mAnimation != "Idle" && mAnimation != "Action" && mAnimation != "")
 	{
 		glm::mat4 temp = mSkinnedMesh->mBoneInfo[mSkinnedMesh->m_mapBoneNameToBoneIndex["Hips"]].FinalTransformation;
 		this->positionXYZ += (glm::vec3(temp[3].x, 0.f, temp[3].z) * scale)*m_qRotation;
@@ -356,7 +356,7 @@ void cGameObject::AnimationTimeStep(float dt)
 			CurrentAnimation("Idle");
 			return;
 		}
-		if (mAnimation != "Idle" && mAnimation != "")
+		if (mAnimation != "Idle" && mAnimation != "Action" && mAnimation != "")
 		{
 			glm::mat4 temp = mSkinnedMesh->mBoneInfo[mSkinnedMesh->m_mapBoneNameToBoneIndex["RightFoot"]].FinalTransformation;
 			this->positionXYZ += (glm::vec3(temp[3].x, 0.f, temp[3].z) * scale) * m_qRotation;

@@ -17,6 +17,7 @@
 #include "Texture/cBasicTextureManager.h"
 #include "ModelStuff/cModelLoader.h"
 #include "Shaders/cShaderManager.h"
+#include "FBO/cFBO.h"
 
 
 
@@ -32,6 +33,8 @@ namespace DegenRendering
 		};
 		
 	public:
+		bool mBlur;
+		bool mStatic;
 		static const unsigned int MAX_LIGHTS = 50;
 
 		cRenderer();
@@ -55,8 +58,8 @@ namespace DegenRendering
 		bool AddLight(iLight* light);
 
 		//void RenderSkybox();
-		//void RenderScene(glm::mat4 view, glm::mat4 perspective, int width, int height);
-		void RenderScene(const int& width, const int& height);
+		//void RenderContents(glm::mat4 view, glm::mat4 perspective, int width, int height);
+		void RenderContents(const int& width, const int& height);
 	protected:
 		void SetUpTextureBindingsForObject(iGeneralModel* pCurrentObject, cShaderManager::cShaderProgram* shaderProg);
 		void DrawObject(glm::mat4 matModel, iGeneralModel* pCurrentObject, cShaderManager::cShaderProgram* shaderProg);
@@ -67,6 +70,8 @@ namespace DegenRendering
 		std::vector<iLight*> mLights;
 		iCamera* mCamera;
 		iSkybox* mSkybox;
+		cFBO* mFBO1;
+		cFBO* mFBO2;
 
 		float mNearPlane;
 		float mFarPlane;
@@ -76,6 +81,7 @@ namespace DegenRendering
 		static cModelLoader* mModelLoader;
 		static cVAOManager* mVAOManager;
 		static cShaderManager* mShaderManager;
+
 	};
 
 }

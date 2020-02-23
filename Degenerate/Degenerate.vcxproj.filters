@@ -133,6 +133,8 @@
     <ClCompile Include="Rendering\VAOManager\sComplexVertex.cpp" />
     <ClCompile Include="Rendering\VAOManager\SkinnedMesh\cSimpleSkinnedMesh.cpp" />
     <ClCompile Include="Rendering\VAOManager\SkinnedMesh\cSkinnedMesh.cpp" />
+    <ClCompile Include="Rendering\FBO\cFBO.cpp" />
+    <ClCompile Include="Rendering\sScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLCommon.h" />
@@ -272,6 +274,8 @@
     <ClInclude Include="Rendering\iGeneralModel.h" />
     <ClInclude Include="Rendering\VAOManager\SkinnedMesh\cSimpleSkinnedMesh.h" />
     <ClInclude Include="Rendering\VAOManager\SkinnedMesh\cSkinnedMesh.h" />
+    <ClInclude Include="Rendering\FBO\cFBO.h" />
+    <ClInclude Include="Rendering\sScene.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="DebugRenderer">
